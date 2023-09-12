@@ -22,6 +22,7 @@ fi
 mkdir -p ${BUILD_DIR} && cd ${BUILD_DIR}
 cmake -DMACE_ENABLE_NEON=OFF         \
       -DMACE_ENABLE_QUANTIZE=OFF     \
+      -DMACE_ENABLE_CPU=${MACE_ENABLE_CPU}                \
       -DMACE_ENABLE_OPENCL=OFF       \
       -DMACE_ENABLE_BFLOAT16=${DMACE_ENABLE_BFLOAT16}     \
       -DMACE_ENABLE_TESTS=ON         \

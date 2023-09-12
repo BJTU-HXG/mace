@@ -102,6 +102,7 @@ if(MACE_ENABLE_RPCMEM)
 endif(MACE_ENABLE_RPCMEM)
 
 if(MACE_ENABLE_HEXAGON_DSP OR MACE_ENABLE_HEXAGON_HTA)
+  set(MACE_ENABLE_HEXAGON ON)
   if(ANDROID_ABI STREQUAL "arm64-v8a")
     # Use gold linker to avoid linking check of libcdsprpc.so
     set(MACE_LINKER_FLAGS "${MACE_LINKER_FLAGS} -fuse-ld=gold")

@@ -195,6 +195,7 @@ OnnxSupportedOps = [
     # 'Tile',
     # 'TopK',
     'Transpose',
+    'Where',
     'Unsqueeze',
     'Upsample',
     # 'Xor',
@@ -425,7 +426,8 @@ class OnnxConverter(base_converter.ConverterInterface):
             OnnxOpType.Transpose.name: self.convert_transpose,
             OnnxOpType.Unsqueeze.name: self.convert_unsqueeze,
             OnnxOpType.Upsample.name: self.convert_upsample,
-            OnnxOpType.Resize.name: self.convert_resize
+            OnnxOpType.Resize.name: self.convert_resize,
+            OnnxOpType.Where.name: self.convert_where
         }
         self._option = option
         self._converter_info = dict()
@@ -853,6 +855,8 @@ class OnnxConverter(base_converter.ConverterInterface):
                 op.output_type.extend([self._option.data_type])
             elif dtype == np.int64 or dtype == np.int32:
                 op.output_type.extend([mace_pb2.DT_INT32])
+            elif dtype == np.bool_:
+                op.output_type.extend([mace_pb2.DT_BOOL])
             else:
                 mace_check(False, "data type %s not supported" % dtype)
         else:
@@ -896,7 +900,10 @@ class OnnxConverter(base_converter.ConverterInterface):
             return
         tensor = self._mace_net_def.tensors.add()
         tensor.name = output_name
-        tensor.dims.extend(list(onnx_tensor.dims))
+        if onnx_tensor.dims:
+            tensor.dims.extend(list(onnx_tensor.dims))
+        else:
+            tensor.dims.extend([1])
 
         if data_type == np.float32 or data_type == np.float64:
             tensor.data_type = mace_pb2.DT_FLOAT
@@ -924,7 +931,10 @@ class OnnxConverter(base_converter.ConverterInterface):
 
         is_depthwise = False
         if group_val > 1:
-            filter_shape = self._graph_shapes_dict[node.inputs[1]]
+            if node.inputs[1] in self._graph_shapes_dict:
+                filter_shape = self._graph_shapes_dict[node.inputs[1]]
+            else:
+                filter_shape = self._consts[node.inputs[1]].dims
             mace_check(group_val == filter_shape[0] and
                        filter_shape[1] == 1,
                        "Mace does not support group convolution yet")
@@ -957,7 +967,10 @@ class OnnxConverter(base_converter.ConverterInterface):
         else:
             group_val = 1
         if group_val > 1:
-            filter_shape = self._graph_shapes_dict[node.inputs[1]]
+            if node.inputs[1] in self._graph_shapes_dict:
+                filter_shape = self._graph_shapes_dict[node.inputs[1]]
+            else:
+                filter_shape = self._consts[node.inputs[1]].dims
             mace_check(group_val == filter_shape[0] and filter_shape[1] == 1,
                        'MACE does not support group deconv yet')
             op.type = MaceOp.DepthwiseDeconv2d.name
@@ -1359,6 +1372,11 @@ class OnnxConverter(base_converter.ConverterInterface):
         axis_arg = op.arg.add()
         axis_arg.name = MaceKeyword.mace_axis_str
         axis_arg.i = value
+        if op.input[1] in self._consts:
+            indices = self._consts[op.input[1]]
+            dims = indices.dims
+            if len(dims) == 0 or (len(dims) == 1 and dims[0] == 1):
+                op.output_shape[0].dims.insert(value, 1)
 
     def convert_gemm(self, node):
         if self._isKaldi:
@@ -1622,6 +1640,12 @@ class OnnxConverter(base_converter.ConverterInterface):
                 axes_arg.name = 'axes'
                 axes_arg.ints.extend(axes)
 
+        if not op.output_shape[0].dims:
+            if node.inputs[0] in self._consts:
+                tensor = self._consts[node.inputs[0]]
+                if tensor.dims:
+                    op.output_shape[0].dims.extend(tensor.dims)
+
     def convert_softmax(self, node):
         op = self.convert_general_op(node)
         op.type = MaceOp.Softmax.name
@@ -1818,7 +1842,6 @@ class OnnxConverter(base_converter.ConverterInterface):
 
     def convert_resize(self, node):
         op = self.convert_general_op(node)
-
         if len(op.input) >= 3:
             roi_tensor = self._consts[op.input[1]]
             mace_check(len(roi_tensor.dims) == 0 or roi_tensor.dims[0] == 0 or
@@ -1893,3 +1916,12 @@ class OnnxConverter(base_converter.ConverterInterface):
                 coordinate_transformation_mode_arg.i = \
                     CoordinateTransformationMode.PYTORCH_HALF_PIXEL.value
         del op.input[1:]
+
+    def convert_where(self, node):
+        op = self.convert_general_op(node)
+        op.type = MaceOp.Where.name
+        data_type = ConverterUtil.get_arg(op, MaceKeyword.mace_op_data_type_str)
+        if node.inputs[1] in self._consts:
+            data_type.i = self._consts[node.inputs[1]].data_type
+        elif node.inputs[2] in self._consts:
+            data_type.i = self._consts[node.inputs[2]].data_type

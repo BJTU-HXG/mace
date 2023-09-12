@@ -38,6 +38,8 @@ const char *MapEltwiseTypeToQnnOp(ops::EltwiseType type) {
       return QNN_OP_ELEMENT_WISE_NEG;
     case ops::EltwiseType::ABS:
       return QNN_OP_ELEMENT_WISE_ABS;
+    case ops::EltwiseType::SQR_DIFF:
+      return QNN_OP_ELEMENT_WISE_SQUARED_DIFFERENCE;
     case ops::EltwiseType::POW:
       return QNN_OP_ELEMENT_WISE_POWER;
     case ops::EltwiseType::EQUAL:
@@ -59,6 +61,7 @@ class EltwiseOpBuilder : public OpBuilder {
     auto type = static_cast<ops::EltwiseType>(
         ProtoArgHelper::GetOptionalArg<OperatorDef, int>(
             op, "type", static_cast<int>(ops::EltwiseType::NONE)));
+    VLOG(3) << "EltwiseType: " << static_cast<int>(type);
     const char *op_type = MapEltwiseTypeToQnnOp(type);
     MACE_CHECK_NOTNULL(op_type);
     SetOpType(op_type);
@@ -93,19 +96,27 @@ class EltwiseOpBuilder : public OpBuilder {
             scalar_input_name, 0, QNN_TENSOR_TYPE_STATIC,
             QNN_DATATYPE_UFIXED_POINT_8, scale, zero, scalar_dims,
             &quantized_scalar, 1);
-      } else {
+      } else if (quantized_type == DT_UINT16) {
         uint16_t quantized_scalar = Quantize<uint16_t>(scalar_input, &scale, &zero);
         graph_builder_->CreateGraphTensor(
             scalar_input_name, 0, QNN_TENSOR_TYPE_STATIC,
             QNN_DATATYPE_UFIXED_POINT_16, scale, zero, scalar_dims,
             &quantized_scalar, 1);
+      } else {
+        graph_builder_->CreateGraphTensor(
+            scalar_input_name, 0, QNN_TENSOR_TYPE_STATIC,
+            QNN_DATATYPE_FLOAT_32, scale, zero, scalar_dims,
+            &scalar_input, 1);
       }
       if (scalar_input_index == 0) {
         AddInput(scalar_input_name);
         AddInput(op.input(0));
       } else {
         AddInput(op.input(0));
-        AddInput(scalar_input_name);
+        if (std::string(op_type) != QNN_OP_ELEMENT_WISE_NEG &&
+            std::string(op_type) != QNN_OP_ELEMENT_WISE_ABS) {
+          AddInput(scalar_input_name);
+        }
       }
     } else {
       AddInput(op.input(0));
