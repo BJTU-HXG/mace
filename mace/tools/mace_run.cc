@@ -199,7 +199,7 @@ std::shared_ptr<char> ReadInputDataFromFile(
     in_file.read(buffer_in.get(), file_data_size);
     in_file.close();
   } else {
-    LOG(FATAL) << "Open input file failed";
+    LOG(FATAL) << "Open input file(" << file_path << ") failed";
     return nullptr;
   }
 

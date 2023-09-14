@@ -28,20 +28,24 @@ target_link_libraries(mace_API ops flows runtimes)
 set(STATIC_LIB ${CMAKE_BINARY_DIR}/mace/libmace/libmace_static.a)
 set(BASE_PATH ${CMAKE_BINARY_DIR})
 
-set(PORT_LIBS "addlib ${CMAKE_BINARY_DIR}/mace/port/posix/libport_posix.a\n"
-              "addlib ${CMAKE_BINARY_DIR}/mace/port/linux_base/libport_linux_base.a\n")
+set(PORT_LIBS "addlib ${CMAKE_BINARY_DIR}/mace/port/posix/libport_posix.a\n")
 if(ANDROID)
   set(PORT_LIBS ${PORT_LIBS}
-                "addlib ${CMAKE_BINARY_DIR}/mace/port/android/libport_android.a")
+                "addlib ${CMAKE_BINARY_DIR}/mace/port/android/libport_android.a\n"
+                "addlib ${CMAKE_BINARY_DIR}/mace/port/linux_base/libport_linux_base.a\n")
   if(MACE_ENABLE_RPCMEM)
     set(PORT_LIBS ${PORT_LIBS}
                   "\naddlib ${PROJECT_SOURCE_DIR}/third_party/rpcmem/${ANDROID_ABI}/rpcmem.a")
   endif()
+elseif(QNX)
+  set(PORT_LIBS ${PORT_LIBS}
+                "addlib ${CMAKE_BINARY_DIR}/mace/port/qnx/libport_qnx.a")
 elseif(WIN32)
   set(STATIC_LIB ${CMAKE_BINARY_DIR}/mace/libmace/libmace_static.lib)
 else(WIN32)
   set(PORT_LIBS ${PORT_LIBS}
-                "addlib ${CMAKE_BINARY_DIR}/mace/port/linux/libport_linux.a")
+                "addlib ${CMAKE_BINARY_DIR}/mace/port/linux/libport_linux.a\n"
+                "addlib ${CMAKE_BINARY_DIR}/mace/port/linux_base/libport_linux_base.a\n")
 endif(ANDROID)
 
 set(FLOW_LIBS "addlib ${CMAKE_BINARY_DIR}/mace/flows/libflows.a\n"
@@ -108,6 +112,11 @@ elseif(ANDROID)
   add_custom_target(combined ALL
     COMMAND ${_CMAKE_TOOLCHAIN_PREFIX}ar -M < ${CMAKE_BINARY_DIR}/mace/libmace/mace.mri
     DEPENDS mace_API ops flows runtimes core utils proto generated_version generated_opencl_kernel libprotobuf_lite port_base port_posix port_linux_base port_android
+    )
+elseif(QNX)
+  add_custom_target(combined ALL
+    COMMAND ${CROSSTOOL_ROOT}/qnx700/host/linux/x86_64/usr/bin/ntoaarch64-ar -M < ${CMAKE_BINARY_DIR}/mace/libmace/mace.mri
+    DEPENDS mace_API ops flows runtimes core utils proto generated_version generated_opencl_kernel libprotobuf_lite port_base port_posix port_qnx
     )
 else() #linux
   add_custom_target(combined ALL

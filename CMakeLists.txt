@@ -1,6 +1,8 @@
 # new CUDA support requires 3.8 for Linux/Mac, and 3.9 for Windows
 cmake_minimum_required(VERSION 3.2 FATAL_ERROR)
 message("CMAKE_VERSION: ${CMAKE_VERSION}")
+message("CROSSTOOL_ROOT: ${CROSSTOOL_ROOT}")
+message("CMAKE_TOOLCHAIN_FILE: ${CMAKE_TOOLCHAIN_FILE}")
 project(mace C CXX)
 
 option(MACE_ENABLE_CPU         "whether to enable CPU support"              OFF)

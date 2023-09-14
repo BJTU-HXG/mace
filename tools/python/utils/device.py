@@ -128,6 +128,46 @@ class HostDevice(Device):
     def mkdir(self, dirname):
         execute("mkdir -p %s" % dirname)
 
+class QnxDevice(Device):
+    def __init__(self, device_id, target_abi):
+        super(AndroidDevice, self).__init__(device_id, target_abi)
+
+    @staticmethod
+    def list_devices():
+        return ["qnx"]
+    
+    def install(self, target, install_dir, install_deps=False):
+        install_dir = os.path.abspath(install_dir)
+
+        execute("lemon run mkdir -p %s" % (install_dir))
+        if os.path.isdir(target.path):
+            for file in os.listdir(target.path):
+                execute("lemon send %s %s" % (file, install_dir), False)
+        else:
+            execute("lemon send %s %s" % (target.path, install_dir), False)
+
+        for lib in target.libs:
+            execute("lemon send %s %s" % (lib, install_dir), False)
+
+        device_target = copy.deepcopy(target)
+        device_target.path = "%s/%s" % (install_dir,
+                                        os.path.basename(target.path))
+        device_target.libs = ["%s/%s" % (install_dir, os.path.basename(lib))
+                              for lib in target.libs]
+        device_target.envs.append("LD_LIBRARY_PATH=%s" % install_dir)
+        return device_target
+
+    def run(self, target):
+        execute("lemon run %s", target)
+
+    def pull(self, target, out_dir):
+        execute("lemon fetch %s %s" % (target, out_dir))
+
+    def mkdir(self, dirname):
+        execute("lemon run mkdir -p %s" % (dirname))
+
+    def info(self):
+        pass
 
 class AndroidDevice(Device):
     def __init__(self, device_id, target_abi):
@@ -284,6 +324,7 @@ class ArmLinuxDevice(Device):
 def device_class(target_abi):
     device_dispatch = {
         "host": "HostDevice",
+        "qnx": "QnxDevice",
         "armeabi-v7a": "AndroidDevice",
         "arm64-v8a": "AndroidDevice",
         "arm-linux-gnueabihf": "ArmLinuxDevice",
