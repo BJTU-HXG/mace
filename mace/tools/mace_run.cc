@@ -199,7 +199,7 @@ std::shared_ptr<char> ReadInputDataFromFile(
     in_file.read(buffer_in.get(), file_data_size);
     in_file.close();
   } else {
-    LOG(FATAL) << "Open input file failed";
+    LOG(FATAL) << "Open input file(" << file_path << ") failed";
     return nullptr;
   }
 
@@ -326,7 +326,10 @@ bool RunModel(const std::string &model_name,
               const std::vector<std::vector<int64_t>> &output_shapes,
               const std::vector<IDataType> &output_data_types,
               const std::vector<DataFormat> &output_data_formats,
-              float cpu_capability) {
+              float cpu_capability) { 
+  
+  puts("into RunModel");
+
   int64_t t0 = NowMicros();
   bool *model_data_unused = nullptr;
   MaceEngine *tutor = nullptr;
@@ -335,6 +338,7 @@ bool RunModel(const std::string &model_name,
   // Graph's runtime is set in the yml file, you can use config.SetRuntimeType
   // To dynamically adjust the runtime type
   MaceEngineConfig config;
+  puts("SetCPUThreadPolicy");
   status = config.SetCPUThreadPolicy(
       FLAGS_num_threads,
       static_cast<CPUAffinityPolicy >(FLAGS_cpu_affinity_policy));
@@ -408,6 +412,7 @@ bool RunModel(const std::string &model_name,
   std::shared_ptr<mace::MaceEngine> engine;
   MaceStatus create_engine_status;
 
+  puts("create Engine");
   while (true) {
     // Create Engine
     int64_t t0 = NowMicros();
@@ -500,6 +505,7 @@ bool RunModel(const std::string &model_name,
         static_cast<IDataType>(output_data_types[i]));
   }
 
+  printf("run Engine");
   if (!FLAGS_input_dir.empty()) {
     DIR *dir_parent;
     struct dirent *entry;

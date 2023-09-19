@@ -130,7 +130,7 @@ class HostDevice(Device):
 
 class QnxDevice(Device):
     def __init__(self, device_id, target_abi):
-        super(AndroidDevice, self).__init__(device_id, target_abi)
+        super(QnxDevice, self).__init__(device_id, target_abi)
 
     @staticmethod
     def list_devices():
@@ -158,13 +158,13 @@ class QnxDevice(Device):
         return device_target
 
     def run(self, target):
-        execute("lemon run %s", target)
+        execute("lemon run %s" % target)
 
     def pull(self, target, out_dir):
         execute("lemon fetch %s %s" % (target, out_dir))
 
     def mkdir(self, dirname):
-        execute("lemon run mkdir -p %s" % (dirname))
+        execute("lemon run mkdir -p %s" % dirname)
 
     def info(self):
         pass
