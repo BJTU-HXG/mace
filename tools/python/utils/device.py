@@ -25,10 +25,14 @@ import tempfile
 
 from utils import util
 
+justprint = False
+norun = False
 
 def execute(cmd, verbose=True):
     if verbose:
         print("CMD> %s" % cmd)
+    if justprint: 
+        return
     p = subprocess.Popen([cmd],
                          shell=True,
                          stdout=subprocess.PIPE,
@@ -130,12 +134,12 @@ class HostDevice(Device):
 
 class QnxDevice(Device):
     def __init__(self, device_id, target_abi):
-        super(AndroidDevice, self).__init__(device_id, target_abi)
+        super(QnxDevice, self).__init__(device_id, target_abi)
 
     @staticmethod
     def list_devices():
         return ["qnx"]
-    
+
     def install(self, target, install_dir, install_deps=False):
         install_dir = os.path.abspath(install_dir)
 
@@ -149,25 +153,20 @@ class QnxDevice(Device):
         for lib in target.libs:
             execute("lemon send %s %s" % (lib, install_dir), False)
 
-        device_target = copy.deepcopy(target)
-        device_target.path = "%s/%s" % (install_dir,
-                                        os.path.basename(target.path))
-        device_target.libs = ["%s/%s" % (install_dir, os.path.basename(lib))
+        target.path = "%s/%s" % (install_dir, os.path.basename(target.path))
+        target.libs = ["%s/%s" % (install_dir, os.path.basename(lib))
                               for lib in target.libs]
-        device_target.envs.append("LD_LIBRARY_PATH=%s" % install_dir)
-        return device_target
+        target.envs.append("LD_LIBRARY_PATH=%s" % install_dir)
+        return target
 
     def run(self, target):
-        execute("lemon run %s", target)
+        execute("lemon run %s" % target)
 
     def pull(self, target, out_dir):
         execute("lemon fetch %s %s" % (target, out_dir))
 
     def mkdir(self, dirname):
-        execute("lemon run mkdir -p %s" % (dirname))
-
-    def info(self):
-        pass
+        execute("lemon run mkdir -p %s" % dirname)
 
 class AndroidDevice(Device):
     def __init__(self, device_id, target_abi):

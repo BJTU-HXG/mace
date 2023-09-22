@@ -31,6 +31,7 @@
 #include <fstream>
 #include <iostream>
 #include <numeric>
+#include "dbg.h"
 
 #include "gflags/gflags.h"
 #include "mace/core/runtime/runtime.h"
@@ -326,7 +327,7 @@ bool RunModel(const std::string &model_name,
               const std::vector<std::vector<int64_t>> &output_shapes,
               const std::vector<IDataType> &output_data_types,
               const std::vector<DataFormat> &output_data_formats,
-              float cpu_capability) {
+              float cpu_capability) { 
   int64_t t0 = NowMicros();
   bool *model_data_unused = nullptr;
   MaceEngine *tutor = nullptr;

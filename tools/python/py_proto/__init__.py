@@ -23,9 +23,8 @@ from utils.util import MaceLogger
 cwd = os.path.dirname(__file__)
 
 try:
-    # cmake is much more faster than bazel, so try it first
     device.execute("bash tools/cmake/cmake-generate-proto-py-host.sh")
-except:  
+except:  # noqa
     MaceLogger.warning("Cmake error, use bazel.")
     device.execute("bazel build //mace/proto:mace_py")
     device.execute("cp -f bazel-genfiles/mace/proto/mace_pb2.py %s" % cwd)

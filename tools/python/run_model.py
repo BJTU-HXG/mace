@@ -309,6 +309,14 @@ def parse_args():
         help="yaml conf path"
     )
     parser.add_argument(
+        '--justprint',
+        action="store_true",
+        help="just print the commands but do nothing(for debug)")
+    parser.add_argument(
+        '--norun',
+        action="store_true",
+        help="do all the thing except running the model")
+    parser.add_argument(
         '--devices_to_run',
         type=str,
         default="",
@@ -323,7 +331,7 @@ def parse_args():
         "--target_abi",
         type=str,
         default="arm64-v8a",
-        help="Target ABI: host, armeabi-v7a, arm64-v8a,"
+        help="Target ABI: host, qnx, armeabi-v7a, arm64-v8a,"
              " arm-linux-gnueabihf, aarch64-linux-gnu"
     )
     parser.add_argument(
@@ -415,4 +423,6 @@ if __name__ == "__main__":
     flags, args = parse_args()
     if flags.build:
         build_engine(flags)
+    device.justprint = flags.justprint
+    device.norun = flags.norun
     run_models(flags, args)
