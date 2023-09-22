@@ -40,6 +40,8 @@ def run_target(target_abi, install_dir, target_obj, dev):
     device_target = dev.install(target_obj, install_dir)
     print(device_target)
 
+    if device.norun:
+        return
     dev.run(device_target)
 
 

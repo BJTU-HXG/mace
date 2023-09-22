@@ -35,8 +35,6 @@ FileSystem *QnxEnv::GetFileSystem() {
 }
 
 MaceStatus QnxEnv::GetCPUMaxFreq(std::vector<float> *max_freqs) {
-	int num_cpu = _syspage_ptr->num_cpu;
-	assert(num_cpu == 8);
 	// small cores
 	max_freqs->push_back(1785608000);
 	max_freqs->push_back(1785608000);

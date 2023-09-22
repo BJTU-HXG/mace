@@ -368,10 +368,12 @@ void HexagonDSPWrapper::PrintGraph() {
 }
 
 void HexagonDSPWrapper::PrintMemStats() {
+#ifndef __QNX__
   HAP_mem_stats mem_stats;
   MACE_CHECK(hexagon_nn_get_mem_stats(&mem_stats) == 0);
   LOG(INFO) << "Hexagon memory: " << mem_stats.bytes_free << " bytes free, "
             << mem_stats.bytes_used << " bytes used.";
+#endif
 }
 
 void HexagonDSPWrapper::SetDebugLevel(int level) {

@@ -38,8 +38,7 @@ if(ANDROID)
                   "\naddlib ${PROJECT_SOURCE_DIR}/third_party/rpcmem/${ANDROID_ABI}/rpcmem.a")
   endif()
 elseif(QNX)
-  set(PORT_LIBS ${PORT_LIBS}
-                "addlib ${CMAKE_BINARY_DIR}/mace/port/qnx/libport_qnx.a")
+  set(PORT_LIBS ${PORT_LIBS} "addlib ${CMAKE_BINARY_DIR}/mace/port/qnx/libport_qnx.a")
 elseif(WIN32)
   set(STATIC_LIB ${CMAKE_BINARY_DIR}/mace/libmace/libmace_static.lib)
 else(WIN32)
@@ -52,18 +51,21 @@ set(FLOW_LIBS "addlib ${CMAKE_BINARY_DIR}/mace/flows/libflows.a\n"
               "addlib ${CMAKE_BINARY_DIR}/mace/flows/cpu/libcpu_flow.a\n")
 set(RUNTIME_LIBS "addlib ${CMAKE_BINARY_DIR}/mace/runtimes/libruntimes.a\n"
                  "addlib ${CMAKE_BINARY_DIR}/mace/runtimes/cpu/libcpu_runtime.a\n")
+
 if(MACE_ENABLE_OPENCL)
   set(FLOW_LIBS ${FLOW_LIBS}
                 "addlib ${CMAKE_BINARY_DIR}/mace/flows/opencl/libopencl_flow.a\n")
   set(RUNTIME_LIBS ${RUNTIME_LIBS}
                 "addlib ${CMAKE_BINARY_DIR}/mace/runtimes/opencl/libopencl_runtime.a\n")
 endif(MACE_ENABLE_OPENCL)
+
 if(MACE_ENABLE_HEXAGON)
   set(FLOW_LIBS ${FLOW_LIBS}
           "addlib ${CMAKE_BINARY_DIR}/mace/flows/hexagon/libhexagon_flow.a\n")
   set(RUNTIME_LIBS ${RUNTIME_LIBS}
           "addlib ${CMAKE_BINARY_DIR}/mace/runtimes/hexagon/libhexagon_runtime.a\n")
 endif(MACE_ENABLE_HEXAGON)
+
 if(MACE_ENABLE_MTK_APU)
   set(FLOW_LIBS ${FLOW_LIBS}
           "addlib ${CMAKE_BINARY_DIR}/mace/flows/apu/libapu_flow.a\n")
@@ -134,6 +136,7 @@ add_dependencies(mace_static combined)
 set_target_properties(mace_static PROPERTIES
   IMPORTED_LOCATION ${STATIC_LIB}
 )
+
 if(ANDROID)
   set_target_properties(mace_static PROPERTIES
     INTERFACE_LINK_LIBRARIES log

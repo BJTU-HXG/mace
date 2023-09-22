@@ -28,8 +28,8 @@ cmake -DMACE_ENABLE_NEON=OFF         \
       -DMACE_ENABLE_TESTS=ON         \
       -DMACE_ENABLE_BENCHMARKS=ON    \
       -DMACE_ENABLE_CODE_MODE=${MACE_ENABLE_CODE_MODE}    \
-      -DCMAKE_INSTALL_PREFIX=install \
       -DCMAKE_BUILD_TYPE=Debug    \
+      -DCMAKE_INSTALL_PREFIX=install \
       ../../..
-make -j$(nproc) VERBOSE=1 -B && make install
+make -j$(nproc) -B && make install
 cd ../../..

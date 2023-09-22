@@ -79,7 +79,7 @@ cmake -DANDROID_ABI="arm64-v8a" \
       -DMACE_ENABLE_RPCMEM=ON                                 \
       -DCMAKE_INSTALL_PREFIX=install      \
       ../../..
-make -j$(nproc) && make install
+make -j$(nproc) VERBOSE=1 -B && make install
 cd ../../..
 
 # Detect the plugin-device and copy the valid so to the output dir
