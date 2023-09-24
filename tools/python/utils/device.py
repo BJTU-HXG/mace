@@ -29,8 +29,7 @@ justprint = False
 norun = False
 
 def execute(cmd, verbose=True):
-    if verbose:
-        print("CMD> %s" % cmd)
+    print("CMD> %s" % cmd)
     if justprint: 
         return
     p = subprocess.Popen([cmd],

@@ -10,7 +10,7 @@ LIB_DIR=$BUILD_DIR"/install/lib/"
 rm -rf $LIB_DIR
 
 MACE_ENABLE_NEON=OFF
-MACE_ENABLE_CPU=OFF
+MACE_ENABLE_CPU=ON
 MACE_ENABLE_OPENCL=OFF
 MACE_ENABLE_HEXAGON_DSP=OFF
 MACE_ENABLE_HEXAGON_HTA=OFF
@@ -77,9 +77,9 @@ cmake -DANDROID_ABI="arm64-v8a" \
       -DMACE_ENABLE_BENCHMARKS=ON         \
       -DMACE_ENABLE_CODE_MODE=${MACE_ENABLE_CODE_MODE}        \
       -DMACE_ENABLE_RPCMEM=ON                                 \
-      -DCMAKE_INSTALL_PREFIX=install      \
+      -DCMAKE_INSTALL_PREFIX=install \
       ../../..
-make -j$(nproc) VERBOSE=1 -B && make install
+make -j$(nproc) VERBOSE=1 && make install
 cd ../../..
 
 # Detect the plugin-device and copy the valid so to the output dir

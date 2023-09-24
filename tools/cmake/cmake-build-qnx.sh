@@ -1,4 +1,4 @@
-set -e
+set -ex
 
 MACE_ROOT_DIR=$(pwd)
 
@@ -29,6 +29,6 @@ cmake -DQNX=True \
       -DMACE_ENABLE_RPCMEM=ON    \
       -DCMAKE_INSTALL_PREFIX=install \
       ../../..
-make -j$(nproc) && make install
-# make -j1 VERBOSE=1 && make install
+
+make $@ && make install
 cd ../../..
