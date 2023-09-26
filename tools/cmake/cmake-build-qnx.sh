@@ -1,4 +1,4 @@
-set -e
+set -ex
 
 MACE_ROOT_DIR=$(pwd)
 
@@ -17,8 +17,8 @@ cmake -DQNX=True \
       -DCROSSTOOL_ROOT=${QNX_BIN_DIR} \
       -DCMAKE_TOOLCHAIN_FILE=${MACE_ROOT_DIR}/cmake/toolchains/qnx.cmake \
       -DCMAKE_BUILD_TYPE=Release \
-      -DMACE_ENABLE_NEON=OFF         \
-      -DMACE_ENABLE_QUANTIZE=OFF     \
+      -DMACE_ENABLE_NEON=OFF     \
+      -DMACE_ENABLE_QUANTIZE=ON   \
       -DMACE_ENABLE_OPENCL=OFF       \
       -DMACE_ENABLE_CPU=ON                \
       -DMACE_ENABLE_BFLOAT16=OFF     \
@@ -29,6 +29,6 @@ cmake -DQNX=True \
       -DMACE_ENABLE_RPCMEM=ON    \
       -DCMAKE_INSTALL_PREFIX=install \
       ../../..
-make -j$(nproc) && make install
-# make -j1 VERBOSE=1 && make install
+
+make $@ && make install
 cd ../../..
