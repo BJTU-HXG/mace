@@ -42,6 +42,7 @@
 #include "mace/utils/string_util.h"
 #include "mace/utils/statistics.h"
 #include "mace/utils/transpose.h"
+#include "mace/utils/dbg.h"
 
 #ifdef MODEL_GRAPH_FORMAT_CODE
 #include "mace/codegen/engine/mace_engine_factory.h"
@@ -199,7 +200,7 @@ std::shared_ptr<char> ReadInputDataFromFile(
     in_file.read(buffer_in.get(), file_data_size);
     in_file.close();
   } else {
-    LOG(FATAL) << "Open input file failed";
+    LOG(FATAL) << "Open input file(" << file_path << ") failed";
     return nullptr;
   }
 
@@ -326,7 +327,7 @@ bool RunModel(const std::string &model_name,
               const std::vector<std::vector<int64_t>> &output_shapes,
               const std::vector<IDataType> &output_data_types,
               const std::vector<DataFormat> &output_data_formats,
-              float cpu_capability) {
+              float cpu_capability) { 
   int64_t t0 = NowMicros();
   bool *model_data_unused = nullptr;
   MaceEngine *tutor = nullptr;
@@ -366,7 +367,7 @@ bool RunModel(const std::string &model_name,
 #ifdef MACE_ENABLE_HEXAGON
   // SetHexagonToUnsignedPD() can be called for 8150 family(with new cDSP
   // firmware) or 8250 family above to run hexagon nn on unsigned PD.
-  // config.SetHexagonToUnsignedPD();
+  config.SetHexagonToUnsignedPD();
   config.SetHexagonPower(HEXAGON_NN_CORNER_TURBO, true, 100);
 #endif
 #ifdef MACE_ENABLE_MTK_APU
