@@ -13,11 +13,6 @@ if(NOT ANDROID AND NOT QNX)
 endif()
 
 if(MACE_ENABLE_HEXAGON_DSP)
-  if(QNX)
-    # target_link_libraries(mace_run $ENV{HEXAGON_SDK_ROOT}/libs/common/qnx/ship/qnx_Release_aarch64/libfastrpc_pmem.so)
-    # target_link_libraries(mace_run $ENV{HEXAGON_SDK_ROOT}/libs/common/remote/ship/qnx_Release_aarch64/libcdsprpc.so)
-    # target_link_libraries(mace_run $ENV{QNX_TARGET}/aarch64le/usr/lib/libc++.so)
-  endif()
   target_link_libraries(mace_run hexagon_controller)
 endif()
 

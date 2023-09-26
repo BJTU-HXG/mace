@@ -31,7 +31,6 @@
 #include <fstream>
 #include <iostream>
 #include <numeric>
-#include "dbg.h"
 
 #include "gflags/gflags.h"
 #include "mace/core/runtime/runtime.h"
@@ -43,6 +42,7 @@
 #include "mace/utils/string_util.h"
 #include "mace/utils/statistics.h"
 #include "mace/utils/transpose.h"
+#include "mace/utils/dbg.h"
 
 #ifdef MODEL_GRAPH_FORMAT_CODE
 #include "mace/codegen/engine/mace_engine_factory.h"
@@ -367,7 +367,7 @@ bool RunModel(const std::string &model_name,
 #ifdef MACE_ENABLE_HEXAGON
   // SetHexagonToUnsignedPD() can be called for 8150 family(with new cDSP
   // firmware) or 8250 family above to run hexagon nn on unsigned PD.
-  // config.SetHexagonToUnsignedPD();
+  config.SetHexagonToUnsignedPD();
   config.SetHexagonPower(HEXAGON_NN_CORNER_TURBO, true, 100);
 #endif
 #ifdef MACE_ENABLE_MTK_APU

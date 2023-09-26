@@ -136,6 +136,11 @@ def run_model_for_device(flags, args, dev, model_name, model_conf):
     output_tensors_info = config_parser.find_output_tensors_info(
         model_conf[ModelKeys.subgraphs], model_conf[ModelKeys.output_tensors])
 
+    if ModelKeys.check_tensors in model_conf[ModelKeys.subgraphs][ModelKeys.default_graph].keys():  
+        output_tensors_info[ModelKeys.output_shapes] = model_conf[ModelKeys.subgraphs][ModelKeys.default_graph][ModelKeys.check_shapes]
+        output_tensors_info[ModelKeys.output_tensors] = model_conf[ModelKeys.subgraphs][ModelKeys.default_graph][ModelKeys.check_tensors]
+        model_conf[ModelKeys.output_tensors] = output_tensors_info[ModelKeys.output_tensors]
+
     model_args = {"model_name": model_name,
                   "model_file": model_file_path,
                   "model_data_file": model_data_file_path,
