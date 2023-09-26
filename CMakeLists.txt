@@ -81,7 +81,7 @@ endif(MACE_ENABLE_CODE_MODE)
 if(ANDROID)
   set(MACE_CODE_CC_FLAGS "${MACE_CODE_CC_FLAGS} -Wall -Werror -Wno-error=unused-command-line-argument -Wno-error=unevaluated-expression -Wno-error=tautological-compare")
 else(ANDROID)
-  set(MACE_CODE_CC_FLAGS "${MACE_CODE_CC_FLAGS} -Wall -Werror")
+  set(MACE_CODE_CC_FLAGS "${MACE_CODE_CC_FLAGS} -Wall -Werror -Wno-strict-aliasing")
 endif(ANDROID)
 set(MACE_CODE_CC_FLAGS "${MACE_CODE_CC_FLAGS} -std=c++11 -D_GLIBCXX_USE_C99_MATH_TR1")
 

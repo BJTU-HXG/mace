@@ -30,7 +30,7 @@ norun = False
 
 def execute(cmd, verbose=True):
     print("CMD> %s" % cmd)
-    if justprint: 
+    if "adb devices" not in cmd andjustprint: 
         return
     p = subprocess.Popen([cmd],
                          shell=True,
@@ -233,22 +233,18 @@ class AndroidDevice(Device):
         execute("adb -s %s push %s %s" % (sn, lib_file, install_dir), False)
 
     def run(self, target):
+        execute("adb -s %s shell chmod 0777 %s" % (self._device_id, target.path))
+        execute("adb -s %s shell \"ASDP_LIBRARY_PATH=/data/local/tmp/libs %s\"" % (self._device_id, str(target)))
+
         tmpdirname = tempfile.mkdtemp()
         cmd_file_path = tmpdirname + "/cmd.sh"
         with open(cmd_file_path, "w") as cmd_file:
             cmd_file.write(str(target))
+
         target_dir = os.path.dirname(target.path)
         execute("adb -s %s push %s %s" % (self._device_id,
                                           cmd_file_path,
                                           target_dir))
-
-        out = execute("adb -s %s shell sh %s" % (self._device_id,
-                                                 target_dir + "/cmd.sh"))
-        # May have false positive using the following error word
-        for line in out.split("\n")[:-10]:
-            if ("Aborted" in line
-                    or "FAILED" in line or "Segmentation fault" in line):
-                raise Exception(line)
 
     def pull(self, target, out_dir):
         sn = self._device_id
