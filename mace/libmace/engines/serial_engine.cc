@@ -338,11 +338,7 @@ std::unordered_map<std::string, int> SerialEngine::AllocOutTensors(
 MaceStatus SerialEngine::CreateTensorsForFlows(
     const NetDefMap &net_defs, const std::vector<std::string> &glb_in_nodes,
     const std::vector<std::string> &glb_out_nodes) {
-  dbg(glb_in_nodes);
-  dbg(glb_out_nodes);
-
   const auto net_def_size = net_defs.size();
-  dbg(net_def_size);
   MACE_CHECK(flows_.size() == net_def_size);
 
   const auto tensor_id_map = AllocOutTensors(net_defs, glb_out_nodes);
@@ -363,7 +359,6 @@ MaceStatus SerialEngine::CreateTensorsForFlows(
           &output_key = output_alias.empty() ? output_name : output_alias;
       auto find_iter = std::find(out_nodes.begin(), out_nodes.end(),
                                  output_name);
-      dbg("find", output_name, "in", out_nodes, "end");
       if (find_iter != out_nodes.end()) {  // no need to allocate
         out_nodes.erase(find_iter);
         tensor_info->emplace(output_name, MaceTensor());
@@ -383,7 +378,6 @@ MaceStatus SerialEngine::CreateTensorsForFlows(
     }
     output_tensors_.emplace(flows_[k++].get(), tensor_info);
   }
-  dbg(out_nodes, out_nodes.size());
   MACE_CHECK(out_nodes.size() == 0, "can not find output in model: ",
              MakeString(out_nodes));
 

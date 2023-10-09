@@ -30,7 +30,7 @@ norun = False
 
 def execute(cmd, verbose=True):
     print("CMD> %s" % cmd)
-    if "adb devices" not in cmd andjustprint: 
+    if "adb devices" not in cmd and justprint: 
         return
     p = subprocess.Popen([cmd],
                          shell=True,
@@ -234,7 +234,7 @@ class AndroidDevice(Device):
 
     def run(self, target):
         execute("adb -s %s shell chmod 0777 %s" % (self._device_id, target.path))
-        execute("adb -s %s shell \"ASDP_LIBRARY_PATH=/data/local/tmp/libs %s\"" % (self._device_id, str(target)))
+        execute("adb -s %s shell \"ADSP_LIBRARY_PATH=/data/local/tmp/libs %s\"" % (self._device_id, str(target)))
 
         tmpdirname = tempfile.mkdtemp()
         cmd_file_path = tmpdirname + "/cmd.sh"
