@@ -367,7 +367,9 @@ bool RunModel(const std::string &model_name,
 #ifdef MACE_ENABLE_HEXAGON
   // SetHexagonToUnsignedPD() can be called for 8150 family(with new cDSP
   // firmware) or 8250 family above to run hexagon nn on unsigned PD.
+#ifdef __ANDROID__
   config.SetHexagonToUnsignedPD();
+#endif
   config.SetHexagonPower(HEXAGON_NN_CORNER_TURBO, true, 100);
 #endif
 #ifdef MACE_ENABLE_MTK_APU

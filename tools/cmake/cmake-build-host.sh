@@ -31,5 +31,5 @@ cmake -DMACE_ENABLE_NEON=OFF         \
       -DCMAKE_BUILD_TYPE=Debug    \
       -DCMAKE_INSTALL_PREFIX=install \
       ../../..
-make -j$(nproc) -B && make install
+make $@ && make install
 cd ../../..
