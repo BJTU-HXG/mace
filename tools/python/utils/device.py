@@ -145,7 +145,7 @@ class QnxDevice(Device):
         execute("lemon run mkdir -p %s" % (install_dir))
         if os.path.isdir(target.path):
             for file in os.listdir(target.path):
-                execute("lemon send %s %s" % (file, install_dir), False)
+                execute("lemon send %s %s" % (os.path.join(target.path, file), install_dir), False)
         else:
             execute("lemon send %s %s" % (target.path, install_dir), False)
 
