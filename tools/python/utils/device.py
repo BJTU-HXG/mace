@@ -29,7 +29,7 @@ justprint = False
 norun = False
 
 def execute(cmd, verbose=True):
-    print("CMD> %s" % cmd)
+    print("\033[0;32mCMD> \033[0m%s" % cmd)
     if "adb devices" not in cmd and justprint: 
         return
     p = subprocess.Popen([cmd],

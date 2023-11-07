@@ -22,6 +22,7 @@ import numpy as np
 from enum import Enum
 from operator import mul
 from functools import reduce
+import random
 
 from py_proto import mace_pb2
 from transform import base_converter
@@ -55,6 +56,7 @@ HexagonSupportedOps = [
     'QuantizedConcat_8',
     'QuantizedDiv_8',
     'QuantizedInstanceNorm_8',
+    'QuantizedMatMul_8x8to32', # TODO fix
     'QuantizedMaxPool_8',
     'QuantizedMaximum_8',
     'QuantizedMean_8',
@@ -62,6 +64,7 @@ HexagonSupportedOps = [
     'QuantizedMul_8x8to8',
     'QuantizedPad_8',
     'QuantizedPRelu_8',
+    'QuantizedPow_8x8to8', # TODO add op
     'QuantizedRecip_8',
     'QuantizedRelu_8',
     'QuantizedReluX_8',
@@ -76,6 +79,7 @@ HexagonSupportedOps = [
     'QuantizedTanh_8',
     'QuantizedTransposeConv2d_8x8p32to8',
     'QuantizeINPUT_f_to_8',
+    'Requantize_32to8',
     'ResizeNearestNeighbor_8',
     'SpaceToBatchND_8',
     'SpaceToDepth_8',
@@ -144,6 +148,7 @@ class HexagonConverter(base_converter.ConverterInterface):
         EltwiseType.SUM.value: HexagonOp.QuantizedAdd_8p8to8.name,
         EltwiseType.SUB.value: HexagonOp.QuantizedSub_8p8to8.name,
         EltwiseType.PROD.value: HexagonOp.QuantizedMul_8x8to8.name,
+        EltwiseType.POW.value: HexagonOp.QuantizedPow_8x8to8.name, # TODO add op
         EltwiseType.MIN.value: HexagonOp.QuantizedMinimum_8.name,
         EltwiseType.MAX.value: HexagonOp.QuantizedMaximum_8.name,
         EltwiseType.DIV.value: HexagonOp.QuantizedDiv_8.name,
@@ -170,6 +175,7 @@ class HexagonConverter(base_converter.ConverterInterface):
             MaceOp.ExpandDims.name: self.convert_expanddims,
             MaceOp.FullyConnected.name: self.convert_fullyconnected,
             MaceOp.InstanceNorm.name: self.convert_instancenorm,
+            MaceOp.MatMul.name: self.convert_matmul,
             MaceOp.Pad.name: self.convert_pad,
             MaceOp.Pooling.name: self.convert_pooling,
             MaceOp.Quantize.name: self.convert_quantize,
@@ -183,6 +189,8 @@ class HexagonConverter(base_converter.ConverterInterface):
             MaceOp.StridedSlice.name: self.convert_stridedslice,
             MaceOp.SpaceToBatchND.name: self.convert_batchspace,
             MaceOp.SpaceToDepth.name: self.convert_depthspace,
+            MaceOp.Transpose.name: self.convert_transpose,
+            MaceOp.Unsqueeze.name: self.convert_unsqueeze
         }
         self._framework_type = ConverterUtil.get_arg(
             self._model, MaceKeyword.mace_framework_type_str).i
@@ -260,6 +268,11 @@ class HexagonConverter(base_converter.ConverterInterface):
             tensor.int32_data.extend(quantized_tensor.data)
             tensor.minval = quantized_tensor.minval
             tensor.maxval = quantized_tensor.maxval
+    
+    def new_tensor(self, quantize_info):
+        name = str(random.randint(20000, 30000)) + ':0'
+        self._quantize_activation_info[name] = quantize_info
+        return name
 
     def add_scalar_const_node(self, name, val, op=None):
         if op is not None:
@@ -518,11 +531,16 @@ class HexagonConverter(base_converter.ConverterInterface):
             min_output_shape.dims.extend([1])
             max_output_shape = op.output_shape.add()
             max_output_shape.dims.extend([1])
-            op.output_type.extend(
-                [mace_pb2.DT_UINT8, mace_pb2.DT_FLOAT, mace_pb2.DT_FLOAT])
+        if op.type == HexagonOp.QuantizedMatMul_8x8to32.name:
+            op.output_type.extend([mace_pb2.DT_INT32, mace_pb2.DT_FLOAT, mace_pb2.DT_FLOAT])
+        elif op.type != MaceOp.Dequantize.name:
+            op.output_type.extend([mace_pb2.DT_UINT8, mace_pb2.DT_FLOAT, mace_pb2.DT_FLOAT])
+
         for i in range(len(op.output_shape)):
             out_max_byte_size = reduce(mul, op.output_shape[i].dims)
             if op.output_type[i] == mace_pb2.DT_FLOAT:
+                out_max_byte_size *= 4
+            if op.output_type[i] == mace_pb2.DT_INT32:
                 out_max_byte_size *= 4
             op.out_max_byte_size.extend([out_max_byte_size])
 
@@ -531,7 +549,7 @@ class HexagonConverter(base_converter.ConverterInterface):
             arg = ConverterUtil.get_arg(op, MaceKeyword.mace_padding_str)
             if arg is not None:
                 op.padding = padding_mode[PaddingMode(arg.i)]
-
+        
         self._new_ops.append(op)
 
     def convert_activation(self, op):
@@ -751,11 +769,16 @@ class HexagonConverter(base_converter.ConverterInterface):
                     self.add_min_max_const_node(op, op.input[0])
                     op.type = HexagonOp.QuantizedRecip_8.name
                     return
-        if element_type == EltwiseType.POW.value and \
-                ConverterUtil.get_arg(
-                    op, MaceKeyword.mace_scalar_input_str).f == 0.5:
-            self.add_min_max_const_node(op, op.input[0])
-            op.type = HexagonOp.QuantizedSqrt_8.name
+        if element_type == EltwiseType.POW.value:
+            if ConverterUtil.get_arg(op, MaceKeyword.mace_scalar_input_str).f == 0.5:
+                self.add_min_max_const_node(op, op.input[0])
+                op.type = HexagonOp.QuantizedSqrt_8.name
+            elif ConverterUtil.get_arg(op, MaceKeyword.mace_scalar_input_str).f == 2:
+                op.input.append(op.input[0])
+                self.add_min_max_const_node(op, op.input[0])
+                self.add_min_max_const_node(op, op.input[1])
+                self.add_min_max_const_node(op, op.output[0])
+                op.type = HexagonOp.QuantizedMul_8x8to8.name
             return
         if element_type == EltwiseType.CLIP.value:
             self.add_min_max_const_node(op, op.input[0])
@@ -782,6 +805,8 @@ class HexagonConverter(base_converter.ConverterInterface):
                             EltwiseType.DIV.value]:
             self.add_min_max_const_node(
                 op, op.output[0], True, True, False)
+            if element_type == EltwiseType.DIV.value:
+                self.get_input_shape(op.output[0])
         try:
             op.type = self.eltwise_type[element_type]
         except KeyError:
@@ -820,6 +845,27 @@ class HexagonConverter(base_converter.ConverterInterface):
         else:
             mace_check(False,
                        "Hexagon does not support instancenorm with affine")
+
+    def convert_matmul(self, op):
+        requantize_op = copy.deepcopy(op)
+        del requantize_op.input[1:]
+        requantize_op.output[0] = op.output[0]
+
+        quantize_info_new_tensor = self._quantize_activation_info[op.output[0]]
+
+        op.output[0] = self.new_tensor(quantize_info_new_tensor)
+        requantize_op.input[0] = op.output[0]
+
+        self.add_min_max_const_node(op, op.input[0])
+        self.add_min_max_const_node(op, op.input[1])
+        op.type = HexagonOp.QuantizedMatMul_8x8to32.name
+        self.add_min_max_const_node(requantize_op, requantize_op.input[0])
+        self.add_min_max_const_node(requantize_op, requantize_op.output[0], True, True, False)
+        requantize_op.type = HexagonOp.Requantize_32to8.name
+
+        self.post_convert(op)
+        self.post_convert(requantize_op)
+        return True
 
     def convert_pad(self, op):
         self.add_min_max_const_node(op, op.input[0])
@@ -1005,3 +1051,15 @@ class HexagonConverter(base_converter.ConverterInterface):
         self.add_min_max_const_node(op, op.input[0])
 
         op.type = HexagonOp.QuantizedStridedSlice_8.name
+    
+    def convert_transpose(self, op):
+        self.add_arg_const_node(op, '/shape:0', [4], op.output_shape[0].dims)
+        self.add_min_max_const_node(op, op.input[0])
+        op.type = HexagonOp.QuantizedReshape.name
+
+    def convert_unsqueeze(self, op):
+        self.add_arg_const_node(op, '/shape:0', [4], op.output_shape[0].dims)
+        self.add_min_max_const_node(op, op.input[0])
+        op.output_shape[0].dims[1], op.output_shape[0].dims[2], op.output_shape[0].dims[3] = \
+            op.output_shape[0].dims[2], op.output_shape[0].dims[3],op.output_shape[0].dims[1]
+        op.type = HexagonOp.QuantizedReshape.name

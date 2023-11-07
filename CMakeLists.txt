@@ -18,6 +18,7 @@ option(MACE_ENABLE_OPT_SIZE    "whether to build with optimized binary size" ON)
 option(MACE_ENABLE_OBFUSCATE   "whether to build with code obfuscation"      ON)
 option(MACE_ENABLE_CCACHE      "whether to build with ccache"                ON)
 option(MACE_ENABLE_CODE_MODE   "whether to use code mode"                   OFF)
+option(MACE_ENABLE_RPCMEM      "whether to use rpcmem"                      OFF)
 
 message("CMAKE_VERSION: ${CMAKE_VERSION}")
 message("CROSSTOOL_ROOT: ${CROSSTOOL_ROOT}")
