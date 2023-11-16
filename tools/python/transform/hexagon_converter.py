@@ -805,8 +805,8 @@ class HexagonConverter(base_converter.ConverterInterface):
                             EltwiseType.DIV.value]:
             self.add_min_max_const_node(
                 op, op.output[0], True, True, False)
-            if element_type == EltwiseType.DIV.value:
-                self.get_input_shape(op.output[0])
+        if element_type == EltwiseType.DIV.value:
+            element_type = EltwiseType.MAX.value
         try:
             op.type = self.eltwise_type[element_type]
         except KeyError:

@@ -214,6 +214,8 @@ def run_model_for_device(flags, args, dev, model_name, model_conf):
     libs = []
     if DeviceType.HEXAGON in runtime_list:
         libs += ["third_party/nnlib/%s/libhexagon_controller.so" % target_abi]
+        if target_abi == "arm64-v8a":
+            libs += ["third_party/nnlib/v66/libhexagon_nn_skel.so"]
     elif runtime == DeviceType.HTA:
         libs += ["third_party/hta/%s/libhta_hexagon_runtime.so" % target_abi]
     elif DeviceType.APU in runtime_list:

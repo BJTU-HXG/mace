@@ -25,8 +25,8 @@ cmake -DQNX=True \
       -DMACE_ENABLE_TESTS=OFF         \
       -DMACE_ENABLE_BENCHMARKS=OFF    \
       -DMACE_ENABLE_CODE_MODE=OFF    \
-      -DMACE_ENABLE_HEXAGON_DSP=OFF    \
-      -DMACE_ENABLE_RPCMEM=OFF    \
+      -DMACE_ENABLE_HEXAGON_DSP=ON    \
+      -DMACE_ENABLE_RPCMEM=ON    \
       -DCMAKE_INSTALL_PREFIX=install \
       ../../..
 

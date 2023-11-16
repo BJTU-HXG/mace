@@ -30,7 +30,7 @@ norun = False
 
 def execute(cmd, verbose=True):
     print("\033[0;32mCMD> \033[0m%s" % cmd)
-    if "adb devices" not in cmd and justprint: 
+    if justprint: 
         return
     p = subprocess.Popen([cmd],
                          shell=True,
@@ -173,6 +173,9 @@ class AndroidDevice(Device):
 
     @staticmethod
     def list_devices():
+        if justprint:
+            return [""]
+
         out = execute("adb devices", False)
         serialno_list = out.strip().split('\n')[1:]
         serialno_list = [tuple(pair.split('\t')) for pair in serialno_list]
