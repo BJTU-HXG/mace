@@ -34,7 +34,6 @@ micro/examples/micro
 micro/build
 
 mace-models
-workspace
 
 __pycache__
 *.egg-info

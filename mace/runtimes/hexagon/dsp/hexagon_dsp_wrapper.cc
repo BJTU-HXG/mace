@@ -26,6 +26,7 @@
 
 #include "mace/runtimes/hexagon/dsp/hexagon_dsp_ops.h"
 #include "mace/core/types.h"
+#include "mace/utils/dbg.h"
 #include "mace/port/env.h"
 #include "mace/utils/memory.h"
 #include "third_party/nnlib/hexagon_nn.h"
@@ -243,7 +244,6 @@ bool HexagonDSPWrapper::SetupGraph(const NetDef &net_def,
 
   for (const OperatorDef &op : net_def.op()) {
     int op_id = op_map.GetOpId(op.type());
-    // printf("add op %s(%d)\n", op.type().c_str(), op_id);
     inputs.resize(op.node_input().size());
     for (int i = 0; i < op.node_input().size(); ++i) {
       inputs[i].src_id = node_id(op.node_input()[i].node_id());
@@ -267,6 +267,9 @@ bool HexagonDSPWrapper::SetupGraph(const NetDef &net_def,
     }
     cached_inputs.push_back(inputs);
     cached_outputs.push_back(outputs);
+
+    dbg(outputs[0].max_sizes);
+    printf("%s(%d)\n\n", op.type().c_str(), op_id);
 
     hexagon_nn_padding_type padding_type =
         static_cast<hexagon_nn_padding_type>(op.padding());
@@ -534,11 +537,16 @@ bool HexagonDSPWrapper::ExecuteGraphNew(
   for (size_t i = 0; i < num_inputs; ++i) {
     const auto input_tensor = input_tensors.at(input_info_[i].name);
     const auto &input_shape = input_tensor->shape();
+
+    auto tmp(input_shape);
+    while (tmp.size() < 4) {
+      tmp.insert(tmp.begin(), 1);
+    }
     size_t index = i * kNumMetaData;
-    inputs[index].batches = static_cast<uint32_t>(input_shape[0]);
-    inputs[index].height = static_cast<uint32_t>(input_shape[1]);
-    inputs[index].width = static_cast<uint32_t>(input_shape[2]);
-    inputs[index].depth = static_cast<uint32_t>(input_shape[3]);
+    inputs[index].batches = static_cast<uint32_t>(tmp[0]);
+    inputs[index].height = static_cast<uint32_t>(tmp[1]);
+    inputs[index].width = static_cast<uint32_t>(tmp[2]);
+    inputs[index].depth = static_cast<uint32_t>(tmp[3]);
     inputs[index].data = const_cast<unsigned char *>(
         reinterpret_cast<const unsigned char *>(input_tensor->raw_data()));
     MACE_DSP_CHECK(inputs[index].data != nullptr);

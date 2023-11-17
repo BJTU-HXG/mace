@@ -133,6 +133,7 @@ def add_port_for_tensor(name):
 def remove_port_for_tensor(name):
     return name[:-2] if ':0' in name else name
 
+new_port_name_idx = 20000
 
 class HexagonConverter(base_converter.ConverterInterface):
     activation_type = {
@@ -270,8 +271,10 @@ class HexagonConverter(base_converter.ConverterInterface):
             tensor.maxval = quantized_tensor.maxval
     
     def new_tensor(self, quantize_info):
-        name = str(random.randint(20000, 30000)) + ':0'
+        global new_port_name_idx
+        name = str(new_port_name_idx) + ':0'
         self._quantize_activation_info[name] = quantize_info
+        new_port_name_idx += 1
         return name
 
     def add_scalar_const_node(self, name, val, op=None):
@@ -777,7 +780,7 @@ class HexagonConverter(base_converter.ConverterInterface):
                 op.input.append(op.input[0])
                 self.add_min_max_const_node(op, op.input[0])
                 self.add_min_max_const_node(op, op.input[1])
-                self.add_min_max_const_node(op, op.output[0])
+                self.add_min_max_const_node(op, op.output[0], True, True, False)
                 op.type = HexagonOp.QuantizedMul_8x8to8.name
             return
         if element_type == EltwiseType.CLIP.value:
@@ -847,6 +850,12 @@ class HexagonConverter(base_converter.ConverterInterface):
                        "Hexagon does not support instancenorm with affine")
 
     def convert_matmul(self, op):
+        """
+        TODO 
+        目前的hexagon_converter是把matmul算子转化为两个算子QuantizedMatMul_8x8to32+Requantize_32to8，
+        这两个算子的量化信息如何从原先的一个算子得来，是一个问题。
+        目前只是简单的复制了原先的量化信息。
+        """
         requantize_op = copy.deepcopy(op)
         del requantize_op.input[1:]
         requantize_op.output[0] = op.output[0]
@@ -1053,13 +1062,14 @@ class HexagonConverter(base_converter.ConverterInterface):
         op.type = HexagonOp.QuantizedStridedSlice_8.name
     
     def convert_transpose(self, op):
-        self.add_arg_const_node(op, '/shape:0', [4], op.output_shape[0].dims)
+        shape = op.output_shape[0].dims
+        self.add_arg_const_node(op, '/shape:0', [len(shape)], shape)
         self.add_min_max_const_node(op, op.input[0])
         op.type = HexagonOp.QuantizedReshape.name
 
     def convert_unsqueeze(self, op):
-        self.add_arg_const_node(op, '/shape:0', [4], op.output_shape[0].dims)
+        shape = op.output_shape[0].dims
+        shape[1], shape[2], shape[3] = shape[2], shape[3], shape[1]
+        self.add_arg_const_node(op, '/shape:0', [len(shape)], shape)
         self.add_min_max_const_node(op, op.input[0])
-        op.output_shape[0].dims[1], op.output_shape[0].dims[2], op.output_shape[0].dims[3] = \
-            op.output_shape[0].dims[2], op.output_shape[0].dims[3],op.output_shape[0].dims[1]
         op.type = HexagonOp.QuantizedReshape.name
