@@ -210,6 +210,7 @@ class AndroidDevice(Device):
         device_target.libs = ["%s/%s" % (install_dir, os.path.basename(lib))
                               for lib in target.libs]
         device_target.envs.append("LD_LIBRARY_PATH=%s" % install_dir)
+        device_target.envs.append("ADSP_LIBRARY_PATH=%s" % install_dir)
 
         if install_deps:
             self.install_common_libs_for_target(target, install_dir)
@@ -237,7 +238,7 @@ class AndroidDevice(Device):
 
     def run(self, target):
         execute("adb -s %s shell chmod 0777 %s" % (self._device_id, target.path))
-        execute("adb -s %s shell \"ADSP_LIBRARY_PATH=/data/local/tmp/libs %s\"" % (self._device_id, str(target)))
+        execute("adb -s %s shell \"%s\"" % (self._device_id, str(target)))
 
         tmpdirname = tempfile.mkdtemp()
         cmd_file_path = tmpdirname + "/cmd.sh"
