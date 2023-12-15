@@ -268,9 +268,6 @@ bool HexagonDSPWrapper::SetupGraph(const NetDef &net_def,
     cached_inputs.push_back(inputs);
     cached_outputs.push_back(outputs);
 
-    dbg(outputs[0].max_sizes);
-    printf("%s(%d)\n\n", op.type().c_str(), op_id);
-
     hexagon_nn_padding_type padding_type =
         static_cast<hexagon_nn_padding_type>(op.padding());
 

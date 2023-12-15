@@ -1,0 +1,2 @@
+#Softmax_2606 Concat_28 Concat_2535 Concat_2536
+input:=chunk_0040/inputs/input.raw icache1:=chunk_0040/inputs/icache1.raw icache2:=chunk_0040/inputs/icache2.raw icache3:=chunk_0040/inputs/icache3.raw pos_emb_helper:=chunk_0040/inputs/pos_emb_helper.raw

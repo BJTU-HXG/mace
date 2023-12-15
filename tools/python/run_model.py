@@ -148,10 +148,14 @@ def run_model_for_device(flags, args, dev, model_name, model_conf):
                       model_conf[ModelKeys.input_tensors]),
                   "input_shape": join_2d_array(
                       input_tensors_info[ModelKeys.input_shapes]),
+                  "input_data_type": ",".join(
+                      [str(i) for i in input_tensors_info[ModelKeys.input_data_types]]),
                   "output_node": ",".join(
                       model_conf[ModelKeys.output_tensors]),
                   "output_shape": join_2d_array(
                       output_tensors_info[ModelKeys.output_shapes]),
+                  "output_data_type": ",".join(
+                      [str(i) for i in output_tensors_info[ModelKeys.output_data_types]]),
                   "input_data_format": ",".join(
                       [df.name for df in
                        input_tensors_info[ModelKeys.input_data_formats]]),

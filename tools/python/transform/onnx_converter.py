@@ -1528,8 +1528,13 @@ class OnnxConverter(base_converter.ConverterInterface):
             constant_value_arg = op.arg.add()
             constant_value_arg.name = MaceKeyword.mace_paddings_str
             paddings_value = self._consts[node.inputs[1]].int32_data
-            paddings_value = np.asarray(paddings_value).reshape(
-                (2, -1)).transpose().reshape(-1).tolist()
+            # convert onnx pad format to mace one
+            def pad_convert(pad):
+                pad = np.asarray(pad).reshape((2, -1)).transpose().reshape(-1).tolist()
+                while len(pad) < 8:
+                    pad.insert(0, 0)
+                return pad
+            paddings_value = pad_convert(paddings_value)
             constant_value_arg.ints.extend(paddings_value)
             del op.input[1:]
 

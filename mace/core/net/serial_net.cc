@@ -180,7 +180,7 @@ MaceStatus SerialNet::Run(RunMetadata *run_metadata,
     }
 
     VLOG(3) << "Operator " << op->debug_def().name()
-            << " has shape: " << MakeString(op->Output(0)->shape());
+            << " output shape: " << MakeString(op->Output(0)->shape());
 
     if (EnvConfEnabled("MACE_LOG_TENSOR_RANGE")) {
       for (int i = 0; i < op->OutputSize(); ++i) {

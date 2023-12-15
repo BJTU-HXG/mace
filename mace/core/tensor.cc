@@ -102,7 +102,7 @@ index_t Tensor::dim_size() const { return shape_.size(); }
 
 index_t Tensor::dim(unsigned int index) const {
   MACE_CHECK(index < shape_.size(),
-             name_, ": Dim out of range: ", index, " >= ", shape_.size());
+             name_, ": Dim out of range: ", index, " >= size ", shape_.size());
   return shape_[index];
 }
 
@@ -156,6 +156,16 @@ void Tensor::Clear() {
 
 void Tensor::Reshape(const std::vector<index_t> &shape) {
   shape_ = shape;
+}
+
+void Tensor::to4dim() {
+  if (shape_.size() == 1) {
+    shape_ = {1, 1, 1, shape_[0]};
+  } else if (shape_.size() == 2) {
+    shape_ = {1, 1, shape_[0], shape_[1]};
+  } else if (shape_.size() == 3) {
+    shape_ = {1, shape_[0], shape_[1], shape_[2]};
+  } 
 }
 
 MaceStatus Tensor::Resize(const std::vector<index_t> &shape) {

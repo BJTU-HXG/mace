@@ -197,6 +197,7 @@ class Tensor {
   void MarkUnused();
   void Clear();
   void Reshape(const std::vector<index_t> &shape);
+  void to4dim();
   MaceStatus Resize(const std::vector<index_t> &shape);
 
   // Make this tensor reuse other tensor's buffer.

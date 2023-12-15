@@ -86,9 +86,22 @@ IDataType ParseDataType(const std::string &data_type_str) {
     return IDataType::IDT_UINT8;
   } else if (data_type_str == "int32") {
     return IDataType::IDT_INT32;
-  } else {
+  } 
+
+  if (data_type_str == "1") {
     return IDataType::IDT_FLOAT;
-  }
+  } else if (data_type_str == "2") {
+    return IDataType::IDT_UINT8;
+  } else if (data_type_str == "7") {
+    return IDataType::IDT_INT16;
+  } else if (data_type_str == "4") {
+    return IDataType::IDT_INT32;
+  } else if (data_type_str == "6") {
+    return IDataType::IDT_BFLOAT16;
+  } else if (data_type_str == "5") {
+    return IDataType::IDT_FLOAT16;
+  } 
+  return IDataType::IDT_FLOAT;
 }
 
 DataFormat ParseDataFormat(const std::string &data_format_str) {
@@ -119,11 +132,11 @@ DEFINE_string(output_shape,
               "",
               "output shapes, separated by colon and comma");
 DEFINE_string(input_data_type,
-              "float32",
-              "input data type, NONE|float32|float16|bfloat16");
+              "1",
+              "input data type");
 DEFINE_string(output_data_type,
-              "float32",
-              "output data type, NONE|float32|float16|bfloat16");
+              "1",
+              "output data type");
 DEFINE_string(input_data_format,
               "NHWC",
               "input data formats, NONE|NHWC|NCHW");
@@ -727,6 +740,7 @@ int Main(int argc, char **argv) {
   LOG(INFO) << "input data_format: " << FLAGS_input_data_format;
   LOG(INFO) << "output node: " << FLAGS_output_node;
   LOG(INFO) << "output shape: " << FLAGS_output_shape;
+  LOG(INFO) << "output data_type: " << FLAGS_output_data_type;
   LOG(INFO) << "output data_format: " << FLAGS_output_data_format;
   LOG(INFO) << "input_file: " << FLAGS_input_file;
   LOG(INFO) << "output_file: " << FLAGS_output_file;
@@ -778,16 +792,26 @@ int Main(int argc, char **argv) {
 
   auto raw_input_data_types = Split(FLAGS_input_data_type, ',');
   std::vector<IDataType> input_data_types(input_count);
+  auto raw_output_data_types = Split(FLAGS_output_data_type, ',');
+  std::vector<IDataType> output_data_types(output_count);
+
+  if (raw_input_data_types.size() != input_count) {
+    LOG(INFO) << "input_data_types size not equal to input_count(" << 
+      raw_input_data_types.size() << "and" << input_count;
+    return 0;
+  }
+  if (raw_output_data_types.size() != output_count) {
+    LOG(INFO) << "output_data_types size not equal to output_count(" << 
+      raw_output_data_types.size() << "and" << output_count;
+    return 0;
+  }
+
   for (size_t i = 0; i < input_count; ++i) {
     input_data_types[i] = ParseDataType(raw_input_data_types[i]);
   }
 
-  auto raw_output_data_types = Split(FLAGS_output_data_type, ',');
-  std::vector<IDataType> output_data_types(output_count);
   for (size_t i = 0; i < output_count; ++i) {
     output_data_types[i] = ParseDataType(raw_output_data_types[i]);
-    LOG(INFO) << "raw_output_data_types[" << i << "] is "
-              << raw_output_data_types[i];
   }
 
   std::vector<std::string> raw_input_data_formats =

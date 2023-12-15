@@ -79,8 +79,8 @@ class PadOp<RuntimeType::RT_CPU, T> : public Operation {
     MACE_UNUSED(context);
     const Tensor *input = this->Input(0);
     Tensor *output = this->Output(0);
-    MACE_CHECK(
-        this->paddings_.size() == static_cast<size_t>(input->dim_size()) * 2);
+    const_cast<Tensor *>(input)->to4dim();
+    MACE_CHECK(this->paddings_.size() == static_cast<size_t>(input->dim_size()) * 2);
     auto input_shape = input->shape();
     for (size_t i = 0; i < paddings_.size(); ++i) {
       if (type_ == PadType::REFLECT || type_ == PadType::SYMMETRIC) {
@@ -89,14 +89,12 @@ class PadOp<RuntimeType::RT_CPU, T> : public Operation {
       }
       MACE_CHECK(paddings_[i] >= 0);
     }
-    MACE_RETURN_IF_ERROR(output->Resize({input_shape[0] + this->paddings_[0]
-                                             + this->paddings_[1],
-                                         input_shape[1] + this->paddings_[2]
-                                             + this->paddings_[3],
-                                         input_shape[2] + this->paddings_[4]
-                                             + this->paddings_[5],
-                                         input_shape[3] + this->paddings_[6]
-                                             + this->paddings_[7]}));
+
+    std::vector<index_t> res_dim(input->dim_size());
+    for (size_t i = 0; i < res_dim.size(); i++) {
+      res_dim[i] = input_shape[i] + this->paddings_[2*i] + this->paddings_[2*i+1];
+    }
+    MACE_RETURN_IF_ERROR(output->Resize(res_dim));
 
     auto input_ptr = input->data<T>();
     T *output_ptr = output->mutable_data<T>();
@@ -162,6 +160,8 @@ class PadOp<RuntimeType::RT_CPU, T> : public Operation {
     } else {
       LOG(FATAL) << "Pad op doesn't support type " << type_;
     }
+
+    output->Reshape({output->dim(1), output->dim(2), output->dim(3)});
 
     return MaceStatus::MACE_SUCCESS;
   }

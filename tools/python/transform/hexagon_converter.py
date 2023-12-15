@@ -175,6 +175,7 @@ class HexagonConverter(base_converter.ConverterInterface):
             MaceOp.Eltwise.name: self.convert_elementwise,
             MaceOp.ExpandDims.name: self.convert_expanddims,
             MaceOp.FullyConnected.name: self.convert_fullyconnected,
+            MaceOp.Gather.name: self.convert_gather,
             MaceOp.InstanceNorm.name: self.convert_instancenorm,
             MaceOp.MatMul.name: self.convert_matmul,
             MaceOp.Pad.name: self.convert_pad,
@@ -836,6 +837,9 @@ class HexagonConverter(base_converter.ConverterInterface):
             op, op.output[0], True, True, False)
 
         op.type = HexagonOp.SuperFC_8x8p32to8.name
+
+    def convert_gather(self, op):
+        pass
 
     def convert_instancenorm(self, op):
         affine = ConverterUtil.get_arg(op, MaceKeyword.mace_affine_str).i

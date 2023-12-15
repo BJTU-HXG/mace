@@ -75,17 +75,10 @@ class SliceOp<RuntimeType::RT_CPU, T> : public Operation {
     if (axis < 0) axis += input->dim_size();
     MACE_CHECK(axis >= 0 && axis < input->dim_size(),
                "The axes are out of bounds.");
-    index_t input_dim = input->dim(axis);
-    if (start < 0) start += input_dim;
-    if (end < 0) end += input_dim;
-    MACE_CHECK(
-        start < input_dim && start >= 0 && end > start && end <= input_dim,
-        "The starts and ends are out of bounds: ", operator_def_->name());
+
     index_t output_dim = (end - start + (step - 1)) / step;
-    MACE_CHECK(output_dim > 0, "output_dim should > 0");
-    std::vector<index_t> output_shape = input->shape();
-    output_shape[axis] = output_dim;
-    MACE_RETURN_IF_ERROR(output->Resize(output_shape));
+    index_t input_dim = input->dim(axis);
+    output_dim = output->shape()[axis];
 
     const T *input_data = input->data<T>();
     T *output_data = output->mutable_data<T>();
