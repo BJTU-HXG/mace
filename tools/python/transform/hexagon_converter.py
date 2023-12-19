@@ -85,6 +85,7 @@ HexagonSupportedOps = [
     'SpaceToDepth_8',
     'SuperFC_8x8p32to8',
     'Supernode_8x8p32to8',
+    'Transpose_8',
     'Nop',
 ]
 
@@ -133,7 +134,6 @@ def add_port_for_tensor(name):
 def remove_port_for_tensor(name):
     return name[:-2] if ':0' in name else name
 
-new_port_name_idx = 20000
 
 class HexagonConverter(base_converter.ConverterInterface):
     activation_type = {
@@ -270,13 +270,6 @@ class HexagonConverter(base_converter.ConverterInterface):
             tensor.minval = quantized_tensor.minval
             tensor.maxval = quantized_tensor.maxval
     
-    def new_tensor(self, quantize_info):
-        global new_port_name_idx
-        name = str(new_port_name_idx) + ':0'
-        self._quantize_activation_info[name] = quantize_info
-        new_port_name_idx += 1
-        return name
-
     def add_scalar_const_node(self, name, val, op=None):
         if op is not None:
             name = op.name + name
@@ -459,8 +452,18 @@ class HexagonConverter(base_converter.ConverterInterface):
                 index += 1
             else:
                 index_str = ''
-            print('Op: %s (%s, node_id:%d, index:%s)' %
+            if(op.type == 'DequantizeOUTPUT_8tof'):
+                print('Op: %s (%s, node_id:%d, index:%s)' %
                   (op.name, op.type, op.node_id, index_str))
+            else:
+                out_shape = op.output_shape[0].dims
+                if len(out_shape) == 4:
+                    print('Op: %s (%s, node_id:%d, index:%s, shape:[%d, %d, %d, %d])' %
+                        (op.name, op.type, op.node_id, index_str, out_shape[0], out_shape[1], out_shape[2], out_shape[3]))
+                elif len(out_shape) == 3:
+                    print('Op: %s (%s, node_id:%d, index:%s, shape:[%d, %d, %d])' %
+                        (op.name, op.type, op.node_id, index_str, out_shape[0], out_shape[1], out_shape[2]))
+                
             for ipt in op.input:
                 op_name, port = get_op_and_port_from_tensor(ipt)
                 tensor_name = ipt if port == 0 else op_name + ':0'
@@ -808,6 +811,7 @@ class HexagonConverter(base_converter.ConverterInterface):
                             EltwiseType.DIV.value]:
             self.add_min_max_const_node(
                 op, op.output[0], True, True, False)
+    
         try:
             op.type = self.eltwise_type[element_type]
         except KeyError:
@@ -848,29 +852,21 @@ class HexagonConverter(base_converter.ConverterInterface):
                        "Hexagon does not support instancenorm with affine")
 
     def convert_matmul(self, op):
-        """
-        TODO 
-        目前的hexagon_converter是把matmul算子转化为两个算子QuantizedMatMul_8x8to32+Requantize_32to8，
-        这两个算子的量化信息如何从原先的一个算子得来，是一个问题。
-        目前只是简单的复制了原先的量化信息。
-        """
         requantize_op = copy.deepcopy(op)
-        del requantize_op.input[1:]
-        requantize_op.output[0] = op.output[0]
 
-        quantize_info_new_tensor = self._quantize_activation_info[op.output[0]]
-
-        op.output[0] = self.new_tensor(quantize_info_new_tensor)
-        requantize_op.input[0] = op.output[0]
-
+        op.output[0] = self.new_tensor(op.output[0], '_matmul:0', op.output_shape[0].dims)
         self.add_min_max_const_node(op, op.input[0])
         self.add_min_max_const_node(op, op.input[1])
+        op.name = op.name + '_matmul'
         op.type = HexagonOp.QuantizedMatMul_8x8to32.name
-        self.add_min_max_const_node(requantize_op, requantize_op.input[0])
-        self.add_min_max_const_node(requantize_op, requantize_op.output[0], True, True, False)
-        requantize_op.type = HexagonOp.Requantize_32to8.name
-
         self.post_convert(op)
+        
+        del requantize_op.input[1:]
+        requantize_op.input[0] = op.output[0]
+        self.add_min_max_const_node(requantize_op, requantize_op.input[0], True, True, False)
+        self.add_min_max_const_node(requantize_op, requantize_op.output[0], True, True, False)
+        requantize_op.name = requantize_op.name + '_requantize'
+        requantize_op.type = HexagonOp.Requantize_32to8.name
         self.post_convert(requantize_op)
         return True
 
@@ -1059,15 +1055,46 @@ class HexagonConverter(base_converter.ConverterInterface):
 
         op.type = HexagonOp.QuantizedStridedSlice_8.name
     
+    # Transpose操作
     def convert_transpose(self, op):
-        shape = op.output_shape[0].dims
-        self.add_arg_const_node(op, '/shape:0', [len(shape)], shape)
-        self.add_min_max_const_node(op, op.input[0])
-        op.type = HexagonOp.QuantizedReshape.name
-
+        shape = ConverterUtil.get_arg(op, 'dims').ints
+        if(shape == [0, 2, 1, 3]):
+            # NCHW中转置的是c,h(NCHW->NHCW）
+            # NHWC中转置的是c,w(NHWC->NHCW)
+            # onnx中转置参数[0, 2, 1, 3],调整为hexagon中的转置参数[0, 1, 3, 2]
+            shape[0],shape[1],shape[2],shape[3] = shape[0],shape[2],shape[3],shape[1]
+            self.add_arg_const_node(op,'/shape:0', [len(shape)], shape)
+            self.add_min_max_const_node(op, op.input[0], True, True, False)
+            op.type = HexagonOp.Transpose_8.name
+        # 还没有测试到这种情况
+        elif(shape == [0, 2, 3, 1]): 
+            shape[0],shape[1],shape[2],shape[3] = shape[0],shape[3],shape[1],shape[2]
+            self.add_arg_const_node(op,'/shape:0', [len(shape)], shape)
+            self.add_min_max_const_node(op, op.input[0], True, True, False)
+            op.type = HexagonOp.Transpose_8.name
+            
     def convert_unsqueeze(self, op):
+        # 更换输出形状
         shape = op.output_shape[0].dims
         shape[1], shape[2], shape[3] = shape[2], shape[3], shape[1]
-        self.add_arg_const_node(op, '/shape:0', [len(shape)], shape)
+        # 更换数据布局方式 NCHW->NHWC
+        control_shape = [0,2,3,1]
+        self.add_arg_const_node(op, '/shape:0', [len(control_shape)], control_shape)
         self.add_min_max_const_node(op, op.input[0])
-        op.type = HexagonOp.QuantizedReshape.name
+        op.type = HexagonOp.Transpose_8.name
+    '''
+        org_name: 复制tensor的name
+        info: 用于区分new_tensor和org_tensor
+        shape: new_shape的形状信息
+    '''
+    def new_tensor(self, org_name, info, shape):
+        name = str(org_name.split(':')[0]) + info
+        info_producers = copy.deepcopy(self._producers[org_name])
+        org_shape = info_producers.output_shape[0].dims
+        if(len(org_shape) == 3 and len(shape) == 4): org_shape.insert(1,1)
+        info_producers.output[0] = name
+        for i in range(len(shape)):
+            info_producers.output_shape[0].dims[i] = shape[i]
+        self._producers[name] = info_producers
+        self._quantize_activation_info[name] = self._quantize_activation_info[org_name]
+        return name

@@ -2433,7 +2433,7 @@ class Transformer(base_converter.ConverterInterface):
             if op.type in [MaceOp.ExpandDims.name,
                            MaceOp.Pad.name,
                            MaceOp.Pooling.name,
-                           MaceOp.Reduce.name,
+                           # MaceOp.Reduce.name,
                            MaceOp.Reshape.name,
                            MaceOp.ResizeBilinear.name,
                            MaceOp.Squeeze.name,
