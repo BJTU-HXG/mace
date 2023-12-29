@@ -382,7 +382,7 @@ def parse_args():
     parser.add_argument(
         "--backend",
         type=str,
-        default="tensorflow",
+        default="pytorch",
         help="onnx backend framework")
     parser.add_argument(
         "--tune",

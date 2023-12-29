@@ -626,7 +626,32 @@ class HexagonConverter(base_converter.ConverterInterface):
 
         op.type = HexagonOp.QuantizedConcat_8.name
 
+    """
+        Hexagon中Conv需要使用NHWC的数据格式。一般的算子使用NCHW的shape和数据格式即可。
+        1.onnx中使用的4D数据是NCHW 2.nn会自动将3D shape更换为NCHW的4D shape
+        在标准的Conv前后添加Transpose操作，更换形状和数据格式
+        流程: Transpose(NCHW->NHWC) ==> Conv ==> Transpose(NHWC->NCHW)
+    """
     def convert_conv2d(self, op):
+        op_trans_nhwc = copy.deepcopy(op)
+        op_trans_nchw = copy.deepcopy(op)
+        NHWC_shape = [0,2,3,1]
+        NCHW_shape = [0,3,1,2]
+        
+        del op_trans_nhwc.input[1:]
+        self.add_arg_const_node(op_trans_nhwc, '/_shape:0', [len(NHWC_shape)], NHWC_shape)
+        self.add_min_max_const_node(op_trans_nhwc, op_trans_nhwc.input[0])
+        shape = self.get_preop_outshape(op_trans_nhwc)
+        shape[1], shape[2], shape[3] = shape[2], shape[3], shape[1]
+        self.change_output_shape(op_trans_nhwc, shape)
+        op_trans_nhwc.output[0] = self.new_tensor(op_trans_nhwc.output[0], '_NHWC:0', shape)
+        op_trans_nhwc.name = op_trans_nhwc.name + '_NHWC'
+        op_trans_nhwc.type = HexagonOp.Transpose_8.name
+        self.post_convert(op_trans_nhwc)
+    
+        op.input[0] = op_trans_nhwc.output[0]
+        shape = copy.deepcopy(op.output_shape[0].dims)
+        op.output[0] = self.new_tensor(op.output[0], '_conv:0', shape)
         if len(op.input) < 3:
             bias = self.add_bias(op)
         else:
@@ -658,6 +683,21 @@ class HexagonConverter(base_converter.ConverterInterface):
             op.type = HexagonOp.DepthwiseSupernode_8x8p32to8.name
         else:
             op.type = HexagonOp.Supernode_8x8p32to8.name
+        op.name = op.name + '_conv'
+        self.post_convert(op)
+        
+        del op_trans_nchw.input[1:]
+        op_trans_nchw.input[0] = op.output[0]
+        self.add_arg_const_node(op_trans_nchw, '/shape:0', [len(NCHW_shape)], NCHW_shape)
+        self.add_min_max_const_node(op_trans_nchw, op_trans_nchw.input[0])
+        shape = copy.deepcopy(op_trans_nchw.output_shape[0].dims)
+        shape[1], shape[2], shape[3] = shape[3], shape[1], shape[2]
+        self.change_output_shape(op_trans_nchw, shape)
+        # 生成output tensor的op发生改变
+        self._producers[op_trans_nchw.output[0]] = op_trans_nchw
+        op_trans_nchw.type = HexagonOp.Transpose_8.name
+        self.post_convert(op_trans_nchw)
+        return True
 
     def add_deconv_pad_node(self, op):
         padding_type_arg = \
@@ -818,7 +858,7 @@ class HexagonConverter(base_converter.ConverterInterface):
             mace_check(False,
                        "Hexagon does not support elementwise %s"
                        % EltwiseType(element_type).name)
-
+        if(op.type == EltwiseType.PROD.value): print(op)
     def convert_expanddims(self, op):
         shape = op.output_shape[0].dims
         self.add_arg_const_node(op, '/shape:0', [len(shape)], shape)
@@ -1058,30 +1098,15 @@ class HexagonConverter(base_converter.ConverterInterface):
     # Transpose操作
     def convert_transpose(self, op):
         shape = ConverterUtil.get_arg(op, 'dims').ints
-        if(shape == [0, 2, 1, 3]):
-            # NCHW中转置的是c,h(NCHW->NHCW）
-            # NHWC中转置的是c,w(NHWC->NHCW)
-            # onnx中转置参数[0, 2, 1, 3],调整为hexagon中的转置参数[0, 1, 3, 2]
-            shape[0],shape[1],shape[2],shape[3] = shape[0],shape[2],shape[3],shape[1]
-            self.add_arg_const_node(op,'/shape:0', [len(shape)], shape)
-            self.add_min_max_const_node(op, op.input[0], True, True, False)
-            op.type = HexagonOp.Transpose_8.name
-        # 还没有测试到这种情况
-        elif(shape == [0, 2, 3, 1]): 
-            shape[0],shape[1],shape[2],shape[3] = shape[0],shape[3],shape[1],shape[2]
-            self.add_arg_const_node(op,'/shape:0', [len(shape)], shape)
-            self.add_min_max_const_node(op, op.input[0], True, True, False)
-            op.type = HexagonOp.Transpose_8.name
-            
-    def convert_unsqueeze(self, op):
-        # 更换输出形状
-        shape = op.output_shape[0].dims
-        shape[1], shape[2], shape[3] = shape[2], shape[3], shape[1]
-        # 更换数据布局方式 NCHW->NHWC
-        control_shape = [0,2,3,1]
-        self.add_arg_const_node(op, '/shape:0', [len(control_shape)], control_shape)
-        self.add_min_max_const_node(op, op.input[0])
+        self.add_arg_const_node(op,'/shape:0', [len(shape)], shape)
+        self.add_min_max_const_node(op, op.input[0], True, True, False)
         op.type = HexagonOp.Transpose_8.name
+
+    def convert_unsqueeze(self, op):
+        target_shape = op.output_shape[0].dims
+        self.add_arg_const_node(op, '/shape:0', [len(target_shape)], target_shape)
+        self.add_min_max_const_node(op, op.input[0])
+        op.type = HexagonOp.QuantizedReshape.name
     '''
         org_name: 复制tensor的name
         info: 用于区分new_tensor和org_tensor
@@ -1098,3 +1123,14 @@ class HexagonConverter(base_converter.ConverterInterface):
         self._producers[name] = info_producers
         self._quantize_activation_info[name] = self._quantize_activation_info[org_name]
         return name
+    
+    def get_preop_outshape(self, op):
+        pre_op = self._producers[op.input[0]]
+        return copy.deepcopy(pre_op.output_shape[0].dims)
+    
+    def change_output_shape(self, op, shape):
+        out_shape = op.output_shape[0].dims
+        while(out_shape): out_shape.pop()
+        out_shape.extend(shape)
+        return True
+        
