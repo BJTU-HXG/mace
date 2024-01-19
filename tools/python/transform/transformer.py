@@ -1831,6 +1831,8 @@ class Transformer(base_converter.ConverterInterface):
             if op.type == MaceOp.Pad.name:
                 for arg in op.arg:
                     if arg.name == MaceKeyword.mace_paddings_str:
+                        arg.ints.insert(0,0)
+                        arg.ints.insert(0,0)
                         mace_check(len(arg.ints) == 8,
                                    "pad dim rank should be 8.")
                         if src_data_format == DataFormat.NCHW and \

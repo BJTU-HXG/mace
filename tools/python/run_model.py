@@ -157,8 +157,15 @@ def run_model_for_device(flags, args, dev, model_name, model_conf):
                        input_tensors_info[ModelKeys.input_data_formats]]),
                   "output_data_format": ",".join(
                       [df.name for df in
-                       output_tensors_info[ModelKeys.output_data_formats]])
-                  }
+                       output_tensors_info[ModelKeys.output_data_formats]]),
+                  "input_data_type": ",".join(
+                      [str(i) for i in
+                       input_tensors_info[ModelKeys.input_data_types]]),
+                  "output_data_type": ",".join(
+                      [str(i) for i in
+                       output_tensors_info[ModelKeys.output_data_types]]
+                  ) 
+                }
 
     opts = ["--%s='%s'" % (arg_key, arg_val) for arg_key, arg_val in
             model_args.items()] + args

@@ -74,17 +74,17 @@ std::string FormatName(const std::string input) {
 }
 
 IDataType ParseDataType(const std::string &data_type_str) {
-  if (data_type_str == "float32") {
+  if (data_type_str == "float32" || data_type_str == "1") {
     return IDataType::IDT_FLOAT;
-  } else if (data_type_str == "float16") {
+  } else if (data_type_str == "float16" || data_type_str == "5") {
     return IDataType::IDT_FLOAT16;
-  } else if (data_type_str == "bfloat16") {
+  } else if (data_type_str == "bfloat16" || data_type_str == "6") {
     return IDataType::IDT_BFLOAT16;
-  } else if (data_type_str == "int16") {
+  } else if (data_type_str == "int16" || data_type_str == "7") {
     return IDataType::IDT_INT16;
-  } else if (data_type_str == "uint8") {
+  } else if (data_type_str == "uint8" || data_type_str == "2") {
     return IDataType::IDT_UINT8;
-  } else if (data_type_str == "int32") {
+  } else if (data_type_str == "int32" || data_type_str == "4") {
     return IDataType::IDT_INT32;
   } else {
     return IDataType::IDT_FLOAT;
@@ -728,6 +728,7 @@ int Main(int argc, char **argv) {
   LOG(INFO) << "input data_format: " << FLAGS_input_data_format;
   LOG(INFO) << "output node: " << FLAGS_output_node;
   LOG(INFO) << "output shape: " << FLAGS_output_shape;
+  LOG(INFO) << "input data_type: " << FLAGS_output_data_type;
   LOG(INFO) << "output data_format: " << FLAGS_output_data_format;
   LOG(INFO) << "input_file: " << FLAGS_input_file;
   LOG(INFO) << "output_file: " << FLAGS_output_file;
