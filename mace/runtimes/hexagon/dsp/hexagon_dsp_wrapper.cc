@@ -355,7 +355,7 @@ bool HexagonDSPWrapper::TeardownGraph() {
   return hexagon_nn_teardown(nn_id_) == 0;
 }
 
-#define MACE_PRINT_BUFSIZE (2 * 1024 * 1024)
+#define MACE_PRINT_BUFSIZE (5 * 1024 * 1024)
 
 void HexagonDSPWrapper::PrintLog() {
   char *buf;

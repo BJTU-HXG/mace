@@ -54,6 +54,7 @@ HexagonSupportedOps = [
     'QuantizedBatchNorm_8x8p8to8',
     'QuantizedClamp_8',
     'QuantizedConcat_8',
+    'QuantizedConcat_8_d32',
     'QuantizedDiv_8',
     'QuantizedInstanceNorm_8',
     'QuantizedMatMul_8x8to32', # TODO fix
@@ -86,6 +87,8 @@ HexagonSupportedOps = [
     'SuperFC_8x8p32to8',
     'Supernode_8x8p32to8',
     'Transpose_8',
+    'Gather_8',
+    'QuantizedSlice_8',
     'Nop',
 ]
 
@@ -191,7 +194,10 @@ class HexagonConverter(base_converter.ConverterInterface):
             MaceOp.SpaceToBatchND.name: self.convert_batchspace,
             MaceOp.SpaceToDepth.name: self.convert_depthspace,
             MaceOp.Transpose.name: self.convert_transpose,
-            MaceOp.Unsqueeze.name: self.convert_unsqueeze
+            MaceOp.Unsqueeze.name: self.convert_unsqueeze,
+            MaceOp.Gather.name: self.convert_gather,
+            MaceOp.Slice.name: self.convert_slice,
+            MaceOp.Squeeze.name: self.convert_squeeze,
         }
         self._framework_type = ConverterUtil.get_arg(
             self._model, MaceKeyword.mace_framework_type_str).i
@@ -495,12 +501,17 @@ class HexagonConverter(base_converter.ConverterInterface):
         arg = ConverterUtil.get_arg(op, MaceKeyword.mace_padding_str)
         if arg is not None:  # TensorFlow
             op.padding = padding_mode[PaddingMode(arg.i)]
-        else:                # PyTorch, Caffe
+        else:    # PyTorch, Caffe
             input_shape = self.get_input_shape(op.input[0])
             output_shape = op.output_shape[0].dims
-            in_h, in_w = input_shape[1], input_shape[2]
-            k_h, k_w = kernels[0], kernels[1]
-            out_h, out_w = output_shape[1], output_shape[2]
+            if op.type == MaceOp.Conv2D.name:
+                in_h, in_w = input_shape[1], input_shape[2]
+                k_h, k_w = kernels[0], kernels[1]
+                out_h, out_w = output_shape[1], output_shape[2]
+            elif op.type == MaceOp.DepthwiseConv2d.name:
+                in_h, in_w = input_shape[2], input_shape[1]
+                k_h, k_w = kernels[1], kernels[0]
+                out_h, out_w = output_shape[2], output_shape[1]
 
             if (out_h == (in_h - k_h) // strides[0] + 1) and \
                     (out_w == (in_w - k_w) // strides[1] + 1):
@@ -619,9 +630,10 @@ class HexagonConverter(base_converter.ConverterInterface):
             self.add_min_max_const_node(op, ipt, True, False)
         for ipt in inputs:
             self.add_min_max_const_node(op, ipt, False, True)
-
         dim_arg = ConverterUtil.get_arg(
             op, MaceKeyword.mace_axis_str)
+        if(len(self.get_preop_outshape(op)) == 3):
+            dim_arg.i += 1
         self.add_arg_const_node(op, '/dim:0', [1], [dim_arg.i], 0)
 
         op.type = HexagonOp.QuantizedConcat_8.name
@@ -631,32 +643,60 @@ class HexagonConverter(base_converter.ConverterInterface):
         1.onnx中使用的4D数据是NCHW 2.nn会自动将3D shape更换为NCHW的4D shape
         在标准的Conv前后添加Transpose操作，更换形状和数据格式
         流程: Transpose(NCHW->NHWC) ==> Conv ==> Transpose(NHWC->NCHW)
+        
+        1,128,1,6
     """
     def convert_conv2d(self, op):
-        op_trans_nhwc = copy.deepcopy(op)
-        op_trans_nchw = copy.deepcopy(op)
+        op_trans_befo = copy.deepcopy(op)
+        op_trans_aft = copy.deepcopy(op)
+        op_trans_weight = copy.deepcopy(op)
         NHWC_shape = [0,2,3,1]
         NCHW_shape = [0,3,1,2]
+        NWHC_shape = [0,3,2,1]
         
-        del op_trans_nhwc.input[1:]
-        self.add_arg_const_node(op_trans_nhwc, '/_shape:0', [len(NHWC_shape)], NHWC_shape)
-        self.add_min_max_const_node(op_trans_nhwc, op_trans_nhwc.input[0])
-        shape = self.get_preop_outshape(op_trans_nhwc)
-        shape[1], shape[2], shape[3] = shape[2], shape[3], shape[1]
-        self.change_output_shape(op_trans_nhwc, shape)
-        op_trans_nhwc.output[0] = self.new_tensor(op_trans_nhwc.output[0], '_NHWC:0', shape)
-        op_trans_nhwc.name = op_trans_nhwc.name + '_NHWC'
-        op_trans_nhwc.type = HexagonOp.Transpose_8.name
-        self.post_convert(op_trans_nhwc)
-    
-        op.input[0] = op_trans_nhwc.output[0]
+        del op_trans_befo.input[1:]
+        shape = copy.deepcopy(self.get_preop_outshape(op_trans_befo))
+        if op.type == MaceOp.Conv2D.name:
+            shape[1], shape[2], shape[3] = shape[2], shape[3], shape[1]
+            self.add_arg_const_node(op_trans_befo, '/shape:0', [len(NHWC_shape)], NHWC_shape)
+        elif op.type == MaceOp.DepthwiseConv2d.name:
+            shape[1], shape[2], shape[3] = shape[3], shape[2], shape[1]
+            self.add_arg_const_node(op_trans_befo, '/shape:0', [len(NWHC_shape)], NWHC_shape)
+        self.add_min_max_const_node(op_trans_befo, op_trans_befo.input[0])
+        self.change_output_shape(op_trans_befo, shape)
+        op_trans_befo.output[0] = self.new_tensor(op_trans_befo.output[0], '_befo:0', shape)
+        op_trans_befo.name = op_trans_befo.name + '_befo'
+        op_trans_befo.type = HexagonOp.Transpose_8.name
+        self.post_convert(op_trans_befo)
+
+        if op.type == MaceOp.DepthwiseConv2d.name:
+            op_trans_weight.input[0] = op_trans_weight.input[1]
+            del op_trans_weight.input[1:]
+            shape = copy.deepcopy(self._consts[op_trans_weight.input[0]].dims)
+            shape[0], shape[1] = shape[1], shape[0]
+            self.add_arg_const_node(op_trans_weight, '/shape:0', [4], [1,0,2,3])
+            self.add_min_max_const_node(op_trans_weight, op_trans_weight.input[0])
+            self.change_output_shape(op_trans_befo, shape)
+            op_trans_weight.output[0] = self.new_tensor(op_trans_weight.input[0], '_weight:0', shape)
+            op_trans_weight.name = op_trans_weight.name + '_weight'
+            op_trans_weight.type = HexagonOp.Transpose_8.name
+            self.post_convert(op_trans_weight)
+            op.input[1] = op_trans_weight.output[0]
+
+        op.input[0] = op_trans_befo.output[0]
         shape = copy.deepcopy(op.output_shape[0].dims)
+        if op.type == MaceOp.DepthwiseConv2d.name:
+            shape[1], shape[2] = shape[2], shape[1]
+            self.change_output_shape(op, shape)
+            # k_shape = copy.deepcopy(self._consts[op.input[1]].dims)
+            # k_shape[0], k_shape[1] = k_shape[1], k_shape[0]
+            # while(self._consts[op.input[1]].dims): self._consts[op.input[1]].dims.pop()
+            # self._consts[op.input[1]].dims.extend(k_shape)
         op.output[0] = self.new_tensor(op.output[0], '_conv:0', shape)
         if len(op.input) < 3:
             bias = self.add_bias(op)
         else:
             bias = op.input.pop()
-
         self.add_min_max_const_node(op, op.input[0])
         self.add_min_max_const_node(op, op.input[1])
 
@@ -686,17 +726,22 @@ class HexagonConverter(base_converter.ConverterInterface):
         op.name = op.name + '_conv'
         self.post_convert(op)
         
-        del op_trans_nchw.input[1:]
-        op_trans_nchw.input[0] = op.output[0]
-        self.add_arg_const_node(op_trans_nchw, '/shape:0', [len(NCHW_shape)], NCHW_shape)
-        self.add_min_max_const_node(op_trans_nchw, op_trans_nchw.input[0])
-        shape = copy.deepcopy(op_trans_nchw.output_shape[0].dims)
-        shape[1], shape[2], shape[3] = shape[3], shape[1], shape[2]
-        self.change_output_shape(op_trans_nchw, shape)
+        
+        del op_trans_aft.input[1:]
+        op_trans_aft.input[0] = op.output[0]
+        shape = copy.deepcopy(self.get_preop_outshape(op_trans_aft))
+        if op_trans_aft.type == MaceOp.Conv2D.name:
+            shape[1], shape[2], shape[3] = shape[3], shape[1], shape[2]
+            self.add_arg_const_node(op_trans_aft, '/shape:0', [len(NCHW_shape)], NCHW_shape)
+        elif op_trans_aft.type == MaceOp.DepthwiseConv2d.name:
+            shape[1], shape[2], shape[3] = shape[3], shape[2], shape[1]
+            self.add_arg_const_node(op_trans_aft, '/shape:0', [len(NWHC_shape)], NWHC_shape)
+        self.add_min_max_const_node(op_trans_aft, op_trans_aft.input[0])
+        self.change_output_shape(op_trans_aft, shape)
         # 生成output tensor的op发生改变
-        self._producers[op_trans_nchw.output[0]] = op_trans_nchw
-        op_trans_nchw.type = HexagonOp.Transpose_8.name
-        self.post_convert(op_trans_nchw)
+        self._producers[op_trans_aft.output[0]] = op_trans_aft
+        op_trans_aft.type = HexagonOp.Transpose_8.name
+        self.post_convert(op_trans_aft)
         return True
 
     def add_deconv_pad_node(self, op):
@@ -976,6 +1021,7 @@ class HexagonConverter(base_converter.ConverterInterface):
     def convert_reshape(self, op):
         del op.input[1:]
         shape = op.output_shape[0].dims
+        print(f'reshape shape: {shape}')
         self.add_arg_const_node(op, '/shape:0', [len(shape)], shape)
         self.add_min_max_const_node(op, op.input[0])
         op.type = HexagonOp.QuantizedReshape.name
@@ -1070,8 +1116,10 @@ class HexagonConverter(base_converter.ConverterInterface):
 
     def convert_split(self, op):
         op_input = op.input[0]
-        del op.input[:]
         axis_value = ConverterUtil.get_arg(op, MaceKeyword.mace_axis_str).i
+        if len(self.get_preop_outshape(op)) == 3:
+            axis_value += 1
+        del op.input[:]
         self.add_arg_const_node(op, '/axis:0', [1], [axis_value])
         op.input.append(op_input)
         self.add_min_max_const_node(op, op_input)
@@ -1103,10 +1151,74 @@ class HexagonConverter(base_converter.ConverterInterface):
         op.type = HexagonOp.Transpose_8.name
 
     def convert_unsqueeze(self, op):
+        axes = ConverterUtil.get_arg(op, 'axis').ints[0]
+        # if axes == 1:
+        #     target_shape = op.output_shape[0].dims
+        # elif axes == 2:
+        #     target_shape = copy.deepcopy(op.output_shape[0].dims)
+        #     target_shape[1], target_shape[2], target_shape[3] = target_shape[3], target_shape[1], target_shape[2]
+        #     self.change_output_shape(op, target_shape)
         target_shape = op.output_shape[0].dims
         self.add_arg_const_node(op, '/shape:0', [len(target_shape)], target_shape)
         self.add_min_max_const_node(op, op.input[0])
         op.type = HexagonOp.QuantizedReshape.name
+        
+    def convert_gather(self, op):
+        ipt_shape = self.get_preop_outshape(op)
+        op.output_shape[0].dims.remove(1)
+        temp = op.input[0]
+        op.input[0] = op.input[1]
+        op.input[1] = temp
+        axis = [ConverterUtil.get_arg(op, 'axis').i]
+        self.add_min_max_const_node(op, op.input[1])
+        self.add_arg_const_node(op, '/index_dim', [len(axis)], axis)
+        # self.add_arg_const_node(op, '/index_rank', )
+        op.type = HexagonOp.Gather_8.name
+        print(f'ipt_shape: {ipt_shape}, axis: {axis}, output_shape: {op.output_shape[0].dims}')
+    
+    def convert_slice(self, op):
+        ipt_shape = self.get_preop_outshape(op)
+        print(f"slice input shape: {ipt_shape}")
+        onnx_starts = self._consts[op.input[1]].int32_data
+        ends = self._consts[op.input[2]].int32_data
+        dims = self._consts[op.input[3]].int32_data
+        steps = self._consts[op.input[4]].int32_data
+        nn_starts = []
+        size = []
+        # input dim == 3 只在一个dim进行slice
+        if len(ipt_shape) == 3 and len(dims) == 1:
+            dim = dims[0]
+            onnx_start = onnx_starts[0]
+            end = ends[0]
+            step = steps[0]
+            for i in range(4):
+                if i == dim+1:
+                    if onnx_start > 0 and step > 0:
+                        if end == -1: 
+                            size.append(int((ipt_shape[dim] - onnx_start) / step))
+                        else: 
+                            size.append(int((end - onnx_start) / step))
+                    elif onnx_start <0 and step > 0:
+                        size.append(int((abs(onnx_start) - abs(end)) + 1 / step))
+                    nn_starts.append(onnx_start)
+                else:
+                    nn_starts.append(0)
+                    size.append(-1)
+        print(f'nn_starts: {nn_starts}, size: {size}')
+ 
+        del op.input[1:]
+        self.add_arg_const_node(op, '/starts:0', [len(nn_starts)], nn_starts)
+        self.add_arg_const_node(op, '/sizes:0', [len(size)], size)
+        self.add_min_max_const_node(op, op.input[0])
+        op.type = HexagonOp.QuantizedSlice_8.name
+    
+    def convert_squeeze(self, op):
+        axis = ConverterUtil.get_arg(op, "axis").ints
+        shape = op.output_shape[0].dims
+        self.add_arg_const_node(op, '/shape:0', [len(shape)], shape)
+        self.add_min_max_const_node(op, op.input[0])
+        op.type = HexagonOp.QuantizedReshape.name
+        
     '''
         org_name: 复制tensor的name
         info: 用于区分new_tensor和org_tensor
@@ -1114,23 +1226,38 @@ class HexagonConverter(base_converter.ConverterInterface):
     '''
     def new_tensor(self, org_name, info, shape):
         name = str(org_name.split(':')[0]) + info
-        info_producers = copy.deepcopy(self._producers[org_name])
-        org_shape = info_producers.output_shape[0].dims
-        if(len(org_shape) == 3 and len(shape) == 4): org_shape.insert(1,1)
-        info_producers.output[0] = name
-        for i in range(len(shape)):
-            info_producers.output_shape[0].dims[i] = shape[i]
-        self._producers[name] = info_producers
-        self._quantize_activation_info[name] = self._quantize_activation_info[org_name]
+        if org_name in self._producers:
+            info_producers = copy.deepcopy(self._producers[org_name])
+            org_shape = info_producers.output_shape[0].dims
+            if(len(org_shape) == 3 and len(shape) == 4): org_shape.insert(1,1)
+            info_producers.output[0] = name
+            for i in range(len(shape)):
+                info_producers.output_shape[0].dims[i] = shape[i]
+            self._producers[name] = info_producers
+            self._quantize_activation_info[name] = self._quantize_activation_info[org_name]
+        elif org_name in self._consts:
+            info_consts = copy.deepcopy(self._consts[org_name])
+            for i in range(len(shape)):
+                info_consts.dims[i] = shape[i]
+            info_consts.name = name
+            self._consts[name] = info_consts
         return name
     
     def get_preop_outshape(self, op):
-        pre_op = self._producers[op.input[0]]
-        return copy.deepcopy(pre_op.output_shape[0].dims)
+        if op.input[0] in self._producers:
+            pre_op = self._producers[op.input[0]]
+            return copy.deepcopy(pre_op.output_shape[0].dims)
+        elif op.input[0] in self._consts:
+            pre_op = self._consts[op.input[0]]
+            return copy.deepcopy(pre_op.dims)
+        else:
+            raise KeyError(f"Key {op.input[0]} not found in producers or consts")
+        
     
     def change_output_shape(self, op, shape):
         out_shape = op.output_shape[0].dims
-        while(out_shape): out_shape.pop()
+        while(out_shape): 
+            out_shape.pop()
         out_shape.extend(shape)
         return True
         
