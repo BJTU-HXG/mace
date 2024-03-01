@@ -108,7 +108,7 @@ def compare_output(output_name, mace_out_value,
             util.MaceLogger.summary(
                 util.StringFormatter.block("Similarity Test Passed"))
         else:
-            util.MaceLogger.error(
+            util.MaceLogger.summary(
                 util.StringFormatter.block("Similarity Test Failed"))
     else:
         util.MaceLogger.error(

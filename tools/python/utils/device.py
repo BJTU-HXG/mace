@@ -103,6 +103,7 @@ class HostDevice(Device):
 
         if install_dir.strip() and install_dir != os.path.dirname(target.path):
             execute("sudo mkdir -p %s" % install_dir)
+            execute("sudo chmod 777 %s" % install_dir)
             if os.path.isdir(target.path):
                 execute("sudo cp -f %s/* %s" % (target.path, install_dir))
             else:
@@ -130,6 +131,7 @@ class HostDevice(Device):
 
     def mkdir(self, dirname):
         execute("sudo mkdir -p %s" % dirname)
+        execute("sudo chmod 777 %s" % dirname)
 
 class QnxDevice(Device):
     def __init__(self, device_id, target_abi):

@@ -483,7 +483,7 @@ bool RunModel(const std::string &model_name,
         input_shapes[i].begin(), input_shapes[i].end(), 1,
         std::multiplies<int64_t>());
     auto file_path = FLAGS_input_file + "_" + FormatName(input_names[i]);
-    LOG(INFO) << "intput_file: " << FLAGS_input_file << "_" << file_path;
+    LOG(INFO) << "intput_file: " << file_path;
     auto input_data = ReadInputDataFromFile(
         file_path, input_tensor_size, input_data_types[i]);
 
