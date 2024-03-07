@@ -1,0 +1,1401 @@
+--------- beginning of main
+01-17 11:43:18.563   878  3929 D MDnsDS  : Starting MDNSD
+01-17 11:43:18.767   878  3929 D MDnsDS  : discover(0, _mi-connect._udp, null, 6, 0)
+01-17 11:43:18.767   878  3929 D MDnsDS  : using ref 0xb400007c71f25c40
+01-17 11:43:18.767   878  3929 D MDnsDS  : startMonitoring 6
+01-17 11:43:18.767   878  3929 D MDnsDS  : triggering rescan
+01-17 11:43:18.767   878  3929 D MDnsDS  : discover successful
+01-17 11:43:18.767   878   965 D MDnsDS  : pollResults=1
+01-17 11:43:18.767   878   965 D MDnsDS  : Monitor poll got data pollCount = 1, 1
+01-17 11:43:18.767   878   965 D MDnsDS  : controlSocket shows revent= 1
+01-17 11:43:18.767   878   965 D MDnsDS  : MDnsSdListener::Monitor got 1
+01-17 11:43:18.767   878   965 D MDnsDS  : MDnsSdListener::Monitor poll rescanning - size=10, live=1
+01-17 11:43:18.767   878   965 D MDnsDS  : Going to poll with pollCount 2
+01-17 11:49:58.041   878  3929 D MDnsDS  : Stopping operation with ref 0xb400007c71f25c40
+01-17 11:49:58.042   878  3929 D MDnsDS  : freeServiceRef 6
+01-17 11:49:58.042   878  3929 D MDnsDS  : triggering rescan
+01-17 11:49:58.042   878   965 D MDnsDS  : pollResults=2
+01-17 11:49:58.042   878   965 D MDnsDS  : Monitor poll got data pollCount = 2, 2
+01-17 11:49:58.042   878   965 D MDnsDS  : Monitor found [1].revents = 32 - calling ProcessResults
+01-17 11:49:58.043   878   965 D MDnsDS  : controlSocket shows revent= 1
+01-17 11:49:58.043   878   965 D MDnsDS  : MDnsSdListener::Monitor got 1
+01-17 11:49:58.043   878   965 D MDnsDS  : MDnsSdListener::Monitor poll rescanning - size=10, live=0
+01-17 11:49:58.043   878   965 D MDnsDS  : Going to poll with pollCount 1
+01-17 11:49:58.054   878  3929 D MDnsDS  : discover(0, _mi-connect._udp, null, 7, 0)
+01-17 11:49:58.054   878  3929 D MDnsDS  : using ref 0xb400007c71f26e10
+01-17 11:49:58.055   878  3929 D MDnsDS  : startMonitoring 7
+01-17 11:49:58.055   878  3929 D MDnsDS  : triggering rescan
+01-17 11:49:58.055   878  3929 D MDnsDS  : discover successful
+01-17 11:49:58.055   878   965 D MDnsDS  : pollResults=1
+01-17 11:49:58.055   878   965 D MDnsDS  : Monitor poll got data pollCount = 1, 1
+01-17 11:49:58.055   878   965 D MDnsDS  : controlSocket shows revent= 1
+01-17 11:49:58.055   878   965 D MDnsDS  : MDnsSdListener::Monitor got 1
+01-17 11:49:58.055   878   965 D MDnsDS  : MDnsSdListener::Monitor poll rescanning - size=10, live=1
+01-17 11:49:58.055   878   965 D MDnsDS  : Going to poll with pollCount 2
+01-17 12:11:16.544   878  3929 D MDnsDS  : Stopping operation with ref 0xb400007c71f26e10
+01-17 12:11:16.544   878  3929 D MDnsDS  : freeServiceRef 7
+01-17 12:11:16.544   878  3929 D MDnsDS  : triggering rescan
+01-17 12:11:16.544   878   965 D MDnsDS  : pollResults=2
+01-17 12:11:16.545   878   965 D MDnsDS  : Monitor poll got data pollCount = 2, 2
+01-17 12:11:16.545   878   965 D MDnsDS  : Monitor found [1].revents = 32 - calling ProcessResults
+01-17 12:11:16.545   878   965 D MDnsDS  : controlSocket shows revent= 1
+01-17 12:11:16.545   878   965 D MDnsDS  : MDnsSdListener::Monitor got 1
+01-17 12:11:16.545   878   965 D MDnsDS  : MDnsSdListener::Monitor poll rescanning - size=10, live=0
+01-17 12:11:16.545   878   965 D MDnsDS  : Going to poll with pollCount 1
+01-17 12:11:26.551   878  3929 D MDnsDS  : Stopping MDNSD
+01-17 14:57:56.617   878   965 D MDnsDS  : pollResults=0
+01-17 14:57:56.617   878   965 D MDnsDS  : MDnsSdListener::Monitor poll timed out
+01-17 14:57:56.617   878   965 D MDnsDS  : Going to poll with pollCount 1
+01-17 17:44:36.716   878   965 D MDnsDS  : pollResults=0
+01-17 17:44:36.716   878   965 D MDnsDS  : MDnsSdListener::Monitor poll timed out
+01-17 17:44:36.716   878   965 D MDnsDS  : Going to poll with pollCount 1
+01-17 20:31:16.815   878   965 D MDnsDS  : pollResults=0
+01-17 20:31:16.816   878   965 D MDnsDS  : MDnsSdListener::Monitor poll timed out
+01-17 20:31:16.816   878   965 D MDnsDS  : Going to poll with pollCount 1
+01-17 21:52:15.433   878   878 D MDnsDS  : Starting MDNSD
+01-17 21:52:15.644   878   878 D MDnsDS  : discover(0, _mi-connect._udp, null, 8, 0)
+01-17 21:52:15.644   878   878 D MDnsDS  : using ref 0xb400007c71f26a20
+01-17 21:52:15.645   878   878 D MDnsDS  : startMonitoring 8
+01-17 21:52:15.645   878   878 D MDnsDS  : triggering rescan
+01-17 21:52:15.645   878   878 D MDnsDS  : discover successful
+01-17 21:52:15.645   878   965 D MDnsDS  : pollResults=1
+01-17 21:52:15.645   878   965 D MDnsDS  : Monitor poll got data pollCount = 1, 1
+01-17 21:52:15.645   878   965 D MDnsDS  : controlSocket shows revent= 1
+01-17 21:52:15.645   878   965 D MDnsDS  : MDnsSdListener::Monitor got 1
+01-17 21:52:15.645   878   965 D MDnsDS  : MDnsSdListener::Monitor poll rescanning - size=10, live=1
+01-17 21:52:15.645   878   965 D MDnsDS  : Going to poll with pollCount 2
+01-17 21:52:15.648   878   878 D MDnsDS  : Stopping operation with ref 0xb400007c71f26a20
+01-17 21:52:15.648   878   878 D MDnsDS  : freeServiceRef 8
+01-17 21:52:15.648   878   878 D MDnsDS  : triggering rescan
+01-17 21:52:15.648   878   965 D MDnsDS  : pollResults=2
+01-17 21:52:15.648   878   965 D MDnsDS  : Monitor poll got data pollCount = 2, 2
+01-17 21:52:15.648   878   965 D MDnsDS  : Monitor found [1].revents = 32 - calling ProcessResults
+01-17 21:52:15.648   878   965 D MDnsDS  : controlSocket shows revent= 1
+01-17 21:52:15.648   878   965 D MDnsDS  : MDnsSdListener::Monitor got 1
+01-17 21:52:15.648   878   965 D MDnsDS  : MDnsSdListener::Monitor poll rescanning - size=10, live=0
+01-17 21:52:15.648   878   965 D MDnsDS  : Going to poll with pollCount 1
+01-17 21:52:15.655   878   878 D MDnsDS  : discover(0, _mi-connect._udp, null, 9, 0)
+01-17 21:52:15.655   878   878 D MDnsDS  : using ref 0xb400007c71f26ab0
+01-17 21:52:15.656   878   878 D MDnsDS  : startMonitoring 9
+01-17 21:52:15.656   878   878 D MDnsDS  : triggering rescan
+01-17 21:52:15.656   878   878 D MDnsDS  : discover successful
+01-17 21:52:15.656   878   965 D MDnsDS  : pollResults=1
+01-17 21:52:15.656   878   965 D MDnsDS  : Monitor poll got data pollCount = 1, 1
+01-17 21:52:15.656   878   965 D MDnsDS  : controlSocket shows revent= 1
+01-17 21:52:15.656   878   965 D MDnsDS  : MDnsSdListener::Monitor got 1
+01-17 21:52:15.656   878   965 D MDnsDS  : MDnsSdListener::Monitor poll rescanning - size=10, live=1
+01-17 21:52:15.656   878   965 D MDnsDS  : Going to poll with pollCount 2
+01-17 21:54:26.041   878   878 D MDnsDS  : Stopping operation with ref 0xb400007c71f26ab0
+01-17 21:54:26.041   878   878 D MDnsDS  : freeServiceRef 9
+01-17 21:54:26.041   878   878 D MDnsDS  : triggering rescan
+01-17 21:54:26.041   878   965 D MDnsDS  : pollResults=2
+01-17 21:54:26.041   878   965 D MDnsDS  : Monitor poll got data pollCount = 2, 2
+01-17 21:54:26.041   878   965 D MDnsDS  : Monitor found [1].revents = 32 - calling ProcessResults
+01-17 21:54:26.041   878   965 D MDnsDS  : controlSocket shows revent= 1
+01-17 21:54:26.041   878   965 D MDnsDS  : MDnsSdListener::Monitor got 1
+01-17 21:54:26.041   878   965 D MDnsDS  : MDnsSdListener::Monitor poll rescanning - size=10, live=0
+01-17 21:54:26.041   878   965 D MDnsDS  : Going to poll with pollCount 1
+01-17 22:00:46.240   878   878 D MDnsDS  : Stopping MDNSD
+01-18 07:22:18.036  1293  2966 D AudioFlinger: updateWakeLockUids_l AudioOut_15 uids:
+01-18 07:22:18.037  1293  2962 D AudioFlinger: updateWakeLockUids_l AudioOut_D uids:
+01-18 07:22:18.037  1293  2966 D AudioFlinger: PlaybackThread::ioConfigChanged, thread 0xb400007790382200, event 0
+01-18 07:22:18.037  1293  2962 D AudioFlinger: PlaybackThread::ioConfigChanged, thread 0xb4000077abf27500, event 0
+01-18 07:22:18.038  1293  2975 D AudioFlinger: updateWakeLockUids_l AudioOut_35 uids:
+01-18 07:22:18.038  1293  2975 D AudioFlinger: PlaybackThread::ioConfigChanged, thread 0xb4000077903fa0c0, event 0
+01-18 07:22:18.043  1293  2978 D AudioFlinger: updateWakeLockUids_l AudioOut_45 uids:
+01-18 07:22:18.043  1293  2978 D AudioFlinger: PlaybackThread::ioConfigChanged, thread 0xb4000077904d74c0, event 0
+01-18 07:22:20.289   878  4320 D MDnsDS  : Starting MDNSD
+01-18 07:22:20.518   878  4320 D MDnsDS  : discover(0, _mi-connect._udp, null, 10, 0)
+01-18 07:22:20.518   878  4320 D MDnsDS  : using ref 0xb400007c6d2854f0
+01-18 07:22:20.519   878  4320 D MDnsDS  : startMonitoring 10
+01-18 07:22:20.519   878  4320 D MDnsDS  : triggering rescan
+01-18 07:22:20.519   878  4320 D MDnsDS  : discover successful
+01-18 07:22:20.519   878   965 D MDnsDS  : pollResults=1
+01-18 07:22:20.519   878   965 D MDnsDS  : Monitor poll got data pollCount = 1, 1
+01-18 07:22:20.519   878   965 D MDnsDS  : controlSocket shows revent= 1
+01-18 07:22:20.519   878   965 D MDnsDS  : MDnsSdListener::Monitor got 1
+01-18 07:22:20.519   878   965 D MDnsDS  : MDnsSdListener::Monitor poll rescanning - size=10, live=1
+01-18 07:22:20.519   878   965 D MDnsDS  : Going to poll with pollCount 2
+01-18 07:22:20.521   878  4320 D MDnsDS  : Stopping operation with ref 0xb400007c6d2854f0
+01-18 07:22:20.521   878  4320 D MDnsDS  : freeServiceRef 10
+01-18 07:22:20.522   878  4320 D MDnsDS  : triggering rescan
+01-18 07:22:20.522   878   965 D MDnsDS  : pollResults=2
+01-18 07:22:20.522   878   965 D MDnsDS  : Monitor poll got data pollCount = 2, 2
+01-18 07:22:20.522   878   965 D MDnsDS  : Monitor found [1].revents = 32 - calling ProcessResults
+01-18 07:22:20.522   878   965 D MDnsDS  : controlSocket shows revent= 1
+01-18 07:22:20.522   878   965 D MDnsDS  : MDnsSdListener::Monitor got 1
+01-18 07:22:20.522   878   965 D MDnsDS  : MDnsSdListener::Monitor poll rescanning - size=10, live=0
+01-18 07:22:20.522   878   965 D MDnsDS  : Going to poll with pollCount 1
+01-18 07:22:20.525   878  4320 D MDnsDS  : discover(0, _mi-connect._udp, null, 11, 0)
+01-18 07:22:20.525   878  4320 D MDnsDS  : using ref 0xb400007c6d286060
+01-18 07:22:20.526   878  4320 D MDnsDS  : startMonitoring 11
+01-18 07:22:20.526   878  4320 D MDnsDS  : triggering rescan
+01-18 07:22:20.526   878  4320 D MDnsDS  : discover successful
+01-18 07:22:20.526   878   965 D MDnsDS  : pollResults=1
+01-18 07:22:20.526   878   965 D MDnsDS  : Monitor poll got data pollCount = 1, 1
+01-18 07:22:20.526   878   965 D MDnsDS  : controlSocket shows revent= 1
+01-18 07:22:20.526   878   965 D MDnsDS  : MDnsSdListener::Monitor got 1
+01-18 07:22:20.526   878   965 D MDnsDS  : MDnsSdListener::Monitor poll rescanning - size=10, live=1
+01-18 07:22:20.526   878   965 D MDnsDS  : Going to poll with pollCount 2
+01-18 11:28:20.077  1293  3097 W AudioFlinger::EffectHandle: disconnect Effect handle 0xb40000779816d5e0 disconnected after thread destruction
+01-18 11:28:20.078  1293  2962 D AudioFlinger: updateWakeLockUids_l AudioOut_D uids:
+01-18 17:28:52.831  1293  2962 D AudioFlinger: updateWakeLockUids_l AudioOut_D uids:
+01-18 17:28:52.831  1293  2966 D AudioFlinger: updateWakeLockUids_l AudioOut_15 uids:
+01-18 17:28:52.832  1293  2975 D AudioFlinger: updateWakeLockUids_l AudioOut_35 uids:
+01-18 17:28:52.832  1293  2966 D AudioFlinger: PlaybackThread::ioConfigChanged, thread 0xb400007790382200, event 0
+01-18 17:28:52.832  1293  2962 D AudioFlinger: PlaybackThread::ioConfigChanged, thread 0xb4000077abf27500, event 0
+01-18 17:28:52.832  1293  2975 D AudioFlinger: PlaybackThread::ioConfigChanged, thread 0xb4000077903fa0c0, event 0
+01-18 17:28:52.832  1293  2978 D AudioFlinger: updateWakeLockUids_l AudioOut_45 uids:
+01-18 17:28:52.832  1293  2978 D AudioFlinger: PlaybackThread::ioConfigChanged, thread 0xb4000077904d74c0, event 0
+01-19 07:27:24.908  1293  2966 D AudioFlinger: updateWakeLockUids_l AudioOut_15 uids:
+01-19 07:27:24.908  1293  2962 D AudioFlinger: updateWakeLockUids_l AudioOut_D uids:
+01-19 07:27:24.908  1293  2975 D AudioFlinger: updateWakeLockUids_l AudioOut_35 uids:
+01-19 07:27:24.908  1293  2966 D AudioFlinger: PlaybackThread::ioConfigChanged, thread 0xb400007790382200, event 0
+01-19 07:27:24.908  1293  2962 D AudioFlinger: PlaybackThread::ioConfigChanged, thread 0xb4000077abf27500, event 0
+01-19 07:27:24.908  1293  2975 D AudioFlinger: PlaybackThread::ioConfigChanged, thread 0xb4000077903fa0c0, event 0
+01-19 07:27:24.910  1293  2978 D AudioFlinger: updateWakeLockUids_l AudioOut_45 uids:
+01-19 07:27:24.910  1293  2978 D AudioFlinger: PlaybackThread::ioConfigChanged, thread 0xb4000077904d74c0, event 0
+01-19 07:27:25.600   878   964 D MDnsDS  : Stopping operation with ref 0xb400007c6d286060
+01-19 07:27:25.602   878   964 D MDnsDS  : freeServiceRef 11
+01-19 07:27:25.602   878   964 D MDnsDS  : triggering rescan
+01-19 07:27:25.602   878   965 D MDnsDS  : pollResults=2
+01-19 07:27:25.602   878   965 D MDnsDS  : Monitor poll got data pollCount = 2, 2
+01-19 07:27:25.602   878   965 D MDnsDS  : Monitor found [1].revents = 32 - calling ProcessResults
+01-19 07:27:25.602   878   965 D MDnsDS  : controlSocket shows revent= 1
+01-19 07:27:25.602   878   965 D MDnsDS  : MDnsSdListener::Monitor got 1
+01-19 07:27:25.602   878   965 D MDnsDS  : MDnsSdListener::Monitor poll rescanning - size=10, live=0
+01-19 07:27:25.602   878   965 D MDnsDS  : Going to poll with pollCount 1
+01-19 07:27:25.607   878   964 D MDnsDS  : discover(0, _mi-connect._udp, null, 12, 0)
+01-19 07:27:25.607   878   964 D MDnsDS  : using ref 0xb400007c71f25280
+01-19 07:27:25.607   878   964 D MDnsDS  : startMonitoring 12
+01-19 07:27:25.607   878   964 D MDnsDS  : triggering rescan
+01-19 07:27:25.607   878   964 D MDnsDS  : discover successful
+01-19 07:27:25.607   878   965 D MDnsDS  : pollResults=1
+01-19 07:27:25.607   878   965 D MDnsDS  : Monitor poll got data pollCount = 1, 1
+01-19 07:27:25.607   878   965 D MDnsDS  : controlSocket shows revent= 1
+01-19 07:27:25.607   878   965 D MDnsDS  : MDnsSdListener::Monitor got 1
+01-19 07:27:25.607   878   965 D MDnsDS  : MDnsSdListener::Monitor poll rescanning - size=10, live=1
+01-19 07:27:25.607   878   965 D MDnsDS  : Going to poll with pollCount 2
+01-19 07:27:25.821  1293  9165 W AudioFlinger::EffectHandle: disconnect Effect handle 0xb40000779816dd60 disconnected after thread destruction
+01-19 07:27:25.825  1293  9165 W AudioFlinger::EffectHandle: disconnect Effect handle 0xb40000779816d4a0 disconnected after thread destruction
+01-19 07:27:25.825  1293  9165 W AudioFlinger::EffectHandle: disconnect Effect handle 0xb4000077abfe89a0 disconnected after thread destruction
+01-19 12:09:17.940   878   964 D MDnsDS  : Stopping operation with ref 0xb400007c71f25280
+01-19 12:09:17.940   878   964 D MDnsDS  : freeServiceRef 12
+01-19 12:09:17.940   878   964 D MDnsDS  : triggering rescan
+01-19 12:09:17.940   878   965 D MDnsDS  : pollResults=2
+01-19 12:09:17.940   878   965 D MDnsDS  : Monitor poll got data pollCount = 2, 2
+01-19 12:09:17.940   878   965 D MDnsDS  : Monitor found [1].revents = 32 - calling ProcessResults
+01-19 12:09:17.940   878   965 D MDnsDS  : controlSocket shows revent= 1
+01-19 12:09:17.940   878   965 D MDnsDS  : MDnsSdListener::Monitor got 1
+01-19 12:09:17.940   878   965 D MDnsDS  : MDnsSdListener::Monitor poll rescanning - size=10, live=0
+01-19 12:09:17.940   878   965 D MDnsDS  : Going to poll with pollCount 1
+01-19 12:09:17.943   878   964 D MDnsDS  : discover(0, _mi-connect._udp, null, 13, 0)
+01-19 12:09:17.943   878   964 D MDnsDS  : using ref 0xb400007c71f252e0
+01-19 12:09:17.944   878   964 D MDnsDS  : startMonitoring 13
+01-19 12:09:17.944   878   964 D MDnsDS  : triggering rescan
+01-19 12:09:17.944   878   964 D MDnsDS  : discover successful
+01-19 12:09:17.944   878   965 D MDnsDS  : pollResults=1
+01-19 12:09:17.944   878   965 D MDnsDS  : Monitor poll got data pollCount = 1, 1
+01-19 12:09:17.944   878   965 D MDnsDS  : controlSocket shows revent= 1
+01-19 12:09:17.944   878   965 D MDnsDS  : MDnsSdListener::Monitor got 1
+01-19 12:09:17.944   878   965 D MDnsDS  : MDnsSdListener::Monitor poll rescanning - size=10, live=1
+01-19 12:09:17.944   878   965 D MDnsDS  : Going to poll with pollCount 2
+01-19 12:09:21.232   878   964 D MDnsDS  : Stopping operation with ref 0xb400007c71f252e0
+01-19 12:09:21.232   878   964 D MDnsDS  : freeServiceRef 13
+01-19 12:09:21.232   878   964 D MDnsDS  : triggering rescan
+01-19 12:09:21.233   878   965 D MDnsDS  : pollResults=2
+01-19 12:09:21.233   878   965 D MDnsDS  : Monitor poll got data pollCount = 2, 2
+01-19 12:09:21.233   878   965 D MDnsDS  : Monitor found [1].revents = 32 - calling ProcessResults
+01-19 12:09:21.233   878   965 D MDnsDS  : controlSocket shows revent= 1
+01-19 12:09:21.233   878   965 D MDnsDS  : MDnsSdListener::Monitor got 1
+01-19 12:09:21.233   878   965 D MDnsDS  : MDnsSdListener::Monitor poll rescanning - size=10, live=0
+01-19 12:09:21.233   878   965 D MDnsDS  : Going to poll with pollCount 1
+01-19 12:09:31.247   878   964 D MDnsDS  : Stopping MDNSD
+01-19 12:48:00.965   878   964 D MDnsDS  : Starting MDNSD
+01-19 12:48:01.183   878   964 D MDnsDS  : discover(0, _mi-connect._udp, null, 14, 0)
+01-19 12:48:01.183   878   964 D MDnsDS  : using ref 0xb400007c6d285580
+01-19 12:48:01.183   878   964 D MDnsDS  : startMonitoring 14
+01-19 12:48:01.183   878   964 D MDnsDS  : triggering rescan
+01-19 12:48:01.183   878   964 D MDnsDS  : discover successful
+01-19 12:48:01.183   878   965 D MDnsDS  : pollResults=1
+01-19 12:48:01.183   878   965 D MDnsDS  : Monitor poll got data pollCount = 1, 1
+01-19 12:48:01.183   878   965 D MDnsDS  : controlSocket shows revent= 1
+01-19 12:48:01.183   878   965 D MDnsDS  : MDnsSdListener::Monitor got 1
+01-19 12:48:01.183   878   965 D MDnsDS  : MDnsSdListener::Monitor poll rescanning - size=10, live=1
+01-19 12:48:01.183   878   965 D MDnsDS  : Going to poll with pollCount 2
+01-19 12:48:01.186   878   964 D MDnsDS  : Stopping operation with ref 0xb400007c6d285580
+01-19 12:48:01.186   878   964 D MDnsDS  : freeServiceRef 14
+01-19 12:48:01.186   878   964 D MDnsDS  : triggering rescan
+01-19 12:48:01.186   878   965 D MDnsDS  : pollResults=2
+01-19 12:48:01.186   878   965 D MDnsDS  : Monitor poll got data pollCount = 2, 2
+01-19 12:48:01.186   878   965 D MDnsDS  : Monitor found [1].revents = 32 - calling ProcessResults
+01-19 12:48:01.186   878   965 D MDnsDS  : controlSocket shows revent= 1
+01-19 12:48:01.186   878   965 D MDnsDS  : MDnsSdListener::Monitor got 1
+01-19 12:48:01.186   878   965 D MDnsDS  : MDnsSdListener::Monitor poll rescanning - size=10, live=0
+01-19 12:48:01.186   878   965 D MDnsDS  : Going to poll with pollCount 1
+01-19 12:48:01.191   878   964 D MDnsDS  : discover(0, _mi-connect._udp, null, 15, 0)
+01-19 12:48:01.191   878   964 D MDnsDS  : using ref 0xb400007c71f25190
+01-19 12:48:01.191   878   964 D MDnsDS  : startMonitoring 15
+01-19 12:48:01.191   878   964 D MDnsDS  : triggering rescan
+01-19 12:48:01.191   878   964 D MDnsDS  : discover successful
+01-19 12:48:01.191   878   965 D MDnsDS  : pollResults=1
+01-19 12:48:01.191   878   965 D MDnsDS  : Monitor poll got data pollCount = 1, 1
+01-19 12:48:01.191   878   965 D MDnsDS  : controlSocket shows revent= 1
+01-19 12:48:01.191   878   965 D MDnsDS  : MDnsSdListener::Monitor got 1
+01-19 12:48:01.191   878   965 D MDnsDS  : MDnsSdListener::Monitor poll rescanning - size=10, live=1
+01-19 12:48:01.191   878   965 D MDnsDS  : Going to poll with pollCount 2
+01-19 12:48:32.449  1293  2962 D AudioFlinger: updateWakeLockUids_l AudioOut_D uids:
+01-19 12:48:32.449  1293  2962 D AudioFlinger: PlaybackThread::ioConfigChanged, thread 0xb4000077abf27500, event 0
+01-19 12:48:32.450  1293  2966 D AudioFlinger: updateWakeLockUids_l AudioOut_15 uids:
+01-19 12:48:32.450  1293  2966 D AudioFlinger: PlaybackThread::ioConfigChanged, thread 0xb400007790382200, event 0
+01-19 12:48:32.451  1293  2978 D AudioFlinger: updateWakeLockUids_l AudioOut_45 uids:
+01-19 12:48:32.451  1293  2978 D AudioFlinger: PlaybackThread::ioConfigChanged, thread 0xb4000077904d74c0, event 0
+01-19 12:48:32.452  1293  2975 D AudioFlinger: updateWakeLockUids_l AudioOut_35 uids:
+01-19 12:48:32.452  1293  2975 D AudioFlinger: PlaybackThread::ioConfigChanged, thread 0xb4000077903fa0c0, event 0
+01-19 12:49:02.861  5584  7920 D SLM-SRV-SLAService: checktemp temperature = 28549 temperature_average = 27782 isPerformanceMode = false thermal_enable_slm = true
+01-19 12:49:02.870  1267  1267 W vendor.xiaomi.h: type=1400 audit(0.0:20970): avc: denied { read } for name="u:object_r:system_prop:s0" dev="tmpfs" ino=13208 scontext=u:r:hal_vibrator_default:s0 tcontext=u:object_r:system_prop:s0 tclass=file permissive=0
+01-19 12:49:02.870  1267  1267 W vendor.xiaomi.h: type=1400 audit(0.0:20971): avc: denied { read } for name="u:object_r:system_prop:s0" dev="tmpfs" ino=13208 scontext=u:r:hal_vibrator_default:s0 tcontext=u:object_r:system_prop:s0 tclass=file permissive=0
+01-19 12:49:02.870  1267  1267 W vendor.xiaomi.h: type=1400 audit(0.0:20972): avc: denied { read } for name="u:object_r:system_prop:s0" dev="tmpfs" ino=13208 scontext=u:r:hal_vibrator_default:s0 tcontext=u:object_r:system_prop:s0 tclass=file permissive=0
+01-19 12:49:02.873  1267 19394 W libc    : Access denied finding property "persist.sys.log_time_gap_sec"
+01-19 12:49:02.873  1267 19394 W libc    : Access denied finding property "persist.sys.log_max_line"
+01-19 12:49:02.873  1267 19394 W libc    : Access denied finding property "persist.sys.log_filter_flag"
+01-19 12:49:02.872  1267 19394 D vendor.hardware.vibratorfeature: Notifying perform complete
+01-19 12:49:02.874  1267  1267 D vendor.hardware.vibratorfeature: QTI Vibrator off
+01-19 12:49:02.874  1267  1267 D DynamicEffectThread: pause
+01-19 12:49:02.874  1267  1267 D DynamicEffectDevice: FFDevice pause
+01-19 12:49:02.875 26915 26915 D DecorView[]: onWindowFocusChanged hasWindowFocus true
+01-19 12:49:02.875 26915 26915 I HandWritingStubImpl: refreshLastKeyboardType: 1
+01-19 12:49:02.875 26915 26915 I HandWritingStubImpl: getCurrentKeyboardType: 1
+01-19 12:49:02.880  7864  7864 E BaseInputMethodService: onFinishInput
+01-19 12:49:02.880  7864  7864 E BaseInputMethodService: onStartInput
+01-19 12:49:02.888 18307 18416 I ui.notification: oneway function results for code 1599295570 on binder at 0xb4000074debb1800 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.890  5303  5344 I com.miui.daemon: oneway function results for code 1599295570 on binder at 0xb4000074deb90f00 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.890 11530 11547 I com.miui.wmsvc: oneway function results for code 1599295570 on binder at 0xb4000074fc5370e0 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.890 11294 17206 I .securitycenter: oneway function results for code 1599295570 on binder at 0xb4000074fc4e9f60 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.890  4007  4041 I id.ext.services: oneway function results for code 1599295570 on binder at 0xb4000074deb90260 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.891 18403 18432 I ui.securitycore: oneway function results for code 1599295570 on binder at 0xb4000074debb1900 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.891  5336  6592 D NfcService: updateMuteByCam: false
+01-19 12:49:02.891 18462 18482 I viders.calendar: oneway function results for code 1599295570 on binder at 0xb4000074debb1c00 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.892  5336  6592 I com.android.nfc: oneway function results for code 1599295570 on binder at 0xb4000074deb90f80 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.892  3799  4526 I .codeaurora.ims: oneway function results for code 1599295570 on binder at 0xb4000074fc451940 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.892  5417  5452 I aa.aidl.manager: oneway function results for code 1599295570 on binder at 0xb4000074dec82200 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.893  4658 22948 I com.miui.aod: oneway function results for code 1599295570 on binder at 0xb4000074deb90a00 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.893  5453  8051 I ui.voicetrigger: oneway function results for code 1599295570 on binder at 0xb4000074dec822a0 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.894 18106 18143 I ndroid.contacts: oneway function results for code 1599295570 on binder at 0xb4000074debb1740 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.894  5336  5336 D NfcService: updatePollConfig: mMuteByCam=false, mMuteByMic=false, mMuteByDispatcher=false, screen=8
+01-19 12:49:02.894 18074 18102 I .quicksearchbox: oneway function results for code 1599295570 on binder at 0xb4000074debb1600 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.894 11944 11965 I .milink.service: oneway function results for code 1599295570 on binder at 0xb40000750c5cbbe0 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.894  3737  3782 I qtidataservices: oneway function results for code 1599295570 on binder at 0xb4000074fc451860 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.895 19147 19166 I com.miui.phrase: oneway function results for code 1599295570 on binder at 0xb4000074deba72a0 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.895 18622 18653 I aomi.misettings: oneway function results for code 1599295570 on binder at 0xb4000074debb1dc0 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.896 18978 19045 I i.health:device: oneway function results for code 1599295570 on binder at 0x74deba60e0 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.896  5850  6203 I tycenter.remote: oneway function results for code 1599295570 on binder at 0xb4000074dec829c0 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.896 17442 17462 I .xiaomi.account: oneway function results for code 1599295570 on binder at 0xb4000074debb14c0 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.897 18563 18646 I d.soundrecorder: oneway function results for code 1599295570 on binder at 0xb4000074debb1c40 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.897  5294 15678 I .xiaomi.barrage: oneway function results for code 1599295570 on binder at 0xb4000074deb90e80 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.897 18189 18417 I om.miui.miinput: oneway function results for code 1599295570 on binder at 0xb4000074debb1800 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.897  3855  3912 I atisticsservice: oneway function results for code 1599295570 on binder at 0xb4000074fc451a20 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.898  5336  5336 I libnfc_nci: [INFO:NativeNfcManager.cpp(2975)] mutePollingConfigState=0,screen_state_mask=8
+01-19 12:49:02.898  5336  5336 I libnfc_nci: [INFO:NativeNfcManager.cpp(2984)] Screen state is not changed.
+01-19 12:49:02.898  5230  5265 I .contentcatcher: oneway function results for code 1599295570 on binder at 0xb4000074deb90c80 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.898 18647 18697 I com.mi.health: oneway function results for code 1599295570 on binder at 0x74debb1ec0 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.898 16879 16900 I roid.htmlviewer: oneway function results for code 1599295570 on binder at 0xb4000074debb52e0 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.899  8947  8975 I k.service:audio: oneway function results for code 1599295570 on binder at 0xb4000074fc449ec0 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.899  5865 14599 I rsonalassistant: oneway function results for code 1599295570 on binder at 0xb4000074dec82a40 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.899  5346  5391 I com.ifaa.seccam: oneway function results for code 1599295570 on binder at 0xb4000074deb90fa0 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.900 18577 18631 I iongallery.emag: oneway function results for code 1599295570 on binder at 0xb4000074debb1c00 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.900  3809  3936 I com.android.se: oneway function results for code 1599295570 on binder at 0xb4000074fc451a00 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.900  7162  7223 I connect_service: oneway function results for code 1599295570 on binder at 0xb4000074fc449620 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.900 21069  9790 I mlviewer:remote: oneway function results for code 1599295570 on binder at 0xb4000074deba7040 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.900  5796  5822 I curitycenter:ui: oneway function results for code 1599295570 on binder at 0xb4000074dec828c0 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.900  5509  5576 I kloadclassifier: oneway function results for code 1599295570 on binder at 0xb4000074dec82420 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.890  7269 32082 I iui.powerkeeper: oneway function results for code 1599295570 on binder at 0xb4000074fc449660 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.902 26915 26941 I ndroid.settings: oneway function results for code 1599295570 on binder at 0xb4000074deb82e20 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.902  4345  4372 I m.xiaomi.mirror: oneway function results for code 1599295570 on binder at 0xb4000074deb90360 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.902  7864 14938 I od.sogou.xiaomi: oneway function results for code 1599295570 on binder at 0xb4000074fc4499c0 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.903 14841 14860 I ce:galleryproxy: oneway function results for code 1599295570 on binder at 0xb4000074debb8060 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.903  6556  6651 I com.xiaomi.xmsf: oneway function results for code 1599295570 on binder at 0xb40000750c5d21a0 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.903  5190 10142 I FuseDaemon: oneway function results for code 1599295570 on binder at 0xb4000074deb90b60 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.903 12203 12931 I .miui.analytics: oneway function results for code 1599295570 on binder at 0xb4000074dea6c300 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.904 18232 18287 I ewhome:launcher: oneway function results for code 1599295570 on binder at 0xb4000074deb8a1c0 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.904 15475 15493 I :widgetProvider: oneway function results for code 1599295570 on binder at 0xb4000074debb5120 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.905 18231 18320 I om.miui.misound: oneway function results for code 1599295570 on binder at 0xb4000074debb1880 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.905  5170 31629 I oiceassist:core: oneway function results for code 1599295570 on binder at 0xb4000074deb90ca0 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.905  3577  3611 I iui.miwallpaper: oneway function results for code 1599295570 on binder at 0xb4000074fc451680 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.905  5670  9561 I alcomm.location: oneway function results for code 1599295570 on binder at 0xb4000074dec82720 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.905  5689  5717 I ti.diagservices: oneway function results for code 1599295570 on binder at 0xb4000074dec82640 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.906 30175 30205 I om.miui.carlink: oneway function results for code 1599295570 on binder at 0xb40000750c5cc620 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.906  3829  4589 I aomi.finddevice: oneway function results for code 1599295570 on binder at 0xb4000074fc451a20 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.907  6504  6577 I .milink.runtime: oneway function results for code 1599295570 on binder at 0xb40000750c5d2020 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.907 18491 18538 I atcher:autofill: oneway function results for code 1599295570 on binder at 0xb4000074debb1c80 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.907  7055 12133 I i.xmsf:services: oneway function results for code 1599295570 on binder at 0xb40000750c5d2260 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.907  5727  9608 I d.process.media: oneway function results for code 1599295570 on binder at 0xb4000074dec82840 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.908  3726  3784 I .dataservices: oneway function results for code 1599295570 on binder at 0xb4000074fc451800 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.909  5719  5761 I com.miui.face: oneway function results for code 1599295570 on binder at 0xb4000074dec82740 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.909  7091  8766 I e.security.miui: oneway function results for code 1599295570 on binder at 0xb4000074fc449620 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.909  3876  4482 I m.android.phone: oneway function results for code 1599295570 on binder at 0xb4000074fc451aa0 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.909  3765  3797 I com.qti.phone: oneway function results for code 1599295570 on binder at 0xb4000074fc4518e0 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.910 31492 32029 I com.android.mms: oneway function results for code 1599295570 on binder at 0xb40000750c5ccac0 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.910  7323  7816 I m.xiaomi.joyose: oneway function results for code 1599295570 on binder at 0xb4000074fc449720 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.910  5966  5995 I xiaomi.metoknlp: oneway function results for code 1599295570 on binder at 0xb4000074dec82900 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.910  6212  6259 I .aiasst.service: oneway function results for code 1599295570 on binder at 0xb4000074dec82e80 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.911 11292 17134 I .miui.miservice: oneway function results for code 1599295570 on binder at 0xb4000074fc4e9f60 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.911 31181  3717 I iui.cleanmaster: oneway function results for code 1599295570 on binder at 0xb40000750c5cca00 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.911  5267 11668 I ui.dmregservice: oneway function results for code 1599295570 on binder at 0xb4000074deb90c60 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.912 18041 18073 I ndroid.calendar: oneway function results for code 1599295570 on binder at 0xb4000074debb1600 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.912 13928 13950 I m.xiaomi.market: oneway function results for code 1599295570 on binder at 0xb4000074fc5377c0 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.913 10266 12308 I droid.bluetooth: oneway function results for code 1599295570 on binder at 0xb40000750c5cb9e0 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.913 18444 18469 I .touchassistant: oneway function results for code 1599295570 on binder at 0xb4000074debb1ac0 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.914  5466  5517 I aomi.xmsfkeeper: oneway function results for code 1599295570 on binder at 0xb4000074dec823a0 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.914  3938  4617 I ndroid.systemui: oneway function results for code 1599295570 on binder at 0xb4000074fc4548c0 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.914  5559  5602 I erprint.setting: oneway function results for code 1599295570 on binder at 0xb4000074dec82480 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.914  4278  4314 I android.smspush: oneway function results for code 1599295570 on binder at 0xb4000074deb90340 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.915 18035 18080 I droid.deskclock: oneway function results for code 1599295570 on binder at 0xb4000074debb1540 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.916  5648  5667 I android.manager: oneway function results for code 1599295570 on binder at 0xb4000074dec82640 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.916  5538  5581 I ter.soterserver: oneway function results for code 1599295570 on binder at 0xb4000074dec82420 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.916 19037 19059 I d.process.acore: oneway function results for code 1599295570 on binder at 0xb4000074deba6160 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.917 20857 20947 I ui.aod:settings: oneway function results for code 1599295570 on binder at 0xb4000074deb8aea0 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.917  5584  5617 I mi.NetworkBoost: oneway function results for code 1599295570 on binder at 0xb4000074dec82500 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.917  3459 24483 I iaomi.bluetooth: oneway function results for code 1599295570 on binder at 0xb4000074fc4514e0 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.917  3440  4383 I com.miui.home: oneway function results for code 1599295570 on binder at 0xb4000074fc451400 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.917  5620  5647 I .xiaomi.devauth: oneway function results for code 1599295570 on binder at 0xb4000074dec82600 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.918 11286 13474 I opjohnwu.magisk: oneway function results for code 1599295570 on binder at 0xb4000074fc4e9f00 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.918  3951 17559 I com.qti.qcc: oneway function results for code 1599295570 on binder at 0xb4000074deb90220 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.919  5383  5407 I system  : oneway function results for code 1599295570 on binder at 0xb4000074deb90ee0 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.919  8508  8599 I process.mediaUI: oneway function results for code 1599295570 on binder at 0xb4000074fc449b60 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.919 18830 18885 I recorder:remote: oneway function results for code 1599295570 on binder at 0xb4000074debb1fe0 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.919 32056 32077 I ssioncontroller: oneway function results for code 1599295570 on binder at 0xb40000750c5ccd80 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.918 26915 26915 W com.android.settings: type=1400 audit(0.0:20973): avc: denied { call } for comm=4173796E635461736B202334 scontext=u:r:system_app:s0 tcontext=u:r:hal_power_default:s0 tclass=binder permissive=0
+01-19 12:49:02.920 18361 18721 I com.miui.video: oneway function results for code 1599295570 on binder at 0xb4000074debb1740 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.921 16919 17313 I ui.cloudservice: oneway function results for code 1599295570 on binder at 0xb4000074debb53c0 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.921 26915 19217 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 0)
+01-19 12:49:02.922  3906 13470 I com.miui.hybrid: oneway function results for code 1599295570 on binder at 0xb4000074deba71e0 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.922 10835 10971 I com.modemdebug: oneway function results for code 1599295570 on binder at 0xb4000074fc4e9980 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.922  9104 14800 I webview_service: oneway function results for code 1599295570 on binder at 0xb40000750c5cb8c0 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.923 18130 18163 I i.accessibility: oneway function results for code 1599295570 on binder at 0xb4000074debb17a0 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.923 31100 31117 I iui.voiceassist: oneway function results for code 1599295570 on binder at 0xb40000750c5cc8c0 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.923 11026 11131 I com.xiaomi.mtb: oneway function results for code 1599295570 on binder at 0xb4000074fc4e9d40 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.924 14739 14793 I .android.camera: oneway function results for code 1599295570 on binder at 0xb4000074fc4495a0 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.924 18954 18974 I i.poweroffalarm: oneway function results for code 1599295570 on binder at 0xb4000074deba7080 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.925 31324 31343 I ster:micleansdk: oneway function results for code 1599295570 on binder at 0xb40000750c5cca40 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.926 19072 19128 I ervice:provider: oneway function results for code 1599295570 on binder at 0xb4000074deba61e0 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.925 31159 15156 I id.thememanager: oneway function results for code 1599295570 on binder at 0xb40000750c5cc900 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.926 18096 18127 I android.browser: oneway function results for code 1599295570 on binder at 0xb4000074debb1700 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.927 18700 18723 I ocessService0:0: oneway function results for code 1599295570 on binder at 0xb4000074debb1f20 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.927 18666 18692 I aomi.vipaccount: oneway function results for code 1599295570 on binder at 0xb4000074debb1f20 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.927 10509 32096 I .polaris:remote: oneway function results for code 1599295570 on binder at 0xb4000074fc4e96a0 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.900  4080  4118 I ackageinstaller: oneway function results for code 1599295570 on binder at 0xb4000074deba72a0 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.915 14366 14384 I re.connectivity: oneway function results for code 1599295570 on binder at 0xb40000750c5cc0a0 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.928 18146 18323 I om.miui.gallery: oneway function results for code 1599295570 on binder at 0xb4000074debb17a0 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.929  6004  6032 I .location.fused: oneway function results for code 1599295570 on binder at 0xb4000074dec82c80 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.930  8995 11330 I utoregistration: oneway function results for code 1599295570 on binder at 0xb4000074fc449f00 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.930 10665 10695 I ystemAdSolution: oneway function results for code 1599295570 on binder at 0xb4000074fc4e9680 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.930 16844 17314 I .miui.tsmclient: oneway function results for code 1599295570 on binder at 0xb4000074debb5320 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.931 18514 18571 I sibility.common: oneway function results for code 1599295570 on binder at 0xb4000074debb1ac0 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.931 14497 14530 I .screenrecorder: oneway function results for code 1599295570 on binder at 0xb40000750c5cc9e0 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.932 14869 14892 I ctivate.service: oneway function results for code 1599295570 on binder at 0xb4000074debb80e0 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:02.974  1312  1312 D MI-SF   : [FpsStat] distroy...
+01-19 12:49:03.005 26915 19217 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 0)
+01-19 12:49:03.002 26915 26915 W com.android.settings: type=1400 audit(0.0:20974): avc: denied { call } for comm=4173796E635461736B202334 scontext=u:r:system_app:s0 tcontext=u:r:system_suspend:s0 tclass=binder permissive=0
+01-19 12:49:03.079  5584  8143 I NetworkAccelerateSwitchService: EVENT_RSSI_POLL
+01-19 12:49:03.080  5584  8143 I NetworkAccelerateSwitchService: getAverageWifiRssi:41
+01-19 12:49:03.167  5336  6592 D NfcService: updateMuteByCam: false
+01-19 12:49:03.167  5336  5336 D NfcService: updatePollConfig: mMuteByCam=false, mMuteByMic=false, mMuteByDispatcher=false, screen=8
+01-19 12:49:03.169  5336  5336 I libnfc_nci: [INFO:NativeNfcManager.cpp(2975)] mutePollingConfigState=0,screen_state_mask=8
+01-19 12:49:03.169  5336  5336 I libnfc_nci: [INFO:NativeNfcManager.cpp(2984)] Screen state is not changed.
+01-19 12:49:03.191  1916  1925 E Parcel  : Expecting header 0x53595354 but found 0x0. Mixing copies of libbinder?
+01-19 12:49:03.194 26915 19217 I SystemPropPoker: Someone wrote a bad service 'miui.fdpp' that doesn't like to be poked
+01-19 12:49:03.194 26915 19217 I SystemPropPoker: java.lang.SecurityException
+01-19 12:49:03.194 26915 19217 I SystemPropPoker: 	at android.os.BinderProxy.transactNative(Native Method)
+01-19 12:49:03.194 26915 19217 I SystemPropPoker: 	at android.os.BinderProxy.transact(BinderProxy.java:646)
+01-19 12:49:03.194 26915 19217 I SystemPropPoker: 	at com.android.settingslib.development.SystemPropPoker$PokerTask.doInBackground(SystemPropPoker.java:86)
+01-19 12:49:03.194 26915 19217 I SystemPropPoker: 	at com.android.settingslib.development.SystemPropPoker$PokerTask.doInBackground(SystemPropPoker.java:62)
+01-19 12:49:03.194 26915 19217 I SystemPropPoker: 	at android.os.AsyncTask$3.call(AsyncTask.java:394)
+01-19 12:49:03.194 26915 19217 I SystemPropPoker: 	at java.util.concurrent.FutureTask.run(FutureTask.java:264)
+01-19 12:49:03.194 26915 19217 I SystemPropPoker: 	at android.os.AsyncTask$SerialExecutor$1.run(AsyncTask.java:305)
+01-19 12:49:03.194 26915 19217 I SystemPropPoker: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1137)
+01-19 12:49:03.194 26915 19217 I SystemPropPoker: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:637)
+01-19 12:49:03.194 26915 19217 I SystemPropPoker: 	at java.lang.Thread.run(Thread.java:1012)
+01-19 12:49:03.214  5074  5074 W binder:5074_1: type=1400 audit(0.0:20975): avc: denied { dac_override } for capability=1 scontext=u:r:mcd:s0 tcontext=u:r:mcd:s0 tclass=capability permissive=0
+01-19 12:49:03.214  5074  5074 W binder:5074_1: type=1400 audit(0.0:20976): avc: denied { dac_override } for capability=1 scontext=u:r:mcd:s0 tcontext=u:r:mcd:s0 tclass=capability permissive=0
+01-19 12:49:03.218  5074  5074 W binder:5074_1: type=1400 audit(0.0:20977): avc: denied { dac_override } for capability=1 scontext=u:r:mcd:s0 tcontext=u:r:mcd:s0 tclass=capability permissive=0
+01-19 12:49:03.218  5074  5074 W binder:5074_1: type=1400 audit(0.0:20978): avc: denied { dac_override } for capability=1 scontext=u:r:mcd:s0 tcontext=u:r:mcd:s0 tclass=capability permissive=0
+01-19 12:49:03.237  5336  6592 D NfcService: updateMuteByCam: false
+01-19 12:49:03.237  5336  5336 D NfcService: updatePollConfig: mMuteByCam=false, mMuteByMic=false, mMuteByDispatcher=false, screen=8
+01-19 12:49:03.241  5336  5336 I libnfc_nci: [INFO:NativeNfcManager.cpp(2975)] mutePollingConfigState=0,screen_state_mask=8
+01-19 12:49:03.241  5336  5336 I libnfc_nci: [INFO:NativeNfcManager.cpp(2984)] Screen state is not changed.
+01-19 12:49:03.272  1998  3041 D MIUIInput: [MotionEvent] publisher action=0x4, 42724521, channel 'd7fb48 NavigationBar0 (server)'
+01-19 12:49:03.272  1998  3041 D MIUIInput: [MotionEvent] publisher action=0x0, 42724521, channel '6c16f9a com.android.settings/com.android.settings.SubSettings (server)'
+01-19 12:49:03.273  1998  3041 D MIUIInput: [MotionEvent] publisher action=0x0, 42724521, channel '[Gesture Monitor] miui-gesture (server)'
+01-19 12:49:03.276 26915 19217 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 0)
+01-19 12:49:03.276 26915 19217 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 0)
+01-19 12:49:03.277   640   640 E SELinux : avc:  denied  { find } for pid=26915 uid=1000 name=suspend_control scontext=u:r:system_app:s0 tcontext=u:object_r:system_suspend_control_service:s0 tclass=service_manager permissive=0
+01-19 12:49:03.277   640   640 E SELinux : avc:  denied  { find } for pid=26915 uid=1000 name=suspend_control_internal scontext=u:r:system_app:s0 tcontext=u:object_r:system_suspend_control_internal_service:s0 tclass=service_manager permissive=0
+01-19 12:49:03.285  1118  1118 W libc    : Access denied finding property "persist.sys.log_time_gap_sec"
+01-19 12:49:03.285  1118  1118 W libc    : Access denied finding property "persist.sys.log_max_line"
+01-19 12:49:03.285  1118  1118 W libc    : Access denied finding property "persist.sys.log_filter_flag"
+01-19 12:49:03.284  1118  1118 E vendor.qti.hardware.perf@2.2-service: Unknown params
+01-19 12:49:03.286  1118  1251 E ANDR-PERF-OPTSHANDLER: Can't process request: noroot_thread is not running
+01-19 12:49:03.286  1118  1251 E ANDR-PERF-RESOURCEQS: Failed to apply optimization [7, 3]
+01-19 12:49:03.288   640   640 E SELinux : avc:  denied  { find } for pid=26915 uid=1000 name=tracing.proxy scontext=u:r:system_app:s0 tcontext=u:object_r:tracingproxy_service:s0 tclass=service_manager permissive=0
+01-19 12:49:03.305  5075  5088 E Parcel  : Expecting header 0x53595354 but found 0x0. Mixing copies of libbinder?
+01-19 12:49:03.316  1998  3041 D MIUIInput: [MotionEvent] publisher action=0x1, 42724568, channel '6c16f9a com.android.settings/com.android.settings.SubSettings (server)'
+01-19 12:49:03.316  1998  3041 D MIUIInput: [MotionEvent] publisher action=0x1, 42724568, channel '[Gesture Monitor] miui-gesture (server)'
+01-19 12:49:03.317 26915 19217 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 0)
+01-19 12:49:03.322 26915 19217 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size = 0)
+01-19 12:49:03.344  1998  4034 I HapticFeedbackUtil: 6,1,true
+01-19 12:49:03.344  1267  1267 D vendor.hardware.vibratorfeature: configStrengthForEffect id : 6 , strength: 0.625000
+01-19 12:49:03.346  1267  1267 D vendor.hardware.vibratorfeature: Vibrator perform effect 6
+01-19 12:49:03.346  1267  1267 D vendor.hardware.vibratorfeature: uses mCurrMagnitudeExt 1.000000
+01-19 12:49:03.346  1267  1267 D vendor.hardware.vibratorfeature: getAmplitudeFromEffectStrength 0.625000
+01-19 12:49:03.346  1267  1267 D vendor.hardware.vibratorfeature: return from driver is 20
+01-19 12:49:03.346  1267  1267 D vendor.hardware.vibratorfeature: playLengthMs is 70
+01-19 12:49:03.346  1267 19400 D vendor.hardware.vibratorfeature: Starting perform on another thread
+01-19 12:49:03.350  1312  1441 D MI-SF   : [FpsStat] construct...
+01-19 12:49:03.351  1998  4034 D SurfaceControl: nativeSetScreenProjection ===> setScreenProjection
+01-19 12:49:03.351  1998  4034 D SurfaceControl: nativeSetScreenProjection ===> setScreenProjection
+01-19 12:49:03.358  1312  4235 I SurfaceFlinger: setTransactionState focusRequest transactionId:8581344662295 frontWin:7ea7a75 PopupWindow:251034a
+01-19 12:49:03.363  1312  1312 I SurfaceFlinger: transactionIsReadyToBeApplied focusRequest transactionId:8581344662295
+01-19 12:49:03.364  1312  1312 I SurfaceFlinger: addInputWindowCommands hasChanges
+01-19 12:49:03.375 26915 13433 W Parcel  : Expecting binder but got null!
+01-19 12:49:03.378 26915 26915 D DecorView[]: onWindowFocusChanged hasWindowFocus false
+01-19 12:49:03.417  1267 19400 D vendor.hardware.vibratorfeature: Notifying perform complete
+01-19 12:49:03.418  1267  1267 D vendor.hardware.vibratorfeature: QTI Vibrator off
+01-19 12:49:03.418  1267  1267 D DynamicEffectThread: pause
+01-19 12:49:03.418  1267  1267 D DynamicEffectDevice: FFDevice pause
+01-19 12:49:03.489  1998  3068 I MiuiNetworkPolicy: bandwidth: 0 KB/s, Max bandwidth: 2192 KB/s
+01-19 12:49:04.222  1998  3041 D MIUIInput: [MotionEvent] publisher action=0x4, 42725472, channel 'd7fb48 NavigationBar0 (server)'
+01-19 12:49:04.223  1998  3041 D MIUIInput: [MotionEvent] publisher action=0x0, 42725472, channel '7ea7a75 PopupWindow:251034a (server)'
+01-19 12:49:04.223  1998  3041 D MIUIInput: [MotionEvent] publisher action=0x0, 42725472, channel '[Gesture Monitor] miui-gesture (server)'
+01-19 12:49:04.250  1118  1118 E vendor.qti.hardware.perf@2.2-service: Unknown params
+01-19 12:49:04.251  1118  1251 E ANDR-PERF-OPTSHANDLER: Can't process request: noroot_thread is not running
+01-19 12:49:04.251  1118  1251 E ANDR-PERF-RESOURCEQS: Failed to apply optimization [7, 3]
+01-19 12:49:04.281  1118  1118 E vendor.qti.hardware.perf@2.2-service: Unknown params
+01-19 12:49:04.282  1118  1118 E vendor.qti.hardware.perf@2.2-service: Unknown params
+01-19 12:49:04.282  1118  1118 E vendor.qti.hardware.perf@2.2-service: Unknown params
+01-19 12:49:04.284  1118  1118 E vendor.qti.hardware.perf@2.2-service: Unknown params
+01-19 12:49:04.288  1032  2534 W libc    : Access denied finding property "persist.sys.log_time_gap_sec"
+01-19 12:49:04.288  1032  2534 W libc    : Access denied finding property "persist.sys.log_max_line"
+01-19 12:49:04.288  1032  2534 W libc    : Access denied finding property "persist.sys.log_filter_flag"
+01-19 12:49:04.288  1032  2534 E CamX    : [ERROR][NCS    ] camxncsintfqsee.cpp:2355 FillSensorData() Invalid sensor index -1
+01-19 12:49:04.286  1032  1032 W provider@2.4-se: type=1400 audit(0.0:20989): avc: denied { read } for name="u:object_r:system_prop:s0" dev="tmpfs" ino=13208 scontext=u:r:hal_camera_default:s0 tcontext=u:object_r:system_prop:s0 tclass=file permissive=0
+01-19 12:49:04.286  1032  1032 W provider@2.4-se: type=1400 audit(0.0:20990): avc: denied { read } for name="u:object_r:system_prop:s0" dev="tmpfs" ino=13208 scontext=u:r:hal_camera_default:s0 tcontext=u:object_r:system_prop:s0 tclass=file permissive=0
+01-19 12:49:04.478  1998  3041 D MIUIInput: [MotionEvent] publisher action=0x1, 42725729, channel '7ea7a75 PopupWindow:251034a (server)'
+01-19 12:49:04.478  1998  3041 D MIUIInput: [MotionEvent] publisher action=0x1, 42725729, channel '[Gesture Monitor] miui-gesture (server)'
+01-19 12:49:04.479  1118  1118 E vendor.qti.hardware.perf@2.2-service: Unknown params
+01-19 12:49:04.479  1118  1118 E vendor.qti.hardware.perf@2.2-service: Unknown params
+01-19 12:49:04.479  1118  1251 E ANDR-PERF-OPTSHANDLER: Perflock resource /sys/class/devfreq/soc:qcom,llccbw/min_freq not supported
+01-19 12:49:04.480  1118  1251 E ANDR-PERF-RESOURCEQS: Failed to apply optimization [12, 0]
+01-19 12:49:04.480  1118  1118 E vendor.qti.hardware.perf@2.2-service: Unknown params
+01-19 12:49:04.480  1118  1118 E vendor.qti.hardware.perf@2.2-service: Unknown params
+01-19 12:49:04.481  1118  1118 E vendor.qti.hardware.perf@2.2-service: Unknown params
+01-19 12:49:04.629 26915 26935 I ndroid.settings: This is sticky GC, maxfree is 8388608 minfree is 2097152
+01-19 12:49:05.081  5584  8143 I NetworkAccelerateSwitchService: EVENT_RSSI_POLL
+01-19 12:49:05.083  5584  8143 I NetworkAccelerateSwitchService: getAverageWifiRssi:42
+01-19 12:49:05.462  1118  1118 E vendor.qti.hardware.perf@2.2-service: Unknown params
+01-19 12:49:05.464  1118  1251 E ANDR-PERF-OPTSHANDLER: Can't process request: noroot_thread is not running
+01-19 12:49:05.464  1118  1251 E ANDR-PERF-RESOURCEQS: Failed to apply optimization [7, 3]
+01-19 12:49:06.315  1118  1118 E vendor.qti.hardware.perf@2.2-service: Unknown params
+01-19 12:49:06.317  1118  1251 E ANDR-PERF-OPTSHANDLER: Can't process request: noroot_thread is not running
+01-19 12:49:06.317  1118  1251 E ANDR-PERF-RESOURCEQS: Failed to apply optimization [7, 3]
+01-19 12:49:06.414 16879 16879 D MemoryOptimizationService: wifiDisplayOnSetting: false wifiP2pEnabled: false
+01-19 12:49:06.418 16879 16879 I MemoryOptimizationService: kill process [Handler (com.android.settings.services.MemoryOptimizationService$MemoryHandler) {3a64e39}] [false]-> com.android.settings,true
+01-19 12:49:06.418 16879 16879 D MemoryOptimizationService: Delay killing the Settings process -> 
+01-19 12:49:06.418 16879 16879 I MemoryOptimizationService: Invalid message -> com.android.settings,1
+01-19 12:49:06.418 16879 16879 I MemoryOptimizationService: kill process [Handler (com.android.settings.services.MemoryOptimizationService$MemoryHandler) {3a64e39}] [false]-> com.android.settings,true
+01-19 12:49:06.418 16879 16879 D MemoryOptimizationService: Delay killing the Settings process -> 
+01-19 12:49:06.492  1998  3068 I MiuiNetworkPolicy: bandwidth: 0 KB/s, Max bandwidth: 2192 KB/s
+01-19 12:49:07.086  5584  8143 I NetworkAccelerateSwitchService: EVENT_RSSI_POLL
+01-19 12:49:07.089  5584  8143 I NetworkAccelerateSwitchService: getAverageWifiRssi:42
+01-19 12:49:07.131  3459 10467 D MiuiFastConnectService_Plugin: stopBleScan: scanning: true
+01-19 12:49:07.132  3459 10467 D BluetoothAdapter: isLeEnabled(): ON
+01-19 12:49:07.138 10266 12308 D BtGatt.GattService: stopScan() - queue size =2
+01-19 12:49:07.141 10266 10362 I BtGatt.ScanManager: msg.what = MSG_STOP_BLE_SCAN, msg.arg1 = None
+01-19 12:49:07.141 10266 10362 D BtGatt.ScanManager: track LE scan event: callerPackage = [com.xiaomi.bluetooth], scanMode = [0], reportDelayMillis = [0], behavior = [2], scannerId = [8], duration = [59937]
+01-19 12:49:07.142 10266 10362 D BtGatt.ScanManager: handling stopping scan  [ScanClient scanModeApp 0 scanModeUsed 0 [appScanStats android.uid.bluetooth:1002]]
+01-19 12:49:07.143 10266 12308 D BtGatt.GattService: unregisterScanner() - scannerId=8
+01-19 12:49:07.147  1031  1031 W libc    : Access denied finding property "persist.sys.log_time_gap_sec"
+01-19 12:49:07.147  1031  1031 W libc    : Access denied finding property "persist.sys.log_max_line"
+01-19 12:49:07.148  1031  1031 W libc    : Access denied finding property "persist.sys.log_filter_flag"
+01-19 12:49:07.147  1031  1031 D vendor.qti.bluetooth@1.0-ibs_handler: SerialClockVote: vote for UART CLK ON
+01-19 12:49:07.142  1031  1031 W bluetooth@1.0-s: type=1400 audit(0.0:20991): avc: denied { read } for name="u:object_r:system_prop:s0" dev="tmpfs" ino=13208 scontext=u:r:hal_bluetooth_default:s0 tcontext=u:object_r:system_prop:s0 tclass=file permissive=0
+01-19 12:49:07.142  1031  1031 W bluetooth@1.0-s: type=1400 audit(0.0:20992): avc: denied { read } for name="u:object_r:system_prop:s0" dev="tmpfs" ino=13208 scontext=u:r:hal_bluetooth_default:s0 tcontext=u:object_r:system_prop:s0 tclass=file permissive=0
+01-19 12:49:07.148  1031  1031 D vendor.qti.bluetooth@1.0-wake_lock: Acquire wakelock is acquired 
+01-19 12:49:07.148  1031  1031 I vendor.qti.bluetooth@1.0-ibs_handler: DeviceWakeUp: Writing IBS_WAKE_IND
+01-19 12:49:07.146  1031  1031 W bluetooth@1.0-s: type=1400 audit(0.0:20993): avc: denied { read } for name="u:object_r:system_prop:s0" dev="tmpfs" ino=13208 scontext=u:r:hal_bluetooth_default:s0 tcontext=u:object_r:system_prop:s0 tclass=file permissive=0
+01-19 12:49:07.154  1031 10380 I vendor.qti.bluetooth@1.0-ibs_handler: ProcessIbsCmd: Received IBS_WAKE_ACK: 0xFC
+01-19 12:49:07.154  1031 10380 I vendor.qti.bluetooth@1.0-ibs_handler: ProcessIbsCmd: Signal wack_cond_
+01-19 12:49:07.154  1031  1031 D vendor.qti.bluetooth@1.0-ibs_handler: DeviceWakeUp: Unblocked from waiting for FC, pthread_cond_timedwait ret = 0
+01-19 12:49:07.155  1031 10380 I vendor.qti.bluetooth@1.0-ibs_handler: ProcessIbsCmd: Received IBS_WAKE_IND: 0xFD
+01-19 12:49:07.155  1031 10380 I vendor.qti.bluetooth@1.0-ibs_handler: ProcessIbsCmd: Writing IBS_WAKE_ACK
+01-19 12:49:07.156 10266 10335 D BtGatt.GattService: onScanFilterParamsConfigured() - clientIf=8, status=0, action=1, availableSpace=58
+01-19 12:49:07.156 10266 10335 D BtGatt.ScanManager: callback done for scannerId - 8 status - 0
+01-19 12:49:07.157 10266 10335 D BtGatt.GattService: onScanFilterParamsConfigured() - clientIf=8, status=0, action=1, availableSpace=59
+01-19 12:49:07.157 10266 10335 D BtGatt.ScanManager: callback done for scannerId - 8 status - 0
+01-19 12:49:07.158 10266 10335 D BtGatt.GattService: onScanFilterParamsConfigured() - clientIf=8, status=0, action=1, availableSpace=60
+01-19 12:49:07.158 10266 10335 D BtGatt.ScanManager: callback done for scannerId - 8 status - 0
+01-19 12:49:07.160 10266 10335 D BtGatt.GattService: onScanFilterParamsConfigured() - clientIf=8, status=0, action=1, availableSpace=61
+01-19 12:49:07.160 10266 10335 D BtGatt.ScanManager: callback done for scannerId - 8 status - 0
+01-19 12:49:07.161 10266 10335 D BtGatt.GattService: onScanFilterParamsConfigured() - clientIf=8, status=0, action=1, availableSpace=62
+01-19 12:49:07.161 10266 10335 D BtGatt.ScanManager: callback done for scannerId - 8 status - 0
+01-19 12:49:07.162 10266 10335 D BtGatt.GattService: onScanFilterParamsConfigured() - clientIf=8, status=0, action=1, availableSpace=63
+01-19 12:49:07.162 10266 10335 D BtGatt.ScanManager: callback done for scannerId - 8 status - 0
+01-19 12:49:07.162 10266 10362 D BtGatt.ScanManager: configureRegularScanParams() - queue=1
+01-19 12:49:07.162 10266 10362 D BtGatt.ScanManager: configureRegularScanParams() - ScanSetting LE 1M Scan mode=0 ScanSetting LE Coded Scan mode=0 mLastConfiguredScanSettingLE1M=0 mLastConfiguredScanSettingLECoded=0 scanPhy=255
+01-19 12:49:07.164 10266 10362 D BtGatt.ScanManager: configureRegularScanParams - scanInterval LE 1M = 660 configureRegularScanParams - scanWindow LE 1M= 66 configureRegularScanParams - scanInterval LE Coded= 660 configureRegularScanParams - scanWindow LE Coded= 66
+01-19 12:49:07.165 10266 10335 D BtGatt.GattService: onScanParamSetupCompleted : 0
+01-19 12:49:07.204  3459 10467 D MiuiFastConnectService_Plugin: handleMessage: MSG_START_BLE_SCAN mode: 0
+01-19 12:49:07.204  3459 10467 D BluetoothAdapter: isLeEnabled(): ON
+01-19 12:49:07.208 10266 12308 D BtGatt.GattService: registerScanner() - UUID=329323fa-7d02-448b-b76d-fe617afdf818
+01-19 12:49:07.208  1031 10380 I vendor.qti.bluetooth@1.0-ibs_handler: ProcessIbsCmd: Received IBS_SLEEP_IND: 0xFE
+01-19 12:49:07.209 10266 10335 D BtGatt.GattService: onScannerRegistered() - UUID=329323fa-7d02-448b-b76d-fe617afdf818, scannerId=8, status=0
+01-19 12:49:07.209  3459  4812 D BluetoothLeScanner: onScannerRegistered() - status=0 scannerId=8 mScannerId=0
+01-19 12:49:07.211 10266 12308 D BtGatt.GattService: start scan with filters. callingPackage: com.xiaomi.bluetooth
+01-19 12:49:07.212 10266 12308 D BtGatt.GattService: enforcePrivilegedPermissionIfNeeded([BluetoothLeScanFilter [mDeviceName=null, mDeviceAddress=null, mUuid=null, mUuidMask=null, mServiceSolicitationUuid=null, mServiceSolicitationUuidMask=null, mServiceDataUuid=null, mServiceData=null, mServiceDataMask=null, mManufacturerId=911, mManufacturerData=[], mManufacturerDataMask=null, mAdvertisingDataType=-1, mAdvertisingData=null, mAdvertisingDataMask=null, mOrganizationId=-1, mTDSFlags=-1, mTDSFlagsMask=-1, mWifiNANHash=null], mGroupBasedFiltering=false, BluetoothLeScanFilter [mDeviceName=null, mDeviceAddress=null, mUuid=null, mUuidMask=null, mServiceSolicitationUuid=null, mServiceSolicitationUuidMask=null, mServiceDataUuid=null, mServiceData=null, mServiceDataMask=null, mManufacturerId=65535, mManufacturerData=[77], mManufacturerDataMask=null, mAdvertisingDataType=-1, mAdvertisingData=null, mAdvertisingDataMask=null, mOrganizationId=-1, mTDSFlags=-1, mTDSFlagsMask=-1, mWifiNANHash=null], mGroupBasedFiltering=false, BluetoothLeScanFilter [mDeviceName=null, mDeviceAddress=null, mUuid=null, mUuidMask=null, mServiceSolicitationUuid=null, mServiceSolicitationUuidMask=null, mServiceDataUuid=0000fe95-0000-1000-8000-00805f9b34fb, mServiceData=[], mServiceDataMask=null, mManufacturerId=-1, mManufacturerData=null, mManufacturerDataMask=null, mAdvertisingDataType=-1, mAdvertisingData=null, mAdvertisingDataMask=null, mOrganizationId=-1, mTDSFlags=-1, mTDSFlagsMask=-1, mWifiNANHash=null], mGroupBasedFiltering=false, BluetoothLeScanFilter [mDeviceName=null, mDeviceAddress=null, mUuid=null, mUuidMask=null, mServiceSolicitationUuid=null, mServiceSolicitationUuidMask=null, mServiceDataUuid=0000fdaa-0000-1000-8000-00805f9b34fb, mServiceData=[], mServiceDataMask=null, mManufacturerId=-1, mManufacturerData=null, mManufacturerDataMask=null, mAdvertisingDataType=-1, mAdvertisingData=null, mAdvertisingDataMask=null, mOrganizationId=-1, mTDSFlags=-1, mTDSFlagsMask=-1, mWifiNANHash=null], mGroupBasedFiltering=false, BluetoothLeScanFilter [mDeviceName=null, mDeviceAddress=null, mUuid=null, mUuidMask=null, mServiceSolicitationUuid=null, mServiceSolicitationUuidMask=null, mServiceDataUuid=0000fdee-0000-1000-8000-00805f9b34fb, mServiceData=[1, 1, 1], mServiceDataMask=null, mManufacturerId=-1, mManufacturerData=null, mManufacturerDataMask=null, mAdvertisingDataType=-1, mAdvertisingData=null, mAdvertisingDataMask=null, mOrganizationId=-1, mTDSFlags=-1, mTDSFlagsMask=-1, mWifiNANHash=null], mGroupBasedFiltering=false, BluetoothLeScanFilter [mDeviceName=null, mDeviceAddress=null, mUuid=null, mUuidMask=null, mServiceSolicitationUuid=null, mServiceSolicitationUuidMask=null, mServiceDataUuid=0000fd2d-0000-1000-8000-00805f9b34fb, mServiceData=[], mServiceDataMask=null, mManufacturerId=-1, mManufacturerData=null, mManufacturerDataMask=null, mAdvertisingDataType=-1, mAdvertisingData=null, mAdvertisingDataMask=null, mOrganizationId=-1, mTDSFlags=-1, mTDSFlagsMask=-1, mWifiNANHash=null], mGroupBasedFiltering=false])
+01-19 12:49:07.215 10266 12308 W BluetoothUtils: callingUid is Process.BLUETOOTH_UID
+01-19 12:49:07.217 10266 12308 D BtGatt.ScanManager: startScan()  [ScanClient scanModeApp 0 scanModeUsed 0 [appScanStats android.uid.bluetooth:1002]]
+01-19 12:49:07.217 10266 10362 I BtGatt.ScanManager: msg.what = MSG_RECORD_CALLER, msg.arg1 = None
+01-19 12:49:07.217 10266 10362 I BtGatt.ScanManager: msg.what = MSG_START_BLE_SCAN, msg.arg1 = None
+01-19 12:49:07.217 10266 10362 D BtGatt.ScanManager: handling starting scan
+01-19 12:49:07.218 10266 10362 D BtGatt.ScanManager: isAptXLowLatencyModeEnabled: false
+01-19 12:49:07.218 10266 10362 D BtGatt.ScanManager: track LE scan event: callerPackage = [com.xiaomi.bluetooth], scanMode = [0], reportDelayMillis = [0], behavior = [1], scannerId = [8], duration = [0]
+01-19 12:49:07.219  1031 10380 I vendor.qti.bluetooth@1.0-ibs_handler: ProcessIbsCmd: Received IBS_WAKE_IND: 0xFD
+01-19 12:49:07.219  1031 10380 I vendor.qti.bluetooth@1.0-ibs_handler: ProcessIbsCmd: Writing IBS_WAKE_ACK
+01-19 12:49:07.220 10266 10335 D BtGatt.GattService: onScanFilterEnableDisabled() - clientIf=8, status=0, action=1
+01-19 12:49:07.220 10266 10335 D BtGatt.ScanManager: callback done for scannerId - 8 status - 0
+01-19 12:49:07.220 10266 10362 D BtGatt.ScanManager: configureScanFilters rssiThreshold: -60, 15
+01-19 12:49:07.220 10266 10362 D BtGatt.ScanManager: Available Filter size: 60
+01-19 12:49:07.221 10266 10335 D BtGatt.GattService: onScanFilterConfig() - clientIf=8, action = 0 status = 0, filterType=0, availableSpace=0
+01-19 12:49:07.221 10266 10335 D BtGatt.ScanManager: callback done for scannerId - 8 status - 0
+01-19 12:49:07.221 10266 10362 D BtGatt.ScanManager: configureFilterParamter 500 10000 1 0, deliveryMode=0
+01-19 12:49:07.222 10266 10335 D BtGatt.GattService: onScanFilterParamsConfigured() - clientIf=8, status=0, action=0, availableSpace=62
+01-19 12:49:07.222 10266 10335 D BtGatt.ScanManager: callback done for scannerId - 8 status - 0
+01-19 12:49:07.222 10266 10335 D BtGatt.GattService: onScanFilterConfig() - clientIf=8, action = 0 status = 0, filterType=0, availableSpace=0
+01-19 12:49:07.222 10266 10335 D BtGatt.ScanManager: callback done for scannerId - 8 status - 0
+01-19 12:49:07.222 10266 10362 D BtGatt.ScanManager: configureFilterParamter 500 10000 1 0, deliveryMode=0
+01-19 12:49:07.224 10266 10335 D BtGatt.GattService: onScanFilterParamsConfigured() - clientIf=8, status=0, action=0, availableSpace=61
+01-19 12:49:07.224 10266 10335 D BtGatt.ScanManager: callback done for scannerId - 8 status - 0
+01-19 12:49:07.224 10266 10335 D BtGatt.GattService: onScanFilterConfig() - clientIf=8, action = 0 status = 0, filterType=0, availableSpace=0
+01-19 12:49:07.224 10266 10335 D BtGatt.ScanManager: callback done for scannerId - 8 status - 0
+01-19 12:49:07.224 10266 10362 D BtGatt.ScanManager: configureFilterParamter 500 10000 1 0, deliveryMode=0
+01-19 12:49:07.226 10266 10335 D BtGatt.GattService: onScanFilterParamsConfigured() - clientIf=8, status=0, action=0, availableSpace=60
+01-19 12:49:07.226 10266 10335 D BtGatt.ScanManager: callback done for scannerId - 8 status - 0
+01-19 12:49:07.226 10266 10335 D BtGatt.GattService: onScanFilterConfig() - clientIf=8, action = 0 status = 0, filterType=0, availableSpace=0
+01-19 12:49:07.226 10266 10335 D BtGatt.ScanManager: callback done for scannerId - 8 status - 0
+01-19 12:49:07.226 10266 10362 D BtGatt.ScanManager: configureFilterParamter 500 10000 1 0, deliveryMode=0
+01-19 12:49:07.228 10266 10335 D BtGatt.GattService: onScanFilterParamsConfigured() - clientIf=8, status=0, action=0, availableSpace=59
+01-19 12:49:07.228 10266 10335 D BtGatt.ScanManager: callback done for scannerId - 8 status - 0
+01-19 12:49:07.228 10266 10335 D BtGatt.GattService: onScanFilterConfig() - clientIf=8, action = 0 status = 0, filterType=0, availableSpace=0
+01-19 12:49:07.228 10266 10335 D BtGatt.ScanManager: callback done for scannerId - 8 status - 0
+01-19 12:49:07.229 10266 10362 D BtGatt.ScanManager: configureFilterParamter 500 10000 1 0, deliveryMode=0
+01-19 12:49:07.230 10266 10335 D BtGatt.GattService: onScanFilterParamsConfigured() - clientIf=8, status=0, action=0, availableSpace=58
+01-19 12:49:07.230 10266 10335 D BtGatt.ScanManager: callback done for scannerId - 8 status - 0
+01-19 12:49:07.230 10266 10335 D BtGatt.GattService: onScanFilterConfig() - clientIf=8, action = 0 status = 0, filterType=0, availableSpace=0
+01-19 12:49:07.231 10266 10335 D BtGatt.ScanManager: callback done for scannerId - 8 status - 0
+01-19 12:49:07.231 10266 10362 D BtGatt.ScanManager: configureFilterParamter 500 10000 1 0, deliveryMode=0
+01-19 12:49:07.232 10266 10335 D BtGatt.GattService: onScanFilterParamsConfigured() - clientIf=8, status=0, action=0, availableSpace=57
+01-19 12:49:07.232 10266 10335 D BtGatt.ScanManager: callback done for scannerId - 8 status - 0
+01-19 12:49:07.232 10266 10362 D BtGatt.ScanManager: configureRegularScanParams() - queue=2
+01-19 12:49:07.232 10266 10362 D BtGatt.ScanManager: configureRegularScanParams() - ScanSetting LE 1M Scan mode=0 ScanSetting LE Coded Scan mode=0 mLastConfiguredScanSettingLE1M=0 mLastConfiguredScanSettingLECoded=0 scanPhy=255
+01-19 12:49:07.233 10266 10362 D BtGatt.ScanManager: configureRegularScanParams - scanInterval LE 1M = 660 configureRegularScanParams - scanWindow LE 1M= 66 configureRegularScanParams - scanInterval LE Coded= 660 configureRegularScanParams - scanWindow LE Coded= 66
+01-19 12:49:07.234 10266 10335 D BtGatt.GattService: onScanParamSetupCompleted : 0
+01-19 12:49:07.279  1031 10380 I vendor.qti.bluetooth@1.0-ibs_handler: ProcessIbsCmd: Received IBS_SLEEP_IND: 0xFE
+01-19 12:49:07.402  1998  3041 D MIUIInput: [MotionEvent] publisher action=0x4, 42728651, channel 'd7fb48 NavigationBar0 (server)'
+01-19 12:49:07.403  1998  3041 D MIUIInput: [MotionEvent] publisher action=0x0, 42728651, channel '7ea7a75 PopupWindow:251034a (server)'
+01-19 12:49:07.403  1998  3041 D MIUIInput: [MotionEvent] publisher action=0x0, 42728651, channel '[Gesture Monitor] miui-gesture (server)'
+01-19 12:49:07.437  1998  3041 D MIUIInput: [MotionEvent] publisher action=0x1, 42728688, channel '7ea7a75 PopupWindow:251034a (server)'
+01-19 12:49:07.437  1998  3041 D MIUIInput: [MotionEvent] publisher action=0x1, 42728688, channel '[Gesture Monitor] miui-gesture (server)'
+01-19 12:49:07.439  1118  1118 E vendor.qti.hardware.perf@2.2-service: Unknown params
+01-19 12:49:07.440  1118  1251 E ANDR-PERF-OPTSHANDLER: Can't process request: noroot_thread is not running
+01-19 12:49:07.440  1118  1251 E ANDR-PERF-RESOURCEQS: Failed to apply optimization [7, 3]
+01-19 12:49:07.455  1998  4034 I HapticFeedbackUtil: 5,2,true
+01-19 12:49:07.455  1267  1267 D vendor.hardware.vibratorfeature: configStrengthForEffect id : 5 , strength: 1.000000
+01-19 12:49:07.460  1998  4034 W InputManager-JNI: Input channel object '7ea7a75 PopupWindow:251034a (client)' was disposed without first being removed with the input manager!
+01-19 12:49:07.460  1267  1267 D vendor.hardware.vibratorfeature: Vibrator perform effect 5
+01-19 12:49:07.460  1267  1267 D vendor.hardware.vibratorfeature: uses mCurrMagnitudeExt 1.000000
+01-19 12:49:07.460  1267  1267 D vendor.hardware.vibratorfeature: getAmplitudeFromEffectStrength 1.000000
+01-19 12:49:07.461  1267  1267 D vendor.hardware.vibratorfeature: return from driver is 20
+01-19 12:49:07.461  1267  1267 D vendor.hardware.vibratorfeature: playLengthMs is 70
+01-19 12:49:07.461  1267 19415 D vendor.hardware.vibratorfeature: Starting perform on another thread
+01-19 12:49:07.472  1312  4235 I SurfaceFlinger: setTransactionState focusRequest transactionId:8581344662331 frontWin:6c16f9a com.android.settings/com.android.settings.SubSettings
+01-19 12:49:07.480  1312  1312 I SurfaceFlinger: transactionIsReadyToBeApplied focusRequest transactionId:8581344662331
+01-19 12:49:07.480  1312  1312 I SurfaceFlinger: addInputWindowCommands hasChanges
+01-19 12:49:07.485 26915 26915 D DecorView[]: onWindowFocusChanged hasWindowFocus true
+01-19 12:49:07.485 26915 26915 I HandWritingStubImpl: refreshLastKeyboardType: 1
+01-19 12:49:07.485 26915 26915 I HandWritingStubImpl: getCurrentKeyboardType: 1
+01-19 12:49:07.489  7864  7864 E BaseInputMethodService: onFinishInput
+01-19 12:49:07.489  7864  7864 E BaseInputMethodService: onStartInput
+01-19 12:49:07.531  1267 19415 D vendor.hardware.vibratorfeature: Notifying perform complete
+01-19 12:49:07.532  1267  1267 D vendor.hardware.vibratorfeature: QTI Vibrator off
+01-19 12:49:07.532  1267  1267 D DynamicEffectThread: pause
+01-19 12:49:07.532  1267  1267 D DynamicEffectDevice: FFDevice pause
+01-19 12:49:07.624  1312  1312 D MI-SF   : [FpsStat] distroy...
+01-19 12:49:07.856  1111  1247 W libc    : Access denied finding property "persist.sys.log_time_gap_sec"
+01-19 12:49:07.850  1111  1111 W Binder:1111_1: type=1400 audit(0.0:20994): avc: denied { read } for name="u:object_r:system_prop:s0" dev="tmpfs" ino=13208 scontext=u:r:hal_graphics_composer_default:s0 tcontext=u:object_r:system_prop:s0 tclass=file permissive=0
+01-19 12:49:07.854  1111  1111 W Binder:1111_1: type=1400 audit(0.0:20995): avc: denied { read } for name="u:object_r:system_prop:s0" dev="tmpfs" ino=13208 scontext=u:r:hal_graphics_composer_default:s0 tcontext=u:object_r:system_prop:s0 tclass=file permissive=0
+01-19 12:49:07.854  1111  1111 W Binder:1111_1: type=1400 audit(0.0:20996): avc: denied { read } for name="u:object_r:system_prop:s0" dev="tmpfs" ino=13208 scontext=u:r:hal_graphics_composer_default:s0 tcontext=u:object_r:system_prop:s0 tclass=file permissive=0
+01-19 12:49:07.856  1111  1247 W libc    : Access denied finding property "persist.sys.log_max_line"
+01-19 12:49:07.857  1111  1247 W libc    : Access denied finding property "persist.sys.log_filter_flag"
+01-19 12:49:07.855  1111  1247 I MiStcImpl: Dispatching command: 14 SET_IGC_DITHER
+01-19 12:49:07.857  1111  1247 E MiStcImpl: Seting Display 0 dither en 0 strength 5
+01-19 12:49:07.890 19037 19054 I d.process.acore: This is non sticky GC, maxfree is 8388608 minfree is 2097152
+01-19 12:49:08.091  1032  2534 E CamX    : [ERROR][NCS    ] camxncsintfqsee.cpp:2355 FillSensorData() Invalid sensor index -1
+01-19 12:49:08.238  1031 10386 I vendor.qti.bluetooth@1.0-ibs_handler: DeviceSleep: TX Awake, Sending SLEEP_IND
+01-19 12:49:08.239  1031 10386 D vendor.qti.bluetooth@1.0-ibs_handler: SerialClockVote: vote for UART CLK OFF
+01-19 12:49:08.289  1032  2534 E CamX    : [ERROR][NCS    ] camxncsintfqsee.cpp:2355 FillSensorData() Invalid sensor index -1
+01-19 12:49:08.391  1031 10367 D vendor.qti.bluetooth@1.0-wake_lock: Release wakelock is released 
+01-19 12:49:08.398  1083  1083 W 1601_see: type=1400 audit(0.0:20997): avc: denied { read } for name="u:object_r:system_prop:s0" dev="tmpfs" ino=13208 scontext=u:r:hal_sensors_default:s0 tcontext=u:object_r:system_prop:s0 tclass=file permissive=0
+01-19 12:49:08.402  1083  1083 W 1601_see: type=1400 audit(0.0:20998): avc: denied { read } for name="u:object_r:system_prop:s0" dev="tmpfs" ino=13208 scontext=u:r:hal_sensors_default:s0 tcontext=u:object_r:system_prop:s0 tclass=file permissive=0
+01-19 12:49:08.404  1083 16634 W libc    : Access denied finding property "persist.sys.log_max_line"
+01-19 12:49:08.404  1083 16634 W libc    : Access denied finding property "persist.sys.log_filter_flag"
+01-19 12:49:08.402  1083  1083 W 1601_see: type=1400 audit(0.0:20999): avc: denied { read } for name="u:object_r:system_prop:s0" dev="tmpfs" ino=13208 scontext=u:r:hal_sensors_default:s0 tcontext=u:object_r:system_prop:s0 tclass=file permissive=0
+01-19 12:49:08.403  1083 16634 E sensors-hal: handle_sns_client_event:52, gesture_detect_event: ts=179095155276377, event=3.000000
+01-19 12:49:08.574  1998  3041 D MIUIInput: [MotionEvent] publisher action=0x0, 42729824, channel '71106e4 GestureStubBottom (server)'
+01-19 12:49:08.574  1998  3041 D MIUIInput: [MotionEvent] publisher action=0x0, 42729824, channel '[Gesture Monitor] miui-gesture (server)'
+01-19 12:49:08.577  3440  4145 D GestureStubView: onTouch ACTION_DOWN sendMessageDelayed MSG_CHECK_GESTURE_STUB_TOUCHABLE
+01-19 12:49:08.578  3440  4145 D GesturesBackController: onPointerEvent swipeStatus:16
+01-19 12:49:08.578  3440  4145 D GesturesBackController: mSwipeStatus == SWIPE_STATUS_ANIMATING, processPointerEvent
+01-19 12:49:08.578  3440  4145 W GestureStubView: adaptRotation   currentRotation=0   mRotation=0
+01-19 12:49:08.579  3440  4145 D GestureStubView: resetRenderProperty: MSG_RESET_ANIMATING_STATUS   isLayoutParamChanged=false
+01-19 12:49:08.579  3440  4145 D GestureStubView: reset animating status
+01-19 12:49:08.586  1118  1118 E vendor.qti.hardware.perf@2.2-service: Unknown params
+01-19 12:49:08.587  3440  4145 D GestureStubView: gatherTransparentRegion: need render w:72  h:1920
+01-19 12:49:08.588  1118  1251 E ANDR-PERF-OPTSHANDLER: Can't process request: noroot_thread is not running
+01-19 12:49:08.588  1118  1251 E ANDR-PERF-RESOURCEQS: Failed to apply optimization [7, 3]
+01-19 12:49:08.617  1998  3041 D MIUIInput: [MotionEvent] publisher action=0x3, 42729869, channel '71106e4 GestureStubBottom (server)'
+01-19 12:49:08.617  1998  3041 D MIUIInput: [MotionEvent] publisher action=0x3, 42729869, channel '[Gesture Monitor] miui-gesture (server)'
+01-19 12:49:08.618  1998  3041 D MIUIInput: [MotionEvent] publisher action=0x4, 42729824, channel 'd7fb48 NavigationBar0 (server)'
+01-19 12:49:08.618  1998  3041 D MIUIInput: [MotionEvent] publisher action=0x0, 42729824, channel '6c16f9a com.android.settings/com.android.settings.SubSettings (server)'
+01-19 12:49:08.618  3440  4145 D GestureStubView: currTime - mDownTime < MSG_CHECK_GESTURE_STUB_TOUCHABLE_TIMEOUT updateViewLayout UnTouchable, diffX:0.0 diffY:0.0
+01-19 12:49:08.619  3440  4145 D GestureStubView: ACTION_UP: mIsGestureStarted: false mIsGestureAnimationEnabled: true
+01-19 12:49:08.619  3440  4145 D GesturesBackController: onPointerEvent swipeStatus:8
+01-19 12:49:08.619  3440  4145 D GesturesBackController: mSwipeStatus != SWIPE_STATUS_ANIMATING, processPointerEvent
+01-19 12:49:08.619  3440  4145 D GestureStubView: handleMessage MSG_SET_GESTURE_STUB_UNTOUCHABLE
+01-19 12:49:08.619  3440  4145 D GestureStubView_Touch: setKeepHidden    old=false   new=true
+01-19 12:49:08.619  3440  4145 D GestureStubView_Touch: updateTouchable    old=false   new=true
+01-19 12:49:08.619  3440  4145 D GestureStubView_Touch:   updateTouchable---requestApplyInsets
+01-19 12:49:08.651  1998  3041 D MIUIInput: [MotionEvent] publisher action=0x1, 42729868, channel '6c16f9a com.android.settings/com.android.settings.SubSettings (server)'
+01-19 12:49:08.661  1998  3618 E CellBroadcastUtils: getDefaultCellBroadcastReceiverPackageName: no package found
+01-19 12:49:08.661  1118  1118 E vendor.qti.hardware.perf@2.2-service: Unknown params
+01-19 12:49:08.665  1998  3618 D PerfStubImpl: perfWarmLaunchBoost: com.android.settings, -1, 2
+01-19 12:49:08.665  3440  4383 D TaskStackChangeListeners: onTaskDescriptionChanged =  taskId = 66
+01-19 12:49:08.665  1118  1118 E vendor.qti.hardware.perf@2.2-service: Unknown params
+01-19 12:49:08.665  1118  1118 E vendor.qti.hardware.perf@2.2-service: Unknown params
+01-19 12:49:08.665  1998  3618 D ActivityTrigger: ActivityTrigger activityPauseTrigger 
+01-19 12:49:08.665  1118  1118 E vendor.qti.hardware.perf@2.2-service: Unknown params
+01-19 12:49:08.667  7269  8021 I octvm_klo: KM_EVENT_LOGGER have allocated 1 blocks.
+01-19 12:49:08.672  1118  1251 E ANDR-PERF-OPTSHANDLER: Perflock resource /sys/class/devfreq/soc:qcom,cpubw/max_freq not supported
+01-19 12:49:08.672  1118  1251 E ANDR-PERF-RESOURCEQS: Failed to apply optimization [6, 6]
+01-19 12:49:08.672  1118  1251 E ANDR-PERF-OPTSHANDLER: Perflock resource /sys/class/devfreq/soc:qcom,cpubw/min_freq not supported
+01-19 12:49:08.672  1118  1251 E ANDR-PERF-RESOURCEQS: Failed to apply optimization [6, 0]
+01-19 12:49:08.679 26915 26915 D FiveGViceSAPreferenceController: onPause
+01-19 12:49:08.679 26915 26915 D DsdaSwitchPreferenceController: onPause
+01-19 12:49:08.680  1998 10160 D PerfStubImpl: perfWarmLaunchBoost: com.android.settings, -1, 2
+01-19 12:49:08.680  1118  1118 E vendor.qti.hardware.perf@2.2-service: Unknown params
+01-19 12:49:08.680  1118  1118 E vendor.qti.hardware.perf@2.2-service: Unknown params
+01-19 12:49:08.680  1118  1251 E ANDR-PERF-OPTSHANDLER: Perflock resource /sys/class/devfreq/soc:qcom,cpubw/max_freq not supported
+01-19 12:49:08.680  1118  1251 E ANDR-PERF-RESOURCEQS: Failed to apply optimization [6, 6]
+01-19 12:49:08.680  1118  1251 E ANDR-PERF-OPTSHANDLER: Perflock resource /sys/class/devfreq/soc:qcom,cpubw/min_freq not supported
+01-19 12:49:08.680  1118  1251 E ANDR-PERF-RESOURCEQS: Failed to apply optimization [6, 0]
+01-19 12:49:08.680  1118  1118 E vendor.qti.hardware.perf@2.2-service: Unknown params
+01-19 12:49:08.681  1118  1252 E ANDR-PERF-LM: MetaMeter: handleAsync() 166: AdaptLaunch Invalid Async
+01-19 12:49:08.682  1998 10160 D CompatibilityInfo: mCompatibilityFlags - 0
+01-19 12:49:08.682  1998 10160 D CompatibilityInfo: applicationDensity - 560
+01-19 12:49:08.682  1998 10160 D CompatibilityInfo: applicationScale - 1.0
+01-19 12:49:08.687  1032  2534 E CamX    : [ERROR][NCS    ] camxncsintfqsee.cpp:2355 FillSensorData() Invalid sensor index -1
+01-19 12:49:08.687  1998  3148 D ProcessManager: skip notify foregroundAppInfo:ApplicationInfo{ed66c09 com.android.settings}
+01-19 12:49:08.688  1312  2493 I SurfaceFlinger: setTransactionState focusRequest transactionId:8581344662368 frontWin:<null>
+01-19 12:49:08.690  1998 10160 D MiuiMultiWindowAdapter: MiuiMultiWindowAdapter::getFreeformVideoWhiteList::sSmallWindowWhiteList = [com.hunantv.imgo.activity, com.tencent.qqlive, com.qiyi.video, com.hunantv.imgo.activity.inter, com.tencent.qqlivei18n, com.iqiyi.i18n, tv.danmaku.bili]
+01-19 12:49:08.690 26915 26915 D MiuiMultiWindowAdapter: MiuiMultiWindowAdapter::getFreeformVideoWhiteListInSystem::LIST_ABOUT_SUPPORT_LANDSCAPE_VIDEO = [com.hunantv.imgo.activity, com.tencent.qqlive, com.qiyi.video, com.hunantv.imgo.activity.inter, com.tencent.qqlivei18n, com.iqiyi.i18n, tv.danmaku.bili]
+01-19 12:49:08.690  1118  1118 E vendor.qti.hardware.perf@2.2-service: Unknown params
+01-19 12:49:08.690  1118  1118 E vendor.qti.hardware.perf@2.2-service: Unknown params
+01-19 12:49:08.690  1118  1118 E vendor.qti.hardware.perf@2.2-service: Unknown params
+01-19 12:49:08.690  1118  1118 E vendor.qti.hardware.perf@2.2-service: Unknown params
+01-19 12:49:08.690  1118  1118 E vendor.qti.hardware.perf@2.2-service: Unknown params
+01-19 12:49:08.690  1118  1118 E vendor.qti.hardware.perf@2.2-service: Unknown params
+01-19 12:49:08.691  1118  1118 E vendor.qti.hardware.perf@2.2-service: Unknown params
+01-19 12:49:08.691  1118  1118 E vendor.qti.hardware.perf@2.2-service: Unknown params
+01-19 12:49:08.691  1118  1118 E vendor.qti.hardware.perf@2.2-service: Unknown params
+01-19 12:49:08.691  1118  1118 E vendor.qti.hardware.perf@2.2-service: Unknown params
+01-19 12:49:08.691  1118  1118 E vendor.qti.hardware.perf@2.2-service: Unknown params
+01-19 12:49:08.691  1118  1118 E vendor.qti.hardware.perf@2.2-service: Unknown params
+01-19 12:49:08.691 26915 26915 D ActivityEmbeddingUtils: isFlagEnabled = true
+01-19 12:49:08.691 26915 26915 D ActivityEmbeddingUtils: isSplitSupported = false
+01-19 12:49:08.693  1312  1312 I SurfaceFlinger: transactionIsReadyToBeApplied focusRequest transactionId:8581344662368
+01-19 12:49:08.693  1312  1312 I SurfaceFlinger: addInputWindowCommands hasChanges
+01-19 12:49:08.693 26915 13449 D ViewContentFactory: initViewContentFetcherClass
+01-19 12:49:08.694 26915 26915 D IS_CTS_MODE: false
+01-19 12:49:08.694 26915 26915 D MULTI_WINDOW_ENABLED: false
+01-19 12:49:08.694 26915 13449 I ContentCatcher: ViewContentFetcher : ViewContentFetcher
+01-19 12:49:08.694 26915 13449 D ViewContentFactory: createInterceptor took 1ms
+01-19 12:49:08.694  1998  3068 I MiuiNetworkPolicy: updateUidState uid = 99004, uidState = 19
+01-19 12:49:08.694  1998  3068 I MiuiNetworkPolicy: updateUidState uid = 10262, uidState = 19
+01-19 12:49:08.694  1998  3068 I MiuiNetworkPolicy: updateUidState uid = 10243, uidState = 19
+01-19 12:49:08.694  1998  3068 I MiuiNetworkPolicy: updateUidState uid = 10232, uidState = 19
+01-19 12:49:08.694  1998  3068 I MiuiNetworkPolicy: updateUidState uid = 10230, uidState = 19
+01-19 12:49:08.694  1998  3068 I MiuiNetworkPolicy: updateUidState uid = 10161, uidState = 19
+01-19 12:49:08.694  1998  3068 I MiuiNetworkPolicy: updateUidState uid = 10153, uidState = 19
+01-19 12:49:08.694  1998  3068 I MiuiNetworkPolicy: updateUidState uid = 10146, uidState = 19
+01-19 12:49:08.694 26915 26915 D DecorView[]: getWindowModeFromSystem  windowmode is 1
+01-19 12:49:08.694  1998  3068 I MiuiNetworkPolicy: updateUidState uid = 10144, uidState = 19
+01-19 12:49:08.694  1998  3068 I MiuiNetworkPolicy: updateUidState uid = 10143, uidState = 19
+01-19 12:49:08.694  1998  3068 I MiuiNetworkPolicy: updateUidState uid = 10142, uidState = 19
+01-19 12:49:08.694  1998  3068 I MiuiNetworkPolicy: updateUidState uid = 10141, uidState = 19
+01-19 12:49:08.694  1998  3068 I MiuiNetworkPolicy: updateUidState uid = 10130, uidState = 19
+01-19 12:49:08.695  1998  3068 I MiuiNetworkPolicy: updateUidState uid = 10125, uidState = 19
+01-19 12:49:08.695  1998  3068 I MiuiNetworkPolicy: updateUidState uid = 10121, uidState = 19
+01-19 12:49:08.695  1998  3068 I MiuiNetworkPolicy: updateUidState uid = 10119, uidState = 19
+01-19 12:49:08.695  1998  3068 I MiuiNetworkPolicy: updateUidState uid = 10118, uidState = 19
+01-19 12:49:08.695  1998  3068 I MiuiNetworkPolicy: updateUidState uid = 10116, uidState = 19
+01-19 12:49:08.695  1998  3068 I MiuiNetworkPolicy: updateUidState uid = 10115, uidState = 19
+01-19 12:49:08.695  1998  3068 I MiuiNetworkPolicy: updateUidState uid = 10110, uidState = 19
+01-19 12:49:08.695  1998  3068 I MiuiNetworkPolicy: updateUidState uid = 10107, uidState = 19
+01-19 12:49:08.695  1998  3068 I MiuiNetworkPolicy: updateUidState uid = 10068, uidState = 19
+01-19 12:49:08.695  1998  3068 I MiuiNetworkPolicy: updateUidState uid = 6101, uidState = 19
+01-19 12:49:08.696  3440  4383 D TaskStackChangeListeners: onTaskDescriptionChanged =  taskId = 66
+01-19 12:49:08.696 26915 26915 E         : setFeedbackRadius failed , e:java.lang.NoSuchMethodException: android.view.View.setFeedbackRadius [float]
+01-19 12:49:08.698  1998  2341 I libprocessgroup: Successfully killed process cgroup uid 10111 pid 14366 in 8ms
+01-19 12:49:08.700 26915 26915 D SettingsActivity: Starting onCreate
+01-19 12:49:08.704 26915 26915 D SettingsActivity: Starting to set activity title
+01-19 12:49:08.704 26915 26915 D SettingsActivity: Done setting title
+01-19 12:49:08.704 26915 26915 D SettingsActivity: Switching to fragment com.android.settings.development.graphicsdriver.GraphicsDriverDashboard
+01-19 12:49:08.704 26915 26915 D SubSettings: Launching fragment com.android.settings.development.graphicsdriver.GraphicsDriverDashboard
+01-19 12:49:08.706 26915 26915 D PrefCtrlListHelper: Could not find Context-only controller for pref: com.android.settings.development.graphicsdriver.GraphicsDriverTopIntroPreferenceController
+01-19 12:49:08.706 26915 26915 D PrefCtrlListHelper: Could not find Context-only controller for pref: com.android.settings.development.graphicsdriver.GraphicsDriverEnableForAllAppsPreferenceController
+01-19 12:49:08.707 26915 26915 D PrefCtrlListHelper: Could not find Context-only controller for pref: com.android.settings.development.graphicsdriver.GraphicsDriverAppPreferenceController
+01-19 12:49:08.728  1118  1118 E vendor.qti.hardware.perf@2.2-service: Unknown params
+01-19 12:49:08.728  1118  1118 E vendor.qti.hardware.perf@2.2-service: Unknown params
+01-19 12:49:08.728  1118  1118 E vendor.qti.hardware.perf@2.2-service: Unknown params
+01-19 12:49:08.729  6556  6651 I com.xiaomi.xmsf: oneway function results for code 3 on binder at 0xb4000074de5c3340 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:08.729   879   879 I Zygote  : Process 31324 exited due to signal 9 (Killed)
+01-19 12:49:08.729  7055 12133 I i.xmsf:services: oneway function results for code 3 on binder at 0xb4000074deb8ce60 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:08.730   879   879 I Zygote  : Process 4080 exited due to signal 9 (Killed)
+01-19 12:49:08.730   879   879 I Zygote  : Process 14366 exited due to signal 9 (Killed)
+01-19 12:49:08.731  1118  1118 E vendor.qti.hardware.perf@2.2-service: Unknown params
+01-19 12:49:08.731  1118  1118 E vendor.qti.hardware.perf@2.2-service: Unknown params
+01-19 12:49:08.731  1118  1118 E vendor.qti.hardware.perf@2.2-service: Unknown params
+01-19 12:49:08.732  6556  6651 I com.xiaomi.xmsf: oneway function results for code 3 on binder at 0xb4000074de5c3340 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:08.732  7269 10868 D UidObserver: onUidGone entry uid = 10120
+01-19 12:49:08.733  7055 12133 I i.xmsf:services: oneway function results for code 3 on binder at 0xb4000074deb8ce60 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:08.733  1998  3068 I MiuiNetworkPolicy: removeUidState uid = 10120
+01-19 12:49:08.733   879   879 I Zygote  : Process 31181 exited due to signal 9 (Killed)
+01-19 12:49:08.733  5584  5617 I NetworkBoostStatusManager: onUidGone uid: 10120
+01-19 12:49:08.733  1118  1118 E vendor.qti.hardware.perf@2.2-service: Unknown params
+01-19 12:49:08.733  1118  1118 E vendor.qti.hardware.perf@2.2-service: Unknown params
+01-19 12:49:08.733  1118  1118 E vendor.qti.hardware.perf@2.2-service: Unknown params
+01-19 12:49:08.734  7055 12133 I i.xmsf:services: oneway function results for code 3 on binder at 0xb4000074deb8ce60 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:08.734  7269 10868 D UidObserver: onUidGone entry uid = 10111
+01-19 12:49:08.734  5584  5617 I NetworkBoostStatusManager: onUidGone uid: 10111
+01-19 12:49:08.734  1998  3068 I MiuiNetworkPolicy: removeUidState uid = 10111
+01-19 12:49:08.735  6556  6651 I com.xiaomi.xmsf: oneway function results for code 3 on binder at 0xb4000074de5c3340 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:08.735  1118  1118 E vendor.qti.hardware.perf@2.2-service: Unknown params
+01-19 12:49:08.735  1118  1118 E vendor.qti.hardware.perf@2.2-service: Unknown params
+01-19 12:49:08.735  1118  1118 E vendor.qti.hardware.perf@2.2-service: Unknown params
+01-19 12:49:08.735  1998  2341 I libprocessgroup: Successfully killed process cgroup uid 10120 pid 4080 in 0ms
+01-19 12:49:08.735  7055 12133 I i.xmsf:services: oneway function results for code 3 on binder at 0xb4000074deb8ce60 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:08.735  6556  6651 I com.xiaomi.xmsf: oneway function results for code 3 on binder at 0xb4000074de5c3340 will be dropped but finished with status UNKNOWN_TRANSACTION
+01-19 12:49:08.736  1998  2341 I libprocessgroup: Successfully killed process cgroup uid 1000 pid 31181 in 0ms
+01-19 12:49:08.737  1998  2341 I libprocessgroup: Successfully killed process cgroup uid 1000 pid 31324 in 0ms
+01-19 12:49:08.784  3440  4383 D RecentsModel: onTaskStackChangedBackground
+01-19 12:49:08.785  3440  8794 D RecentsModel: onTaskStackChangedBackground    MSG_TASK_STACK_CHANGE
+01-19 12:49:08.785  3440  8794 D RecentsModel: preloadRecents
+01-19 12:49:08.785  3440  8794 W RecentsModel: getRunningTask
+01-19 12:49:08.785  5850  6203 I SCTaskStackListener: onTaskStackChanged! inSplit = false
+01-19 12:49:08.785  3440  4383 D RecentsModel: onTaskStackChangedBackground
+01-19 12:49:08.785  3440  4383 D EventBus: No subscribers registered for event class com.miui.home.recents.messages.RecentTasksChangedEvent
+01-19 12:49:08.785  3440  4383 D EventBus: No subscribers registered for event class org.greenrobot.eventbus.NoSubscriberEvent
+01-19 12:49:08.785  3440  4199 D RecentsModel: onTaskStackChangedBackground
+01-19 12:49:08.785  7269 10868 I MultiScreenObserver: onTaskStackChanged, splitScreenMode: false isCameraFloat: false isSmallScreen: false
+01-19 12:49:08.785  3440  4199 D EventBus: No subscribers registered for event class com.miui.home.recents.messages.RecentTasksChangedEvent
+01-19 12:49:08.785  3440  4199 D EventBus: No subscribers registered for event class org.greenrobot.eventbus.NoSubscriberEvent
+01-19 12:49:08.785  5850  5883 I SCTaskStackListener: onTaskStackChanged! inSplit = false
+01-19 12:49:08.786  3440  8794 W RecentsModel: getRunningTask   taskInfo=TaskInfo{userId=0 taskId=66 displayId=0 isRunning=true baseIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.android.settings/.MainSettings } baseActivity=ComponentInfo{com.android.settings/com.android.settings.MainSettings} topActivity=ComponentInfo{com.android.settings/com.android.settings.SubSettings} origActivity=ComponentInfo{com.android.settings/com.android.settings.MainSettings} realActivity=ComponentInfo{com.android.settings/com.android.settings.MiuiSettings} numActivities=3 lastActiveTime=179095655 supportsSplitScreenMultiWindow=true supportsMultiWindow=true resizeMode=1 isResizeable=true minWidth=-1 minHeight=-1 defaultMinSize=200 token=WCT{android.window.IWindowContainerToken$Stub$Proxy@2ef390b} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=0 displayCutoutSafeInsets=Rect(0, 137 - 0, 0) topActivityInfo=ActivityInfo{cbed3e8 com.android.settings.SubSettings} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=true isVisible=true isSleeping=false topActivityInSizeCompat=false topActivityInMiuiSizeCompat=false topActivityEligibleForLetterboxEducation= false locusId=null displayAreaFeatureId=1 cameraCompatControlState=hidden mIsCastMode=false}
+01-19 12:49:08.786  3440  8794 W RecentsModel: getTaskInfoIgnoreHomeAndFreeform   taskInfo=ComponentInfo{com.android.settings/com.android.settings.MainSettings}
+01-19 12:49:08.786  3440  8794 E ActivityManagerWrapper: get all recent tasks force including 66
+01-19 12:49:08.787  3440  8794 E ActivityManagerWrapper: getRecentTasks: size=4
+01-19 12:49:08.787  3440  8794 E ActivityManagerWrapper: getRecentTasks: mainTaskId=66   userId=0   baseIntent=Intent { act=android.intent.action.MAIN flag=270532608 cmp=ComponentInfo{com.android.settings/com.android.settings.MainSettings} }
+01-19 12:49:08.787  3440  8794 E ActivityManagerWrapper: getRecentTasks: mainTaskId=64   userId=0   baseIntent=Intent { act=android.intent.action.MAIN flag=270532608 cmp=ComponentInfo{com.topjohnwu.magisk/com.topjohnwu.magisk.ui.MainActivity} }
+01-19 12:49:08.787  3440  8794 E ActivityManagerWrapper: getRecentTasks: mainTaskId=60   userId=0   baseIntent=Intent { act=android.settings.APPLICATION_DEVELOPMENT_SETTINGS flag=268468224 cmp=ComponentInfo{com.android.settings/com.android.settings.Settings$DevelopmentSettingsDashboardActivity} }
+01-19 12:49:08.787  3440  8794 E ActivityManagerWrapper: getRecentTasks: mainTaskId=59   userId=0   baseIntent=Intent { act=android.intent.action.MAIN flag=270532608 cmp=ComponentInfo{tv.danmaku.bili/tv.danmaku.bili.MainActivityV2} }
+01-19 12:49:08.789  3440  8794 D RecentsModel: onTaskStackChangedBackground    MSG_TASK_STACK_CHANGE
+01-19 12:49:08.789  3440  8794 D RecentsModel: preloadRecents
+01-19 12:49:08.789  3440  8794 W RecentsModel: getRunningTask
+01-19 12:49:08.789  3440  8794 W RecentsModel: getRunningTask   taskInfo=TaskInfo{userId=0 taskId=66 displayId=0 isRunning=true baseIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.android.settings/.MainSettings } baseActivity=ComponentInfo{com.android.settings/com.android.settings.MainSettings} topActivity=ComponentInfo{com.android.settings/com.android.settings.SubSettings} origActivity=ComponentInfo{com.android.settings/com.android.settings.MainSettings} realActivity=ComponentInfo{com.android.settings/com.android.settings.MiuiSettings} numActivities=3 lastActiveTime=179095659 supportsSplitScreenMultiWindow=true supportsMultiWindow=true resizeMode=1 isResizeable=true minWidth=-1 minHeight=-1 defaultMinSize=200 token=WCT{android.window.IWindowContainerToken$Stub$Proxy@f411a01} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=0 displayCutoutSafeInsets=Rect(0, 137 - 0, 0) topActivityInfo=ActivityInfo{26a90a6 com.android.settings.SubSettings} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=true isVisible=true isSleeping=false topActivityInSizeCompat=false topActivityInMiuiSizeCompat=false topActivityEligibleForLetterboxEducation= false locusId=null displayAreaFeatureId=1 cameraCompatControlState=hidden mIsCastMode=false}
+01-19 12:49:08.789  3440  8794 W RecentsModel: getTaskInfoIgnoreHomeAndFreeform   taskInfo=ComponentInfo{com.android.settings/com.android.settings.MainSettings}
+01-19 12:49:08.790  3440  8794 E ActivityManagerWrapper: get all recent tasks force including 66
+01-19 12:49:08.790  3440  8794 E ActivityManagerWrapper: getRecentTasks: size=4
+01-19 12:49:08.790  3440  8794 E ActivityManagerWrapper: getRecentTasks: mainTaskId=66   userId=0   baseIntent=Intent { act=android.intent.action.MAIN flag=270532608 cmp=ComponentInfo{com.android.settings/com.android.settings.MainSettings} }
+01-19 12:49:08.790  3440  8794 E ActivityManagerWrapper: getRecentTasks: mainTaskId=64   userId=0   baseIntent=Intent { act=android.intent.action.MAIN flag=270532608 cmp=ComponentInfo{com.topjohnwu.magisk/com.topjohnwu.magisk.ui.MainActivity} }
+01-19 12:49:08.790  3440  8794 E ActivityManagerWrapper: getRecentTasks: mainTaskId=60   userId=0   baseIntent=Intent { act=android.settings.APPLICATION_DEVELOPMENT_SETTINGS flag=268468224 cmp=ComponentInfo{com.android.settings/com.android.settings.Settings$DevelopmentSettingsDashboardActivity} }
+01-19 12:49:08.790  3440  8794 E ActivityManagerWrapper: getRecentTasks: mainTaskId=59   userId=0   baseIntent=Intent { act=android.intent.action.MAIN flag=270532608 cmp=ComponentInfo{tv.danmaku.bili/tv.danmaku.bili.MainActivityV2} }
+01-19 12:49:08.858  1111  1247 I MiStcImpl: Dispatching command: 14 SET_IGC_DITHER
+01-19 12:49:08.858  1111  1247 E MiStcImpl: Seting Display 0 dither en 1 strength 5
+01-19 12:49:08.859  1118  1118 E vendor.qti.hardware.perf@2.2-service: Unknown params
+01-19 12:49:08.859  1118  1251 E ANDR-PERF-OPTSHANDLER: Can't process request: noroot_thread is not running
+01-19 12:49:08.859  1118  1251 E ANDR-PERF-RESOURCEQS: Failed to apply optimization [7, 3]
+01-19 12:49:08.887  1032  2534 E CamX    : [ERROR][NCS    ] camxncsintfqsee.cpp:2355 FillSensorData() Invalid sensor index -1
+01-19 12:49:08.895 26915 26915 D SettingsActivity: Executed frag manager pendingTransactions
+01-19 12:49:08.897 26915 26915 E DynamicRefreshRate recy: dynamic is not enable
+01-19 12:49:08.898 26915 26915 E RecommendFilter: getListByPageIndex not found:-1
+01-19 12:49:08.900 26915 26915 D GraphicsDriverDashboard: NO dashboard tiles for GraphicsDriverDashboard
+01-19 12:49:08.900 26915 26915 D GraphicsDriverDashboard: All preferences added, reporting fully drawn
+01-19 12:49:08.909 12203 12269 D IdProviderImpl: getOAID from com.miui.analytics
+01-19 12:49:08.911 26915 19217 D SettingsActivity: No enabled state changed, skipping updateCategory call
+01-19 12:49:08.911 26915 19434 W SharedPreferencesLogger: Tried to log unloggable object=默认
+01-19 12:49:08.912 12203 12269 D IdProviderImpl: getOAID from com.miui.analytics
+01-19 12:49:08.912 26915 26915 D CategoryMixin: Skip categories update
+01-19 12:49:08.914 26915 26915 D DecorView[]: getWindowModeFromSystem  windowmode is 1
+01-19 12:49:08.914 26915 26915 D DecorView[]: updateDecorCaptionStatus windowMode is 1
+01-19 12:49:08.916  3440  3440 D RecentsImpl: mActivityStateObserver com.android.settings.SubSettings
+01-19 12:49:08.916  3440  3440 W RecentsImpl: onResumed className=com.android.settings.SubSettings   mIsInAnotherPro=false   isKeyguardLocked=false   mSecuritySpaceGuideShown=false
+01-19 12:49:08.916  3440  4145 W RecentsImpl: disableTouchBySwipeStatusBar    disable=false
+01-19 12:49:08.916  3440  4145 D GestureStubView_Touch: disableTouchBySwipeStatusBar    old=false   new=false
+01-19 12:49:08.916  3440  4145 D GestureStubView_Touch: disableTouchBySwipeStatusBar    old=false   new=false
+01-19 12:49:08.916  3440  4145 W RecentsImpl: disableBackStubWindow    disableTouch=false
+01-19 12:49:08.916  3440  4145 D GestureStubView_Touch: disableTouch    old=false   new=false
+01-19 12:49:08.916  3440  4145 D GestureStubView_Touch: disableTouch    old=false   new=false
+01-19 12:49:08.916  3440  3440 D RecentsImpl: showNavStubView
+01-19 12:49:08.916  3440  4145 D RecentsImpl: showBackStubWindow  hasNavigationBar=true
+01-19 12:49:08.916  3440  3440 D NavStubView_Touch: setKeepHidden    old=false   new=false
+01-19 12:49:08.916  3440  4145 D GestureStubView_Touch: setKeepHidden    old=false   new=false
+01-19 12:49:08.916  3440  4145 W GestureStubView: adaptRotation   currentRotation=0   mRotation=0
+01-19 12:49:08.917  3440  4145 D GestureStubView: resetRenderProperty: showGestureStub   isLayoutParamChanged=false
+01-19 12:49:08.917 31100 19435 I VA_ActivityStateHelper: activityResumed componentName ComponentInfo{com.android.settings/com.android.settings.SubSettings}
+01-19 12:49:08.917  3440  4145 D GestureStubView_Touch: disableTouch    old=false   new=false
+01-19 12:49:08.917  3440  4145 D GestureStubView: showGestureStub
+01-19 12:49:08.917  3440  4145 D GestureStubView_Touch: setKeepHidden    old=true   new=false
+01-19 12:49:08.917  3440  4145 D GestureStubView_Touch: updateTouchable    old=true   new=false
+01-19 12:49:08.917  3440  4145 D GestureStubView_Touch:   updateTouchable---requestApplyInsets
+01-19 12:49:08.917 31100 19435 I VA_ActivityStateHelper: activityResumed activity is com.android.settings.SubSettings-com.android.settings.development.graphicsdriver.GraphicsDriverDashboard
+01-19 12:49:08.917  3440  4145 W GestureStubView: adaptRotation   currentRotation=0   mRotation=0
+01-19 12:49:08.917  3440  4145 D GestureStubView: resetRenderProperty: showGestureStub   isLayoutParamChanged=false
+01-19 12:49:08.917  3440  4145 D GestureStubView_Touch: disableTouch    old=false   new=false
+01-19 12:49:08.917  3440  4145 D GestureStubView: showGestureStub
+01-19 12:49:08.917 31100 19435 I VA_ActivityStateHelper: checkFrequencyControl
+01-19 12:49:08.917 31100 19435 I VA_ActivityStateHelper: isSpecialTime
+01-19 12:49:08.918 31100 19435 I VA_ActivityStateHelper: isInAppList
+01-19 12:49:08.918 31100 19435 I VA_ActivityStateHelper: isInAppList appList is null
+01-19 12:49:08.918 31100 19435 I VA_ActivityStateHelper: checkFrequencyControl not in app list
+01-19 12:49:08.918  1312  2493 D MI-SF   : [FpsStat] construct...
+01-19 12:49:08.918 31100 19435 I VA_ActivityStateHelper: activityResumed checkFrequencyControl is false
+01-19 12:49:08.919  1998  4518 D SurfaceControl: nativeSetScreenProjection ===> setScreenProjection
+01-19 12:49:08.919  1998  4518 D SurfaceControl: nativeSetScreenProjection ===> setScreenProjection
+01-19 12:49:08.922  3440  4145 D GestureStubView: gatherTransparentRegion: need render w:72  h:1920
+01-19 12:49:08.922  3440  4145 D GestureStubView: gatherTransparentRegion: need render w:72  h:1920
+01-19 12:49:08.923  1312  2493 I SurfaceFlinger: setTransactionState focusRequest transactionId:8581344662378 frontWin:267c0ca com.android.settings/com.android.settings.SubSettings
+01-19 12:49:08.925  1312  1312 I SurfaceFlinger: transactionIsReadyToBeApplied focusRequest transactionId:8581344662378
+01-19 12:49:08.925  1312  1312 I SurfaceFlinger: addInputWindowCommands hasChanges
+01-19 12:49:08.937 26915 13433 W Parcel  : Expecting binder but got null!
+01-19 12:49:08.938 26915 26915 D DecorView[]: onWindowFocusChanged hasWindowFocus false
+01-19 12:49:08.943  1118  1118 E vendor.qti.hardware.perf@2.2-service: Unknown params
+01-19 12:49:08.943  1998  2232 I ActivityTaskManager: Displayed com.android.settings/.SubSettings: +282ms
+01-19 12:49:08.944  1118  1118 E vendor.qti.hardware.perf@2.2-service: Unknown params
+01-19 12:49:08.944  1998  2232 I ActivityTaskManager: Fully drawn com.android.settings/.SubSettings: +282ms
+01-19 12:49:08.959  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:08.961  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:08.958  1118  1118 W perf@2.2-servic: type=1400 audit(0.0:21000): avc: denied { dac_override } for capability=1 scontext=u:r:vendor_hal_perf_default:s0 tcontext=u:r:vendor_hal_perf_default:s0 tclass=capability permissive=0
+01-19 12:49:08.963  1312  1312 I MI-SF   : surfaceflinger setAffinity mode=1
+01-19 12:49:08.963  1312  1312 I MI-SF   : surfaceflinger setreAffinity reTid=1453
+01-19 12:49:08.965 26915 26915 D DecorView[]: onWindowFocusChanged hasWindowFocus true
+01-19 12:49:08.965 26915 26915 I HandWritingStubImpl: refreshLastKeyboardType: 1
+01-19 12:49:08.965 26915 26915 I HandWritingStubImpl: getCurrentKeyboardType: 1
+01-19 12:49:08.968  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:08.966  1118  1118 W perf@2.2-servic: type=1400 audit(0.0:21001): avc: denied { dac_override } for capability=1 scontext=u:r:vendor_hal_perf_default:s0 tcontext=u:r:vendor_hal_perf_default:s0 tclass=capability permissive=0
+01-19 12:49:08.968  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:08.969  7864  7864 E BaseInputMethodService: onFinishInput
+01-19 12:49:08.969  7864  7864 E BaseInputMethodService: onStartInput
+01-19 12:49:08.976  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:08.977  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:08.974  1118  1118 W perf@2.2-servic: type=1400 audit(0.0:21002): avc: denied { dac_override } for capability=1 scontext=u:r:vendor_hal_perf_default:s0 tcontext=u:r:vendor_hal_perf_default:s0 tclass=capability permissive=0
+01-19 12:49:08.984  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:08.985  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:08.992  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:08.993  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.001  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.001  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.009  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.009  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.017  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.017  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.025  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.026  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.034  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.034  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.042  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.042  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.050  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.051  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.058  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.059  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.067  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.067  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.075  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.075  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.085  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.085  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create system background cgroup file
+01-19 12:49:09.086  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.088  1032  2534 E CamX    : [ERROR][NCS    ] camxncsintfqsee.cpp:2355 FillSensorData() Invalid sensor index -1
+01-19 12:49:09.092  5584  8143 I NetworkAccelerateSwitchService: EVENT_RSSI_POLL
+01-19 12:49:09.092  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.093  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.093  5584  8143 I NetworkAccelerateSwitchService: getAverageWifiRssi:42
+01-19 12:49:09.101  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.102  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.109  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.109  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.118  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.118  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.121  3440  4145 D GestureStubView_Touch: setKeepHidden    old=false   new=false
+01-19 12:49:09.121  3440  4145 D GestureStubView: handleMessage MSG_RESET_GESTURE_STUB_TOUCHABLE
+01-19 12:49:09.126  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.127  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.134  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.134  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.143  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.143  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.150  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.151  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.159  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.159  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.168  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.169  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.175  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.176  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.184  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.184  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.192  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.193  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.200  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.201  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.209  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.210  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.217  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.217  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.226  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.227  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.233  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.234  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.242  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.244  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.250  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.251  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.260  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.260  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.267  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.268  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.269  2005  3634 W libc    : Access denied finding property "persist.sys.log_time_gap_sec"
+01-19 12:49:09.269  2005  3634 W libc    : Access denied finding property "persist.sys.log_max_line"
+01-19 12:49:09.269  2005  3634 W libc    : Access denied finding property "persist.sys.log_filter_flag"
+01-19 12:49:09.268  2005  3634 D libsensor-B2SNotifier: Backlight2SlpiNotifier brightness = 364
+01-19 12:49:09.271  1017  1184 W libc    : Access denied finding property "persist.sys.log_time_gap_sec"
+01-19 12:49:09.271  1017  1184 W libc    : Access denied finding property "persist.sys.log_max_line"
+01-19 12:49:09.271  1017  1184 W libc    : Access denied finding property "persist.sys.log_filter_flag"
+01-19 12:49:09.270  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4afb went down
+01-19 12:49:09.272  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4afc went down
+01-19 12:49:09.272  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4afd went down
+01-19 12:49:09.273  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4afe went down
+01-19 12:49:09.274  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4aff went down
+01-19 12:49:09.276  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.276  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b00 went down
+01-19 12:49:09.277  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.284  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.285  2005  3634 D libsensor-B2SNotifier: Backlight2SlpiNotifier brightness = 363
+01-19 12:49:09.285  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.286  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b01 went down
+01-19 12:49:09.287  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b02 went down
+01-19 12:49:09.288  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b03 went down
+01-19 12:49:09.289  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b04 went down
+01-19 12:49:09.290  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b05 went down
+01-19 12:49:09.292  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.292  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.292  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b06 went down
+01-19 12:49:09.293  2005  3634 D libsensor-B2SNotifier: Backlight2SlpiNotifier brightness = 363
+01-19 12:49:09.294  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b07 went down
+01-19 12:49:09.295  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b08 went down
+01-19 12:49:09.296  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b09 went down
+01-19 12:49:09.297  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b0a went down
+01-19 12:49:09.297  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b0b went down
+01-19 12:49:09.300  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.300  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b0c went down
+01-19 12:49:09.300  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.309  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.310  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.310  2005  3634 D libsensor-B2SNotifier: Backlight2SlpiNotifier brightness = 362
+01-19 12:49:09.311  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b0d went down
+01-19 12:49:09.313  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b0e went down
+01-19 12:49:09.315  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b0f went down
+01-19 12:49:09.317  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b10 went down
+01-19 12:49:09.317  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.318  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.318  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b11 went down
+01-19 12:49:09.320  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b12 went down
+01-19 12:49:09.325  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.326  2005  3634 D libsensor-B2SNotifier: Backlight2SlpiNotifier brightness = 362
+01-19 12:49:09.327  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.327  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b13 went down
+01-19 12:49:09.329  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b14 went down
+01-19 12:49:09.332  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b15 went down
+01-19 12:49:09.333  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.334  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.334  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b16 went down
+01-19 12:49:09.336  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b17 went down
+01-19 12:49:09.339  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b18 went down
+01-19 12:49:09.342  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.342  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.343  2005  3634 D libsensor-B2SNotifier: Backlight2SlpiNotifier brightness = 361
+01-19 12:49:09.344  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b19 went down
+01-19 12:49:09.346  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b1a went down
+01-19 12:49:09.347  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b1b went down
+01-19 12:49:09.349  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b1c went down
+01-19 12:49:09.349  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.350  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.350  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b1d went down
+01-19 12:49:09.354  2005  3634 D libsensor-B2SNotifier: Backlight2SlpiNotifier brightness = 361
+01-19 12:49:09.354  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b1e went down
+01-19 12:49:09.357  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b1f went down
+01-19 12:49:09.358  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.359  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b20 went down
+01-19 12:49:09.359  1111  1247 I MiStcImpl: Dispatching command: 14 SET_IGC_DITHER
+01-19 12:49:09.359  1111  1247 E MiStcImpl: Seting Display 0 dither en 0 strength 5
+01-19 12:49:09.359  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.360  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b21 went down
+01-19 12:49:09.362  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b22 went down
+01-19 12:49:09.365  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b23 went down
+01-19 12:49:09.367  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.367  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.369  2005  3634 D libsensor-B2SNotifier: Backlight2SlpiNotifier brightness = 360
+01-19 12:49:09.370  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b24 went down
+01-19 12:49:09.371  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b25 went down
+01-19 12:49:09.372  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b26 went down
+01-19 12:49:09.373  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b27 went down
+01-19 12:49:09.374  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.375  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.376  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b28 went down
+01-19 12:49:09.377  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b29 went down
+01-19 12:49:09.380  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b2a went down
+01-19 12:49:09.383  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.383  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.384  1083 16634 E sensors-hal: handle_sns_client_event:52, gesture_detect_event: ts=179096142540231, event=1.000000
+01-19 12:49:09.385  2005  3634 D libsensor-B2SNotifier: Backlight2SlpiNotifier brightness = 360
+01-19 12:49:09.385  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b2b went down
+01-19 12:49:09.386  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b2c went down
+01-19 12:49:09.387  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b2d went down
+01-19 12:49:09.389  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b2e went down
+01-19 12:49:09.390  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b2f went down
+01-19 12:49:09.391  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.392  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.395  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b30 went down
+01-19 12:49:09.399  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.400  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.401  2005  3634 D libsensor-B2SNotifier: Backlight2SlpiNotifier brightness = 359
+01-19 12:49:09.402  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b31 went down
+01-19 12:49:09.402  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b32 went down
+01-19 12:49:09.403  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b33 went down
+01-19 12:49:09.404  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b34 went down
+01-19 12:49:09.405  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b35 went down
+01-19 12:49:09.408  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.406  1118  1118 W perf@2.2-servic: type=1400 audit(0.0:21062): avc: denied { dac_override } for capability=1 scontext=u:r:vendor_hal_perf_default:s0 tcontext=u:r:vendor_hal_perf_default:s0 tclass=capability permissive=0
+01-19 12:49:09.409  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.410  2005  3634 D libsensor-B2SNotifier: Backlight2SlpiNotifier brightness = 359
+01-19 12:49:09.410  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b36 went down
+01-19 12:49:09.413  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b37 went down
+01-19 12:49:09.414  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b38 went down
+01-19 12:49:09.416  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.417  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b39 went down
+01-19 12:49:09.417  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.414  1118  1118 W perf@2.2-servic: type=1400 audit(0.0:21063): avc: denied { dac_override } for capability=1 scontext=u:r:vendor_hal_perf_default:s0 tcontext=u:r:vendor_hal_perf_default:s0 tclass=capability permissive=0
+01-19 12:49:09.418  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b3a went down
+01-19 12:49:09.419  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b3b went down
+01-19 12:49:09.421  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b3c went down
+01-19 12:49:09.425  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.425  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.422  1118  1118 W perf@2.2-servic: type=1400 audit(0.0:21064): avc: denied { dac_override } for capability=1 scontext=u:r:vendor_hal_perf_default:s0 tcontext=u:r:vendor_hal_perf_default:s0 tclass=capability permissive=0
+01-19 12:49:09.426  2005  3634 D libsensor-B2SNotifier: Backlight2SlpiNotifier brightness = 358
+01-19 12:49:09.427  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b3d went down
+01-19 12:49:09.428  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b3e went down
+01-19 12:49:09.429  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b3f went down
+01-19 12:49:09.429  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b40 went down
+01-19 12:49:09.430  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b41 went down
+01-19 12:49:09.433  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.433  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.434  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b42 went down
+01-19 12:49:09.430  1118  1118 W perf@2.2-servic: type=1400 audit(0.0:21065): avc: denied { dac_override } for capability=1 scontext=u:r:vendor_hal_perf_default:s0 tcontext=u:r:vendor_hal_perf_default:s0 tclass=capability permissive=0
+01-19 12:49:09.442  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.449  1111  1439 E SDM     : HWCSession::GetClientTargetProperty: GetClinetTargetProperty interface enter
+01-19 12:49:09.450 16879 16900 I MemoryOptimizationService: start handleMemoryIntent -> 
+01-19 12:49:09.450 16879 16900 I MemoryOptimizationService: optimized Pkg Name -> com.android.settings
+01-19 12:49:09.450 16879 16900 I MemoryOptimizationService: Optimized pacakge map contains key.
+01-19 12:49:09.450 16879 16900 I MemoryOptimizationService: Old data is removed [Handler (com.android.settings.services.MemoryOptimizationService$MemoryHandler) {3a64e39}] -> com.android.settings
+01-19 12:49:09.450 16879 16900 I MemoryOptimizationService: Send message delayed -> com.android.settings , 30000
+01-19 12:49:09.450  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.446  1118  1118 W perf@2.2-servic: type=1400 audit(0.0:21066): avc: denied { dac_override } for capability=1 scontext=u:r:vendor_hal_perf_default:s0 tcontext=u:r:vendor_hal_perf_default:s0 tclass=capability permissive=0
+01-19 12:49:09.451  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create foreground cgroup file
+01-19 12:49:09.452  2005  3634 D libsensor-B2SNotifier: Backlight2SlpiNotifier brightness = 358
+01-19 12:49:09.453  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b43 went down
+01-19 12:49:09.454  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b44 went down
+01-19 12:49:09.454  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b45 went down
+01-19 12:49:09.455  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b46 went down
+01-19 12:49:09.455  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b47 went down
+01-19 12:49:09.459  2005  3634 D libsensor-B2SNotifier: Backlight2SlpiNotifier brightness = 357
+01-19 12:49:09.460  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b48 went down
+01-19 12:49:09.460  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b49 went down
+01-19 12:49:09.460  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b4a went down
+01-19 12:49:09.460  1118  1251 E ANDR-PERF-OPTSHANDLER: Cannot open/create system background cgroup file
+01-19 12:49:09.461  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b4b went down
+01-19 12:49:09.461  1312  1312 I MI-SF   : surfaceflinger setAffinity mode=0
+01-19 12:49:09.461  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b4c went down
+01-19 12:49:09.462  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b4d went down
+01-19 12:49:09.465  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b4e went down
+01-19 12:49:09.468  2005  3634 D libsensor-B2SNotifier: Backlight2SlpiNotifier brightness = 357
+01-19 12:49:09.468  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b4f went down
+01-19 12:49:09.469  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b50 went down
+01-19 12:49:09.469  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b51 went down
+01-19 12:49:09.470  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b52 went down
+01-19 12:49:09.470  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b53 went down
+01-19 12:49:09.473  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b54 went down
+01-19 12:49:09.473  1312  1312 D MI-SF   : [FpsStat] distroy...
+01-19 12:49:09.484  2005  3634 D libsensor-B2SNotifier: Backlight2SlpiNotifier brightness = 356
+01-19 12:49:09.485  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b55 went down
+01-19 12:49:09.486  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b56 went down
+01-19 12:49:09.486  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b57 went down
+01-19 12:49:09.487  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b58 went down
+01-19 12:49:09.488  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b59 went down
+01-19 12:49:09.490  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b5a went down
+01-19 12:49:09.494  1998  3068 I MiuiNetworkPolicy: bandwidth: 0 KB/s, Max bandwidth: 2192 KB/s
+01-19 12:49:09.496  2005  3634 D libsensor-B2SNotifier: Backlight2SlpiNotifier brightness = 356
+01-19 12:49:09.497  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b5b went down
+01-19 12:49:09.497  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b5c went down
+01-19 12:49:09.498  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b5d went down
+01-19 12:49:09.498  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b5e went down
+01-19 12:49:09.499  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b5f went down
+01-19 12:49:09.501  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b60 went down
+01-19 12:49:09.514  2005  3634 D libsensor-B2SNotifier: Backlight2SlpiNotifier brightness = 355
+01-19 12:49:09.514  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b61 went down
+01-19 12:49:09.517  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b62 went down
+01-19 12:49:09.519  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b63 went down
+01-19 12:49:09.521  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b64 went down
+01-19 12:49:09.522  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b65 went down
+01-19 12:49:09.524  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b66 went down
+01-19 12:49:09.530  2005  3634 D libsensor-B2SNotifier: Backlight2SlpiNotifier brightness = 355
+01-19 12:49:09.531  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b67 went down
+01-19 12:49:09.531  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b68 went down
+01-19 12:49:09.532  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b69 went down
+01-19 12:49:09.532  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b6a went down
+01-19 12:49:09.533  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b6b went down
+01-19 12:49:09.536  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b6c went down
+01-19 12:49:09.538  2005  3634 D libsensor-B2SNotifier: Backlight2SlpiNotifier brightness = 354
+01-19 12:49:09.539  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b6d went down
+01-19 12:49:09.539  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b6e went down
+01-19 12:49:09.540  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b6f went down
+01-19 12:49:09.542  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b70 went down
+01-19 12:49:09.543  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b71 went down
+01-19 12:49:09.545  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b72 went down
+01-19 12:49:09.559  2005  3634 D libsensor-B2SNotifier: Backlight2SlpiNotifier brightness = 354
+01-19 12:49:09.560  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b73 went down
+01-19 12:49:09.561  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b74 went down
+01-19 12:49:09.564  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b75 went down
+01-19 12:49:09.568  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b76 went down
+01-19 12:49:09.570  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b77 went down
+01-19 12:49:09.573  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b78 went down
+01-19 12:49:09.575  2005  3634 D libsensor-B2SNotifier: Backlight2SlpiNotifier brightness = 353
+01-19 12:49:09.575  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b79 went down
+01-19 12:49:09.576  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b7a went down
+01-19 12:49:09.578  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b7b went down
+01-19 12:49:09.580  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b7c went down
+01-19 12:49:09.584  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b7d went down
+01-19 12:49:09.586  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b7e went down
+01-19 12:49:09.592  2005  3634 D libsensor-B2SNotifier: Backlight2SlpiNotifier brightness = 353
+01-19 12:49:09.592  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b7f went down
+01-19 12:49:09.595  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b80 went down
+01-19 12:49:09.597  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b81 went down
+01-19 12:49:09.600  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b82 went down
+01-19 12:49:09.602  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b83 went down
+01-19 12:49:09.603  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b84 went down
+01-19 12:49:09.608  2005  3634 D libsensor-B2SNotifier: Backlight2SlpiNotifier brightness = 352
+01-19 12:49:09.608  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b85 went down
+01-19 12:49:09.611  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b86 went down
+01-19 12:49:09.613  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b87 went down
+01-19 12:49:09.615  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b88 went down
+01-19 12:49:09.617  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b89 went down
+01-19 12:49:09.621  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b8a went down
+01-19 12:49:09.621  2005  3634 D libsensor-B2SNotifier: Backlight2SlpiNotifier brightness = 352
+01-19 12:49:09.622  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b8b went down
+01-19 12:49:09.624  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b8c went down
+01-19 12:49:09.628  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b8d went down
+01-19 12:49:09.629  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b8e went down
+01-19 12:49:09.632  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b8f went down
+01-19 12:49:09.636  2005  3634 D libsensor-B2SNotifier: Backlight2SlpiNotifier brightness = 351
+01-19 12:49:09.636  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b90 went down
+01-19 12:49:09.638  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b91 went down
+01-19 12:49:09.639  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b92 went down
+01-19 12:49:09.642  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b93 went down
+01-19 12:49:09.644  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b94 went down
+01-19 12:49:09.646  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b95 went down
+01-19 12:49:09.647  1998  3068 I MiuiNetworkPolicy: updateUidState uid = 10168, uidState = 19
+01-19 12:49:09.650  2005  3634 D libsensor-B2SNotifier: Backlight2SlpiNotifier brightness = 351
+01-19 12:49:09.650  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b96 went down
+01-19 12:49:09.651  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b97 went down
+01-19 12:49:09.653  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b98 went down
+01-19 12:49:09.654  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b99 went down
+01-19 12:49:09.656  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b9a went down
+01-19 12:49:09.660  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b9b went down
+01-19 12:49:09.662  1017  1184 E minksocket: MinkIPC_QRTR_Service: client with node 1 port 4b9c went down
+01-19 12:49:10.394  1998  2816 I android_os_HwBinder: HwBinder: Starting thread pool for getting: vendor.xiaomi.hw.touchfeature@1.0::ITouchFeature/default
+01-19 12:49:10.417  1032  2534 E CamX    : [ERROR][NCS    ] camxncsintfqsee.cpp:2148 SensorCallback() Invalid sensor index -1
+01-19 12:49:10.531  1118  1118 E vendor.qti.hardware.perf@2.2-service: Unknown params
+01-19 12:49:10.533  1118  1251 E ANDR-PERF-OPTSHANDLER: Can't process request: noroot_thread is not running
+01-19 12:49:10.533  1118  1251 E ANDR-PERF-RESOURCEQS: Failed to apply optimization [7, 3]
+01-19 12:49:10.577  1998  3159 D SchedBoost: thread tid=26915, priority is set to -10
+01-19 12:49:10.578  1998  3159 D SchedBoost: thread tid=13433, priority is set to -10
+01-19 12:49:10.613  1032  2534 E CamX    : [ERROR][NCS    ] camxncsintfqsee.cpp:2355 FillSensorData() Invalid sensor index -1
+01-19 12:49:10.878  1083 16631 E sensors-hal: handle_sns_client_event:54, hand_detect_event: ts=179097743340023, event=0.000000
+01-19 12:49:10.885  1998  2816 I android_os_HwBinder: HwBinder: Starting thread pool for getting: vendor.xiaomi.hw.touchfeature@1.0::ITouchFeature/default
+01-19 12:49:11.095  5584  8143 I NetworkAccelerateSwitchService: EVENT_RSSI_POLL
+01-19 12:49:11.098  5584  8143 I NetworkAccelerateSwitchService: getAverageWifiRssi:43
+01-19 12:49:12.500  1998  3068 I MiuiNetworkPolicy: bandwidth: 0 KB/s, Max bandwidth: 2192 KB/s
+01-19 12:49:12.865  5584  7920 D SLM-SRV-SLAService: checktemp temperature = 28652 temperature_average = 28032 isPerformanceMode = false thermal_enable_slm = true
+01-19 12:49:13.098  5584  8143 I NetworkAccelerateSwitchService: EVENT_RSSI_POLL
+01-19 12:49:13.101  5584  8143 I NetworkAccelerateSwitchService: getAverageWifiRssi:44
+01-19 12:49:13.144  7269  7269 I PowerKeeperBackgroundService: onStartCommand()
+01-19 12:49:13.145  7269  7269 I PowerKeeperService: onAlarm
+01-19 12:49:13.862  1118  1118 E vendor.qti.hardware.perf@2.2-service: Unknown params
+01-19 12:49:13.863  1118  1251 E ANDR-PERF-OPTSHANDLER: Can't process request: noroot_thread is not running
+01-19 12:49:13.863  1118  1251 E ANDR-PERF-RESOURCEQS: Failed to apply optimization [7, 3]
+01-19 12:49:14.230 19551 19551 I MACE    : mace_run.cc:723 model name: conformer
+01-19 12:49:14.230 19551 19551 I MACE    : mace_run.cc:724 mace version: v1.1.1-34-gc483487
+01-19 12:49:14.230 19551 19551 I MACE    : mace_run.cc:725 input node: input,icache1,icache2,icache3,pos_emb_helper
+01-19 12:49:14.230 19551 19551 I MACE    : mace_run.cc:726 input shape: 1,19,40:1,17,128:5,1,17,128:5,1,128,3:1
+01-19 12:49:14.230 19551 19551 I MACE    : mace_run.cc:727 input data_type: 1,1,1,1,1
+01-19 12:49:14.230 19551 19551 I MACE    : mace_run.cc:728 input data_format: NONE,NONE,NONE,NONE,NONE
+01-19 12:49:14.230 19551 19551 I MACE    : mace_run.cc:729 output node: output,output_ce,ocache1,ocache2,ocache3
+01-19 12:49:14.230 19551 19551 I MACE    : mace_run.cc:730 output shape: 1,4,439:1,4,439:1,17,128:5,1,17,128:5,1,128,3
+01-19 12:49:14.230 19551 19551 I MACE    : mace_run.cc:731 input data_type: 1,1,1,1,1
+01-19 12:49:14.230 19551 19551 I MACE    : mace_run.cc:732 output data_format: NONE,NONE,NONE,NONE,NONE
+01-19 12:49:14.230 19551 19551 I MACE    : mace_run.cc:733 input_file: /data/local/tmp/mace_tmp/conformer/validate_in/conformer
+01-19 12:49:14.230 19551 19551 I MACE    : mace_run.cc:734 output_file: /data/local/tmp/mace_tmp/conformer/validate_out/conformer
+01-19 12:49:14.230 19551 19551 I MACE    : mace_run.cc:735 input dir: 
+01-19 12:49:14.230 19551 19551 I MACE    : mace_run.cc:736 output dir: output
+01-19 12:49:14.230 19551 19551 I MACE    : mace_run.cc:737 model_data_file: /data/local/tmp/mace_tmp/conformer/conformer.data
+01-19 12:49:14.230 19551 19551 I MACE    : mace_run.cc:738 model_file: /data/local/tmp/mace_tmp/conformer/conformer.pb
+01-19 12:49:14.230 19551 19551 I MACE    : mace_run.cc:739 accelerator_cache_policy: 0
+01-19 12:49:14.230 19551 19551 I MACE    : mace_run.cc:740 accelerator_binary_file: 
+01-19 12:49:14.230 19551 19551 I MACE    : mace_run.cc:741 accelerator_storage_file: 
+01-19 12:49:14.230 19551 19551 I MACE    : mace_run.cc:742 apu_boost_hint: 100
+01-19 12:49:14.230 19551 19551 I MACE    : mace_run.cc:743 apu_preference_hint: 1
+01-19 12:49:14.230 19551 19551 I MACE    : mace_run.cc:744 round: 1
+01-19 12:49:14.230 19551 19551 I MACE    : mace_run.cc:745 restart_round: 1
+01-19 12:49:14.230 19551 19551 I MACE    : mace_run.cc:746 gpu_perf_hint: 3
+01-19 12:49:14.230 19551 19551 I MACE    : mace_run.cc:747 gpu_priority_hint: 3
+01-19 12:49:14.230 19551 19551 I MACE    : mace_run.cc:748 num_threads: -1
+01-19 12:49:14.230 19551 19551 I MACE    : mace_run.cc:749 cpu_affinity_policy: 1
+01-19 12:49:14.230 19551 19551 I MACE    : mace_run.cc:791 raw_output_data_types[0] is 1
+01-19 12:49:14.230 19551 19551 I MACE    : mace_run.cc:791 raw_output_data_types[1] is 1
+01-19 12:49:14.230 19551 19551 I MACE    : mace_run.cc:791 raw_output_data_types[2] is 1
+01-19 12:49:14.230 19551 19551 I MACE    : mace_run.cc:791 raw_output_data_types[3] is 1
+01-19 12:49:14.230 19551 19551 I MACE    : mace_run.cc:791 raw_output_data_types[4] is 1
+01-19 12:49:14.231 19551 19551 W MACE    : thread_pool.cc:108 CPU maybe isolated, don't set CPU affinity
+01-19 12:49:14.231 19551 19551 D mace_run: src/rpcmem_android.c:202:ION version is new R
+01-19 12:49:14.231 19551 19551 D mace_run: src/rpcmem_android.c:267::info: calling: NULL != (m = malloc(sizeof(*m)))
+01-19 12:49:14.231 19551 19551 D mace_run: src/rpcmem_android.c:267::info: passed: NULL != (m = malloc(sizeof(*m)))
+01-19 12:49:14.231 19551 19551 D mace_run: src/rpcmem_android.c:288::info: calling: !(rpc_flags & RPCMEM_HEAP_UNCACHED)
+01-19 12:49:14.231 19551 19551 D mace_run: src/rpcmem_android.c:288::info: passed: !(rpc_flags & RPCMEM_HEAP_UNCACHED)
+01-19 12:49:14.231 19551 19551 D mace_run: src/rpcmem_android.c:525:ION version is new
+01-19 12:49:14.231 19551 19551 D mace_run: src/rpcmem_android.c:430::info: calling: 0 < rm->ionfd
+01-19 12:49:14.231 19551 19551 D mace_run: src/rpcmem_android.c:430::info: passed: 0 < rm->ionfd
+01-19 12:49:14.231 19551 19551 D mace_run: src/rpcmem_android.c:439:alloc data 0x0xb400007464a3dba0, heap mask 0x2000000, flags 0x1
+01-19 12:49:14.231 19551 19551 D mace_run: src/rpcmem_android.c:446:mmap data 0x0xb400007464a3dba0
+01-19 12:49:14.231 19551 19551 D mace_run: src/rpcmem_android.c:454::info: calling: MAP_FAILED != (m->paddr = (void *)mmap(NULL, alloc.len, PROT_READ|PROT_WRITE, MAP_SHARED, m->data.fd, 0))
+01-19 12:49:14.231 19551 19551 D mace_run: src/rpcmem_android.c:454::info: passed: MAP_FAILED != (m->paddr = (void *)mmap(NULL, alloc.len, PROT_READ|PROT_WRITE, MAP_SHARED, m->data.fd, 0))
+01-19 12:49:14.231 19551 19551 D mace_run: src/rpcmem_android.c:314:rpcmem register buf: heap mask: 0x2000000
+01-19 12:49:14.231 19551 19551 D mace_run: src/rpcmem_android.c:355::info: calling: mfree
+01-19 12:49:14.231 19551 19551 D mace_run: src/rpcmem_android.c:355::info: passed: mfree
+01-19 12:49:14.232 19551 19551 I MACE    : rpcmem.cc:32 Rpcmem is supported. type: 0
+01-19 12:49:14.232 19551 19551 I MACE    : rpcmem_factory.cc:53 Rpcmem is supported. type: 0
+01-19 12:49:14.232 19551 19551 I MACE    : serial_engine.cc:33 Creating SerialEngine, MACE version: v1.1.1-34-gc483487
+01-19 12:49:14.237 19551 19551 W MACE    : thread_pool.cc:108 CPU maybe isolated, don't set CPU affinity
+01-19 12:49:14.265 12203 12475 D IdProviderImpl: getOAID from com.miui.analytics
+01-19 12:49:14.412 19551 19551 I MACE    : mace_run.cc:816 restart round 0
+01-19 12:49:14.413 19551 19551 D mace_run: src/rpcmem_android.c:202:ION version is new R
+01-19 12:49:14.413 19551 19551 D mace_run: src/rpcmem_android.c:267::info: calling: NULL != (m = malloc(sizeof(*m)))
+01-19 12:49:14.413 19551 19551 D mace_run: src/rpcmem_android.c:267::info: passed: NULL != (m = malloc(sizeof(*m)))
+01-19 12:49:14.413 19551 19551 D mace_run: src/rpcmem_android.c:288::info: calling: !(rpc_flags & RPCMEM_HEAP_UNCACHED)
+01-19 12:49:14.413 19551 19551 D mace_run: src/rpcmem_android.c:288::info: passed: !(rpc_flags & RPCMEM_HEAP_UNCACHED)
+01-19 12:49:14.413 19551 19551 D mace_run: src/rpcmem_android.c:525:ION version is new
+01-19 12:49:14.413 19551 19551 D mace_run: src/rpcmem_android.c:430::info: calling: 0 < rm->ionfd
+01-19 12:49:14.413 19551 19551 D mace_run: src/rpcmem_android.c:430::info: passed: 0 < rm->ionfd
+01-19 12:49:14.413 19551 19551 D mace_run: src/rpcmem_android.c:439:alloc data 0x0xb400007464a3dea0, heap mask 0x2000000, flags 0x1
+01-19 12:49:14.413 19551 19551 D mace_run: src/rpcmem_android.c:446:mmap data 0x0xb400007464a3dea0
+01-19 12:49:14.413 19551 19551 D mace_run: src/rpcmem_android.c:454::info: calling: MAP_FAILED != (m->paddr = (void *)mmap(NULL, alloc.len, PROT_READ|PROT_WRITE, MAP_SHARED, m->data.fd, 0))
+01-19 12:49:14.413 19551 19551 D mace_run: src/rpcmem_android.c:454::info: passed: MAP_FAILED != (m->paddr = (void *)mmap(NULL, alloc.len, PROT_READ|PROT_WRITE, MAP_SHARED, m->data.fd, 0))
+01-19 12:49:14.413 19551 19551 D mace_run: src/rpcmem_android.c:314:rpcmem register buf: heap mask: 0x2000000
+01-19 12:49:14.413 19551 19551 D mace_run: src/rpcmem_android.c:355::info: calling: mfree
+01-19 12:49:14.413 19551 19551 D mace_run: src/rpcmem_android.c:355::info: passed: mfree
+01-19 12:49:14.413 19551 19551 I MACE    : rpcmem.cc:32 Rpcmem is supported. type: 0
+01-19 12:49:14.413 19551 19551 I MACE    : rpcmem_factory.cc:53 Rpcmem is supported. type: 0
+01-19 12:49:14.413 19551 19551 I MACE    : serial_engine.cc:33 Creating SerialEngine, MACE version: v1.1.1-34-gc483487
+01-19 12:49:14.437 19551 19551 I MACE    : mace_run.cc:462 Create Mace Engine latency: 24.082 ms
+01-19 12:49:14.437 19551 19551 I MACE    : mace_run.cc:469 Total init latency: 24.202 ms
+01-19 12:49:14.437 19551 19551 I MACE    : mace_run.cc:316 runtimes: [CPU]
+01-19 12:49:14.437 19551 19551 I MACE    : mace_run.cc:486 intput_file: /data/local/tmp/mace_tmp/conformer/validate_in/conformer_/data/local/tmp/mace_tmp/conformer/validate_in/conformer_input
+01-19 12:49:14.437 19551 19551 I MACE    : mace_run.cc:486 intput_file: /data/local/tmp/mace_tmp/conformer/validate_in/conformer_/data/local/tmp/mace_tmp/conformer/validate_in/conformer_icache1
+01-19 12:49:14.437 19551 19551 I MACE    : mace_run.cc:486 intput_file: /data/local/tmp/mace_tmp/conformer/validate_in/conformer_/data/local/tmp/mace_tmp/conformer/validate_in/conformer_icache2
+01-19 12:49:14.437 19551 19551 I MACE    : mace_run.cc:486 intput_file: /data/local/tmp/mace_tmp/conformer/validate_in/conformer_/data/local/tmp/mace_tmp/conformer/validate_in/conformer_icache3
+01-19 12:49:14.437 19551 19551 I MACE    : mace_run.cc:486 intput_file: /data/local/tmp/mace_tmp/conformer/validate_in/conformer_/data/local/tmp/mace_tmp/conformer/validate_in/conformer_pos_emb_helper
+01-19 12:49:14.437 19551 19551 I MACE    : mace_run.cc:554 Warm up run
+01-19 12:49:14.442 19551 19551 I MACE    : mace_run.cc:596 1st warm up run latency: 4.579 ms
+01-19 12:49:14.442 19551 19551 I MACE    : mace_run.cc:604 Run model
+01-19 12:49:14.445 19551 19551 I MACE    : mace_run.cc:672 Average latency: 3.68 ms
+01-19 12:49:14.447 19551 19551 I MACE    : mace_run.cc:685 Write output file /data/local/tmp/mace_tmp/conformer/validate_out/conformer_output with size 1756 done.
+01-19 12:49:14.447 19551 19551 I MACE    : mace_run.cc:685 Write output file /data/local/tmp/mace_tmp/conformer/validate_out/conformer_output_ce with size 1756 done.
+01-19 12:49:14.448 19551 19551 I MACE    : mace_run.cc:685 Write output file /data/local/tmp/mace_tmp/conformer/validate_out/conformer_ocache1 with size 2176 done.
+01-19 12:49:14.448 19551 19551 I MACE    : mace_run.cc:685 Write output file /data/local/tmp/mace_tmp/conformer/validate_out/conformer_ocache2 with size 10880 done.
+01-19 12:49:14.448 19551 19551 I MACE    : mace_run.cc:685 Write output file /data/local/tmp/mace_tmp/conformer/validate_out/conformer_ocache3 with size 1920 done.
+01-19 12:49:15.104  5584  8143 I NetworkAccelerateSwitchService: EVENT_RSSI_POLL
+01-19 12:49:15.108  5584  8143 I NetworkAccelerateSwitchService: getAverageWifiRssi:44
+01-19 12:49:15.505  1998  3068 I MiuiNetworkPolicy: bandwidth: 0 KB/s, Max bandwidth: 2192 KB/s
+01-19 12:49:15.767  7269  7980 D UidObserver: onUidIdle uid=10112 uidstate=100
+01-19 12:49:16.203  1998  3068 D MiuiNetworkPolicy: updateLimit mLimitEnabled=true,enabled=false,mNetworkPriorityMode=1
+01-19 12:49:17.110  5584  8143 I NetworkAccelerateSwitchService: EVENT_RSSI_POLL
+01-19 12:49:17.112  5584  8143 I NetworkAccelerateSwitchService: getAverageWifiRssi:44
+01-19 12:49:17.228  7269  8260 D ThermalIECHandler: storeDataStyle: thermal_iec_monitor_persistence_data_style_iec_state; startIECTime: -1; IECScreenOffOverPeriodTime: 179027854
+01-19 12:49:17.231  3799  3799 D QtiCarrierConfigHelper: WARNING, no carrier configs on phone Id: 1
+01-19 12:49:17.232  5850  5850 I BatteryInfoReceiver: ACTION_BATTERY_CHANGED
+01-19 12:49:17.233  5850  5850 I PowerNoticeUI: handleBatteryChanged oldPlugType 2 mPlugType 2 oldBatteryLevel 91 mBatteryLevel 91 temperature 290
+01-19 12:49:17.234  7269  7720 D PowerKeeper.Thermal: mBatteryTemperature: 29
+01-19 12:49:17.235  7269  8175 D PowerCheckerService: onBatteryChanged, mBatteryLevel = 91, status = 2, level = 91, plug = 2, scale = 100
+01-19 12:49:17.235  7269  7726 D PowerKeeper.FrozenApp: onBatteryChanged plug=true mBatteryPlugged=2
+01-19 12:49:17.236  5850  7242 I android_os_HwBinder: HwBinder: Starting thread pool for getting: vendor.xiaomi.hardware.micharge@1.0::IMiCharge/default
+01-19 12:49:17.236  3855  3855 V DeviceStatisticsService: chargerType=2 batteryLevel=91 totalBatteryCapacity=3913000
+01-19 12:49:17.238  1228  4987 W libc    : Access denied finding property "persist.sys.log_time_gap_sec"
+01-19 12:49:17.234  1228  1228 W HwBinder:1228_3: type=1400 audit(0.0:21069): avc: denied { read } for name="u:object_r:system_prop:s0" dev="tmpfs" ino=13208 scontext=u:r:hal_micharge_default:s0 tcontext=u:object_r:system_prop:s0 tclass=file permissive=0
+01-19 12:49:17.234  1228  1228 W HwBinder:1228_3: type=1400 audit(0.0:21070): avc: denied { read } for name="u:object_r:system_prop:s0" dev="tmpfs" ino=13208 scontext=u:r:hal_micharge_default:s0 tcontext=u:object_r:system_prop:s0 tclass=file permissive=0
+01-19 12:49:17.234  1228  1228 W HwBinder:1228_3: type=1400 audit(0.0:21071): avc: denied { read } for name="u:object_r:system_prop:s0" dev="tmpfs" ino=13208 scontext=u:r:hal_micharge_default:s0 tcontext=u:object_r:system_prop:s0 tclass=file permissive=0
+01-19 12:49:17.238  1228  4987 W libc    : Access denied finding property "persist.sys.log_filter_flag"
+01-19 12:49:17.237  1228  4987 I vendor.xiaomi.hardware.micharge@1.0-service: ReadFilePathValue path = /sys/class/qcom-battery/night_charging value = 0
+01-19 12:49:17.238  5850  7242 I ChargeProtectionUtils: getNightChargingState: 0
+01-19 12:49:17.443  3876  3876 W Settings: Setting airplane_mode_on has moved from android.provider.Settings.System to android.provider.Settings.Global, returning read-only value.
+01-19 12:49:18.509  1998  3068 I MiuiNetworkPolicy: bandwidth: 0 KB/s, Max bandwidth: 2192 KB/s
+01-19 12:49:19.117  5584  8143 I NetworkAccelerateSwitchService: EVENT_RSSI_POLL
+01-19 12:49:19.120  5584  8143 I NetworkAccelerateSwitchService: getAverageWifiRssi:45
+01-19 12:49:19.189  1998  3068 I MiuiNetworkPolicy: updateUidState uid = 10112, uidState = 19
+01-19 12:49:21.063 10835 11010 D Mi_ModemDebug_Service: start to querySmartTransmitStatus.
+01-19 12:49:21.063 10835 11010 D QC_RIL_OEM_HOOK: qcRilFeatureQueryCmn featureType = 10, ctlCode = 1
+01-19 12:49:21.065  3765  3765 D QcrilMsgTunnelIfaceManager: handleMessage what = 1
+01-19 12:49:21.066  3765  3765 I QcrilOemhookMsgTunnel: [0]invokeOemRilRequestRaw: serial=1197 length=28
+01-19 12:49:21.073  3765  4269 I QcrilOemhookMsgTunnel: [0]processOemHookResponse serial no: 1197 error: 44length=0
+01-19 12:49:21.073  3765  4269 E QcRilRequest: [1197] < OEM_HOOK_RAW error: org.codeaurora.telephony.utils.CommandException: INVALID_ARGUMENTS
+01-19 12:49:21.073  3765  3765 D QcrilMsgTunnelIfaceManager: handleMessage what = 2
+01-19 12:49:21.074 10835 11010 D QC_RIL_OEM_HOOK: sendOemRilRequestRaw returns value = -43
+01-19 12:49:21.074 10835 11010 W QC_RIL_OEM_HOOK: qcRilFeatureQueryCmn failed w/ org.codeaurora.telephony.utils.CommandException: SIM_ERR
+01-19 12:49:21.074 10835 11010 D Mi_ModemDebug_Service: querySmartTransmitStatus resultStr = 00000000
+01-19 12:49:21.123  5584  8143 I NetworkAccelerateSwitchService: EVENT_RSSI_POLL
+01-19 12:49:21.125  5584  8143 I NetworkAccelerateSwitchService: getAverageWifiRssi:44
+01-19 12:49:21.211  1998  3068 D MiuiNetworkPolicy: updateLimit mLimitEnabled=false,enabled=true,mNetworkPriorityMode=1
+01-19 12:49:21.513  1998  3068 I MiuiNetworkPolicy: bandwidth: 0 KB/s, Max bandwidth: 2192 KB/s
+01-19 12:49:22.867  5584  7920 D SLM-SRV-SLAService: checktemp temperature = 28666 temperature_average = 28238 isPerformanceMode = false thermal_enable_slm = true
+01-19 12:49:23.128  5584  8143 I NetworkAccelerateSwitchService: EVENT_RSSI_POLL
+01-19 12:49:23.130  5584  8143 I NetworkAccelerateSwitchService: getAverageWifiRssi:43
+01-19 12:49:24.519  1998  3068 I MiuiNetworkPolicy: bandwidth: 0 KB/s, Max bandwidth: 2192 KB/s
+01-19 12:49:25.116  3876  3876 W Settings: Setting airplane_mode_on has moved from android.provider.Settings.System to android.provider.Settings.Global, returning read-only value.
+01-19 12:49:25.132  5584  8143 I NetworkAccelerateSwitchService: EVENT_RSSI_POLL
+01-19 12:49:25.134  5584  8143 I NetworkAccelerateSwitchService: getAverageWifiRssi:43
