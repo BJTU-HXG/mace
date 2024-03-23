@@ -1,0 +1,2 @@
+#Softmax_1052
+speech:=chunk_0040/inputs/speech.raw

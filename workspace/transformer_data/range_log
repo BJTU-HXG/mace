@@ -1,0 +1,434 @@
+CMD> bash tools/cmake/cmake-generate-proto-py-host.sh
+CMAKE_VERSION: 3.20.2
+CROSSTOOL_ROOT:
+CMAKE_TOOLCHAIN_FILE:
+CMAKE_INSTALL_PREFIX: /home/lemonorn.wu/mace/build/cmake-build/host/install
+MACE_ENABLE_CPU            = ON
+MACE_ENABLE_NEON           = OFF
+MACE_ENABLE_QUANTIZE       = OFF
+MACE_ENABLE_OPENCL         = OFF
+MACE_ENABLE_CUDA           = OFF
+MACE_ENABLE_HEXAGON_DSP    = OFF
+MACE_ENABLE_HEXAGON_HTA    = OFF
+MACE_ENABLE_MTK_APU        = OFF
+MACE_ENABLE_BFLOAT16       = OFF
+MACE_ENABLE_FP16           = OFF
+MACE_ENABLE_QNN            =
+MACE_ENABLE_TESTS          = ON
+MACE_ENABLE_BENCHMARKS     = ON
+MACE_ENABLE_OPT_SIZE       = ON
+MACE_ENABLE_OBFUSCATE      = ON
+MACE_ENABLE_CCACHE         = ON
+MACE_ENABLE_CODE_MODE      = OFF
+MACE_ENABLE_RPCMEM         =
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/lemonorn.wu/mace/build/cmake-build/host
+[ 66%] Built target protoc_bin
+[100%] Built target mace_proto_py
+[ 66%] Built target protoc_bin
+[100%] Built target micro_mem_proto_py
+
+tools/python/run_model.py:76: Run on devices: ['host']
+tools/python/run_model.py:90: Run model transformer
+[92m{'platform': <Platform.ONNX: 2>, 'model_file_path': '/home/lemonorn.wu/mace/workspace/models/transformer.onnx', 'model_sha256_checksum': '1cb9ed7ca4b6e2371214a67190b7b0c8ef9d8fa4dd47a333939e0e728a193682', 'subgraphs': {'default_graph': {'platform': <Platform.ONNX: 2>, 'model_file_path': '/home/lemonorn.wu/mace/workspace/models/transformer.onnx', 'model_sha256_checksum': '1cb9ed7ca4b6e2371214a67190b7b0c8ef9d8fa4dd47a333939e0e728a193682', 'runtime': <DeviceType.CPU: 0>, 'limit_opencl_kernel_time': 0, 'nnlib_graph_mode': 0, 'obfuscate': 0, 'input_data_formats': [<DataFormat.NONE: 0>], 'input_ranges': [[-1.0, 1.0]], 'output_data_formats': [<DataFormat.NONE: 0>], 'input_tensors': ['speech'], 'output_tensors': ['fa_out'], 'input_shapes': [[1, 144, 40]], 'output_shapes': [[1, 144, 287]], 'input_data_types': [1], 'output_data_types': [1], 'data_type': 3}}, 'runtime': <DeviceType.CPU: 0>, 'limit_opencl_kernel_time': 0, 'nnlib_graph_mode': 0, 'obfuscate': 0, 'input_data_formats': [], 'input_ranges': [], 'output_data_formats': [], 'input_tensors': ['speech'], 'output_tensors': ['fa_out']}[0m
+CMD> mkdir -p /tmp/mace_run/transformer/interior
+
+
+
+
+
+
+
+
+
+
+CMD> mkdir -p /tmp/mace_run/transformer
+
+
+
+
+
+
+CMD> cp -f build/transformer/model/transformer.pb /tmp/mace_run/transformer
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CMD> mkdir -p /tmp/mace_run/transformer
+
+
+
+
+
+
+
+CMD> cp -f build/transformer/model/transformer.data /tmp/mace_run/transformer
+
+
+
+
+
+
+
+
+
+
+
+
+The scope of generated data:  [[-1.0, 1.0]]
+tools/python/run_model.py:299: Generate input file: /tmp/tmpnzz1is30/transformer_speech
+CMD> mkdir -p /tmp/mace_run/transformer/validate_in
+
+
+
+
+
+
+
+
+
+CMD> cp -f /tmp/tmpnzz1is30/* /tmp/mace_run/transformer/validate_in
+
+
+
+
+
+
+
+
+
+
+
+
+
+CMD> mkdir -p /tmp/mace_run/transformer/validate_out
+
+
+
+
+
+
+
+Install target from build/cmake-build/host/install/bin/mace_run to /tmp/mace_run/transformer
+CMD> mkdir -p /tmp/mace_run/transformer
+
+
+
+
+
+
+
+
+
+
+CMD> cp -f build/cmake-build/host/install/bin/mace_run /tmp/mace_run/transformer
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+['', 'MACE_INTERNAL_STORAGE_PATH=/tmp/mace_run/transformer/interior', 'MACE_CPP_MIN_VLOG_LEVEL=0', 'MACE_LOG_TENSOR_RANGE=1', 'LD_LIBRARY_PATH=/tmp/mace_run/transformer', '/tmp/mace_run/transformer/mace_run', "--model_name='transformer'", "--model_file='/tmp/mace_run/transformer/transformer.pb'", "--model_data_file='/tmp/mace_run/transformer/transformer.data'", "--input_node='speech'", "--input_shape='1,144,40'", "--output_node='fa_out'", "--output_shape='1,144,287'", "--input_data_format='NONE'", "--output_data_format='NONE'", '--input_dir', 'workspace/transformer_data/inputs/', '--output_dir=workspace/transformer_data/outputs', '--input_file=/tmp/mace_run/transformer/validate_in/transformer', '--output_file=/tmp/mace_run/transformer/validate_out/transformer']
+ MACE_INTERNAL_STORAGE_PATH=/tmp/mace_run/transformer/interior MACE_CPP_MIN_VLOG_LEVEL=0 MACE_LOG_TENSOR_RANGE=1 LD_LIBRARY_PATH=/tmp/mace_run/transformer /tmp/mace_run/transformer/mace_run --model_name='transformer' --model_file='/tmp/mace_run/transformer/transformer.pb' --model_data_file='/tmp/mace_run/transformer/transformer.data' --input_node='speech' --input_shape='1,144,40' --output_node='fa_out' --output_shape='1,144,287' --input_data_format='NONE' --output_data_format='NONE' --input_dir workspace/transformer_data/inputs/ --output_dir=workspace/transformer_data/outputs --input_file=/tmp/mace_run/transformer/validate_in/transformer --output_file=/tmp/mace_run/transformer/validate_out/transformer
+['', 'MACE_INTERNAL_STORAGE_PATH=/tmp/mace_run/transformer/interior', 'MACE_CPP_MIN_VLOG_LEVEL=0', 'MACE_LOG_TENSOR_RANGE=1', 'LD_LIBRARY_PATH=/tmp/mace_run/transformer', '/tmp/mace_run/transformer/mace_run', "--model_name='transformer'", "--model_file='/tmp/mace_run/transformer/transformer.pb'", "--model_data_file='/tmp/mace_run/transformer/transformer.data'", "--input_node='speech'", "--input_shape='1,144,40'", "--output_node='fa_out'", "--output_shape='1,144,287'", "--input_data_format='NONE'", "--output_data_format='NONE'", '--input_dir', 'workspace/transformer_data/inputs/', '--output_dir=workspace/transformer_data/outputs', '--input_file=/tmp/mace_run/transformer/validate_in/transformer', '--output_file=/tmp/mace_run/transformer/validate_out/transformer']
+CMD>  MACE_INTERNAL_STORAGE_PATH=/tmp/mace_run/transformer/interior MACE_CPP_MIN_VLOG_LEVEL=0 MACE_LOG_TENSOR_RANGE=1 LD_LIBRARY_PATH=/tmp/mace_run/transformer /tmp/mace_run/transformer/mace_run --model_name='transformer' --model_file='/tmp/mace_run/transformer/transformer.pb' --model_data_file='/tmp/mace_run/transformer/transformer.data' --input_node='speech' --input_shape='1,144,40' --output_node='fa_out' --output_shape='1,144,287' --input_data_format='NONE' --output_data_format='NONE' --input_dir workspace/transformer_data/inputs/ --output_dir=workspace/transformer_data/outputs --input_file=/tmp/mace_run/transformer/validate_in/transformer --output_file=/tmp/mace_run/transformer/validate_out/transformer
+I /home/lemonorn.wu/mace/mace/tools/mace_run.cc:722] model name: transformer
+I /home/lemonorn.wu/mace/mace/tools/mace_run.cc:723] mace version: v1.1.1-33-gd78c8df
+I /home/lemonorn.wu/mace/mace/tools/mace_run.cc:724] input node: speech
+I /home/lemonorn.wu/mace/mace/tools/mace_run.cc:725] input shape: 1,144,40
+I /home/lemonorn.wu/mace/mace/tools/mace_run.cc:726] input data_type: float32
+I /home/lemonorn.wu/mace/mace/tools/mace_run.cc:727] input data_format: NONE
+I /home/lemonorn.wu/mace/mace/tools/mace_run.cc:728] output node: fa_out
+I /home/lemonorn.wu/mace/mace/tools/mace_run.cc:729] output shape: 1,144,287
+I /home/lemonorn.wu/mace/mace/tools/mace_run.cc:730] output data_format: NONE
+I /home/lemonorn.wu/mace/mace/tools/mace_run.cc:731] input_file: /tmp/mace_run/transformer/validate_in/transformer
+I /home/lemonorn.wu/mace/mace/tools/mace_run.cc:732] output_file: /tmp/mace_run/transformer/validate_out/transformer
+I /home/lemonorn.wu/mace/mace/tools/mace_run.cc:733] input dir: workspace/transformer_data/inputs/
+I /home/lemonorn.wu/mace/mace/tools/mace_run.cc:734] output dir: workspace/transformer_data/outputs
+I /home/lemonorn.wu/mace/mace/tools/mace_run.cc:735] model_data_file: /tmp/mace_run/transformer/transformer.data
+I /home/lemonorn.wu/mace/mace/tools/mace_run.cc:736] model_file: /tmp/mace_run/transformer/transformer.pb
+I /home/lemonorn.wu/mace/mace/tools/mace_run.cc:737] accelerator_cache_policy: 0
+I /home/lemonorn.wu/mace/mace/tools/mace_run.cc:738] accelerator_binary_file:
+I /home/lemonorn.wu/mace/mace/tools/mace_run.cc:739] accelerator_storage_file:
+I /home/lemonorn.wu/mace/mace/tools/mace_run.cc:740] apu_boost_hint: 100
+I /home/lemonorn.wu/mace/mace/tools/mace_run.cc:741] apu_preference_hint: 1
+I /home/lemonorn.wu/mace/mace/tools/mace_run.cc:742] round: 1
+I /home/lemonorn.wu/mace/mace/tools/mace_run.cc:743] restart_round: 1
+I /home/lemonorn.wu/mace/mace/tools/mace_run.cc:744] gpu_perf_hint: 3
+I /home/lemonorn.wu/mace/mace/tools/mace_run.cc:745] gpu_priority_hint: 3
+I /home/lemonorn.wu/mace/mace/tools/mace_run.cc:746] num_threads: -1
+I /home/lemonorn.wu/mace/mace/tools/mace_run.cc:747] cpu_affinity_policy: 1
+I /home/lemonorn.wu/mace/mace/tools/mace_run.cc:789] raw_output_data_types[0] is float32
+I /home/lemonorn.wu/mace/mace/tools/mace_run.cc:814] restart round 0
+I /home/lemonorn.wu/mace/mace/libmace/engines/serial_engine.cc:33] Creating SerialEngine, MACE version: v1.1.1-33-gd78c8df
+I /home/lemonorn.wu/mace/mace/tools/mace_run.cc:462] Create Mace Engine latency: 75.925 ms
+I /home/lemonorn.wu/mace/mace/tools/mace_run.cc:469] Total init latency: 75.974 ms
+I /home/lemonorn.wu/mace/mace/tools/mace_run.cc:316] runtimes: [CPU]
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@748@@-7.75988,6.526
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@749@@-2.10669,1.81154
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@750@@-2.10669,1.81154
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@773@@0,0.956976
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@796@@0,0.378844
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@799@@0,0.378844
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@805@@0,0.378844
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@821@@-2.15179,1.98969
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@822@@-2.28302,3.03657
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@831@@-25.8294,34.3548
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@833@@-25.8129,34.4952
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@834@@-0.0281733,0.419322
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@835@@-26.2322,34.0759
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@837@@4.45935e-08,1161.16
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@838@@3.06255,51.6932
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@840@@3.06255,51.6932
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@841@@1.75001,7.1898
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@842@@-4.19728,6.05177
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@843@@-1.00566,0.787498
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@844@@-0.951799,0.817237
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@863@@-5.35783,5.47552
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@864@@-5.54705,5.85819
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@880@@-5.54705,5.85819
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@947@@-5.54705,5.85819
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@896@@-4.89214,5.85855
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@897@@-12.0162,9.15991
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@913@@-12.0162,9.15991
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@949@@-12.0162,9.15991
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@950@@-62.4555,120.186
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@952@@-11.0407,21.2461
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@962@@-11.0407,21.2461
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@963@@1.14686e-10,0.98645
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@966@@1.14686e-10,0.98645
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@929@@-2.97923,3.19952
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@930@@-2.77257,3.09844
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@946@@-2.77257,3.09844
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@948@@-2.77257,3.09844
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@967@@-1.91668,1.8862
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@968@@-1.91668,1.8862
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@975@@-1.91668,1.8862
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@991@@-7.80193,9.60886
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@992@@-7.21208,10.0851
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1000@@-25.5444,30.6332
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1001@@-0.169673,0.321396
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1002@@-25.8544,30.3232
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1004@@8.07392e-10,919.498
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1005@@4.65645,48.6733
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1007@@4.65645,48.6733
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1008@@2.15788,6.97663
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1009@@-5.05241,5.54737
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1010@@-1.58693,0.981222
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1011@@-1.5121,1.36048
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1027@@-6.39222,5.19781
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1028@@-8.02015,3.8775
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1036@@0,3.8775
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1052@@-7.66823,18.8685
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1053@@-7.65947,18.8702
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1061@@-25.612,32.2231
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1062@@-0.211443,0.635193
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1063@@-25.8755,31.9596
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1065@@5.8458e-09,1021.42
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1066@@7.51612,53.4732
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1068@@7.51612,53.4732
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1069@@2.74155,7.31254
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1070@@-5.09626,5.66207
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1071@@-1.64485,1.15309
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1072@@-1.59203,1.03664
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1091@@-4.00966,5.23475
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1092@@-3.86401,5.34364
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1108@@-3.86401,5.34364
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1175@@-3.86401,5.34364
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1124@@-5.27137,6.03957
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1125@@-9.11961,8.50931
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1141@@-9.11961,8.50931
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1177@@-9.11961,8.50931
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1178@@-38.6543,90.0191
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1180@@-6.83318,15.9133
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1190@@-6.83318,15.9133
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1191@@2.32492e-07,0.439267
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1194@@2.32492e-07,0.439267
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1157@@-5.64809,4.01375
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1158@@-5.61963,3.92415
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1174@@-5.61963,3.92415
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1176@@-5.61963,3.92415
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1195@@-3.98434,2.80482
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1196@@-3.98434,2.80482
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1203@@-3.98434,2.80482
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1219@@-12.2965,13.4438
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1220@@-12.1817,13.8759
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1228@@-24.37,44.0858
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1229@@-0.280199,0.819714
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1230@@-24.5229,43.753
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1232@@2.24293e-08,1914.32
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1233@@26.668,82.9583
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1235@@26.668,82.9583
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1236@@5.1641,9.10815
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1237@@-4.49377,5.24376
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1238@@-2.47573,2.75557
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1239@@-2.35284,2.74971
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1255@@-22.116,14.418
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1256@@-23.159,13.4072
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1264@@0,13.4072
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1280@@-32.862,24.7928
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1281@@-33.6467,24.8746
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1289@@-46.6453,52.5413
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1290@@-0.315034,0.917737
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1291@@-46.8879,51.7247
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1293@@5.93285e-08,2675.45
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1294@@35.1793,163.392
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1296@@35.1793,163.392
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1297@@5.93121,12.7825
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1298@@-4.52975,5.17945
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1299@@-1.85586,2.04469
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1300@@-1.77414,1.69824
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1319@@-3.93107,3.87983
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1320@@-4.76847,3.62063
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1336@@-4.76847,3.62063
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1403@@-4.76847,3.62063
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1352@@-5.34735,6.34706
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1353@@-7.57672,7.6933
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1369@@-7.57672,7.6933
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1405@@-7.57672,7.6933
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1406@@-20.6123,108.306
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1408@@-3.64377,19.146
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1418@@-3.64377,19.146
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1419@@3.93544e-07,0.403058
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1422@@3.93544e-07,0.403058
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1385@@-8.19998,9.4246
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1386@@-8.10214,9.55241
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1402@@-8.10214,9.55241
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1404@@-8.10214,9.55241
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1423@@-6.71342,6.3756
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1424@@-6.71342,6.3756
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1431@@-6.71342,6.3756
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1447@@-28.0734,36.1427
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1448@@-28.4921,37.3673
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1456@@-58.9685,68.2792
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1457@@-0.753143,0.446926
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1458@@-59.1363,68.0153
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1460@@2.04396e-09,4626.08
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1461@@170.997,348.497
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1463@@170.997,348.497
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1464@@13.0766,18.6681
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1465@@-3.46766,4.14286
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1466@@-4.9983,6.19811
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1467@@-6.6067,5.35876
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1483@@-44.1741,11.0753
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1484@@-44.5991,10.7833
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1492@@0,10.7833
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1508@@-22.4831,26.701
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1509@@-23.1247,29.4198
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1517@@-60.9577,79.6589
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1518@@-0.744887,0.471596
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1519@@-61.218,79.6341
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1521@@1.02637e-06,6341.6
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1522@@204.421,410.7
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1524@@204.421,410.7
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1525@@14.2976,20.2657
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1526@@-3.37824,4.78348
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1527@@-2.46485,2.85421
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1528@@-2.41358,2.48569
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1547@@-2.86639,3.52685
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1548@@-3.06501,3.64965
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1564@@-3.06501,3.64965
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1631@@-3.06501,3.64965
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1580@@-6.83023,7.15015
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1581@@-18.2427,22.0495
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1597@@-18.2427,22.0495
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1633@@-18.2427,22.0495
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1634@@-103.175,335.231
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1636@@-18.239,59.2611
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1646@@-18.239,59.2611
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1647@@6.88183e-05,0.284499
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1650@@6.88183e-05,0.284499
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1613@@-15.0361,14.085
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1614@@-16.0317,15.0792
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1630@@-16.0317,15.0792
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1632@@-16.0317,15.0792
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1651@@-12.4417,12.0085
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1652@@-12.4417,12.0085
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1659@@-12.4417,12.0085
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1675@@-322.734,188.942
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1676@@-329.148,192.922
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1684@@-347.09,180.198
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1685@@-1.69883,-0.382266
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1686@@-345.833,181.765
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1688@@2.65209e-09,119601
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1689@@1918.97,2657.24
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1691@@1918.97,2657.24
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1692@@43.806,51.5484
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1693@@-7.12024,3.99075
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1694@@-5.95903,7.98762
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1695@@-6.58519,7.63801
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1711@@-54.5753,13.2694
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1712@@-54.9112,12.4237
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1720@@0,12.4237
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1736@@-45.1192,46.3933
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1737@@-41.002,43.0046
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1745@@-326.541,172.616
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1746@@-1.38421,-0.3655
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1747@@-325.749,173.473
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1749@@9.64087e-05,106113
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1750@@1854.5,2635.29
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1752@@1854.5,2635.29
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1753@@43.0639,51.335
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1754@@-6.88264,3.608
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1755@@-1.58214,3.5024
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1756@@-1.74438,4.14596
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1772@@-18.8328,10.5179
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@1773@@-21.2606,12.0482
+I /home/lemonorn.wu/mace/mace/core/net/serial_net.cc:199] Tensor range @@fa_out@@4.2419e-15,0.999864
+I /home/lemonorn.wu/mace/mace/tools/mace_run.cc:540] Write output file workspace/transformer_data/outputs/fa_out.raw with size 41328 done.
+
