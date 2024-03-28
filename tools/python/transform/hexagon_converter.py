@@ -52,6 +52,7 @@ HexagonSupportedOps = [
     'QuantizedAdd_8p8to8',
     'QuantizedAvgPool_8',
     'QuantizedBatchNorm_8x8p8to8',
+    'QuantizedBatchMatMul_8x8to32', # TODO fix
     'QuantizedClamp_8',
     'QuantizedConcat_8',
     'QuantizedConcat_8_d32',
@@ -180,6 +181,7 @@ class HexagonConverter(base_converter.ConverterInterface):
             MaceOp.Activation.name: self.convert_activation,
             MaceOp.BatchNorm.name: self.convert_batchnorm,
             MaceOp.BatchToSpaceND.name: self.convert_batchspace,
+            # MaceOp.BatchMatMul.name: self.convert_batchmatmul,
             MaceOp.Concat.name: self.convert_concat,
             MaceOp.Conv2D.name: self.convert_conv2d,
             MaceOp.Deconv2D.name: self.convert_deconv2d,
@@ -556,8 +558,9 @@ class HexagonConverter(base_converter.ConverterInterface):
             min_output_shape.dims.extend([1])
             max_output_shape = op.output_shape.add()
             max_output_shape.dims.extend([1])
-        if op.type in [HexagonOp.QuantizedMatMul_8x8to32.name,
-                       HexagonOp.Quantize_int32.name]:
+        if op.type == HexagonOp.QuantizedMatMul_8x8to32.name:
+            op.output_type.extend([mace_pb2.DT_INT32, mace_pb2.DT_FLOAT, mace_pb2.DT_FLOAT])
+        elif op.type == HexagonOp.QuantizedBatchMatMul_8x8to32.name:
             op.output_type.extend([mace_pb2.DT_INT32, mace_pb2.DT_FLOAT, mace_pb2.DT_FLOAT])
         elif op.type in [HexagonOp.Quantize_16.name,
                          HexagonOp.Convert_8_16.name,
@@ -954,15 +957,25 @@ class HexagonConverter(base_converter.ConverterInterface):
             mace_check(False,
                        "Hexagon does not support instancenorm with affine")
 
+
     def convert_matmul(self, op):
         requantize_op = copy.deepcopy(op)
 
-        op.output[0] = self.new_tensor(op.output[0], '_matmul:0', op.output_shape[0].dims)
-        self.add_min_max_const_node(op, op.input[0])
-        self.add_min_max_const_node(op, op.input[1])
-        op.name = op.name + '_matmul'
-        op.type = HexagonOp.QuantizedMatMul_8x8to32.name
-        self.post_convert(op)
+        if len(op.output_shape[0].dims) == 4:
+            op.output[0] = self.new_tensor(op.output[0], '_batchmatmul:0', op.output_shape[0].dims)
+            self.add_min_max_const_node(op, op.input[0])
+            self.add_min_max_const_node(op, op.input[1])
+            op.name = op.name + '_matmul'
+            op.type = HexagonOp.QuantizedBatchMatMul_8x8to32.name
+            self.post_convert(op)
+        else:
+            op.output[0] = self.new_tensor(op.output[0], '_matmul:0', op.output_shape[0].dims)
+            self.add_min_max_const_node(op, op.input[0])
+            self.add_min_max_const_node(op, op.input[1])
+            op.name = op.name + '_matmul'
+            op.type = HexagonOp.QuantizedMatMul_8x8to32.name
+            self.post_convert(op)
+
         
         del requantize_op.input[1:]
         requantize_op.input[0] = op.output[0]
