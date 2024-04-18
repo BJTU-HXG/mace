@@ -219,7 +219,6 @@ class HexagonConverter(base_converter.ConverterInterface):
     def run(self):
         self.add_port_and_construct_producers()
         self.construct_ops_and_consumers()
-        self.fold_layernorm()
         # convert op node
         self.convert_ops()
 
@@ -558,9 +557,8 @@ class HexagonConverter(base_converter.ConverterInterface):
             min_output_shape.dims.extend([1])
             max_output_shape = op.output_shape.add()
             max_output_shape.dims.extend([1])
-        if op.type == HexagonOp.QuantizedMatMul_8x8to32.name:
-            op.output_type.extend([mace_pb2.DT_INT32, mace_pb2.DT_FLOAT, mace_pb2.DT_FLOAT])
-        elif op.type == HexagonOp.QuantizedBatchMatMul_8x8to32.name:
+        if op.type in [HexagonOp.QuantizedMatMul_8x8to32.name,
+                       HexagonOp.QuantizedBatchMatMul_8x8to32.name]:
             op.output_type.extend([mace_pb2.DT_INT32, mace_pb2.DT_FLOAT, mace_pb2.DT_FLOAT])
         elif op.type in [HexagonOp.Quantize_16.name,
                          HexagonOp.Convert_8_16.name,
@@ -855,16 +853,9 @@ class HexagonConverter(base_converter.ConverterInterface):
             op.type = HexagonOp.SpaceToDepth_8.name
 
     def convert_dequantize(self, op):
-        if op.name == self._model.op[-1].name:
         self.add_min_max_const_node(op, op.input[0])
-        self.add_min_max_const_node(op, op.input[0])
-
-            self.add_min_max_const_node(op, op.input[0])
-
-            op.type = HexagonOp.DequantizeOUTPUT_8tof.name
-        else:
-            self.add_min_max_const_node(op, op.input[0])
-            op.type = HexagonOp.Dequantize.name
+        op.type = HexagonOp.DequantizeOUTPUT_8tof.name
+        
     def convert_elementwise(self, op):
         element_type = ConverterUtil.get_arg(
             op, MaceKeyword.mace_element_type_str).i
@@ -963,19 +954,15 @@ class HexagonConverter(base_converter.ConverterInterface):
 
         if len(op.output_shape[0].dims) == 4:
             op.output[0] = self.new_tensor(op.output[0], '_batchmatmul:0', op.output_shape[0].dims)
-            self.add_min_max_const_node(op, op.input[0])
-            self.add_min_max_const_node(op, op.input[1])
-            op.name = op.name + '_matmul'
             op.type = HexagonOp.QuantizedBatchMatMul_8x8to32.name
-            self.post_convert(op)
         else:
             op.output[0] = self.new_tensor(op.output[0], '_matmul:0', op.output_shape[0].dims)
-            self.add_min_max_const_node(op, op.input[0])
-            self.add_min_max_const_node(op, op.input[1])
-            op.name = op.name + '_matmul'
             op.type = HexagonOp.QuantizedMatMul_8x8to32.name
-            self.post_convert(op)
-
+            
+        self.add_min_max_const_node(op, op.input[0])
+        self.add_min_max_const_node(op, op.input[1])
+        op.name = op.name + '_matmul'
+        self.post_convert(op)
         
         del requantize_op.input[1:]
         requantize_op.input[0] = op.output[0]
@@ -1028,10 +1015,7 @@ class HexagonConverter(base_converter.ConverterInterface):
             op.type = HexagonOp.QuantizedMaxPool_8.name
 
     def convert_quantize(self, op):
-        if op.name == self._model.op[0].name:
-            op.type = HexagonOp.QuantizeINPUT_f_to_8.name
-        else:
-            op.type = HexagonOp.Quantize.name
+        op.type = HexagonOp.QuantizeINPUT_f_to_8.name
 
     def convert_reduce(self, op):
         self.add_min_max_const_node(op, op.input[0])
