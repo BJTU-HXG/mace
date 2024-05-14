@@ -45,6 +45,7 @@ BuildProducts.txt
 compileInfo.txt
 opt_conformer.txt
 opt_transformer.txt
+opt_hifigan.txt
 output.txt
 outputs_fa_out
 ._qxx

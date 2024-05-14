@@ -511,46 +511,47 @@ class Transformer(base_converter.ConverterInterface):
     def fold_layernorm(self):
         net = self._model
         for op in net.op:
-            if op.type == MaceOp.Eltwise.name:
-                element_type = ConverterUtil.get_arg(
-                    op, MaceKeyword.mace_element_type_str).i
-                if element_type == EltwiseType.SUM.value:
-                    consumers = self._consumers[op.output[0]]
-                    if consumers[0].type == MaceOp.Reduce.name and \
-                        ConverterUtil.get_arg(consumers[1], MaceKeyword.mace_element_type_str).i == EltwiseType.SUB.value:
-                            op_reduce_x = consumers[0]
-                            op_sub_mean = consumers[1]
-                            consumers_sub_mean = self._consumers[op_sub_mean.output[0]]
-                            op_msqr = consumers_sub_mean[0]
-                            op_var = self._consumers[op_msqr.output[0]][0]
-                            op_var_add_epsilon = self._consumers[op_var.output[0]][0]
-                            op_sqrt = self._consumers[op_var_add_epsilon.output[0]][0]
-                            op_div = consumers_sub_mean[1]
-                            op_scale = self._consumers[op_div.output[0]][0]
-                            op_bias = self._consumers[op_scale.output[0]][0]
-                            
-                            scale = op_scale.input[1]
-                            bias = op_bias.input[1]
-                            op_reduce_x.input.append(scale)
-                            op_reduce_x.input.append(bias)
-                            op_reduce_x.output[0] = op_bias.output[0]
-                            ori_shape = op_reduce_x.output_shape[0].dims
-                            dst_shape = op_bias.output_shape[0].dims
-                            while(ori_shape): ori_shape.pop()
-                            ori_shape.extend(dst_shape)
-                            op_reduce_x.name = 'LayerNorm_' + op_reduce_x.name.split('_')[1]
-                            op_reduce_x.type = MaceOp.LayerNorm.name
-                            print(f'Fold LayerNorm: ({op_reduce_x.name}), type: ({op_reduce_x.type})')
-                            
-                            net.op.remove(op_sub_mean)
-                            net.op.remove(op_msqr)
-                            net.op.remove(op_var)
-                            net.op.remove(op_var_add_epsilon)
-                            net.op.remove(op_sqrt)
-                            net.op.remove(op_div)
-                            net.op.remove(op_scale)
-                            net.op.remove(op_bias)
-                            return True
+            key = op.output[0]
+            if key in self._consumers:
+                ops = self._consumers[op.output[0]]
+                op_reduce = None
+                op_sub = None
+                for op in ops:
+                    if op.type == MaceOp.Reduce.name: op_reduce = op
+                    elif op.type == MaceOp.Eltwise.name:
+                        elem_type = ConverterUtil.get_arg(op, MaceKeyword.mace_element_type_str).i
+                        if elem_type == EltwiseType.SUB.value: op_sub = op
+                if op_reduce and op_sub and self._consumers[op_reduce.output[0]][0].name == op_sub.name:
+                    consumers_sub = self._consumers[op_sub.output[0]]
+                    op_msqr = consumers_sub[0]
+                    op_var = self._consumers[op_msqr.output[0]][0]
+                    op_var_add_epsilon = self._consumers[op_var.output[0]][0]
+                    op_sqrt = self._consumers[op_var_add_epsilon.output[0]][0]
+                    op_div = consumers_sub[1]
+                    op_scale = self._consumers[op_div.output[0]][0]
+                    op_bias = self._consumers[op_scale.output[0]][0]
+                    
+                    scale = op_scale.input[1]
+                    bias = op_bias.input[1]
+                    op_reduce.input.append(scale)
+                    op_reduce.input.append(bias)
+                    op_reduce.output[0] = op_bias.output[0]
+                    ori_shape = op_reduce.output_shape[0].dims
+                    dst_shape = op_bias.output_shape[0].dims
+                    while(ori_shape): ori_shape.pop()
+                    ori_shape.extend(dst_shape)
+                    op_reduce.name = 'LayerNorm_' + op_reduce.name.split('_')[1]
+                    op_reduce.type = MaceOp.LayerNorm.name
+                    print(f'Fold LayerNorm: ({op_reduce.name}), type: ({op_reduce.type})')
+                    net.op.remove(op_sub)
+                    net.op.remove(op_msqr)
+                    net.op.remove(op_var)
+                    net.op.remove(op_var_add_epsilon)
+                    net.op.remove(op_sqrt)
+                    net.op.remove(op_div)
+                    net.op.remove(op_scale)
+                    net.op.remove(op_bias)
+                    return True
         return False
 
     def fold_squared_diff_mean(self):
