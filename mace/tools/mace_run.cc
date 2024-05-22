@@ -452,6 +452,7 @@ bool RunModel(const std::string &model_name,
                                   tutor,
                                   FLAGS_fake_warmup);
 #endif
+    //std::this_thread::sleep_for(std::chrono::seconds(20));
     int64_t t1 = NowMicros();
 
     if (create_engine_status != MaceStatus::MACE_SUCCESS) {
@@ -701,12 +702,13 @@ bool RunModel(const std::string &model_name,
 }
 
 int Main(int argc, char **argv) {
+  LOG(INFO) << "hello";
   std::string usage = "MACE run model tool, please specify proper arguments.\n"
                       "usage: " + std::string(argv[0])
       + " --help";
   gflags::SetUsageMessage(usage);
   gflags::ParseCommandLineFlags(&argc, &argv, true);
-
+  
   std::vector<std::string> input_names = Split(FLAGS_input_node, ',');
   std::vector<std::string> output_names = Split(FLAGS_output_node, ',');
   if (input_names.empty() || output_names.empty()) {
@@ -726,8 +728,8 @@ int Main(int argc, char **argv) {
   LOG(INFO) << "input shape: " << FLAGS_input_shape;
   LOG(INFO) << "input data_type: " << FLAGS_input_data_type;
   LOG(INFO) << "input data_format: " << FLAGS_input_data_format;
-  LOG(INFO) << "output node: " << FLAGS_output_node;
-  LOG(INFO) << "output shape: " << FLAGS_output_shape;
+  //LOG(INFO) << "output node: " << FLAGS_output_node;
+  //LOG(INFO) << "output shape: " << FLAGS_output_shape;
   LOG(INFO) << "input data_type: " << FLAGS_output_data_type;
   LOG(INFO) << "output data_format: " << FLAGS_output_data_format;
   LOG(INFO) << "input_file: " << FLAGS_input_file;
@@ -747,6 +749,7 @@ int Main(int argc, char **argv) {
   LOG(INFO) << "gpu_priority_hint: " << FLAGS_gpu_priority_hint;
   LOG(INFO) << "num_threads: " << FLAGS_num_threads;
   LOG(INFO) << "cpu_affinity_policy: " << FLAGS_cpu_affinity_policy;
+  
   auto limit_opencl_kernel_time = getenv("MACE_LIMIT_OPENCL_KERNEL_TIME");
   if (limit_opencl_kernel_time) {
     LOG(INFO) << "limit_opencl_kernel_time: "
@@ -788,8 +791,8 @@ int Main(int argc, char **argv) {
   std::vector<IDataType> output_data_types(output_count);
   for (size_t i = 0; i < output_count; ++i) {
     output_data_types[i] = ParseDataType(raw_output_data_types[i]);
-    LOG(INFO) << "raw_output_data_types[" << i << "] is "
-              << raw_output_data_types[i];
+    //LOG(INFO) << "raw_output_data_types[" << i << "] is "
+    //          << raw_output_data_types[i];
   }
 
   std::vector<std::string> raw_input_data_formats =
@@ -812,6 +815,7 @@ int Main(int argc, char **argv) {
     cpu_float32_performance = cpu_capability.float32_performance.exec_time;
   }
   bool ret = false;
+  
   for (int i = 0; i < FLAGS_restart_round; ++i) {
     VLOG(0) << "restart round " << i;
     ret = RunModel(FLAGS_model_name, input_names, input_shape_vec,

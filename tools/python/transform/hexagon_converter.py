@@ -1215,14 +1215,15 @@ class HexagonConverter(base_converter.ConverterInterface):
                             size.append(int((ipt_shape[dim] - onnx_start) / step))
                         else: 
                             size.append(int((end - onnx_start) / step))
+                        nn_starts.append(onnx_start)
                     elif onnx_start <0 and step > 0:
                         size.append(int((abs(onnx_start) - abs(end)) + 1 / step))
-                    nn_starts.append(onnx_start)
+                        nn_starts.append(onnx_start + ipt_shape[dim])
                 else:
                     nn_starts.append(0)
                     size.append(-1)
         print(f'nn_starts: {nn_starts}, size: {size}')
- 
+        
         del op.input[1:]
         self.add_arg_const_node(op, '/starts:0', [len(nn_starts)], nn_starts)
         self.add_arg_const_node(op, '/sizes:0', [len(size)], size)
