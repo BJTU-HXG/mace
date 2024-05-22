@@ -100,12 +100,13 @@ def compare_output(output_name, mace_out_value,
                     f.write('%-20s'%'PASS'+'\n')
                 else:
                     f.write('%-20s'%'NOPASS'+'\n')
-        '''if similarity > validation_threshold:
-            util.MaceLogger.summary(
-                util.StringFormatter.block("Similarity Test Passed"))
         else:
-            util.MaceLogger.summary(
-                util.StringFormatter.block("Similarity Test Failed"))'''
+            if similarity > validation_threshold:
+                util.MaceLogger.summary(
+                    util.StringFormatter.block("Similarity Test Passed"))
+            else:
+                util.MaceLogger.summary(
+                    util.StringFormatter.block("Similarity Test Failed"))
     else:
         util.MaceLogger.error(
             "", util.StringFormatter.block(
@@ -397,9 +398,9 @@ def validate_onnx_model(platform, model_file,
 
     sess = onnxrt.InferenceSession(model.SerializeToString())
     output_values = sess.run(output_names, input_dict)
-
-    with open(log_file, 'w') as f:
-        f.write('%-20s%-30s%-30s%-20s' %('output_name','similarity','sqnr','pixel_accuracy') + '\n')
+    if log_file:
+        with open(log_file, 'w') as f:
+            f.write('%-20s%-30s%-30s%-20s' %('output_name','similarity','sqnr','pixel_accuracy') + '\n')
     for i in range(len(output_names)):
         value = output_values[i].flatten()
         output_file_name = util.formatted_file_name(mace_out_file,
