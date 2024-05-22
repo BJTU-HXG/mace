@@ -265,21 +265,16 @@ def run_model_for_device(flags, args, dev, model_name, model_conf):
             model_conf[ModelKeys.model_file_path],
             model_conf[ModelKeys.model_sha256_checksum],
             tmpdirname)
-        print(validate_model_file)
-        #input()
         validate_weight_file = ""
         if ModelKeys.weight_file_path in model_conf:
             validate_weight_file = util.download_or_get_model(
                 model_conf[ModelKeys.weight_file_path],
                 model_conf[ModelKeys.weight_sha256_checksum],
                 tmpdirname)
-        print(target_output_dir)
         dev.pull(Target(target_output_dir), tmpdirname + "/validate_out")
         output_file_prefix = tmpdirname + "/validate_out/" + model_name
         validation_outputs_data = \
             model_conf.get(ModelKeys.validation_outputs_data, [])
-        print('\033[1;37;41m--------我是彩色信息--------\033[0m')
-        print(output_file_prefix)
         validate.validate(model_conf[ModelKeys.platform],
                           validate_model_file,
                           validate_weight_file,
@@ -295,9 +290,8 @@ def run_model_for_device(flags, args, dev, model_name, model_conf):
                           input_tensors_info[ModelKeys.input_data_types],
                           flags.backend,
                           validation_outputs_data,
-                          "/root/workspace/conformerlog.txt")
+                          flags.accuracy_log)
     if should_generate_data:
-        print('\033[1;37;41m--------我是彩色信息--------\033[0m')
         shutil.rmtree(tmpdirname)
 
 
@@ -433,6 +427,11 @@ def parse_args():
         "--quantize_stat",
         action="store_true",
         help="whether to stat quantization range.")
+    parser.add_argument(
+        "--accuracy_log",
+        type=str,
+        default="",
+        help="the file of result of validate accuracy")
 
     return parser.parse_known_args()
 

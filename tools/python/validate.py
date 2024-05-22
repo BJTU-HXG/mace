@@ -397,21 +397,14 @@ def validate_onnx_model(platform, model_file,
 
     sess = onnxrt.InferenceSession(model.SerializeToString())
     output_values = sess.run(output_names, input_dict)
-    for i, output in enumerate(output_values):
-        print(f"Output {i} shape: {output.shape}")
 
-    #print(output_values)
-    #print(output_names)
-    #print(output_shapes)
     with open(log_file, 'w') as f:
         f.write('%-20s%-30s%-30s%-20s' %('output_name','similarity','sqnr','pixel_accuracy') + '\n')
     for i in range(len(output_names)):
         value = output_values[i].flatten()
         output_file_name = util.formatted_file_name(mace_out_file,
                                                     output_names[i])
-        print(output_file_name)
         mace_out_value = load_data(output_file_name)
-        #print(output_data_formats[i])
         real_output_shape = output_shapes[i]
         real_output_data_format = DataFormat.NONE
         '''mace_out_value, real_output_shape, real_output_data_format = \
@@ -419,12 +412,13 @@ def validate_onnx_model(platform, model_file,
                                         mace_out_value,
                                         output_shapes[i],
                                         output_data_formats[i])'''
-        tensor_names = ['1669','1670','1671','1674','1689','3689','3690','3691']
+        ##下面是用来生成一个tensor分别在mace和nn库上跑完的具体数值文件
+        '''tensor_names = ['1669','1670','1671','1674','1689','3689','3690','3691']
         if output_names[i] in tensor_names:
             mace_output_file = "/root/workspace/tensors/mace_" + output_names[i]
             onnx_output_file = "/root/workspace/tensors/onnxruntime_" + output_names[i]
             np.savetxt(mace_output_file, mace_out_value, '%.6f')
-            np.savetxt(onnx_output_file, value, '%.6f')
+            np.savetxt(onnx_output_file, value, '%.6f')'''
         compare_output(output_names[i],
                        mace_out_value, value,
                        validation_threshold, log_file,
