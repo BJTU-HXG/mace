@@ -29,6 +29,7 @@ class UnsqueezeOp : public Operation {
         axis_(Operation::GetRepeatedArgs<int>("axis", {})) {}
 
   MaceStatus Run(OpContext *context) override {
+    std::cout << "Unsqueeze begin." << std::endl;
     MACE_UNUSED(context);
     const Tensor *input = this->Input(INPUT);
     Tensor *output = this->Output(0);
@@ -47,6 +48,7 @@ class UnsqueezeOp : public Operation {
         std::accumulate(input->shape().begin(), input->shape().end(), 1,
                         std::multiplies<index_t>());
     memcpy(output_data, input_data, data_size * sizeof(T));
+    std::cout << "Unsqueeze finished." << std::endl;
     return MaceStatus::MACE_SUCCESS;
   }
 

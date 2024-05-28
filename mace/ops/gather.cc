@@ -28,6 +28,7 @@ class GatherOp : public Operation {
         axis_(Operation::GetOptionalArg<int>("axis", 0)) {}
 
   MaceStatus Run(OpContext *context) override {
+    std::cout << "Gather begin." << std::endl;
     MACE_UNUSED(context);
     const Tensor *params = this->Input(PARAMS);
     const Tensor *indices = this->Input(INDICES);
@@ -59,21 +60,28 @@ class GatherOp : public Operation {
         std::accumulate(params->shape().begin() + (axis_ + 1),
                         params->shape().end(), 1, std::multiplies<index_t>());
     const index_t index_size = indices->size();
-
+    
     for (index_t l = 0; l < lhs_size; ++l) {
       for (index_t idx = 0; idx < index_size; ++idx) {
+        
+        if (indices_data[idx] >= axis_dim_size) {           
+            LOG(ERROR) << "Index out of bound error: idx=" << idx 
+                       << ", indices_data[idx]=" << indices_data[idx] 
+                       << ", axis_dim_size=" << axis_dim_size;
+        }
         MACE_ASSERT(indices_data[idx] < axis_dim_size, "idx out of bound: ",
                     indices_data[idx]);
         memcpy(
             output_data + ((l * index_size) + idx) * rhs_size,
             params_data + ((l * axis_dim_size) + indices_data[idx]) * rhs_size,
             sizeof(T) * rhs_size);
+
       }
     }
 
     output->SetScale(params->scale());
     output->SetZeroPoint(params->zero_point());
-
+    std::cout << "Gather finished." << std::endl;
     return MaceStatus::MACE_SUCCESS;
   }
 

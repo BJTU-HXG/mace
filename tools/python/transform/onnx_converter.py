@@ -93,6 +93,7 @@ OnnxSupportedOps = [
     'Dropout',
     'DynamicLSTM',
     'Elu',
+    'Erf',
     'Equal',
     # 'Exp',
     # 'Expand',
@@ -364,6 +365,7 @@ class OnnxConverter(base_converter.ConverterInterface):
             OnnxOpType.DimRange.name: self.convert_dim_range,
             OnnxOpType.Div.name: self.convert_eltwise,
             OnnxOpType.Elu.name: self.convert_activation,
+            OnnxOpType.Erf.name: self.convert_cast,
             OnnxOpType.Equal.name: self.convert_eltwise,
             OnnxOpType.ExtractPooling.name: self.convert_extract_pooling,
             OnnxOpType.Flatten.name: self.convert_flatten,
@@ -1204,6 +1206,7 @@ class OnnxConverter(base_converter.ConverterInterface):
                         MaceKeyword.mace_scalar_input_index_str
                     value_index_arg.i = 1
                     del op.input[1]
+                    print("After convert shapeeeeeeeeeeee:", op.output[0], op.output_shape[0].dims)
             elif node.inputs[0] in self._consts and \
                     node.inputs[1] not in self._consts:
                 const_name = node.inputs[0]
@@ -1366,9 +1369,10 @@ class OnnxConverter(base_converter.ConverterInterface):
         affine_arg.i = int(affine)
 
     def convert_gather(self, node):
+        print("start convert gatherrrrrrrrrrrr")
         op = self.convert_general_op(node)
         op.type = MaceOp.Gather.name
-
+        print(op)
         if 'axis' in node.attrs:
             value = node.attrs['axis']
         else:

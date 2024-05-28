@@ -385,7 +385,7 @@ def set_default_config_value(nor_subgraph, model):
         elif ModelKeys.quantize in model and model[ModelKeys.quantize] == 1:
             nor_subgraph[ModelKeys.data_type] = mace_pb2.DT_FLOAT
         else:
-            nor_subgraph[ModelKeys.data_type] = mace_pb2.DT_HALF
+            nor_subgraph[ModelKeys.data_type] = mace_pb2.DT_FLOAT
 
 
 def normalize_model_config(conf, model_output=None, org_model_dir=None):

@@ -42,11 +42,14 @@ from utils.util import mace_check
 from validate import calculate_similarity
 
 
+
+
 class Transformer(base_converter.ConverterInterface):
     """A class for transform naive mace model to optimized model.
     This Transformer should be platform irrelevant. So, do not assume
     tensor name has suffix like ':0".
     """
+    
 
     def __init__(self, option, model, converter_info):
         # Dependencies
@@ -70,7 +73,7 @@ class Transformer(base_converter.ConverterInterface):
             TransformerRule.UPDATE_FC_OUTPUT_SHAPE:
                 self.update_fc_output_shape,
             TransformerRule.FOLD_BATCHNORM: self.fold_batchnorm,
-            TransformerRule.FOLD_LAYERNORM: self.fold_layernorm,
+            TransformerRule.FOLD_GELU: self.fold_Gelu,
             TransformerRule.FOLD_BIASADD: self.fold_biasadd,
             TransformerRule.FOLD_CONV_AND_BN:
                 self.fold_conv_and_bn,  # data_format related
@@ -175,6 +178,7 @@ class Transformer(base_converter.ConverterInterface):
                 self.construct_ops_and_consumers(key)
                 changed = transformer()
                 if not changed:
+
                     break
         return self._model, self._quantize_activation_info
 
@@ -508,51 +512,6 @@ class Transformer(base_converter.ConverterInterface):
                     return True
         return False
 
-    def fold_layernorm(self):
-        net = self._model
-        for op in net.op:
-            if op.type == MaceOp.Eltwise.name:
-                element_type = ConverterUtil.get_arg(
-                    op, MaceKeyword.mace_element_type_str).i
-                if element_type == EltwiseType.SUM.value:
-                    consumers = self._consumers[op.output[0]]
-                    if consumers[0].type == MaceOp.Reduce.name and \
-                        ConverterUtil.get_arg(consumers[1], MaceKeyword.mace_element_type_str).i == EltwiseType.SUB.value:
-                            op_reduce_x = consumers[0]
-                            op_sub_mean = consumers[1]
-                            consumers_sub_mean = self._consumers[op_sub_mean.output[0]]
-                            op_msqr = consumers_sub_mean[0]
-                            op_var = self._consumers[op_msqr.output[0]][0]
-                            op_var_add_epsilon = self._consumers[op_var.output[0]][0]
-                            op_sqrt = self._consumers[op_var_add_epsilon.output[0]][0]
-                            op_div = consumers_sub_mean[1]
-                            op_scale = self._consumers[op_div.output[0]][0]
-                            op_bias = self._consumers[op_scale.output[0]][0]
-                            
-                            scale = op_scale.input[1]
-                            bias = op_bias.input[1]
-                            op_reduce_x.input.append(scale)
-                            op_reduce_x.input.append(bias)
-                            op_reduce_x.output[0] = op_bias.output[0]
-                            ori_shape = op_reduce_x.output_shape[0].dims
-                            dst_shape = op_bias.output_shape[0].dims
-                            while(ori_shape): ori_shape.pop()
-                            ori_shape.extend(dst_shape)
-                            op_reduce_x.name = 'LayerNorm_' + op_reduce_x.name.split('_')[1]
-                            op_reduce_x.type = MaceOp.LayerNorm.name
-                            print(f'Fold LayerNorm: ({op_reduce_x.name}), type: ({op_reduce_x.type})')
-                            
-                            net.op.remove(op_sub_mean)
-                            net.op.remove(op_msqr)
-                            net.op.remove(op_var)
-                            net.op.remove(op_var_add_epsilon)
-                            net.op.remove(op_sqrt)
-                            net.op.remove(op_div)
-                            net.op.remove(op_scale)
-                            net.op.remove(op_bias)
-                            return True
-        return False
-
     def fold_squared_diff_mean(self):
         net = self._model
         for op in net.op:
@@ -801,6 +760,71 @@ class Transformer(base_converter.ConverterInterface):
                 return True
 
         return False
+
+    def fold_Gelu(self):
+        
+        for op in self._model.op:
+            if op.type  ==  MaceOp.MatMul.name:
+                consumers_MatMul = self._consumers[op.output[0]]
+                for consumer in consumers_MatMul:
+                    if consumer.type == MaceOp.Eltwise.name:
+                        element_type = ConverterUtil.get_arg(
+                            consumer, MaceKeyword.mace_element_type_str).i
+                        if element_type == EltwiseType.SUM.value:
+                            consumer_Add = self._consumers[consumer.output[0]][0]
+                            if consumer_Add.type == MaceOp.Eltwise.name:
+                                element_type = ConverterUtil.get_arg(
+                                    consumer_Add, MaceKeyword.mace_element_type_str).i
+                                if element_type == EltwiseType.DIV.value:
+                                  
+                                    op_add = consumer
+                                    bias = op_add.input[0]
+                        
+                                    consumers_add = self._consumers[op_add.output[0]]
+                                    op_div = consumers_add[0]   
+                                    consumers_div = self._consumers[op_div.output[0]]
+                                    op_Erf = consumers_div[0]
+                                    consumers_Erf = self._consumers[op_Erf.output[0]]
+                                            #print("consumers_Erf:",consumers_Erf)
+                                    op_add_x= consumers_Erf[0]
+                                    consumers_add_x = self._consumers[op_add_x.output[0]]
+                                            #print("consumers_add:",consumers_add)
+                                    op_mul = consumers_add_x[0]
+                                            
+                                            #print("mul output",op_mul.output)
+                                    consumers_mul = self._consumers[op_mul.output[0]]
+                                            
+                                            
+                                    op_half = consumers_mul[0]
+
+                                    consumers_half = self._consumers[op_half.output[0]]        
+
+                                    op_matmul = consumers_half[0]
+
+                                    op_half.input[0] = bias
+
+                                    
+                                    print(op_add.input[0])
+                                    print(op_add.input[1])
+                                        
+                                    op_half.input.append(op_add.input[1])
+                                    op_half.name = 'Gelu_' + op_half.name
+                                    op_half.type = MaceOp.Activation.name
+                                    op_half1 = self._producer[op_matmul.input[0]]
+                                    print("After fold shapeeeeeeeeee:", op_half.output_shape[0].dims, op_half1.output_shape[0].dims)
+                                    
+                                    
+
+                                    print(f'Fold Gelu: ({op_half.name}),type: ({op_half.type})')
+                    
+                                    self._model.op.remove(op_Erf)
+                                    self._model.op.remove(op_add)
+                                    self._model.op.remove(op_add_x)
+                                    self._model.op.remove(op_mul)
+                                    self._model.op.remove(op_div)
+                                else:
+                                    continue
+            
 
     def fold_conv_and_bn(self):
         net = self._model
@@ -1668,6 +1692,7 @@ class Transformer(base_converter.ConverterInterface):
                     (is_tf or is_torch or is_onnx) and \
                     op.input[1] in self._consts:
                 producer = self._producer[op.input[0]]
+                
                 weight = self._consts[op.input[1]]
                 if len(weight.dims) == 2 and self.is_after_fc(op) and \
                         len(producer.output_shape[0].dims) == 2 and \
@@ -1850,7 +1875,8 @@ class Transformer(base_converter.ConverterInterface):
                         continue
                     mace_check(
                         input_tensor in self._producer,
-                        "Input tensor %s not in producer" % input_tensor)
+                        "Input tensor %s not in producer, op is %s" % (input_tensor, op))
+                        #"Input tensor %s not in producer" % input_tensor)
                     father_op = self._producer[input_tensor]
                     temp_input_df = ConverterUtil.get_arg(
                         father_op, MaceKeyword.mace_data_format_str)
@@ -2028,7 +2054,6 @@ class Transformer(base_converter.ConverterInterface):
                     data_type_arg.i = mace_pb2.DT_UINT16
                 elif self._option.quantize_schema == MaceKeyword.mace_int8:
                     data_type_arg.i = mace_pb2.DT_INT8
-                # if type == layernorm input.DT_INT16
                 else:
                     data_type_arg.i = mace_pb2.DT_UINT8
             elif data_type_arg.i == mace_pb2.DT_UINT8:
@@ -2156,18 +2181,7 @@ class Transformer(base_converter.ConverterInterface):
                     else:
                         if len(ops[0].input) >= 4:
                             check_deconv = ops[0].input[3] == tensor.name
-                            
-            if ops is not None and ops[0].type == MaceOp.LayerNorm.name:
-                ln_op = ops[0]
-                # weight
-                if tensor.name == ln_op.input[1]:
-                    quantized_tensor = quantize_util.quantize_int16(tensor.float_data)
-                    tensor.data_type = mace_pb2.DT_INT16
-                # bias
-                elif tensor.name == ln_op.input[2]:
-                    quantized_tensor = quantize_util.quantize_bias_for_hexagon(tensor.float_data)
-                    tensor.data_type = mace_pb2.DT_INT32
-            elif check_conv or check_deconv:
+            if check_conv or check_deconv:
                 conv_op = ops[0]
                 scale_input = self._quantize_activation_info[
                     conv_op.input[0]].scale
@@ -3435,6 +3449,10 @@ class Transformer(base_converter.ConverterInterface):
         epsilon_arg = op.arg.add()
         epsilon_arg.name = MaceKeyword.mace_epsilon_str
         epsilon_arg.f = epsilon
+    
+    #converter = onnx_converter.OnnxConverter(option,
+                                                 
+                                                #conf["model_file_path"])
 
     def fold_instance_norm(self):
         net = self._model

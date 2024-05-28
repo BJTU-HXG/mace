@@ -29,6 +29,7 @@ class CastOp : public Operation {
       : Operation(context) {}
 
   MaceStatus Run(OpContext *context) override {
+    std::cout << "Cast begin." << std::endl;
     MACE_UNUSED(context);
     const Tensor *input = this->Input(INPUT);
     Tensor *output = this->Output(OUTPUT);
@@ -44,7 +45,7 @@ class CastOp : public Operation {
     }
 
     MACE_RUN_WITH_TYPE_ENUM(dst_dtype, MACE_CAST_COPY);
-
+    std::cout << "Cast finished." << std::endl;
     return MaceStatus::MACE_SUCCESS;
   }
 
