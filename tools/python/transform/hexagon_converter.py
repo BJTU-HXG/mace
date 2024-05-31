@@ -101,6 +101,9 @@ HexagonSupportedOps = [
     'QuantizeDownAndShrinkRange_32to16',
     'QuantizeDownAndShrinkRange_32to8',
     'Nop',
+    'Convert_to_d32',
+    'Convert_from_d32',
+    'DepthwiseSupernode_8x8p32to8_d32'
 ]
 
 HexagonOp = Enum('HexagonOp', [(op, op) for op in HexagonSupportedOps],
@@ -715,6 +718,41 @@ class HexagonConverter(base_converter.ConverterInterface):
             self.post_convert(op)
             
         elif op.type == MaceOp.DepthwiseConv2d.name:
+            #创建输出tensor
+            op.output[0] = self.new_tensor(op.output[0], '_dwconv:0', shape)
+            #寻找是否有自带的bias，如果没有就新建一个值为0的bias
+            if len(op.input) < 3:
+                bias = self.add_bias(op)
+            else:
+                bias = op.input.pop()
+            #添加输入tensor和卷积核
+            self.add_min_max_const_node(op, op.input[0])
+            self.add_min_max_const_node(op, op.input[1])
+            #添加stride参数
+            strides_arg = ConverterUtil.get_arg(op, 'strides')
+            mace_check(strides_arg is not None,
+                    "Missing strides of Conv or Depthwise Conv.")
+            self.add_arg_const_node(
+                op, '/strides:0', [1, strides_arg.ints[0], strides_arg.ints[1], 1])
+            #添加bias和输出tensor
+            op.input.append(bias)
+            self.add_min_max_const_node(op, bias)
+            self.add_min_max_const_node(
+                op, op.output[0], True, True, False)
+            
+            self.add_padding_type_for_conv_pooling(
+                op, self._consts[op.input[1]].dims, strides_arg.ints)
+
+            dilations_arg = ConverterUtil.get_arg(op, 'dilations')
+            mace_check(dilations_arg is None or
+                    (dilations_arg.ints[0] == 1 and dilations_arg.ints[1] == 1),
+                    "Hexagon only support dilations[1,1].")
+            #将名称改为DepthwiseSupernode_8x8p32to8
+            op.type = HexagonOp.DepthwiseSupernode_8x8p32to8.name
+            op.name = op.name + '_dwconv'
+            self.post_convert(op)
+
+        '''elif op.type == MaceOp.DepthwiseConv2d.name:
             op.output[0] = self.new_tensor(op.output[0], '_dwconv:0', shape)
             del op.input[2:]
             self.add_min_max_const_node(op, op.input[0])
@@ -740,7 +778,7 @@ class HexagonConverter(base_converter.ConverterInterface):
             self.add_min_max_const_node(op_requantize, op_requantize.output[0],True, True, False)
             op_requantize.type = HexagonOp.Requantize_32to8.name
             op_requantize.name = op.name + '_requantize'
-            self.post_convert(op_requantize)
+            self.post_convert(op_requantize)'''
         
         del op_trans_nchw.input[1:]
         if op.type == HexagonOp.QuantizedDepthwiseConv2d_8x8to32.name:
