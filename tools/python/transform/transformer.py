@@ -801,20 +801,22 @@ class Transformer(base_converter.ConverterInterface):
 
                                     op_matmul = consumers_half[0]
 
-                                    op_half.input[0] = bias
+                                    op_half.input[0] = op_add.input[1]
 
                                     
                                     print(op_add.input[0])
                                     print(op_add.input[1])
                                         
-                                    op_half.input.append(op_add.input[1])
+                                    op_half.input.append(bias)
                                     op_half.name = 'Gelu_' + op_half.name
                                     op_half.type = MaceOp.Activation.name
-                                    op_half1 = self._producer[op_matmul.input[0]]
-                                    print("After fold shapeeeeeeeeee:", op_half.output_shape[0].dims, op_half1.output_shape[0].dims)
-                                    
-                                    
-
+                                    print("After fold shapeeeeeeeeee:", op_half.output_shape[0].dims)
+                                    type_arg = op_half.arg.add()
+                                    type_arg.name = MaceKeyword.mace_activation_type_str
+                                    type_arg.s = "GELU".encode('utf-8')
+                                    act_type_arg = ConverterUtil.get_arg(op_half, MaceKeyword.mace_activation_type_str)
+                                    act_type = act_type_arg.s.decode()
+                                    print("activation type of GELU:", act_type, type_arg)
                                     print(f'Fold Gelu: ({op_half.name}),type: ({op_half.type})')
                     
                                     self._model.op.remove(op_Erf)

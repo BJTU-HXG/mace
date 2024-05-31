@@ -103,6 +103,7 @@ OnnxSupportedOps = [
     # 'Floor',
     # 'GRU',
     'Gather',
+    'Gelu',
     'Gemm',
     'GlobalAveragePool',
     # 'GlobalLpPool',
@@ -340,6 +341,7 @@ class OnnxConverter(base_converter.ConverterInterface):
         OnnxOpType.Tanh.name: ActivationType.TANH,
         OnnxOpType.Sigmoid.name: ActivationType.SIGMOID,
         OnnxOpType.HardSigmoid.name: ActivationType.HARDSIGMOID,
+        OnnxOpType.Gelu.name: ActivationType.GELU,
     }
 
     def __init__(self, option, src_model_file):
@@ -741,7 +743,7 @@ class OnnxConverter(base_converter.ConverterInterface):
         type_arg = op.arg.add()
         type_arg.name = MaceKeyword.mace_activation_type_str
         type_arg.s = six.b(self.activation_type[node.op_type].name)
-
+        print("the type_arg of op:", type_arg)
         if "alpha" in node.attrs:
             alpha_value = node.attrs["alpha"]
         else:
@@ -854,7 +856,7 @@ class OnnxConverter(base_converter.ConverterInterface):
     def convert_cast(self, node):
         op = self.convert_general_op(node)
         op.type = MaceOp.Cast.name
-
+        print("convert cast is overrrrrrr")
         if 'to' in node.attrs:
             dtype = node.attrs['to']
             if dtype == np.float32 or dtype == np.float64:

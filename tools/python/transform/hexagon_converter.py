@@ -157,6 +157,7 @@ class HexagonConverter(base_converter.ConverterInterface):
         ActivationType.SIGMOID.name: HexagonOp.QuantizedSigmoid_8.name,
         ActivationType.LEAKYRELU.name: HexagonOp.QuantizedPRelu_8.name,
         ActivationType.PRELU.name: HexagonOp.QuantizedPRelu_8.name,
+        ActivationType.GELU.name: HexagonOp.QuantizedGelu_8.name,
     }
 
     eltwise_type = {
