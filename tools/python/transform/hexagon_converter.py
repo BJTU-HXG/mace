@@ -538,14 +538,46 @@ class HexagonConverter(base_converter.ConverterInterface):
 
     def convert_ops(self):
         print("Convert mace graph to hexagon.")
+        op_num = 0
         for op in self._model.op:
             mace_check(op.type in self._op_converters,
                        "Mace Hexagon does not support op type %s yet"
                        % op.type)
             self.pre_convert(op)
+            #在第二个算子前加入转置算子，使数据格式变为nhwc     ——郭士鼎
+            if op_num == 1:
+                op_trans_nhwc = copy.deepcopy(op)
+                NHWC_shape = [0,2,3,1]
+                del op_trans_nhwc.input[1:]
+                self.add_arg_const_node(op_trans_nhwc, '/_shape:0', [len(NHWC_shape)], NHWC_shape)
+                self.add_min_max_const_node(op_trans_nhwc, op_trans_nhwc.input[0])
+                shape = self.get_preop_outshape(op_trans_nhwc)
+                shape[1], shape[2], shape[3] = shape[2], shape[3], shape[1]
+                self.change_output_shape(op_trans_nhwc, shape)
+                op_trans_nhwc.output[0] = self.new_tensor(op_trans_nhwc.output[0], '_NHWC:0', shape)
+                op_trans_nhwc.name = op_trans_nhwc.name + '_NHWC'
+                op_trans_nhwc.type = HexagonOp.Transpose_8.name
+                self.post_convert(op_trans_nhwc)
+                op.input[0] = op_trans_nhwc.output[0]
+            if op_num == len(self._model.op) - 2:
+                op_trans_nchw = copy.deepcopy(op)
             post_convert_omitted = self._op_converters[op.type](op)
             if post_convert_omitted is None or not post_convert_omitted:
                 self.post_convert(op)
+            if op_num == len(self._model.op) - 2:
+                NCHW_shape = [0,3,1,2]
+                del op_trans_nchw.input[1:]
+                op_trans_nchw.input[0] = op.output[0]
+                self.add_arg_const_node(op_trans_nchw, '/shape:0', [len(NCHW_shape)], NCHW_shape)
+                self.add_min_max_const_node(op_trans_nchw, op_trans_nchw.input[0])
+                shape = copy.deepcopy(op_trans_nchw.output_shape[0].dims)
+                shape[1], shape[2], shape[3] = shape[3], shape[1], shape[2]
+                self.change_output_shape(op_trans_nchw, shape)
+                self._producers[op_trans_nchw.output[0]] = op_trans_nchw
+                op_trans_nchw.type = HexagonOp.Transpose_8.name
+                op_trans_nchw.name = op_trans_nchw.name + '_NCHW'
+                self.post_convert(op_trans_nchw)
+            op_num += 1
 
         del self._model.op[:]
         self._model.op.extend(self._new_ops)
@@ -672,8 +704,8 @@ class HexagonConverter(base_converter.ConverterInterface):
         op_requantize = copy.deepcopy(op)
         NHWC_shape = [0,2,3,1]
         NCHW_shape = [0,3,1,2]
-        
-        del op_trans_nhwc.input[1:]
+        #hifigan需要注释掉下面
+        '''del op_trans_nhwc.input[1:]
         self.add_arg_const_node(op_trans_nhwc, '/_shape:0', [len(NHWC_shape)], NHWC_shape)
         self.add_min_max_const_node(op_trans_nhwc, op_trans_nhwc.input[0])
         shape = self.get_preop_outshape(op_trans_nhwc)
@@ -685,9 +717,10 @@ class HexagonConverter(base_converter.ConverterInterface):
         self.post_convert(op_trans_nhwc)
     
         op.input[0] = op_trans_nhwc.output[0]
-        shape = copy.deepcopy(op.output_shape[0].dims)
+        shape = copy.deepcopy(op.output_shape[0].dims)'''
         if op.type == MaceOp.Conv2D.name:
-            op.output[0] = self.new_tensor(op.output[0], '_conv:0', shape)
+            #hifigan需要注释掉下面一行
+            #op.output[0] = self.new_tensor(op.output[0], '_conv:0', shape)
             if len(op.input) < 3:
                 bias = self.add_bias(op)
             else:
@@ -710,9 +743,9 @@ class HexagonConverter(base_converter.ConverterInterface):
                 op, self._consts[op.input[1]].dims, strides_arg.ints)
 
             dilations_arg = ConverterUtil.get_arg(op, 'dilations')
-            mace_check(dilations_arg is None or
-                    (dilations_arg.ints[0] == 1 and dilations_arg.ints[1] == 1),
-                    "Hexagon only support dilations[1,1].")
+            # mace_check(dilations_arg is None or
+            #         (dilations_arg.ints[0] == 1 and dilations_arg.ints[1] == 1),
+            #         "Hexagon only support dilations[1,1].")
             op.type = HexagonOp.Supernode_8x8p32to8.name
             op.name = op.name + '_conv'
             self.post_convert(op)
@@ -780,7 +813,8 @@ class HexagonConverter(base_converter.ConverterInterface):
             op_requantize.name = op.name + '_requantize'
             self.post_convert(op_requantize)'''
         
-        del op_trans_nchw.input[1:]
+        #hifigan需要注释掉下面
+        '''del op_trans_nchw.input[1:]
         if op.type == HexagonOp.QuantizedDepthwiseConv2d_8x8to32.name:
             op_trans_nchw.input[0] = op_requantize.output[0]
         else: op_trans_nchw.input[0] = op.output[0]
@@ -789,10 +823,10 @@ class HexagonConverter(base_converter.ConverterInterface):
         shape = copy.deepcopy(op_trans_nchw.output_shape[0].dims)
         shape[1], shape[2], shape[3] = shape[3], shape[1], shape[2]
         self.change_output_shape(op_trans_nchw, shape)
-        # 生成output tensor的op发生改变
+        #生成output tensor的op发生改变
         self._producers[op_trans_nchw.output[0]] = op_trans_nchw
         op_trans_nchw.type = HexagonOp.Transpose_8.name
-        self.post_convert(op_trans_nchw)
+        self.post_convert(op_trans_nchw)'''
         return True
     
     def add_deconv_pad_node(self, op):
