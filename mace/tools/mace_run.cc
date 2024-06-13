@@ -475,6 +475,7 @@ bool RunModel(const std::string &model_name,
   std::map<std::string, mace::MaceTensor> inputs;
   std::map<std::string, mace::MaceTensor> outputs;
   std::map<std::string, int64_t> inputs_size;
+  LOG(INFO) << "input_count: " << input_count;
   for (size_t i = 0; i < input_count; ++i) {
     // Allocate input and output
     // only support float and int32, use char for generalization
@@ -486,9 +487,14 @@ bool RunModel(const std::string &model_name,
     LOG(INFO) << "intput_file: " << file_path;
     auto input_data = ReadInputDataFromFile(
         file_path, input_tensor_size, input_data_types[i]);
-
+    int32_t* temp=(int32_t*)input_data.get();
+    LOG(INFO)<<temp[0]<<" "<<temp[1]<<" "<<temp[2]<<" "<<temp[3]<<" "<<temp[4]<<" "<<temp[5];
     inputs[input_names[i]] = mace::MaceTensor(input_shapes[i], input_data,
         input_data_formats[i], input_data_types[i]);
+    const auto& debug_tensor=inputs[input_names[i]];
+    auto* debug_data = debug_tensor.data<int32_t>().get();
+    LOG(INFO)<<"tensor name: "<<input_names[i];
+    LOG(INFO)<<"tensor: "<<debug_data[0]<<" "<<debug_data[1]<<" "<<debug_data[2]<<" "<<debug_data[3]<<" "<<debug_data[4]<<" "<<debug_data[5];
     inputs_size[input_names[i]] = input_tensor_size;
   }
 
@@ -505,6 +511,7 @@ bool RunModel(const std::string &model_name,
   }
 
   if (!FLAGS_input_dir.empty()) {
+    LOG(INFO)<<"!FLAGS_input_dir.empty()";
     DIR *dir_parent;
     struct dirent *entry;
     dir_parent = opendir(FLAGS_input_dir.c_str());
@@ -551,6 +558,7 @@ bool RunModel(const std::string &model_name,
         prefix, "\' in: ", FLAGS_input_dir,
         ", input file name should start with input tensor name.");
   } else {
+    LOG(INFO)<<"FLAGS_input_dir.empty()";
     LOG(INFO) << "Warm up run";
     double warmup_millis;
     while (true) {
@@ -709,6 +717,7 @@ int Main(int argc, char **argv) {
 
   std::vector<std::string> input_names = Split(FLAGS_input_node, ',');
   std::vector<std::string> output_names = Split(FLAGS_output_node, ',');
+  LOG(INFO)<<"output_names: "<<MakeString(output_names);
   if (input_names.empty() || output_names.empty()) {
     LOG(INFO) << gflags::ProgramUsage();
     return 0;
@@ -728,7 +737,7 @@ int Main(int argc, char **argv) {
   LOG(INFO) << "input data_format: " << FLAGS_input_data_format;
   LOG(INFO) << "output node: " << FLAGS_output_node;
   LOG(INFO) << "output shape: " << FLAGS_output_shape;
-  LOG(INFO) << "input data_type: " << FLAGS_output_data_type;
+  LOG(INFO) << "output data_type: " << FLAGS_output_data_type;
   LOG(INFO) << "output data_format: " << FLAGS_output_data_format;
   LOG(INFO) << "input_file: " << FLAGS_input_file;
   LOG(INFO) << "output_file: " << FLAGS_output_file;

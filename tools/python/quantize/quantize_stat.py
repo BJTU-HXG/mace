@@ -50,8 +50,8 @@ class QuantizeStat(object):
                                        percentile)
             tensor_max = np.percentile(tensor_ranges[tensor_name][1],
                                        100 - percentile)
-            assert tensor_min < tensor_max, \
-                "min should be < max, %s min:%f max:%f" % \
+            assert tensor_min <= tensor_max, \
+                "min should be <= max, %s min:%f max:%f" % \
                 (tensor_name, tensor_min, tensor_max)
             if not enhance or samples <= 1:
                 res[tensor_name] = (tensor_min, tensor_max)

@@ -290,7 +290,16 @@ MaceStatus BaseFlow::TransposeInputByDims(const MaceTensor &mace_tensor,
       ops::CopyDataBetweenSameType(
           thread_pool_, mace_tensor.data().get(),
           input_tensor->mutable_data<int>(), input_tensor->raw_size());
-    } else {
+    }else if(input_dt == DataType::DT_FLOAT){
+      LOG(INFO)<<mace_tensor.data_type();
+      MACE_CHECK(mace_tensor.data_type() == IDT_FLOAT,
+                 "Invalid data type.");
+      Tensor::MappingGuard input_guard(input_tensor);
+      ops::CopyDataBetweenSameType(
+          thread_pool_, mace_tensor.data().get(),
+          input_tensor->mutable_data<float>(), input_tensor->raw_size());
+    } 
+    else {
       LOG(FATAL) << "MACE do not support the input data type: " << input_dt;
     }
   }

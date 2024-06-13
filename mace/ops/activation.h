@@ -30,6 +30,8 @@ namespace ops {
 inline ActivationType StringToActivationType(const std::string type) {
   if (type == "RELU") {
     return ActivationType::RELU;
+  } else if (type == "GELU") {
+    return ActivationType::GELU;
   } else if (type == "RELUX") {
     return ActivationType::RELUX;
   } else if (type == "PRELU") {

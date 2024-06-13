@@ -20,6 +20,7 @@ if [[ "$BFLOAT16" == "ON" ]]; then
 fi
 
 mkdir -p ${BUILD_DIR} && cd ${BUILD_DIR}
+pwd
 cmake -DMACE_ENABLE_NEON=OFF         \
       -DMACE_ENABLE_QUANTIZE=OFF     \
       -DMACE_ENABLE_CPU=${MACE_ENABLE_CPU}                \

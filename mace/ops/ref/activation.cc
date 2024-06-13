@@ -13,7 +13,7 @@
 // limitations under the License.
 
 #include <algorithm>
-
+#include <cmath>
 #include "mace/ops/delegator/activation.h"
 
 namespace mace {
@@ -75,6 +75,15 @@ void Activation<T>::DoActivation(const OpContext *context,
       break;
     }
 
+    case GELU: {
+      for (index_t i = 0; i < size; ++i) {
+          const auto in_val = *input_ptr++;
+          *output_ptr++ = 0.5 * in_val * (1 + std::tanh(std::sqrt(2/M_PI) * (in_val + 0.044715 * std::pow(in_val, 3))));
+      }
+
+      break;
+    }
+    
     case LEAKYRELU: {
       for (index_t i = 0; i < size; ++i) {
         *output_ptr =

@@ -28,6 +28,20 @@ class GatherOp : public Operation {
         axis_(Operation::GetOptionalArg<int>("axis", 0)) {}
 
   MaceStatus Run(OpContext *context) override {
+    LOG(INFO)<<"op name: "<<this->debug_def().name();
+    auto *debug_data = ((mace::Tensor*)(this->inputs_[0]))->mutable_data<float>();
+    LOG(INFO)<<"gather input: "<<debug_data[0]<<" "<<debug_data[1]<<" "<<debug_data[2]<<" "<<debug_data[3]<<" "<<debug_data[4]<<" "<<debug_data[5];
+    // if(this->debug_def().name()=="/embeddings/word_embeddings/Gather"){
+    //   debug_data[0]=101;
+    //   debug_data[1]=2054;
+    //   debug_data[2]=2003;
+    //   debug_data[3]=14324;
+    //   debug_data[4]=1029;
+    //   debug_data[5]=102;
+    // }else if(this->debug_def().name()=="/embeddings/token_type_embeddings/Gather"){
+
+    // }
+    LOG(INFO)<<"gather input: "<<debug_data[0]<<" "<<debug_data[1]<<" "<<debug_data[2]<<" "<<debug_data[3]<<" "<<debug_data[4]<<" "<<debug_data[5];
     MACE_UNUSED(context);
     const Tensor *params = this->Input(PARAMS);
     const Tensor *indices = this->Input(INDICES);
@@ -59,9 +73,15 @@ class GatherOp : public Operation {
         std::accumulate(params->shape().begin() + (axis_ + 1),
                         params->shape().end(), 1, std::multiplies<index_t>());
     const index_t index_size = indices->size();
-
+    
     for (index_t l = 0; l < lhs_size; ++l) {
       for (index_t idx = 0; idx < index_size; ++idx) {
+        
+        if (indices_data[idx] >= axis_dim_size) {           
+            LOG(ERROR) << "Index out of bound error: idx=" << idx 
+                       << ", indices_data[idx]=" << indices_data[idx] 
+                       << ", axis_dim_size=" << axis_dim_size;
+        }
         MACE_ASSERT(indices_data[idx] < axis_dim_size, "idx out of bound: ",
                     indices_data[idx]);
         memcpy(
@@ -73,7 +93,7 @@ class GatherOp : public Operation {
 
     output->SetScale(params->scale());
     output->SetZeroPoint(params->zero_point());
-
+    // LOG(INFO) << "Gather finished.";
     return MaceStatus::MACE_SUCCESS;
   }
 

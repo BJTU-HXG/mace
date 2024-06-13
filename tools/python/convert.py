@@ -87,12 +87,12 @@ def convert(conf, output, enable_micro=False):
             if "quantize_stat" in conf:
                 net_conf["quantize_stat"] = conf["quantize_stat"]
             net_def_with_Data = convert_net(net_name, net_conf, enable_micro)
-            try:
+            '''try:
                 visualizer = visualize_model.ModelVisualizer(
                     net_name, net_def_with_Data, model_output)
                 visualizer.save_html()
             except:  # noqa
-                print("Failed to visualize graph:", sys.exc_info())
+                print("Failed to visualize graph:", sys.exc_info())'''
             net_def, params = merge_params(net_def_with_Data,
                                            net_conf[ModelKeys.data_type])
             if enable_micro:

@@ -26,6 +26,24 @@ Operation::Operation(OpConstructContext *context)
 MaceStatus Operation::Init(OpInitContext *context) {
   Workspace *ws = context->workspace();
   for (const std::string &input_str : operator_def_->input()) {
+    if(input_str=="input_ids"){
+      LOG(INFO)<<"input_str: "<<input_str;
+      auto ts=ws->GetTensor("input_ids");
+      auto debug_data = ts->mutable_data<float>();
+      // debug_data[0]=101;
+      // debug_data[1]=2054;
+      // debug_data[2]=2003;
+      // debug_data[3]=14324;
+      // debug_data[4]=1029;
+      // debug_data[5]=102;
+      LOG(INFO)<<"op init: "<<debug_data[0]<<" "<<debug_data[1]<<" "<<debug_data[2]<<" "<<debug_data[3]<<" "<<debug_data[4]<<" "<<debug_data[5];
+    }
+    if(input_str=="attention_mask"){
+      LOG(INFO)<<"attention_mask: "<<input_str;
+      auto ts=ws->GetTensor("attention_mask");
+      auto debug_data = ts->data<int32_t>();
+      LOG(INFO)<<"op init: "<<debug_data[0]<<" "<<debug_data[1]<<" "<<debug_data[2]<<" "<<debug_data[3]<<" "<<debug_data[4]<<" "<<debug_data[5];
+    }
     const Tensor *tensor = ws->GetTensor(input_str);
     MACE_CHECK(tensor != nullptr, "op ", operator_def_->type(),
                ": Encountered a non-existing input tensor: ", input_str);

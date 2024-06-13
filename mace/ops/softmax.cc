@@ -53,6 +53,7 @@ class SoftmaxOp<RuntimeType::RT_CPU, T> : public Operation {
         axis_(Operation::GetOptionalArg<int>("axis", 1)) {}
 
   MaceStatus Run(OpContext *context) override {
+    std::cout << "Softmax begin." << std::endl;
     MACE_UNUSED(context);
     const Tensor *input = this->Input(INPUT);
     Tensor *output = this->Output(OUTPUT);

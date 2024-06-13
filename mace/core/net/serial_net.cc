@@ -22,11 +22,11 @@
 
 #include "mace/core/future.h"
 #include "mace/core/net/allocate_strategy.h"
-#include "mace/core/ops/op_init_context.h"
 #include "mace/core/ops/op_context.h"
+#include "mace/core/ops/op_init_context.h"
 #include "mace/core/registry/ops_registry.h"
-#include "mace/public/mace.h"
 #include "mace/port/env.h"
+#include "mace/public/mace.h"
 #include "mace/utils/conf_util.h"
 #include "mace/utils/logging.h"
 #include "mace/utils/macros.h"
@@ -58,20 +58,17 @@ SerialNet::SerialNet(const OpRegistry *op_registry,
     } else if (op_runtime_type == RuntimeType::RT_CPU) {
       construct_context.set_runtime(cpu_runtime_);
     } else {
-      LOG(FATAL) << "Encounter unexpected error: " << op_runtime_type
-                 << " vs " << target_runtime_->GetRuntimeType();
+      LOG(FATAL) << "Encounter unexpected error: " << op_runtime_type << " vs "
+                 << target_runtime_->GetRuntimeType();
     }
     construct_context.set_operator_def(op_def);
 
-    auto op = op_registry->CreateOperation(&construct_context,
-                                           op_runtime_type);
+    auto op = op_registry->CreateOperation(&construct_context, op_runtime_type);
     operators_.emplace_back(std::move(op));
   }
 }
 
-SerialNet::~SerialNet() {
-  VLOG(1) << "Destroy SerialNet";
-}
+SerialNet::~SerialNet() { VLOG(1) << "Destroy SerialNet"; }
 
 MaceStatus SerialNet::Init() {
   MACE_LATENCY_LOGGER(1, "Initializing SerialNet");
@@ -80,7 +77,7 @@ MaceStatus SerialNet::Init() {
     auto &op = *iter;
     init_context.SetRuntime(target_runtime_);
     init_context.SetCpuRuntime(cpu_runtime_);
-
+    
     // Initialize the operation
     MACE_RETURN_IF_ERROR(op->Init(&init_context));
   }
@@ -90,8 +87,7 @@ MaceStatus SerialNet::Init() {
   return MaceStatus::MACE_SUCCESS;
 }
 
-MaceStatus SerialNet::Run(RunMetadata *run_metadata,
-                          bool fake_warmup) {
+MaceStatus SerialNet::Run(RunMetadata *run_metadata, bool fake_warmup) {
   const char *profiling = getenv("MACE_OPENCL_PROFILING");
   bool enable_opencl_profiling =
       profiling != nullptr && strlen(profiling) == 1 && profiling[0] == '1';
@@ -102,14 +98,18 @@ MaceStatus SerialNet::Run(RunMetadata *run_metadata,
   context.set_fake_warmup(fake_warmup);
   for (auto iter = operators_.begin(); iter != operators_.end(); ++iter) {
     auto &op = *iter;
+    //LOG(INFO)<<"op name: "<<op->debug_def().name();
+    if(op->debug_def().name()=="/embeddings/word_embeddings/Gather"){
+      auto *debug_data = op->Input(0)->data<int32_t>();
+      LOG(INFO)<<"gather input: "<<debug_data[0]<<" "<<debug_data[1]<<" "<<debug_data[2]<<" "<<debug_data[3]<<" "<<debug_data[4]<<" "<<debug_data[5];
+    }
     RuntimeType runtime_type = op->runtime_type();
     if (fake_warmup && RuntimeType::RT_OPENCL != runtime_type) {
       // Fake warm up is only used for OpenCL runtime.
       continue;
     }
-    MACE_LATENCY_LOGGER(1, "Running operator ", op->debug_def().name(),
-                        "<", runtime_type, ", ", op->debug_def().type(),
-                        ", ",
+    MACE_LATENCY_LOGGER(1, "Running operator ", op->debug_def().name(), "<",
+                        runtime_type, ", ", op->debug_def().type(), ", ",
                         ProtoArgHelper::GetOptionalArg<OperatorDef, int>(
                             op->debug_def(), "T", static_cast<int>(DT_FLOAT)),
                         ">");
@@ -123,9 +123,9 @@ MaceStatus SerialNet::Run(RunMetadata *run_metadata,
     if (run_metadata == nullptr) {
       MACE_RETURN_IF_ERROR(op->Forward(&context));
     } else {
-      if (runtime_type == RuntimeType::RT_CPU
-          || (runtime_type == RuntimeType::RT_OPENCL
-              && !enable_opencl_profiling)) {
+      if (runtime_type == RuntimeType::RT_CPU ||
+          (runtime_type == RuntimeType::RT_OPENCL &&
+           !enable_opencl_profiling)) {
         call_stats.start_micros = NowMicros();
         MACE_RETURN_IF_ERROR(op->Forward(&context));
         call_stats.end_micros = NowMicros();
@@ -144,8 +144,7 @@ MaceStatus SerialNet::Run(RunMetadata *run_metadata,
       std::vector<index_t> kernels;
       std::string type = op->debug_def().type();
 
-      if (type.compare("Conv2D") == 0 ||
-          type.compare("Deconv2D") == 0 ||
+      if (type.compare("Conv2D") == 0 || type.compare("Deconv2D") == 0 ||
           type.compare("DepthwiseConv2d") == 0 ||
           type.compare("DepthwiseDeconv2d") == 0 ||
           type.compare("Pooling") == 0) {
@@ -172,32 +171,56 @@ MaceStatus SerialNet::Run(RunMetadata *run_metadata,
       for (auto output : op->Outputs()) {
         output_shapes.push_back(output->shape());
       }
-      OperatorStats op_stats = {op->debug_def().name(), op->debug_def().type(),
-                                output_shapes,
-                                {strides, padding_type, paddings, dilations,
-                                 kernels}, call_stats};
+      OperatorStats op_stats = {
+          op->debug_def().name(),
+          op->debug_def().type(),
+          output_shapes,
+          {strides, padding_type, paddings, dilations, kernels},
+          call_stats};
       run_metadata->op_stats.emplace_back(op_stats);
     }
-
-    VLOG(3) << "Operator " << op->debug_def().name()
-            << " has shape: " << MakeString(op->Output(0)->shape());
+    if (op->OutputSize() != 1) {
+      LOG(WARNING) << "Operator output size is " << op->OutputSize();
+    }
+    //LOG(INFO) << "Operator " << op->debug_def().name()
+    //          << " has output shape: " << MakeString(op->Output(0)->shape());
 
     if (EnvConfEnabled("MACE_LOG_TENSOR_RANGE")) {
       for (int i = 0; i < op->OutputSize(); ++i) {
         if (op->debug_def().quantize_info_size() == 0) {
           int data_type = op->GetOptionalArg("T", static_cast<int>(DT_FLOAT));
-          MACE_CHECK(data_type == static_cast<int>(DT_FLOAT),
-                     "On quantize_stata mode, must use float32 model");
-          float max_v = std::numeric_limits<float>::lowest();
-          float min_v = std::numeric_limits<float>::max();
-          Tensor::MappingGuard guard(op->Output(i));
-          auto *output_data = op->Output(i)->data<float>();
-          for (index_t j = 0; j < op->Output(i)->size(); ++j) {
-            max_v = std::max(max_v, output_data[j]);
-            min_v = std::min(min_v, output_data[j]);
+          // LOG(INFO)<<"op name: "<<op->debug_def().name();
+          // LOG(INFO)<<"op shape: "<<op->debug_def().output_shape().size();
+          LOG(INFO) << "data_type: " << data_type;
+          //        LOG(INFO)<<"static_cast<int>(DT_FLOAT):
+          //        "<<static_cast<int>(DT_FLOAT);
+          // MACE_CHECK(data_type == static_cast<int>(DT_FLOAT),
+          //           "On quantize_stata mode, must use float32 model");
+          if (data_type == static_cast<int>(DT_FLOAT)) {
+            float max_v = std::numeric_limits<float>::lowest();
+            float min_v = std::numeric_limits<float>::max();
+            Tensor::MappingGuard guard(op->Output(i));
+            auto *output_data = op->Output(i)->data<float>();
+            LOG(INFO) << "data:" << *output_data << " " << *(output_data + 1);
+            for (index_t j = 0; j < op->Output(i)->size(); ++j) {
+              max_v = std::max(max_v, output_data[j]);
+              min_v = std::min(min_v, output_data[j]);
+            }
+            LOG(INFO) << "Tensor range @@" << op->debug_def().output(i) << "@@"
+                      << min_v << "," << max_v;
+          } else {
+            int32_t max_v = std::numeric_limits<int32_t>::lowest();
+            int32_t min_v = std::numeric_limits<int32_t>::max();
+            Tensor::MappingGuard guard(op->Output(i));
+            auto *output_data = op->Output(i)->data<int32_t>();
+            LOG(INFO) << "data:" << *output_data << " " << *(output_data + 1);
+            for (index_t j = 0; j < op->Output(i)->size(); ++j) {
+              max_v = std::max(max_v, output_data[j]);
+              min_v = std::min(min_v, output_data[j]);
+            }
+            LOG(INFO) << "Tensor range @@" << op->debug_def().output(i) << "@@"
+                      << min_v << "," << max_v;
           }
-          LOG(INFO) << "Tensor range @@" << op->debug_def().output(i) << "@@"
-                    << min_v << "," << max_v;
         } else {
           const int bin_size = 2048;
           for (int ind = 0; ind < op->debug_def().quantize_info_size(); ++ind) {
@@ -215,8 +238,8 @@ MaceStatus SerialNet::Run(RunMetadata *run_metadata,
                 index = bin_size - 1;
               bin_distribution[index]++;
             }
-            LOG(INFO) << "Tensor range @@" << op->debug_def().output(i)
-                      << "@@" << min_v << "," << max_v << "@@"
+            LOG(INFO) << "Tensor range @@" << op->debug_def().output(i) << "@@"
+                      << min_v << "," << max_v << "@@"
                       << MakeString(bin_distribution);
           }
         }

@@ -29,13 +29,16 @@ class CastOp : public Operation {
       : Operation(context) {}
 
   MaceStatus Run(OpContext *context) override {
+    LOG(INFO)<<"op name: "<<this->debug_def().name();
+    auto *debug_data = this->Input(0)->data<int32_t>();
+    LOG(INFO)<<"cast input: "<<debug_data[0]<<" "<<debug_data[1]<<" "<<debug_data[2]<<" "<<debug_data[3]<<" "<<debug_data[4]<<" "<<debug_data[5];
     MACE_UNUSED(context);
     const Tensor *input = this->Input(INPUT);
     Tensor *output = this->Output(OUTPUT);
     MACE_RETURN_IF_ERROR(output->ResizeLike(input))
 
     auto dst_dtype = output->dtype();
-
+	LOG(INFO)<<"cast dst_dtype:"<<dst_dtype;
 #define MACE_CAST_COPY \
     auto output_data = output->mutable_data<T>();                       \
     auto input_data = input->data<SrcType>();                           \
@@ -44,7 +47,8 @@ class CastOp : public Operation {
     }
 
     MACE_RUN_WITH_TYPE_ENUM(dst_dtype, MACE_CAST_COPY);
-
+    auto *debug_data2 = this->Output(0)->data<float>();
+    LOG(INFO)<<"cast output: "<<debug_data2[0]<<" "<<debug_data2[1]<<" "<<debug_data2[2]<<" "<<debug_data2[3]<<" "<<debug_data2[4]<<" "<<debug_data2[5];
     return MaceStatus::MACE_SUCCESS;
   }
 

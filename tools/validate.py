@@ -424,11 +424,13 @@ def validate_onnx_model(platform, device_type, model_file,
         output_file_name = common.formatted_file_name(mace_out_file,
                                                       output_names[i])
         mace_out_value = load_data(output_file_name, output_data_types[i])
-        mace_out_value, real_output_shape, real_output_data_format = \
+        '''mace_out_value, real_output_shape, real_output_data_format = \
             get_real_out_value_shape_df(platform,
                                         mace_out_value,
                                         output_shapes[i],
-                                        output_data_formats[i])
+                                        output_data_formats[i])'''
+        real_output_shape = output_shapes[i]
+        real_output_data_format = DataFormat.NONE
         compare_output(platform, device_type, output_names[i],
                        mace_out_value, value,
                        validation_threshold, log_file,

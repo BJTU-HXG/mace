@@ -267,6 +267,7 @@ MaceStatus SerialEngine::CreateAndInitFlows(
     if (data_size == 0) {  // Compatible with old version of NetDef
       data_size = model_data_size;
     }
+    //LOG(INFO)<<data_offset<<" "<<data_size<<" "<<model_data_size;
     MACE_CHECK(data_offset + data_size <= model_data_size);
     MACE_RETURN_IF_ERROR(flow->Init(
         net_def, model_data + data_offset, data_size, &data_unused));
@@ -338,6 +339,7 @@ std::unordered_map<std::string, int> SerialEngine::AllocOutTensors(
 MaceStatus SerialEngine::CreateTensorsForFlows(
     const NetDefMap &net_defs, const std::vector<std::string> &glb_in_nodes,
     const std::vector<std::string> &glb_out_nodes) {
+      LOG(INFO)<<"glb_out_nodes: " <<MakeString(glb_out_nodes);
   const auto net_def_size = net_defs.size();
   MACE_CHECK(flows_.size() == net_def_size);
 
@@ -354,6 +356,7 @@ MaceStatus SerialEngine::CreateTensorsForFlows(
     for (int i = 0; i < output_size; ++i) {
       const InputOutputInfo &output_info = net_def->output_info(i);
       const auto &output_name = output_info.name();
+      LOG(INFO)<<"output_name: "<<output_name;
       const auto &output_alias = output_info.alias();
       const auto
           &output_key = output_alias.empty() ? output_name : output_alias;
