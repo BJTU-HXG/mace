@@ -52,3 +52,6 @@ outputs_fa_out
 log
 workspace/
 log
+
+acc_conformer.txt
+conformer_vaild.txt

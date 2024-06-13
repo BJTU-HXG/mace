@@ -406,7 +406,7 @@ void HexagonDSPWrapper::GetPerfInfo() {
   VLOG(1) << "items: " << n_items;
   std::string run_order_title = "Sort by Run Order";
   const std::vector<std::string> run_order_header = {
-      "Node Id", "Node Type", "Node Type Id", "Executions", "Duration(ms)"
+      "Node Id", "Node Type", "Node Type Id", "Executions", "Duration(us)"
   };
   std::vector<std::vector<std::string>> run_order_data;
   for (unsigned int i = 0; i < n_items; ++i) {
@@ -427,7 +427,7 @@ void HexagonDSPWrapper::GetPerfInfo() {
     tuple.push_back(node_type);
     tuple.push_back(IntToString(node_type_id));
     tuple.push_back(IntToString(perf_info[i].executions));
-    tuple.push_back(FloatToString(node_id_counters[node_id] / 1000.0f, 3));
+    tuple.push_back(FloatToString(node_id_counters[node_id] / 1000.0f * 1000.0f, 1));
     run_order_data.emplace_back(tuple);
 
     if (node_type_counters.find(node_type) == node_type_counters.end()) {
@@ -455,7 +455,7 @@ void HexagonDSPWrapper::GetPerfInfo() {
     std::vector<std::string> tuple;
     tuple.push_back(node_type);
     tuple.push_back(IntToString(node_type_counter.first));
-    tuple.push_back(FloatToString(node_type_counter.second / 1000.0f, 3));
+    tuple.push_back(FloatToString(node_type_counter.second / 1000.0f, 5));
     duration_data.emplace_back(tuple);
   }
 
