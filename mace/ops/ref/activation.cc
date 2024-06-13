@@ -45,8 +45,8 @@ MaceStatus Activation<T>::Compute(const OpContext *context,
   } else {
     DoActivation(context, input, output);
   }
-  LOG(INFO) << "Activation is runningggggggggg";
-  LOG(INFO) << "type is:" << type_ ;
+  //LOG(INFO) << "Activation is runningggggggggg";
+  //LOG(INFO) << "type is:" << type_ ;
   return MaceStatus::MACE_SUCCESS;
 }
 
@@ -81,7 +81,7 @@ void Activation<T>::DoActivation(const OpContext *context,
           const auto in_val = *input_ptr++;
           *output_ptr++ = 0.5 * in_val * (1 + std::tanh(std::sqrt(2/M_PI) * (in_val + 0.044715 * std::pow(in_val, 3))));
       }
-      LOG(INFO) << "GELU is runningggggggggg" ;
+      //LOG(INFO) << "GELU is runningggggggggg" ;
       break;
     }
     

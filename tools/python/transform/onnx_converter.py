@@ -856,7 +856,6 @@ class OnnxConverter(base_converter.ConverterInterface):
     def convert_cast(self, node):
         op = self.convert_general_op(node)
         op.type = MaceOp.Cast.name
-        print("convert cast is overrrrrrr")
         if 'to' in node.attrs:
             dtype = node.attrs['to']
             if dtype == np.float32 or dtype == np.float64:

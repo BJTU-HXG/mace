@@ -186,20 +186,38 @@ MaceStatus SerialNet::Run(RunMetadata *run_metadata,
       for (int i = 0; i < op->OutputSize(); ++i) {
         if (op->debug_def().quantize_info_size() == 0) {
           int data_type = op->GetOptionalArg("T", static_cast<int>(DT_FLOAT));
-          LOG(INFO)<<"datatype:"<< data_type;
-          MACE_CHECK(data_type == static_cast<int>(DT_FLOAT),
-                     "On quantize_stata mode, must use float32 model");
-          float max_v = std::numeric_limits<float>::lowest();
-          float min_v = std::numeric_limits<float>::max();
-          Tensor::MappingGuard guard(op->Output(i));
-          auto *output_data = op->Output(i)->data<float>();
-          //LOG(INFO)<<"data:"<<*output_data<<" "<<*(output_data+1);
-          for (index_t j = 0; j < op->Output(i)->size(); ++j) {
-            max_v = std::max(max_v, output_data[j]);
-            min_v = std::min(min_v, output_data[j]);
-          }
-          LOG(INFO) << "Tensor range @@" << op->debug_def().output(i) << "@@"
+          //LOG(INFO)<<"datatype:"<< data_type;
+          //MACE_CHECK(data_type == static_cast<int>(DT_FLOAT),
+          //           "On quantize_stata mode, must use float32 model");
+          if(data_type != static_cast<int>(DT_FLOAT)){
+            int max_v = std::numeric_limits<int>::lowest();
+            int min_v = std::numeric_limits<int>::max();
+            Tensor::MappingGuard guard(op->Output(i));
+            auto *output_data = op->Output(i)->data<int>();
+            //LOG(INFO)<<"data:"<<*output_data<<" "<<*(output_data+1);
+            for (index_t j = 0; j < op->Output(i)->size(); ++j) {
+              max_v = std::max(max_v, output_data[j]);
+              min_v = std::min(min_v, output_data[j]);
+            }
+            LOG(INFO) << "Tensor range @@" << op->debug_def().output(i) << "@@"
                     << min_v << "," << max_v;
+            
+          }
+          
+          else{
+            float max_v = std::numeric_limits<float>::lowest();
+            float min_v = std::numeric_limits<float>::max();
+            Tensor::MappingGuard guard(op->Output(i));
+            auto *output_data = op->Output(i)->data<float>();
+            //LOG(INFO)<<"data:"<<*output_data<<" "<<*(output_data+1);
+            for (index_t j = 0; j < op->Output(i)->size(); ++j) {
+              max_v = std::max(max_v, output_data[j]);
+              min_v = std::min(min_v, output_data[j]);
+            }
+            LOG(INFO) << "Tensor range @@" << op->debug_def().output(i) << "@@"
+                  << min_v << "," << max_v;
+          }
+
         } else {
           const int bin_size = 2048;
           for (int ind = 0; ind < op->debug_def().quantize_info_size(); ++ind) {

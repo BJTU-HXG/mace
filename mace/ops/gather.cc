@@ -28,7 +28,6 @@ class GatherOp : public Operation {
         axis_(Operation::GetOptionalArg<int>("axis", 0)) {}
 
   MaceStatus Run(OpContext *context) override {
-    std::cout << "Gather begin." << std::endl;
     MACE_UNUSED(context);
     const Tensor *params = this->Input(PARAMS);
     const Tensor *indices = this->Input(INDICES);
@@ -81,7 +80,6 @@ class GatherOp : public Operation {
 
     output->SetScale(params->scale());
     output->SetZeroPoint(params->zero_point());
-    std::cout << "Gather finished." << std::endl;
     return MaceStatus::MACE_SUCCESS;
   }
 

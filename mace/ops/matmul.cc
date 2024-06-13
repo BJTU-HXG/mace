@@ -60,8 +60,8 @@ class MatMulOpBase : public Operation {
 
     //for(int i = 0; i < A->dim_size(); i++) LOG(INFO) << "matrix A dims: " << A->dim(i);
     //for(int i = 0; i < B->dim_size(); i++) LOG(INFO) << "matrix B dims: " << B->dim(i);
-    LOG(INFO) << "Tensor A name: " << A->name() << " with rank: " << lhs_rank ;
-    LOG(INFO) << "Tensor B name: " << B->name() << " with rank: " << rhs_rank ;
+    //LOG(INFO) << "Tensor A name: " << A->name() << " with rank: " << lhs_rank ;
+    //LOG(INFO) << "Tensor B name: " << B->name() << " with rank: " << rhs_rank ;
     MACE_CHECK(lhs_rank >= 2 && rhs_rank >= 2,
                "rank should be greater than or equal to 2");
     if (lhs_rank == rhs_rank) {
