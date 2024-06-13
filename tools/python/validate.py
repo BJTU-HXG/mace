@@ -89,18 +89,19 @@ def compare_output(output_name, mace_out_value,
         assert len(out_value) == len(mace_out_value)
         sqnr = calculate_sqnr(out_value, mace_out_value)
         similarity = calculate_similarity(out_value, mace_out_value)
-        '''util.MaceLogger.summary(
-            output_name + ' MACE VS training platform'
-            + ' similarity: ' + str(similarity) + ' , sqnr: ' + str(sqnr)
-            + ' , pixel_accuracy: ' + str(pixel_accuracy))'''
+        
         if log_file:
             with open(log_file, 'a') as f:
-                f.write('%-20s%-30s%-30s%-20s' %(output_name,similarity,sqnr,pixel_accuracy))
+                f.write('%-40s%-30s%-30s%-20s' %(output_name,similarity,sqnr,pixel_accuracy))
                 if similarity > validation_threshold:
                     f.write('%-20s'%'PASS'+'\n')
                 else:
                     f.write('%-20s'%'NOPASS'+'\n')
         else:
+            util.MaceLogger.summary(
+            output_name + ' MACE VS training platform'
+            + ' similarity: ' + str(similarity) + ' , sqnr: ' + str(sqnr)
+            + ' , pixel_accuracy: ' + str(pixel_accuracy))
             if similarity > validation_threshold:
                 util.MaceLogger.summary(
                     util.StringFormatter.block("Similarity Test Passed"))
@@ -400,7 +401,7 @@ def validate_onnx_model(platform, model_file,
     output_values = sess.run(output_names, input_dict)
     if log_file:
         with open(log_file, 'w') as f:
-            f.write('%-20s%-30s%-30s%-20s' %('output_name','similarity','sqnr','pixel_accuracy') + '\n')
+            f.write('%-40s%-30s%-30s%-20s' %('output_name','similarity','sqnr','pixel_accuracy') + '\n')
     for i in range(len(output_names)):
         value = output_values[i].flatten()
         output_file_name = util.formatted_file_name(mace_out_file,
@@ -414,7 +415,7 @@ def validate_onnx_model(platform, model_file,
                                         output_shapes[i],
                                         output_data_formats[i])'''
         ##下面是用来生成一个tensor分别在mace和nn库上跑完的具体数值文件
-        '''tensor_names = ['1669','1670','1671','1674','1689','3689','3690','3691']
+        '''tensor_names = ['3226','3227']
         if output_names[i] in tensor_names:
             mace_output_file = "/root/workspace/tensors/mace_" + output_names[i]
             onnx_output_file = "/root/workspace/tensors/onnxruntime_" + output_names[i]

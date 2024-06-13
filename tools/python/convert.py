@@ -84,7 +84,7 @@ def convert(conf, output, enable_micro=False):
 
         model_params = []
         for net_name, net_conf in net_confs.items():
-            if "quantize_stat" in conf:
+            if "quantize_stat" in conf:     #quantize_stat需要写在yaml文件内
                 net_conf["quantize_stat"] = conf["quantize_stat"]
             net_def_with_Data = convert_net(net_name, net_conf, enable_micro)
             try:
