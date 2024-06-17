@@ -1203,7 +1203,7 @@ class HexagonConverter(base_converter.ConverterInterface):
     def convert_transpose(self, op):
         shape = ConverterUtil.get_arg(op, 'dims').ints
         self.add_arg_const_node(op,'/shape:0', [len(shape)], shape)
-        self.add_min_max_const_node(op, op.input[0], True, True, False)
+        self.add_min_max_const_node(op, op.input[0])
         op.type = HexagonOp.Transpose_8.name
 
     def convert_unsqueeze(self, op):
@@ -1283,10 +1283,10 @@ class HexagonConverter(base_converter.ConverterInterface):
     
         
         del op_convert_ui8toi16.input[1:]
-        self.add_min_max_const_node(op_convert_ui8toi16, op_convert_ui8toi16.input[0], True, True, False)
+        self.add_min_max_const_node(op_convert_ui8toi16, op_convert_ui8toi16.input[0])
         shape = copy.deepcopy(op_convert_ui8toi16.output_shape[0].dims)
         self.change_output_shape(op_convert_ui8toi16, shape)
-        op_convert_ui8toi16.output[0] = self.new_tensor(op_convert_ui8toi16.output[0], '_8to16', shape)
+        op_convert_ui8toi16.output[0] = self.new_tensor(op_convert_ui8toi16.output[0], '_8to16:0', shape)
         op_convert_ui8toi16.name = op_convert_ui8toi16.name + '_8to16'
         op_convert_ui8toi16.type = HexagonOp.Convert_8_16.name
         self.post_convert(op_convert_ui8toi16)
@@ -1294,7 +1294,7 @@ class HexagonConverter(base_converter.ConverterInterface):
         op_layernorm.input[0] = op_convert_ui8toi16.output[0]
         bias = op_layernorm.input.pop()
         scale = op_layernorm.input.pop()
-        self.add_min_max_const_node(op_layernorm, op_layernorm.input[0], True, True, False)
+        self.add_min_max_const_node(op_layernorm, op_layernorm.input[0])
         
         op_layernorm.input.append(scale)
         self.add_min_max_const_node(op_layernorm, scale, True, True, False)
@@ -1309,14 +1309,15 @@ class HexagonConverter(base_converter.ConverterInterface):
         shape = copy.deepcopy(op_layernorm.output_shape[0].dims)
         shape.insert(3,1)
         #self.change_output_shape(op_layernorm, shape)
-        op_layernorm.output[0] = self.new_tensor(op_layernorm.output[0], '_LNout', shape)
+        op_layernorm.output[0] = self.new_tensor(op_layernorm.output[0], '_LNout:0', shape)
         op_layernorm.type = HexagonOp.QuantizedLayerNorm_i16.name
         self.post_convert(op_layernorm)
 
         del op_convert16to8.input[1:]
         op_convert16to8.input[0] = op_layernorm.output[0]
-        self.add_min_max_const_node(op_convert16to8, op_convert16to8.input[0], True, True, False)
+        self.add_min_max_const_node(op_convert16to8, op_convert16to8.input[0])
         self.add_min_max_const_node(op_convert16to8, op_convert16to8.output[0], True, True, False)
+        self._producers[op_convert16to8.output[0]] = op_convert16to8
         op_convert16to8.name = op_convert16to8.name + '_16to8'
         op_convert16to8.type = HexagonOp.Convert_16_8.name
         self.post_convert(op_convert16to8)
