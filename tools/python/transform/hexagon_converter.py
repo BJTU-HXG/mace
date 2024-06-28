@@ -69,6 +69,7 @@ HexagonSupportedOps = [
     'QuantizedPow_8x8to8', # TODO add op
     'QuantizedRecip_8',
     'QuantizedRelu_8',
+    'QuantizedGelu_8',
     'QuantizedReluX_8',
     'QuantizedReshape',
     'QuantizedResizeBilinear_8',
@@ -100,6 +101,7 @@ HexagonSupportedOps = [
     'Convert_16_8',
     'QuantizeDownAndShrinkRange_32to16',
     'QuantizeDownAndShrinkRange_32to8',
+    'CastFloat32ToUInt8',
     'Nop',
 ]
 
@@ -128,7 +130,10 @@ def get_tensor_name_from_op(op_name, port):
 
 
 def get_op_and_port_from_tensor(tensor_name):
-    if ':' in tensor_name:
+    if '::'in tensor_name:
+        op = tensor_name
+        port = 0
+    elif ':' in tensor_name:
         op, port = tensor_name.split(':')
         port = int(port)
     else:
@@ -183,6 +188,7 @@ class HexagonConverter(base_converter.ConverterInterface):
             MaceOp.BatchNorm.name: self.convert_batchnorm,
             MaceOp.BatchToSpaceND.name: self.convert_batchspace,
             # MaceOp.BatchMatMul.name: self.convert_batchmatmul,
+            MaceOp.Cast.name: self.convert_cast,
             MaceOp.Concat.name: self.convert_concat,
             MaceOp.Conv2D.name: self.convert_conv2d,
             MaceOp.Deconv2D.name: self.convert_deconv2d,
@@ -333,12 +339,19 @@ class HexagonConverter(base_converter.ConverterInterface):
             return self.add_min_max_const_node_for_split(this_op, tensor_name)
         op, port = get_op_and_port_from_tensor(tensor_name)
         mace_check(port == 0, 'port should be 0 to add min max tensor then.')
+        #print(self._quantize_activation_info)
+        
         if tensor_name in self._quantize_activation_info:
+            #print("activationnnnnnnnn")
+            #print(tensor_name)
             quantize_info = self._quantize_activation_info[tensor_name]
             minval = quantize_info.minval
             maxval = quantize_info.maxval
             is_activation = True
+  
         elif tensor_name in self._consts:
+            #print("constsssssssss")
+            #print(tensor_name)
             tensor = self._consts[tensor_name]
             minval = tensor.minval
             maxval = tensor.maxval
@@ -410,6 +423,7 @@ class HexagonConverter(base_converter.ConverterInterface):
                 op = first_quantize_input_op
                 quantize_input_op.name = MaceKeyword.mace_input_node_name
             else:
+                print(op_name)
                 op = ops[op_name]
             mace_check(op.type == HexagonOp.QuantizeINPUT_f_to_8.name,
                        "input node type is: %s" % op.type)
@@ -547,6 +561,7 @@ class HexagonConverter(base_converter.ConverterInterface):
 
         del self._model.op[:]
         self._model.op.extend(self._new_ops)
+        print(self._model.op)
 
     def pre_convert(self, op):
         self.add_port_for_tensors(op.input)
@@ -641,6 +656,10 @@ class HexagonConverter(base_converter.ConverterInterface):
             op.type = HexagonOp.BatchToSpaceND_8.name
         else:
             op.type = HexagonOp.SpaceToBatchND_8.name
+
+    def convert_cast(self, op):
+        self.add_min_max_const_node(op, op.input[0])
+        op.type = HexagonOp.CastFloat32ToUInt8.name
 
     def convert_concat(self, op):
         inputs = copy.deepcopy(op.input)

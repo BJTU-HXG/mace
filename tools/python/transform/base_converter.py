@@ -181,6 +181,7 @@ MaceSupportedOps = [
     'DetectionOutput',
     'Where',
     'Gelu',
+    'LayerNorm'
 ]
 
 MaceOp = Enum('MaceOp', [(op, op) for op in MaceSupportedOps], type=str)

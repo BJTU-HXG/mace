@@ -531,8 +531,8 @@ DEF_OP(Convert_from_aix_16b)
 DEF_OP(Convert_from_aix_16b_d32)
 DEF_OP(Convert_to_aix_d32_16b)
 DEF_OP(Convert_to_aix_d32_16b_d32)
-
 DEF_OP(QuantizedBatchMatMul_8x8to32)
+DEF_OP_WREF(QuantizedGelu_8)
 
 // Add new operations above this line
 #ifdef __SELF_DEF_OP_WREF
