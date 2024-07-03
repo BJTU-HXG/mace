@@ -550,6 +550,7 @@ class HexagonConverter(base_converter.ConverterInterface):
 
     def convert_ops(self):
         print("Convert mace graph to hexagon.")
+        print(self._model.op)
         for op in self._model.op:
             mace_check(op.type in self._op_converters,
                        "Mace Hexagon does not support op type %s yet"
@@ -617,6 +618,10 @@ class HexagonConverter(base_converter.ConverterInterface):
             self.add_arg_const_node(
                 op, '/alphas:0', [op.output_shape[0].dims[3]],
                 [alphas_arg.f] * op.output_shape[0].dims[3], data_type=mace_pb2.DT_FLOAT)
+        elif act_type == ActivationType.GELU.name:
+            a=1
+            #
+
         try:
             op.type = self.activation_type[act_type]
         except KeyError:
@@ -970,8 +975,17 @@ class HexagonConverter(base_converter.ConverterInterface):
 
 
     def convert_matmul(self, op):
+        print('this is op:')
+        print(op)
+        is_gemm = False
+        add_bias = op.input[0]
+        if(len(op.input)==3):
+            is_gemm = True
+        if(is_gemm):
+            add_bias = op.input[2]
+            del op.input[2:]
         requantize_op = copy.deepcopy(op)
-
+        add_op=copy.deepcopy(op)
         if len(op.output_shape[0].dims) == 4:
             op.output[0] = self.new_tensor(op.output[0], '_batchmatmul:0', op.output_shape[0].dims)
             op.type = HexagonOp.QuantizedBatchMatMul_8x8to32.name
@@ -983,14 +997,32 @@ class HexagonConverter(base_converter.ConverterInterface):
         self.add_min_max_const_node(op, op.input[1])
         op.name = op.name + '_matmul'
         self.post_convert(op)
+        print('this is gemm op:')
+        print(add_op)
         
         del requantize_op.input[1:]
         requantize_op.input[0] = op.output[0]
         self.add_min_max_const_node(requantize_op, requantize_op.input[0], True, True, False)
         self.add_min_max_const_node(requantize_op, requantize_op.output[0], True, True, False)
-        requantize_op.name = requantize_op.name + '_requantize'
+        if is_gemm:
+            requantize_op.output[0] = self.new_tensor(requantize_op.output[0], '_requantize_op:0', requantize_op.output_shape[0].dims)
+        requantize_op.name = requantize_op.name + '_requantize' 
         requantize_op.type = HexagonOp.Requantize_32to8.name
         self.post_convert(requantize_op)
+        print('this is gemm requantize_op:')
+        print(requantize_op)
+
+        if(is_gemm):   
+            add_op.input[0] = requantize_op.output[0]
+            add_op.input[1] = add_bias
+            self.add_min_max_const_node(add_op, add_op.input[0], True, True, False)
+            self.add_min_max_const_node(add_op, add_op.input[1], True, True, True)
+            #self.add_min_max_const_node(add_op, add_op.output[0], True, True, False)
+            add_op.name = add_op.name + '_add'
+            add_op.type = HexagonOp.QuantizedAdd_8p8to8.name
+            self.post_convert(add_op)
+            print('this is gemm add op:')
+            print(add_op)
         return True
 
     def convert_pad(self, op):

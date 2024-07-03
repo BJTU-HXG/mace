@@ -807,7 +807,7 @@ class Transformer(base_converter.ConverterInterface):
                                     print(op_add.input[0])
                                     print(op_add.input[1])
                                         
-                                    op_half.input.append(bias)
+                                    #op_half.input.append(bias)
                                     op_half.name = 'Gelu_' + op_half.name
                                     op_half.type = MaceOp.Activation.name
                                     print("After fold shapeeeeeeeeee:", op_half.output_shape[0].dims)
