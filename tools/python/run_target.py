@@ -87,7 +87,7 @@ def default_install_dir(target_abi):
     if target_abi == "armeabi-v7a" or target_abi == "arm64-v8a":
         install_dir = "/data/local/tmp/mace_tmp"
     if target_abi == "qnx":
-        install_dir = "/fota/huaijie.h/mace_tmp"
+        install_dir = "/fota/shiding.guo/mace_tmp"
 
     return install_dir
 

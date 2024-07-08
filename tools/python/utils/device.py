@@ -144,15 +144,16 @@ class QnxDevice(Device):
     def install(self, target, install_dir, install_deps=False):
         install_dir = os.path.abspath(install_dir)
 
-        execute("qdb run mkdir -p %s" % (install_dir))
+        execute("~/qdb run mkdir -p %s" % (install_dir))
+        print(target.path)
         if os.path.isdir(target.path):
             for file in os.listdir(target.path):
-                execute("qdb send %s %s" % (os.path.join(target.path, file), install_dir), False)
+                execute("~/qdb send %s %s" % (os.path.join(target.path, file), install_dir), False)
         else:
-            execute("qdb send %s %s" % (target.path, install_dir), False)
+            execute("~/qdb send %s %s" % (target.path, install_dir), False)
 
         for lib in target.libs:
-            execute("qdb send %s %s" % (lib, install_dir), False)
+            execute("~/qdb send %s %s" % (lib, install_dir), False)
 
         target.path = "%s/%s" % (install_dir, os.path.basename(target.path))
         target.libs = ["%s/%s" % (install_dir, os.path.basename(lib))
@@ -161,13 +162,13 @@ class QnxDevice(Device):
         return target
 
     def run(self, target):
-        execute("qdb run %s" % target)
+        execute("~/qdb run %s" % target)
 
     def pull(self, target, out_dir):
-        execute("qdb fetch %s %s" % (target, out_dir))
+        execute("~/qdb fetch %s %s" % (target, out_dir))
 
     def mkdir(self, dirname):
-        execute("qdb run mkdir -p %s" % dirname)
+        execute("~/qdb run mkdir -p %s" % dirname)
 
 class AndroidDevice(Device):
     def __init__(self, device_id, target_abi):
