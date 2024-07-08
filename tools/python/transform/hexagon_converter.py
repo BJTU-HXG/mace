@@ -561,6 +561,8 @@ class HexagonConverter(base_converter.ConverterInterface):
                 op.input[0] = op_trans_nhwc.output[0]
             if op_num == len(self._model.op) - 2:
                 op_trans_nchw = copy.deepcopy(op)
+                output_shape = copy.deepcopy(op.output_shape[0].dims)
+                op.output[0] = self.new_tensor(op.output[0], '_tanh:0', output_shape)
             post_convert_omitted = self._op_converters[op.type](op)
             if post_convert_omitted is None or not post_convert_omitted:
                 self.post_convert(op)
