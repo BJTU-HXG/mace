@@ -414,11 +414,15 @@ def validate_onnx_model(platform, model_file,
                                         mace_out_value,
                                         output_shapes[i],
                                         output_data_formats[i])'''
+        ##下面是将onnx输出与nn库的输出进行数据格式上的统一
+        if len(real_output_shape) == 4:
+            new_shape = (real_output_shape[0], real_output_shape[2], real_output_shape[3], real_output_shape[1])
+            mace_out_value = mace_out_value.reshape(new_shape).transpose(0,3,1,2).flatten()
         ##下面是用来生成一个tensor分别在mace和nn库上跑完的具体数值文件
-        '''tensor_names = ['3226','3227']
+        '''tensor_names = ['/conv_pre/Conv_output_0']
         if output_names[i] in tensor_names:
-            mace_output_file = "/root/workspace/tensors/mace_" + output_names[i]
-            onnx_output_file = "/root/workspace/tensors/onnxruntime_" + output_names[i]
+            mace_output_file = "/home/shiding.guo/workspace/tensors/mace_" + str(i)
+            onnx_output_file = "/home/shiding.guo/workspace/tensors/onnxruntime_" + str(i)
             np.savetxt(mace_output_file, mace_out_value, '%.6f')
             np.savetxt(onnx_output_file, value, '%.6f')'''
         compare_output(output_names[i],
