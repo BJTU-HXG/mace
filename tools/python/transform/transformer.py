@@ -172,14 +172,17 @@ class Transformer(base_converter.ConverterInterface):
         self._converter_info = converter_info
 
     def run(self):
+        print('this is before _quantize_activation_info')
+        print(self._quantize_activation_info)
         for key in self._option.transformer_option:
             transformer = self._registered_transformers[key]
             while True:
                 self.construct_ops_and_consumers(key)
                 changed = transformer()
                 if not changed:
-
                     break
+        print('this is _quantize_activation_info')
+        print(self._quantize_activation_info)
         return self._model, self._quantize_activation_info
 
     def initialize_name_map(self):
@@ -776,34 +779,32 @@ class Transformer(base_converter.ConverterInterface):
                                 element_type = ConverterUtil.get_arg(
                                     consumer_Add, MaceKeyword.mace_element_type_str).i
                                 if element_type == EltwiseType.DIV.value:
-                                  
+                                    # 1号算子
                                     op_add = consumer
-                                    bias = op_add.input[0]
-                        
                                     consumers_add = self._consumers[op_add.output[0]]
+                                    # 2号算子
                                     op_div = consumers_add[0]   
                                     consumers_div = self._consumers[op_div.output[0]]
+                                    # 3号算子
                                     op_Erf = consumers_div[0]
                                     consumers_Erf = self._consumers[op_Erf.output[0]]
                                             #print("consumers_Erf:",consumers_Erf)
+                                    # 4号算子
                                     op_add_x= consumers_Erf[0]
                                     consumers_add_x = self._consumers[op_add_x.output[0]]
                                             #print("consumers_add:",consumers_add)
+                                    # 5号算子
                                     op_mul = consumers_add_x[0]
                                             
                                             #print("mul output",op_mul.output)
                                     consumers_mul = self._consumers[op_mul.output[0]]
                                             
-                                            
-                                    op_half = consumers_mul[0]
+                                    # 6号算子     
+                                    op_half = consumers_mul[0]       
+                                    print(op_half)
+                                    op_half.input[0] = op_add.output[0] # (x+A)
 
-                                    consumers_half = self._consumers[op_half.output[0]]        
-
-                                    op_matmul = consumers_half[0]
-
-                                    op_half.input[0] = op_add.input[1]
-
-                                    
+                                    print(op_add.output[0])
                                     print(op_add.input[0])
                                     print(op_add.input[1])
                                         
@@ -820,7 +821,7 @@ class Transformer(base_converter.ConverterInterface):
                                     print(f'Fold Gelu: ({op_half.name}),type: ({op_half.type})')
                     
                                     self._model.op.remove(op_Erf)
-                                    self._model.op.remove(op_add)
+                                    #self._model.op.remove(op_add)
                                     self._model.op.remove(op_add_x)
                                     self._model.op.remove(op_mul)
                                     self._model.op.remove(op_div)

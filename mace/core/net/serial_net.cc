@@ -19,6 +19,7 @@
 #include <set>
 #include <unordered_set>
 #include <utility>
+#include <fstream>
 
 #include "mace/core/future.h"
 #include "mace/core/net/allocate_strategy.h"
@@ -122,17 +123,56 @@ MaceStatus SerialNet::Run(RunMetadata *run_metadata,
     CallStats call_stats;
     if (run_metadata == nullptr) {
       MACE_RETURN_IF_ERROR(op->Forward(&context));
+	  //   LOG(INFO)<<"tensor name : "<<op->Output(0)->name();
+	  // 	std::string  file_name=op->Output(0)->name();
+		// for(auto & c:file_name){
+		// 	if(c=='/'){
+		// 		c='_';
+		// 	}
+		// }
+    //     std::string file_path="/data/local/tmp/mace_tmp/bert/validate_out/"+file_name;
+    // 	std::ofstream out_file(file_path, std::ios::binary);
+    // 	MACE_CHECK(out_file.is_open(), "Open output file failed: ", file_path+strerror(errno));
+    // 	out_file.write(op->Output(0)->data<char>(), 4*op->Output(0)->size());
+    // 	out_file.flush();
+    // 	out_file.close();
     } else {
       if (runtime_type == RuntimeType::RT_CPU
           || (runtime_type == RuntimeType::RT_OPENCL
               && !enable_opencl_profiling)) {
         call_stats.start_micros = NowMicros();
         MACE_RETURN_IF_ERROR(op->Forward(&context));
+	  //   LOG(INFO)<<"tensor name : "<<op->Output(0)->name();
+	  // 	std::string  file_name=op->Output(0)->name();
+		// for(auto & c:file_name){
+		// 	if(c=='/'){
+		// 		c='_';
+		// 	}
+		// }
+    //     std::string file_path="/data/local/tmp/mace_tmp/bert/validate_out/"+file_name;
+    // 	std::ofstream out_file(file_path, std::ios::binary);
+    // 	MACE_CHECK(out_file.is_open(), "Open output file failed: ", file_path+strerror(errno));
+    // 	out_file.write(op->Output(0)->data<char>(), 4*op->Output(0)->size());
+    // 	out_file.flush();
+    // 	out_file.close();
         call_stats.end_micros = NowMicros();
       } else if (runtime_type == RuntimeType::RT_OPENCL) {
         StatsFuture future;
         context.set_future(&future);
         MACE_RETURN_IF_ERROR(op->Forward(&context));
+	  //   LOG(INFO)<<"tensor name : "<<op->Output(0)->name();
+	  // 	std::string  file_name=op->Output(0)->name();
+		// for(auto & c:file_name){
+		// 	if(c=='/'){
+		// 		c='_';
+		// 	}
+		// }
+    //     std::string file_path="/data/local/tmp/mace_tmp/bert/validate_out/"+file_name;
+    // 	std::ofstream out_file(file_path, std::ios::binary);
+    // 	MACE_CHECK(out_file.is_open(), "Open output file failed: ", file_path+strerror(errno));
+    // 	out_file.write(op->Output(0)->data<char>(), 4*op->Output(0)->size());
+    // 	out_file.flush();
+    // 	out_file.close();
         future.wait_fn(&call_stats);
       }
 

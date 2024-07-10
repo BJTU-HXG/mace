@@ -93,6 +93,12 @@ def compare_output(output_name, mace_out_value,
             output_name + ' MACE VS training platform'
             + ' similarity: ' + str(similarity) + ' , sqnr: ' + str(sqnr)
             + ' , pixel_accuracy: ' + str(pixel_accuracy))
+        with open('/home/ana/nio2/workspace/bert/log/accuracy_log', 'a') as file:
+            content=(output_name + '\t'
+            + ' \t' + str(similarity) + '\t' + str(sqnr)
+            + '\t' + str(pixel_accuracy)+'\tPASS\n')
+            if(output_name!='last_hidden_state' and output_name!='pooler_output'):
+                file.write(content)
         if log_file:
             if not os.path.exists(log_file):
                 with open(log_file, 'w') as f:
@@ -389,10 +395,16 @@ def validate_onnx_model(platform, model_file,
             model.graph.output.append(layer_value_info)
 
     input_dict = {}
+    print(input_names)
     for i in range(len(input_names)):
         input_value = load_data(util.formatted_file_name(input_file,
                                                          input_names[i]),
                                 input_data_types[i])
+        print(len(input_value))
+        print(input_value)
+        print(input_file)
+        print(input_names[i])
+        print(input_shapes[i])
         input_value = input_value.reshape(input_shapes[i])
         if input_data_formats[i] == DataFormat.NHWC and \
                 len(input_shapes[i]) == 4:

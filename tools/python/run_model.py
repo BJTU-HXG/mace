@@ -293,8 +293,8 @@ def run_model_for_device(flags, args, dev, model_name, model_conf):
                           flags.backend,
                           validation_outputs_data,
                           "")
-    if should_generate_data:
-        shutil.rmtree(tmpdirname)
+    #if should_generate_data:
+    #    shutil.rmtree(tmpdirname)
 
 
 def generate_input_data(input_file, input_node, input_shape, input_ranges,

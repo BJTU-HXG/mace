@@ -23,7 +23,7 @@ from enum import Enum
 from operator import mul
 from functools import reduce
 import random
-
+import json
 from py_proto import mace_pb2
 from transform import base_converter
 from transform.base_converter import ActivationType
@@ -340,21 +340,31 @@ class HexagonConverter(base_converter.ConverterInterface):
         op, port = get_op_and_port_from_tensor(tensor_name)
         mace_check(port == 0, 'port should be 0 to add min max tensor then.')
         #print(self._quantize_activation_info)
-        
+        print('add_min_max_const_node')
+        #if(tensor_name=='mace_input_node_attention_mask:0' or tensor_name=='/Sub/b:0'):
+            #quantize_info = self._quantize_activation_info[tensor_name]
+            #print(quantize_info)
         if tensor_name in self._quantize_activation_info:
             #print("activationnnnnnnnn")
-            #print(tensor_name)
             quantize_info = self._quantize_activation_info[tensor_name]
             minval = quantize_info.minval
             maxval = quantize_info.maxval
+            print(tensor_name)
+            quantize_info = self._quantize_activation_info[tensor_name]
+            print(quantize_info)
             is_activation = True
   
         elif tensor_name in self._consts:
             #print("constsssssssss")
-            #print(tensor_name)
             tensor = self._consts[tensor_name]
             minval = tensor.minval
             maxval = tensor.maxval
+            print(tensor_name)
+            print(type(tensor.int32_data))
+            if(tensor_name=='/Sub/b:0'):
+                #with open('/home/ana/nio2/workspace/bert/log/bert_convert_dsp_log2', 'w') as file:
+                #    file.write(json.dumps(tensor))
+                print(tensor)
             is_activation = False
         else:
             raise Exception('Quantize info not found: ', tensor_name)
@@ -923,8 +933,8 @@ class HexagonConverter(base_converter.ConverterInterface):
             scalar_input = ConverterUtil.get_arg(
                 op, MaceKeyword.mace_scalar_input_str).f
             self.add_quantized_scalar_const_node("/b:0", scalar_input, op)
-        self.add_min_max_const_node(op, op.input[0])
-        self.add_min_max_const_node(op, op.input[1])
+        self.add_min_max_const_node(op, op.input[0],True,True,False)
+        self.add_min_max_const_node(op, op.input[1],True,True,False)
 
         if element_type in [EltwiseType.SUM.value,
                             EltwiseType.SUB.value,
@@ -933,7 +943,12 @@ class HexagonConverter(base_converter.ConverterInterface):
                             EltwiseType.DIV.value]:
             self.add_min_max_const_node(
                 op, op.output[0], True, True, False)
-    
+        if element_type == EltwiseType.SUM.value:
+            print('this is add op')
+            print(op)
+        if element_type == EltwiseType.SUB.value:
+            print('this is sub op')
+            print(op)
         try:
             op.type = self.eltwise_type[element_type]
         except KeyError:
@@ -1015,6 +1030,7 @@ class HexagonConverter(base_converter.ConverterInterface):
         if(is_gemm):   
             add_op.input[0] = requantize_op.output[0]
             add_op.input[1] = add_bias
+            print(add_bias)
             self.add_min_max_const_node(add_op, add_op.input[0], True, True, False)
             self.add_min_max_const_node(add_op, add_op.input[1], True, True, True)
             #self.add_min_max_const_node(add_op, add_op.output[0], True, True, False)
@@ -1180,6 +1196,7 @@ class HexagonConverter(base_converter.ConverterInterface):
         op.type = HexagonOp.ResizeNearestNeighbor_8.name
 
     def convert_softmax(self, op):
+        # 传了一个nan, 应该是-34万亿亿亿亿
         self.add_min_max_const_node(op, op.input[0])
 
         op.type = HexagonOp.QuantizedSoftmax_8.name
