@@ -781,6 +781,8 @@ class Transformer(base_converter.ConverterInterface):
                                 if element_type == EltwiseType.DIV.value:
                                     # 1号算子
                                     op_add = consumer
+                                    print('op_add')
+                                    print(op_add)
                                     consumers_add = self._consumers[op_add.output[0]]
                                     # 2号算子
                                     op_div = consumers_add[0]   
@@ -802,7 +804,7 @@ class Transformer(base_converter.ConverterInterface):
                                     # 6号算子     
                                     op_half = consumers_mul[0]       
                                     print(op_half)
-                                    op_half.input[0] = op_add.output[0] # (x+A)
+                                    op_half.input[0] = op_div.input[0] # (x+A)
 
                                     print(op_add.output[0])
                                     print(op_add.input[0])
@@ -819,7 +821,8 @@ class Transformer(base_converter.ConverterInterface):
                                     act_type = act_type_arg.s.decode()
                                     print("activation type of GELU:", act_type, type_arg)
                                     print(f'Fold Gelu: ({op_half.name}),type: ({op_half.type})')
-                    
+                                    print('op_half')
+                                    print(op_half)
                                     self._model.op.remove(op_Erf)
                                     #self._model.op.remove(op_add)
                                     self._model.op.remove(op_add_x)
