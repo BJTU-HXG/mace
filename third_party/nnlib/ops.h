@@ -534,9 +534,12 @@ DEF_OP(Convert_to_aix_d32_16b_d32)
 
 DEF_OP(QuantizedBatchMatMul_8x8to32)
 
+DEF_OP(QuantizedGelu_8)
+
+DEF_OP(DepthwiseSupernode_8x8p32to8_3x1)
+DEF_OP(DepthwiseSupernode_8x8p32to8_3x1_d32)
 // Add new operations above this line
 #ifdef __SELF_DEF_OP_WREF
 #undef __SELF_DEF_OP_WREF
 #undef DEF_OP_WREF
 #endif
-

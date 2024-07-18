@@ -239,7 +239,7 @@ class AndroidDevice(Device):
         execute("adb -s %s push %s %s" % (sn, lib_file, install_dir), False)
 
     def run(self, target):
-        execute("adb -s %s shell chmod 0777 %s" % (self._device_id, target.path))
+        execute("adb -s %s shell chmod 777 %s" % (self._device_id, target.path))
         execute("adb -s %s shell \"%s\"" % (self._device_id, str(target)))
 
         tmpdirname = tempfile.mkdtemp()

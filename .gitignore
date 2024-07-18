@@ -46,12 +46,21 @@ compileInfo.txt
 opt_conformer.txt
 opt_transformer.txt
 opt_hifigan.txt
+opt_acc.txt
+opt_dsp.txt
 output.txt
 outputs_fa_out
 ._qxx
 log
-workspace/
-log
 
+workspace/transformer/transformer-no-where.onnx
+workspace/transformer/transformer_data/.DS_Store
+workspace/transformer/transformer_data/data/snpe_demo_data
+workspace/transformer/transformer_data/transformer_data.tar
+
+workspace/conformer/data
+workspace/conformer/conformer.onnx
+workspace/conformer/conformer_data/change_conformer.onnx
+workspace/conformer/conformer_data/.DS_Store
 acc_conformer.txt
 conformer_vaild.txt

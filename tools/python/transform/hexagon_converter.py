@@ -46,6 +46,7 @@ HexagonSupportedOps = [
     'BatchToSpaceND_8',
     'DepthToSpace_8',
     'DepthwiseSupernode_8x8p32to8',
+    'DepthwiseSupernode_8x8p32to8_3x1',
     'DequantizeOUTPUT_8tof',
     'INPUT',
     'OUTPUT',
@@ -103,7 +104,6 @@ HexagonSupportedOps = [
     'Nop',
     'Convert_to_d32',
     'Convert_from_d32',
-    'DepthwiseSupernode_8x8p32to8_d32'
 ]
 
 HexagonOp = Enum('HexagonOp', [(op, op) for op in HexagonSupportedOps],
@@ -661,7 +661,7 @@ class HexagonConverter(base_converter.ConverterInterface):
     """
         Hexagon中Conv需要使用NHWC的数据格式。一般的算子使用NCHW的shape和数据格式即可。
         1.onnx中使用的4D数据是NCHW 2.nn会自动将3D shape更换为NCHW的4D shape
-        在标准的Conv前后添加Transpose操作，更换形状和数据格式
+        在标准的Conv前后添加Transpose操作,更换形状和数据格式
         流程: Transpose(NCHW->NHWC) ==> Conv ==> Transpose(NHWC->NCHW)
         
         1,128,1,6
@@ -748,7 +748,8 @@ class HexagonConverter(base_converter.ConverterInterface):
                     (dilations_arg.ints[0] == 1 and dilations_arg.ints[1] == 1),
                     "Hexagon only support dilations[1,1].")
             #将名称改为DepthwiseSupernode_8x8p32to8
-            op.type = HexagonOp.DepthwiseSupernode_8x8p32to8.name
+            op.type = HexagonOp.DepthwiseSupernode_8x8p32to8_3x1.name
+            # op.type = HexagonOp.DepthwiseSupernode_8x8p32to8.name
             op.name = op.name + '_dwconv'
             self.post_convert(op)
 
