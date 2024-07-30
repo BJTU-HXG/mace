@@ -48,6 +48,8 @@ opt_transformer.txt
 opt_hifigan.txt
 opt_acc.txt
 opt_dsp.txt
+opt_attn.txt
+
 output.txt
 outputs_fa_out
 ._qxx
@@ -62,5 +64,8 @@ workspace/conformer/data
 workspace/conformer/conformer.onnx
 workspace/conformer/conformer_data/change_conformer.onnx
 workspace/conformer/conformer_data/.DS_Store
+
+workspace/attention/data
+
 acc_conformer.txt
 conformer_vaild.txt
