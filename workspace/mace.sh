@@ -1,16 +1,10 @@
-#!bin/bash
+#!/bin/bash
 
 MACE_ROOT="/home/NIO/mace"
 NN_ROOT="/home/NIO/hexagon_nn"
 SDK_ROOT="/home/NIO/hexagonsdk354"
 
 echo "Current Path:" $(pwd)
-
-source_env=""
-convert_model=""
-run_model=""
-cc_nnlib=""
-cc_android_nnlib=""
 
 function source_env(){
     source $SDK_ROOT/setup_sdk_env.source

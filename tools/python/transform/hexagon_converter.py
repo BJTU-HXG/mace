@@ -991,7 +991,7 @@ class HexagonConverter(base_converter.ConverterInterface):
     def convert_matmul(self, op):
         requantize_op = copy.deepcopy(op)
 
-        if len(op.output_shape[0].dims) == 4:
+        if len(op.output_shape[0].dims) == 4 or op.output_shape[0].dims[0] != 1:
             op.output[0] = self.new_tensor(op.output[0], '_batchmatmul:0', op.output_shape[0].dims)
             op.type = HexagonOp.QuantizedBatchMatMul_8x8to32.name
         else:

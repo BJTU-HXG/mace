@@ -1,0 +1,1264 @@
+Current Path: /home/NIO/mace
+[0;32mCMD> [0mbash tools/cmake/cmake-generate-proto-py-host.sh
+CMAKE_VERSION: 3.22.1
+CROSSTOOL_ROOT:
+CMAKE_TOOLCHAIN_FILE:
+CMAKE_INSTALL_PREFIX: /home/NIO/mace/build/cmake-build/host/install
+MACE_ENABLE_CPU            = ON
+MACE_ENABLE_NEON           = OFF
+MACE_ENABLE_QUANTIZE       = OFF
+MACE_ENABLE_OPENCL         = OFF
+MACE_ENABLE_CUDA           = OFF
+MACE_ENABLE_HEXAGON_DSP    = OFF
+MACE_ENABLE_HEXAGON_HTA    = OFF
+MACE_ENABLE_MTK_APU        = OFF
+MACE_ENABLE_BFLOAT16       = OFF
+MACE_ENABLE_FP16           = OFF
+MACE_ENABLE_QNN            =
+MACE_ENABLE_TESTS          = ON
+MACE_ENABLE_BENCHMARKS     = ON
+MACE_ENABLE_OPT_SIZE       = ON
+MACE_ENABLE_OBFUSCATE      = ON
+MACE_ENABLE_CCACHE         = ON
+MACE_ENABLE_CODE_MODE      = OFF
+MACE_ENABLE_RPCMEM         = OFF
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/NIO/mace/build/cmake-build/host
+[ 66%] Built target protoc_bin
+[100%] Built target mace_proto_py
+[ 66%] Built target protoc_bin
+[100%] Built target micro_mem_proto_py
+
+[0;32mCMD> [0madb devices
+tools/python/run_model.py:76: Run on devices: ['f8c1b50e']
+tools/python/run_model.py:90: Run model batch_qkv
+[92m{'platform': <Platform.ONNX: 2>, 'model_file_path': '/home/NIO/llm/transformer/onnxModel/batch_model.onnx', 'model_sha256_checksum': '3fc264816c51213736d9ec2cf9f49890252dd0965f5f4745f7b5f903521968c7', 'subgraphs': {'default_graph': {'platform': <Platform.ONNX: 2>, 'model_file_path': '/home/NIO/llm/transformer/onnxModel/batch_model.onnx', 'model_sha256_checksum': '3fc264816c51213736d9ec2cf9f49890252dd0965f5f4745f7b5f903521968c7', 'runtime': <DeviceType.HEXAGON: 3>, 'quantize_range_file': '/home/NIO/mace/workspace/attention/range_dir/batch_overall_log', 'quantize': 1, 'limit_opencl_kernel_time': 0, 'nnlib_graph_mode': 0, 'obfuscate': 0, 'input_data_formats': [<DataFormat.NONE: 0>], 'input_ranges': [[-1.0, 1.0]], 'output_data_formats': [<DataFormat.NONE: 0>], 'input_tensors': ['input'], 'output_tensors': ['output'], 'validation_inputs_data': ['/home/NIO/llm/transformer/onnxModel/tensor_data/input_3_144_128.raw'], 'data_type': 1, 'input_shapes': [[1, 144, 128]], 'input_data_types': [1], 'output_shapes': [[3, 144, 128]], 'output_data_types': [1], 'backend': ['pytorch']}}, 'runtime': <DeviceType.HEXAGON: 3>, 'quantize_range_file': '/home/NIO/mace/workspace/attention/range_dir/batch_overall_log', 'quantize': 1, 'limit_opencl_kernel_time': 0, 'nnlib_graph_mode': 0, 'obfuscate': 0, 'input_data_formats': [], 'input_ranges': [], 'output_data_formats': [], 'input_tensors': ['input'], 'output_tensors': ['output'], 'validation_inputs_data': ['/home/NIO/llm/transformer/onnxModel/tensor_data/input_3_144_128.raw'], 'data_type': 1}[0m
+[0;32mCMD> [0madb -s f8c1b50e shell mkdir -p /data/local/tmp/mace_tmp/batch_qkv/interior
+
+[0;32mCMD> [0madb -s f8c1b50e shell mkdir -p /data/local/tmp/mace_tmp/batch_qkv
+
+[0;32mCMD> [0madb -s f8c1b50e push build/batch_qkv/model/batch_qkv.pb /data/local/tmp/mace_tmp/batch_qkv
+[0;32mCMD> [0madb -s f8c1b50e shell mkdir -p /data/local/tmp/mace_tmp/batch_qkv
+
+[0;32mCMD> [0madb -s f8c1b50e push build/batch_qkv/model/batch_qkv.data /data/local/tmp/mace_tmp/batch_qkv
+[0;32mCMD> [0madb -s f8c1b50e shell mkdir -p /data/local/tmp/mace_tmp/batch_qkv/validate_in
+
+[0;32mCMD> [0madb -s f8c1b50e push /tmp/tmpel_6pamk/* /data/local/tmp/mace_tmp/batch_qkv/validate_in
+[0;32mCMD> [0madb -s f8c1b50e shell mkdir -p /data/local/tmp/mace_tmp/batch_qkv/validate_out
+
+Install target from build/cmake-build/arm64-v8a/install/bin/mace_run to /data/local/tmp/mace_tmp/batch_qkv
+[0;32mCMD> [0madb -s f8c1b50e shell mkdir -p /data/local/tmp/mace_tmp/batch_qkv
+
+[0;32mCMD> [0madb -s f8c1b50e push build/cmake-build/arm64-v8a/install/bin/mace_run /data/local/tmp/mace_tmp/batch_qkv
+[0;32mCMD> [0madb -s f8c1b50e push third_party/nnlib/arm64-v8a/libhexagon_controller.so /data/local/tmp/mace_tmp/batch_qkv
+[0;32mCMD> [0madb -s f8c1b50e push third_party/nnlib/v66/libhexagon_nn_skel.so /data/local/tmp/mace_tmp/batch_qkv
+[0;32mCMD> [0madb -s f8c1b50e push build/cmake-build/arm64-v8a/install/lib/libc++_shared.so /data/local/tmp/mace_tmp/batch_qkv
+[0;32mCMD> [0madb -s f8c1b50e shell chmod 777 /data/local/tmp/mace_tmp/batch_qkv/mace_run
+
+['', 'MACE_INTERNAL_STORAGE_PATH=/data/local/tmp/mace_tmp/batch_qkv/interior', 'MACE_CPP_MIN_VLOG_LEVEL=2', 'LD_LIBRARY_PATH=/data/local/tmp/mace_tmp/batch_qkv', 'ADSP_LIBRARY_PATH=/data/local/tmp/mace_tmp/batch_qkv', '/data/local/tmp/mace_tmp/batch_qkv/mace_run', "--model_name='batch_qkv'", "--model_file='/data/local/tmp/mace_tmp/batch_qkv/batch_qkv.pb'", "--model_data_file='/data/local/tmp/mace_tmp/batch_qkv/batch_qkv.data'", "--input_node='input'", "--input_shape='1,144,128'", "--output_node='output'", "--output_shape='3,144,128'", "--input_data_format='NONE'", "--output_data_format='NONE'", "--input_data_type='1'", "--output_data_type='1'", '--input_file=/data/local/tmp/mace_tmp/batch_qkv/validate_in/batch_qkv', '--output_file=/data/local/tmp/mace_tmp/batch_qkv/validate_out/batch_qkv']
+[0;32mCMD> [0madb -s f8c1b50e shell " MACE_INTERNAL_STORAGE_PATH=/data/local/tmp/mace_tmp/batch_qkv/interior MACE_CPP_MIN_VLOG_LEVEL=2 LD_LIBRARY_PATH=/data/local/tmp/mace_tmp/batch_qkv ADSP_LIBRARY_PATH=/data/local/tmp/mace_tmp/batch_qkv /data/local/tmp/mace_tmp/batch_qkv/mace_run --model_name='batch_qkv' --model_file='/data/local/tmp/mace_tmp/batch_qkv/batch_qkv.pb' --model_data_file='/data/local/tmp/mace_tmp/batch_qkv/batch_qkv.data' --input_node='input' --input_shape='1,144,128' --output_node='output' --output_shape='3,144,128' --input_data_format='NONE' --output_data_format='NONE' --input_data_type='1' --output_data_type='1' --input_file=/data/local/tmp/mace_tmp/batch_qkv/validate_in/batch_qkv --output_file=/data/local/tmp/mace_tmp/batch_qkv/validate_out/batch_qkv"
+I /home/NIO/mace/mace/tools/mace_run.cc:705] hello
+I /home/NIO/mace/mace/tools/mace_run.cc:725] model name: batch_qkv
+I /home/NIO/mace/mace/tools/mace_run.cc:726] mace version: v1.1.1-68-g23d5d03
+I /home/NIO/mace/mace/tools/mace_run.cc:727] input node: input
+I /home/NIO/mace/mace/tools/mace_run.cc:728] input shape: 1,144,128
+I /home/NIO/mace/mace/tools/mace_run.cc:729] input data_type: 1
+I /home/NIO/mace/mace/tools/mace_run.cc:730] input data_format: NONE
+I /home/NIO/mace/mace/tools/mace_run.cc:733] input data_type: 1
+I /home/NIO/mace/mace/tools/mace_run.cc:734] output data_format: NONE
+I /home/NIO/mace/mace/tools/mace_run.cc:735] input_file: /data/local/tmp/mace_tmp/batch_qkv/validate_in/batch_qkv
+I /home/NIO/mace/mace/tools/mace_run.cc:736] output_file: /data/local/tmp/mace_tmp/batch_qkv/validate_out/batch_qkv
+I /home/NIO/mace/mace/tools/mace_run.cc:737] input dir:
+I /home/NIO/mace/mace/tools/mace_run.cc:738] output dir: output
+I /home/NIO/mace/mace/tools/mace_run.cc:739] model_data_file: /data/local/tmp/mace_tmp/batch_qkv/batch_qkv.data
+I /home/NIO/mace/mace/tools/mace_run.cc:740] model_file: /data/local/tmp/mace_tmp/batch_qkv/batch_qkv.pb
+I /home/NIO/mace/mace/tools/mace_run.cc:741] accelerator_cache_policy: 0
+I /home/NIO/mace/mace/tools/mace_run.cc:742] accelerator_binary_file:
+I /home/NIO/mace/mace/tools/mace_run.cc:743] accelerator_storage_file:
+I /home/NIO/mace/mace/tools/mace_run.cc:744] apu_boost_hint: 100
+I /home/NIO/mace/mace/tools/mace_run.cc:745] apu_preference_hint: 1
+I /home/NIO/mace/mace/tools/mace_run.cc:746] round: 1
+I /home/NIO/mace/mace/tools/mace_run.cc:747] restart_round: 1
+I /home/NIO/mace/mace/tools/mace_run.cc:748] gpu_perf_hint: 3
+I /home/NIO/mace/mace/tools/mace_run.cc:749] gpu_priority_hint: 3
+I /home/NIO/mace/mace/tools/mace_run.cc:750] num_threads: -1
+I /home/NIO/mace/mace/tools/mace_run.cc:751] cpu_affinity_policy: 1
+I /home/NIO/mace/mace/port/linux_base/env.cc:60] CPU cores: 8
+I /home/NIO/mace/mace/port/linux_base/env.cc:101] CPU freq: [1.8048e+06, 1.8048e+06, 1.8048e+06, 1.8048e+06, 2.4192e+06, 2.4192e+06, 2.4192e+06, 2.8416e+06]
+W /home/NIO/mace/mace/utils/thread_pool.cc:108] CPU maybe isolated, don't set CPU affinity
+I /home/NIO/mace/mace/utils/thread_pool.cc:160] Use 8 threads
+I /home/NIO/mace/mace/core/memory/rpcmem/rpcmem.cc:32] Rpcmem is supported. type: 0
+I /home/NIO/mace/mace/rpcmems/rpcmem_factory.cc:53] Rpcmem is supported. type: 0
+I /home/NIO/mace/mace/libmace/engines/serial_engine.cc:33] Creating SerialEngine, MACE version: v1.1.1-68-g23d5d03
+I /home/NIO/mace/mace/utils/thread_pool.cc:196] Init thread pool
+I /home/NIO/mace/mace/libmace/engines/serial_engine.cc:420] Initializing SerialEngine
+I /home/NIO/mace/mace/port/linux_base/env.cc:60] CPU cores: 8
+I /home/NIO/mace/mace/port/linux_base/env.cc:101] CPU freq: [1.8048e+06, 1.8048e+06, 1.8048e+06, 1.8048e+06, 2.4192e+06, 2.4192e+06, 2.4192e+06, 2.8416e+06]
+W /home/NIO/mace/mace/utils/thread_pool.cc:108] CPU maybe isolated, don't set CPU affinity
+I /home/NIO/mace/mace/core/runtime/runtime_registry.cc:32] Destroy RuntimeRegistry
+I /home/NIO/mace/mace/libmace/engines/serial_engine.cc:251] CreateAndInitFlows, name: BMNet, infer_order: 0, runtime: 0
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [150528], ptr = 0xb40000792bed7540
+I /home/NIO/mace/include/mace/utils/logging.h:103] Load model tensors started
+I /home/NIO/mace/include/mace/utils/logging.h:103] Load tensor Conv/filter started
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [864], ptr = 0xb40000792bf78000
+I /home/NIO/mace/include/mace/utils/logging.h:109] Load tensor Conv/filter latency: 71 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Load tensor Conv/Conv2D_bias:0 started
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [32], ptr = 0xb40000792be47680
+I /home/NIO/mace/include/mace/utils/logging.h:109] Load tensor Conv/Conv2D_bias:0 latency: 40 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Load tensor ExpandedConv/depthwise/depthwise/filter started
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [288], ptr = 0xb40000792bf86000
+I /home/NIO/mace/include/mace/utils/logging.h:109] Load tensor ExpandedConv/depthwise/depthwise/filter latency: 78 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Load tensor ExpandedConv/depthwise/depthwise_bias:0 started
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [32], ptr = 0xb40000792be47700
+I /home/NIO/mace/include/mace/utils/logging.h:109] Load tensor ExpandedConv/depthwise/depthwise_bias:0 latency: 37 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Load tensor ExpandedConv/project/conv2d/filter started
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [512], ptr = 0xb40000792bf8b000
+I /home/NIO/mace/include/mace/utils/logging.h:109] Load tensor ExpandedConv/project/conv2d/filter latency: 122 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Load tensor ExpandedConv/project/conv2d_bias:0 started
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [16], ptr = 0xb40000792becc800
+I /home/NIO/mace/include/mace/utils/logging.h:109] Load tensor ExpandedConv/project/conv2d_bias:0 latency: 42 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Load tensor ExpandedConv1/expand/Conv2D/filter started
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [1536], ptr = 0xb40000792bf90000
+I /home/NIO/mace/include/mace/utils/logging.h:109] Load tensor ExpandedConv1/expand/Conv2D/filter latency: 90 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Load tensor ExpandedConv1/expand/Conv2D_bias:0 started
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [96], ptr = 0xb40000792be3c000
+I /home/NIO/mace/include/mace/utils/logging.h:109] Load tensor ExpandedConv1/expand/Conv2D_bias:0 latency: 70 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Load tensor ExpandedConv1/depthwise/depthwise/filter started
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [864], ptr = 0xb40000792bf78e00
+I /home/NIO/mace/include/mace/utils/logging.h:109] Load tensor ExpandedConv1/depthwise/depthwise/filter latency: 50 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Load tensor ExpandedConv1/depthwise/depthwise_bias:0 started
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [96], ptr = 0xb40000792be3c300
+I /home/NIO/mace/include/mace/utils/logging.h:109] Load tensor ExpandedConv1/depthwise/depthwise_bias:0 latency: 54 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Load tensor ExpandedConv1/project/conv2d/filter started
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [2304], ptr = 0xb40000792be18800
+I /home/NIO/mace/include/mace/utils/logging.h:109] Load tensor ExpandedConv1/project/conv2d/filter latency: 65 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Load tensor ExpandedConv1/project/conv2d_bias:0 started
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [24], ptr = 0xb40000792be47780
+I /home/NIO/mace/include/mace/utils/logging.h:109] Load tensor ExpandedConv1/project/conv2d_bias:0 latency: 38 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Load tensor ExpandedConv2/expand/Conv2D/filter started
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [3456], ptr = 0xb40000792bf9f000
+I /home/NIO/mace/include/mace/utils/logging.h:109] Load tensor ExpandedConv2/expand/Conv2D/filter latency: 128 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Load tensor ExpandedConv2/expand/Conv2D_bias:0 started
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [144], ptr = 0xb40000792be59280
+I /home/NIO/mace/include/mace/utils/logging.h:109] Load tensor ExpandedConv2/expand/Conv2D_bias:0 latency: 74 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Load tensor ExpandedConv2/depthwise/depthwise/filter started
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [1296], ptr = 0xb40000792bf91800
+I /home/NIO/mace/include/mace/utils/logging.h:109] Load tensor ExpandedConv2/depthwise/depthwise/filter latency: 56 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Load tensor ExpandedConv2/depthwise/depthwise_bias:0 started
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [144], ptr = 0xb40000792be59500
+I /home/NIO/mace/include/mace/utils/logging.h:109] Load tensor ExpandedConv2/depthwise/depthwise_bias:0 latency: 64 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Load tensor ExpandedConv2/project/conv2d/filter started
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [3456], ptr = 0xb40000792bfa2800
+I /home/NIO/mace/include/mace/utils/logging.h:109] Load tensor ExpandedConv2/project/conv2d/filter latency: 96 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Load tensor ExpandedConv2/project/conv2d_bias:0 started
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [24], ptr = 0xb40000792be47800
+I /home/NIO/mace/include/mace/utils/logging.h:109] Load tensor ExpandedConv2/project/conv2d_bias:0 latency: 45 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Load tensor ExpandedConv3/expand/Conv2D/filter started
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [3456], ptr = 0xb40000792bfa6000
+I /home/NIO/mace/include/mace/utils/logging.h:109] Load tensor ExpandedConv3/expand/Conv2D/filter latency: 118 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Load tensor ExpandedConv3/expand/Conv2D_bias:0 started
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [144], ptr = 0xb40000792be59780
+I /home/NIO/mace/include/mace/utils/logging.h:109] Load tensor ExpandedConv3/expand/Conv2D_bias:0 latency: 40 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Load tensor ExpandedConv3/depthwise/depthwise/filter started
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [1296], ptr = 0xb40000792bf93000
+I /home/NIO/mace/include/mace/utils/logging.h:109] Load tensor ExpandedConv3/depthwise/depthwise/filter latency: 67 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Load tensor ExpandedConv3/depthwise/depthwise_bias:0 started
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [144], ptr = 0xb40000792be59a00
+I /home/NIO/mace/include/mace/utils/logging.h:109] Load tensor ExpandedConv3/depthwise/depthwise_bias:0 latency: 40 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Load tensor ExpandedConv3/project/conv2d/filter started
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [4608], ptr = 0xb40000792bfc6000
+I /home/NIO/mace/include/mace/utils/logging.h:109] Load tensor ExpandedConv3/project/conv2d/filter latency: 115 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Load tensor ExpandedConv3/project/conv2d_bias:0 started
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [32], ptr = 0xb40000792be47880
+I /home/NIO/mace/include/mace/utils/logging.h:109] Load tensor ExpandedConv3/project/conv2d_bias:0 latency: 161 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Load tensor ExpandedConv4/expand/Conv2D/filter started
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [6144], ptr = 0xb40000792bfcc400
+I /home/NIO/mace/include/mace/utils/logging.h:109] Load tensor ExpandedConv4/expand/Conv2D/filter latency: 125 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Load tensor ExpandedConv4/expand/Conv2D_bias:0 started
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [192], ptr = 0xb40000792be44300
+I /home/NIO/mace/include/mace/utils/logging.h:109] Load tensor ExpandedConv4/expand/Conv2D_bias:0 latency: 45 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Load tensor ExpandedConv4/depthwise/depthwise/filter started
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [1728], ptr = 0xb40000792bfd3000
+I /home/NIO/mace/include/mace/utils/logging.h:109] Load tensor ExpandedConv4/depthwise/depthwise/filter latency: 79 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Load tensor ExpandedConv4/depthwise/depthwise_bias:0 started
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [192], ptr = 0xb40000792be44600
+I /home/NIO/mace/include/mace/utils/logging.h:109] Load tensor ExpandedConv4/depthwise/depthwise_bias:0 latency: 42 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Load tensor ExpandedConv4/project/conv2d/filter started
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [6144], ptr = 0xb40000792bfe8500
+I /home/NIO/mace/include/mace/utils/logging.h:109] Load tensor ExpandedConv4/project/conv2d/filter latency: 137 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Load tensor ExpandedConv4/project/conv2d_bias:0 started
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [32], ptr = 0xb40000792be47900
+I /home/NIO/mace/include/mace/utils/logging.h:109] Load tensor ExpandedConv4/project/conv2d_bias:0 latency: 39 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Load tensor ExpandedConv5/expand/Conv2D/filter started
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [6144], ptr = 0xb40000792bff4380
+I /home/NIO/mace/include/mace/utils/logging.h:109] Load tensor ExpandedConv5/expand/Conv2D/filter latency: 123 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Load tensor ExpandedConv5/expand/Conv2D_bias:0 started
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [192], ptr = 0xb40000792be44900
+I /home/NIO/mace/include/mace/utils/logging.h:109] Load tensor ExpandedConv5/expand/Conv2D_bias:0 latency: 41 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Load tensor ExpandedConv5/depthwise/depthwise/filter started
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [1728], ptr = 0xb40000792bfd4c00
+I /home/NIO/mace/include/mace/utils/logging.h:109] Load tensor ExpandedConv5/depthwise/depthwise/filter latency: 59 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Load tensor ExpandedConv5/depthwise/depthwise_bias:0 started
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [192], ptr = 0xb40000792be44c00
+I /home/NIO/mace/include/mace/utils/logging.h:109] Load tensor ExpandedConv5/depthwise/depthwise_bias:0 latency: 40 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Load tensor ExpandedConv5/project/conv2d/filter started
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [6144], ptr = 0xb400007924080280
+I /home/NIO/mace/include/mace/utils/logging.h:109] Load tensor ExpandedConv5/project/conv2d/filter latency: 343 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Load tensor ExpandedConv5/project/conv2d_bias:0 started
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [32], ptr = 0xb40000792be47980
+I /home/NIO/mace/include/mace/utils/logging.h:109] Load tensor ExpandedConv5/project/conv2d_bias:0 latency: 43 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Load tensor ExpandedConv6/expand/Conv2D/filter started
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [6144], ptr = 0xb400007924087040
+I /home/NIO/mace/include/mace/utils/logging.h:109] Load tensor ExpandedConv6/expand/Conv2D/filter latency: 111 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Load tensor ExpandedConv6/expand/Conv2D_bias:0 started
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [192], ptr = 0xb40000792be44f00
+I /home/NIO/mace/include/mace/utils/logging.h:109] Load tensor ExpandedConv6/expand/Conv2D_bias:0 latency: 46 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Load tensor ExpandedConv6/depthwise/depthwise/filter started
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [1728], ptr = 0xb40000792bfd6800
+I /home/NIO/mace/include/mace/utils/logging.h:109] Load tensor ExpandedConv6/depthwise/depthwise/filter latency: 60 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Load tensor ExpandedConv6/depthwise/depthwise_bias:0 started
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [192], ptr = 0xb40000792be45200
+I /home/NIO/mace/include/mace/utils/logging.h:109] Load tensor ExpandedConv6/depthwise/depthwise_bias:0 latency: 39 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Load tensor ExpandedConv6/project/conv2d/filter started
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [12288], ptr = 0xb40000792408ef40
+I /home/NIO/mace/include/mace/utils/logging.h:109] Load tensor ExpandedConv6/project/conv2d/filter latency: 176 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Load tensor ExpandedConv6/project/conv2d_bias:0 started
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [64], ptr = 0xb40000792bed1b00
+I /home/NIO/mace/include/mace/utils/logging.h:109] Load tensor ExpandedConv6/project/conv2d_bias:0 latency: 39 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Load tensor ExpandedConv7/expand/Conv2D/filter started
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [24576], ptr = 0xb40000792409b140
+I /home/NIO/mace/include/mace/utils/logging.h:109] Load tensor ExpandedConv7/expand/Conv2D/filter latency: 323 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Load tensor ExpandedConv7/expand/Conv2D_bias:0 started
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [384], ptr = 0xb40000792bffb000
+I /home/NIO/mace/include/mace/utils/logging.h:109] Load tensor ExpandedConv7/expand/Conv2D_bias:0 latency: 59 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Load tensor ExpandedConv7/depthwise/depthwise/filter started
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [3456], ptr = 0xb40000792bfa9800
+I /home/NIO/mace/include/mace/utils/logging.h:109] Load tensor ExpandedConv7/depthwise/depthwise/filter latency: 75 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Load tensor ExpandedConv7/depthwise/depthwise_bias:0 started
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [384], ptr = 0xb40000792bffb600
+I /home/NIO/mace/include/mace/utils/logging.h:109] Load tensor ExpandedConv7/depthwise/depthwise_bias:0 latency: 310 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Load tensor ExpandedConv7/project/conv2d/filter started
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [24576], ptr = 0xb4000079240b7c00
+I /home/NIO/mace/include/mace/utils/logging.h:109] Load tensor ExpandedConv7/project/conv2d/filter latency: 310 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Load tensor ExpandedConv7/project/conv2d_bias:0 started
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [64], ptr = 0xb40000792bed1c00
+I /home/NIO/mace/include/mace/utils/logging.h:109] Load tensor ExpandedConv7/project/conv2d_bias:0 latency: 41 us
+I /home/NIO/mace/include/mace/utils/logging.h:109] Load model tensors latency: 5892 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Adapting original NetDef started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Adapting original NetDef latency: 1743 us
+I /home/NIO/mace/mace/core/workspace.cc:82] Tensor Conv/Conv2D does not exist.
+I /home/NIO/mace/mace/core/workspace.cc:82] Tensor ExpandedConv/depthwise/depthwise:0 does not exist.
+I /home/NIO/mace/mace/core/workspace.cc:82] Tensor ExpandedConv/project/conv2d:0 does not exist.
+I /home/NIO/mace/mace/core/workspace.cc:82] Tensor ExpandedConv1/expand/Conv2D:0 does not exist.
+I /home/NIO/mace/mace/core/workspace.cc:82] Tensor ExpandedConv1/depthwise/depthwise:0 does not exist.
+I /home/NIO/mace/mace/core/workspace.cc:82] Tensor ExpandedConv1/project/conv2d:0 does not exist.
+I /home/NIO/mace/mace/core/workspace.cc:82] Tensor ExpandedConv2/expand/Conv2D:0 does not exist.
+I /home/NIO/mace/mace/core/workspace.cc:82] Tensor ExpandedConv2/depthwise/depthwise:0 does not exist.
+I /home/NIO/mace/mace/core/workspace.cc:82] Tensor ExpandedConv1/project/conv2d:0 does not exist.
+I /home/NIO/mace/mace/core/workspace.cc:82] Tensor ExpandedConv2/project/conv2d:0 does not exist.
+I /home/NIO/mace/mace/core/workspace.cc:82] Tensor ExpandedConv2/add:0 does not exist.
+I /home/NIO/mace/mace/core/workspace.cc:82] Tensor ExpandedConv3/expand/Conv2D:0 does not exist.
+I /home/NIO/mace/mace/core/workspace.cc:82] Tensor ExpandedConv3/depthwise/depthwise:0 does not exist.
+I /home/NIO/mace/mace/core/workspace.cc:82] Tensor ExpandedConv3/project/conv2d:0 does not exist.
+I /home/NIO/mace/mace/core/workspace.cc:82] Tensor ExpandedConv4/expand/Conv2D:0 does not exist.
+I /home/NIO/mace/mace/core/workspace.cc:82] Tensor ExpandedConv4/depthwise/depthwise:0 does not exist.
+I /home/NIO/mace/mace/core/workspace.cc:82] Tensor ExpandedConv3/project/conv2d:0 does not exist.
+I /home/NIO/mace/mace/core/workspace.cc:82] Tensor ExpandedConv4/project/conv2d:0 does not exist.
+I /home/NIO/mace/mace/core/workspace.cc:82] Tensor ExpandedConv4/add:0 does not exist.
+I /home/NIO/mace/mace/core/workspace.cc:82] Tensor ExpandedConv5/expand/Conv2D:0 does not exist.
+I /home/NIO/mace/mace/core/workspace.cc:82] Tensor ExpandedConv5/depthwise/depthwise:0 does not exist.
+I /home/NIO/mace/mace/core/workspace.cc:82] Tensor ExpandedConv4/add:0 does not exist.
+I /home/NIO/mace/mace/core/workspace.cc:82] Tensor ExpandedConv5/project/conv2d:0 does not exist.
+I /home/NIO/mace/mace/core/workspace.cc:82] Tensor ExpandedConv5/add:0 does not exist.
+I /home/NIO/mace/mace/core/workspace.cc:82] Tensor ExpandedConv6/expand/Conv2D:0 does not exist.
+I /home/NIO/mace/mace/core/workspace.cc:82] Tensor ExpandedConv6/depthwise/depthwise:0 does not exist.
+I /home/NIO/mace/mace/core/workspace.cc:82] Tensor ExpandedConv6/project/conv2d:0 does not exist.
+I /home/NIO/mace/mace/core/workspace.cc:82] Tensor ExpandedConv7/expand/Conv2D:0 does not exist.
+I /home/NIO/mace/mace/core/workspace.cc:82] Tensor ExpandedConv7/depthwise/depthwise:0 does not exist.
+I /home/NIO/mace/mace/core/workspace.cc:82] Tensor ExpandedConv6/project/conv2d:0 does not exist.
+I /home/NIO/mace/mace/core/workspace.cc:82] Tensor ExpandedConv7/project/conv2d:0 does not exist.
+I /home/NIO/mace/include/mace/utils/logging.h:103] Constructing SerialNet started
+I /home/NIO/mace/mace/core/registry/ops_registry.cc:134] Creating operator Conv/Conv2D(Conv2D<1>) on 0
+I /home/NIO/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv/depthwise/depthwise(DepthwiseConv2d<1>) on 0
+I /home/NIO/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv/project/conv2d(Conv2D<1>) on 0
+I /home/NIO/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv1/expand/Conv2D(Conv2D<1>) on 0
+I /home/NIO/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv1/depthwise/depthwise(DepthwiseConv2d<1>) on 0
+I /home/NIO/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv1/project/conv2d(Conv2D<1>) on 0
+I /home/NIO/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv2/expand/Conv2D(Conv2D<1>) on 0
+I /home/NIO/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv2/depthwise/depthwise(DepthwiseConv2d<1>) on 0
+I /home/NIO/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv2/project/conv2d(Conv2D<1>) on 0
+I /home/NIO/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv2/add(Eltwise<1>) on 0
+I /home/NIO/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv3/expand/Conv2D(Conv2D<1>) on 0
+I /home/NIO/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv3/depthwise/depthwise(DepthwiseConv2d<1>) on 0
+I /home/NIO/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv3/project/conv2d(Conv2D<1>) on 0
+I /home/NIO/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv4/expand/Conv2D(Conv2D<1>) on 0
+I /home/NIO/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv4/depthwise/depthwise(DepthwiseConv2d<1>) on 0
+I /home/NIO/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv4/project/conv2d(Conv2D<1>) on 0
+I /home/NIO/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv4/add(Eltwise<1>) on 0
+I /home/NIO/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv5/expand/Conv2D(Conv2D<1>) on 0
+I /home/NIO/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv5/depthwise/depthwise(DepthwiseConv2d<1>) on 0
+I /home/NIO/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv5/project/conv2d(Conv2D<1>) on 0
+I /home/NIO/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv5/add(Eltwise<1>) on 0
+I /home/NIO/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv6/expand/Conv2D(Conv2D<1>) on 0
+I /home/NIO/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv6/depthwise/depthwise(DepthwiseConv2d<1>) on 0
+I /home/NIO/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv6/project/conv2d(Conv2D<1>) on 0
+I /home/NIO/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv7/expand/Conv2D(Conv2D<1>) on 0
+I /home/NIO/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv7/depthwise/depthwise(DepthwiseConv2d<1>) on 0
+I /home/NIO/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv7/project/conv2d(Conv2D<1>) on 0
+I /home/NIO/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv7/add(Eltwise<1>) on 0
+I /home/NIO/mace/include/mace/utils/logging.h:109] Constructing SerialNet latency: 3198 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Initializing SerialNet started
+I /home/NIO/mace/mace/core/net/allocate_opt_strategy.cc:233] Operator Conv/Conv2D<0, Conv2D>
+I /home/NIO/mace/mace/core/net/allocate_opt_strategy.cc:233] Operator ExpandedConv/depthwise/depthwise<0, DepthwiseConv2d>
+I /home/NIO/mace/mace/core/net/allocate_opt_strategy.cc:233] Operator ExpandedConv/project/conv2d<0, Conv2D>
+I /home/NIO/mace/mace/core/net/allocate_opt_strategy.cc:233] Operator ExpandedConv1/expand/Conv2D<0, Conv2D>
+I /home/NIO/mace/mace/core/net/allocate_opt_strategy.cc:233] Operator ExpandedConv1/depthwise/depthwise<0, DepthwiseConv2d>
+I /home/NIO/mace/mace/core/net/allocate_opt_strategy.cc:233] Operator ExpandedConv1/project/conv2d<0, Conv2D>
+I /home/NIO/mace/mace/core/net/allocate_opt_strategy.cc:233] Operator ExpandedConv2/expand/Conv2D<0, Conv2D>
+I /home/NIO/mace/mace/core/net/allocate_opt_strategy.cc:233] Operator ExpandedConv2/depthwise/depthwise<0, DepthwiseConv2d>
+I /home/NIO/mace/mace/core/net/allocate_opt_strategy.cc:233] Operator ExpandedConv2/project/conv2d<0, Conv2D>
+I /home/NIO/mace/mace/core/net/allocate_opt_strategy.cc:233] Operator ExpandedConv2/add<0, Eltwise>
+I /home/NIO/mace/mace/core/net/allocate_opt_strategy.cc:233] Operator ExpandedConv3/expand/Conv2D<0, Conv2D>
+I /home/NIO/mace/mace/core/net/allocate_opt_strategy.cc:233] Operator ExpandedConv3/depthwise/depthwise<0, DepthwiseConv2d>
+I /home/NIO/mace/mace/core/net/allocate_opt_strategy.cc:233] Operator ExpandedConv3/project/conv2d<0, Conv2D>
+I /home/NIO/mace/mace/core/net/allocate_opt_strategy.cc:233] Operator ExpandedConv4/expand/Conv2D<0, Conv2D>
+I /home/NIO/mace/mace/core/net/allocate_opt_strategy.cc:233] Operator ExpandedConv4/depthwise/depthwise<0, DepthwiseConv2d>
+I /home/NIO/mace/mace/core/net/allocate_opt_strategy.cc:233] Operator ExpandedConv4/project/conv2d<0, Conv2D>
+I /home/NIO/mace/mace/core/net/allocate_opt_strategy.cc:233] Operator ExpandedConv4/add<0, Eltwise>
+I /home/NIO/mace/mace/core/net/allocate_opt_strategy.cc:233] Operator ExpandedConv5/expand/Conv2D<0, Conv2D>
+I /home/NIO/mace/mace/core/net/allocate_opt_strategy.cc:233] Operator ExpandedConv5/depthwise/depthwise<0, DepthwiseConv2d>
+I /home/NIO/mace/mace/core/net/allocate_opt_strategy.cc:233] Operator ExpandedConv5/project/conv2d<0, Conv2D>
+I /home/NIO/mace/mace/core/net/allocate_opt_strategy.cc:233] Operator ExpandedConv5/add<0, Eltwise>
+I /home/NIO/mace/mace/core/net/allocate_opt_strategy.cc:233] Operator ExpandedConv6/expand/Conv2D<0, Conv2D>
+I /home/NIO/mace/mace/core/net/allocate_opt_strategy.cc:233] Operator ExpandedConv6/depthwise/depthwise<0, DepthwiseConv2d>
+I /home/NIO/mace/mace/core/net/allocate_opt_strategy.cc:233] Operator ExpandedConv6/project/conv2d<0, Conv2D>
+I /home/NIO/mace/mace/core/net/allocate_opt_strategy.cc:233] Operator ExpandedConv7/expand/Conv2D<0, Conv2D>
+I /home/NIO/mace/mace/core/net/allocate_opt_strategy.cc:233] Operator ExpandedConv7/depthwise/depthwise<0, DepthwiseConv2d>
+I /home/NIO/mace/mace/core/net/allocate_opt_strategy.cc:233] Operator ExpandedConv7/project/conv2d<0, Conv2D>
+I /home/NIO/mace/mace/core/net/allocate_opt_strategy.cc:233] Operator ExpandedConv7/add<0, Eltwise>
+I /home/NIO/mace/mace/core/net/allocate_opt_strategy.cc:242] tensor ExpandedConv7/add:0 is model's output
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [451584], ptr = 0xb4000079240df540
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [451584], ptr = 0xb400007923d80400
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [1204224], ptr = 0xb400007923780640
+I /home/NIO/mace/include/mace/utils/logging.h:109] Initializing SerialNet latency: 1970 us
+I /home/NIO/mace/mace/core/workspace.cc:209] Add quantize info for op: Conv/Conv2D
+I /home/NIO/mace/mace/core/workspace.cc:209] Add quantize info for op: ExpandedConv/depthwise/depthwise
+I /home/NIO/mace/mace/core/workspace.cc:209] Add quantize info for op: ExpandedConv/project/conv2d
+I /home/NIO/mace/mace/core/workspace.cc:209] Add quantize info for op: ExpandedConv1/expand/Conv2D
+I /home/NIO/mace/mace/core/workspace.cc:209] Add quantize info for op: ExpandedConv1/depthwise/depthwise
+I /home/NIO/mace/mace/core/workspace.cc:209] Add quantize info for op: ExpandedConv1/project/conv2d
+I /home/NIO/mace/mace/core/workspace.cc:209] Add quantize info for op: ExpandedConv2/expand/Conv2D
+I /home/NIO/mace/mace/core/workspace.cc:209] Add quantize info for op: ExpandedConv2/depthwise/depthwise
+I /home/NIO/mace/mace/core/workspace.cc:209] Add quantize info for op: ExpandedConv2/project/conv2d
+I /home/NIO/mace/mace/core/workspace.cc:209] Add quantize info for op: ExpandedConv2/add
+I /home/NIO/mace/mace/core/workspace.cc:209] Add quantize info for op: ExpandedConv3/expand/Conv2D
+I /home/NIO/mace/mace/core/workspace.cc:209] Add quantize info for op: ExpandedConv3/depthwise/depthwise
+I /home/NIO/mace/mace/core/workspace.cc:209] Add quantize info for op: ExpandedConv3/project/conv2d
+I /home/NIO/mace/mace/core/workspace.cc:209] Add quantize info for op: ExpandedConv4/expand/Conv2D
+I /home/NIO/mace/mace/core/workspace.cc:209] Add quantize info for op: ExpandedConv4/depthwise/depthwise
+I /home/NIO/mace/mace/core/workspace.cc:209] Add quantize info for op: ExpandedConv4/project/conv2d
+I /home/NIO/mace/mace/core/workspace.cc:209] Add quantize info for op: ExpandedConv4/add
+I /home/NIO/mace/mace/core/workspace.cc:209] Add quantize info for op: ExpandedConv5/expand/Conv2D
+I /home/NIO/mace/mace/core/workspace.cc:209] Add quantize info for op: ExpandedConv5/depthwise/depthwise
+I /home/NIO/mace/mace/core/workspace.cc:209] Add quantize info for op: ExpandedConv5/project/conv2d
+I /home/NIO/mace/mace/core/workspace.cc:209] Add quantize info for op: ExpandedConv5/add
+I /home/NIO/mace/mace/core/workspace.cc:209] Add quantize info for op: ExpandedConv6/expand/Conv2D
+I /home/NIO/mace/mace/core/workspace.cc:209] Add quantize info for op: ExpandedConv6/depthwise/depthwise
+I /home/NIO/mace/mace/core/workspace.cc:209] Add quantize info for op: ExpandedConv6/project/conv2d
+I /home/NIO/mace/mace/core/workspace.cc:209] Add quantize info for op: ExpandedConv7/expand/Conv2D
+I /home/NIO/mace/mace/core/workspace.cc:209] Add quantize info for op: ExpandedConv7/depthwise/depthwise
+I /home/NIO/mace/mace/core/workspace.cc:209] Add quantize info for op: ExpandedConv7/project/conv2d
+I /home/NIO/mace/mace/core/workspace.cc:209] Add quantize info for op: ExpandedConv7/add
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:150] ReleaseAllMemory, ptr: 0xb40000792bed7540
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:150] ReleaseAllMemory, ptr: 0xb4000079240df540
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:150] ReleaseAllMemory, ptr: 0xb400007923d80400
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:150] ReleaseAllMemory, ptr: 0xb400007923780640
+I /home/NIO/mace/mace/core/flow/flow_registry.cc:33] Destroy FlowRegistry
+I /home/NIO/mace/mace/libmace/engines/serial_engine.cc:100] start run flow: BMNet
+I /home/NIO/mace/mace/flows/cpu/cpu_ref_flow.cc:89] Transform input Input from NHWC to NCHW
+I /home/NIO/mace/mace/flows/cpu/cpu_ref_flow.cc:75] CpuRefFlow::Run
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running net started
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator Conv/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator Conv/Conv2D<0, Conv2D, 1> latency: 22081 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 9359 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv/project/conv2d<0, Conv2D, 1> latency: 25777 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/expand/Conv2D<0, Conv2D, 1> latency: 72184 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 5859 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/project/conv2d<0, Conv2D, 1> latency: 26067 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/expand/Conv2D<0, Conv2D, 1> latency: 39130 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 9624 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/project/conv2d<0, Conv2D, 1> latency: 38346 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/add<0, Eltwise, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/add<0, Eltwise, 1> latency: 4238 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/expand/Conv2D<0, Conv2D, 1> latency: 38990 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2163 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/project/conv2d<0, Conv2D, 1> latency: 12733 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/expand/Conv2D<0, Conv2D, 1> latency: 17248 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2897 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/project/conv2d<0, Conv2D, 1> latency: 16811 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/add<0, Eltwise, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/add<0, Eltwise, 1> latency: 3310 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/expand/Conv2D<0, Conv2D, 1> latency: 17271 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2917 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/project/conv2d<0, Conv2D, 1> latency: 17041 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/add<0, Eltwise, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/add<0, Eltwise, 1> latency: 4296 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/expand/Conv2D<0, Conv2D, 1> latency: 17273 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 742 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/project/conv2d<0, Conv2D, 1> latency: 8482 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/expand/Conv2D<0, Conv2D, 1> latency: 17156 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 1487 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/project/conv2d<0, Conv2D, 1> latency: 17224 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/add<0, Eltwise, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/add<0, Eltwise, 1> latency: 4213 us
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running net latency: 455545 us
+I /home/NIO/mace/mace/core/flow/base_flow.cc:190] Transpose output ExpandedConv7/add:0 from 2 to 1
+I /home/NIO/mace/mace/core/flow/base_flow.cc:171] output_tensor name: ExpandedConv7/add:0
+I /home/NIO/mace/mace/libmace/engines/serial_engine.cc:100] start run flow: BMNet
+I /home/NIO/mace/mace/flows/cpu/cpu_ref_flow.cc:89] Transform input Input from NHWC to NCHW
+I /home/NIO/mace/mace/flows/cpu/cpu_ref_flow.cc:75] CpuRefFlow::Run
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running net started
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator Conv/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator Conv/Conv2D<0, Conv2D, 1> latency: 19842 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 7651 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv/project/conv2d<0, Conv2D, 1> latency: 22653 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/expand/Conv2D<0, Conv2D, 1> latency: 70286 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 5812 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/project/conv2d<0, Conv2D, 1> latency: 26064 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/expand/Conv2D<0, Conv2D, 1> latency: 39033 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 8642 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/project/conv2d<0, Conv2D, 1> latency: 38537 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/add<0, Eltwise, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/add<0, Eltwise, 1> latency: 4222 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/expand/Conv2D<0, Conv2D, 1> latency: 38943 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2163 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/project/conv2d<0, Conv2D, 1> latency: 12724 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/expand/Conv2D<0, Conv2D, 1> latency: 17212 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2893 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/project/conv2d<0, Conv2D, 1> latency: 17027 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/add<0, Eltwise, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/add<0, Eltwise, 1> latency: 4140 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/expand/Conv2D<0, Conv2D, 1> latency: 17270 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2902 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/project/conv2d<0, Conv2D, 1> latency: 17066 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/add<0, Eltwise, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/add<0, Eltwise, 1> latency: 4174 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/expand/Conv2D<0, Conv2D, 1> latency: 17239 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 742 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/project/conv2d<0, Conv2D, 1> latency: 8551 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/expand/Conv2D<0, Conv2D, 1> latency: 17198 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 1480 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/project/conv2d<0, Conv2D, 1> latency: 17217 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/add<0, Eltwise, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/add<0, Eltwise, 1> latency: 4181 us
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running net latency: 446364 us
+I /home/NIO/mace/mace/core/flow/base_flow.cc:190] Transpose output ExpandedConv7/add:0 from 2 to 1
+I /home/NIO/mace/mace/core/flow/base_flow.cc:171] output_tensor name: ExpandedConv7/add:0
+I /home/NIO/mace/mace/libmace/engines/serial_engine.cc:100] start run flow: BMNet
+I /home/NIO/mace/mace/flows/cpu/cpu_ref_flow.cc:89] Transform input Input from NHWC to NCHW
+I /home/NIO/mace/mace/flows/cpu/cpu_ref_flow.cc:75] CpuRefFlow::Run
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running net started
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator Conv/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator Conv/Conv2D<0, Conv2D, 1> latency: 19828 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 7611 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv/project/conv2d<0, Conv2D, 1> latency: 22663 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/expand/Conv2D<0, Conv2D, 1> latency: 70443 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 5785 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/project/conv2d<0, Conv2D, 1> latency: 25966 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/expand/Conv2D<0, Conv2D, 1> latency: 39033 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 8554 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/project/conv2d<0, Conv2D, 1> latency: 38519 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/add<0, Eltwise, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/add<0, Eltwise, 1> latency: 2525 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/expand/Conv2D<0, Conv2D, 1> latency: 38948 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2182 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/project/conv2d<0, Conv2D, 1> latency: 12681 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/expand/Conv2D<0, Conv2D, 1> latency: 17214 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2924 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/project/conv2d<0, Conv2D, 1> latency: 17055 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/add<0, Eltwise, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/add<0, Eltwise, 1> latency: 4174 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/expand/Conv2D<0, Conv2D, 1> latency: 17314 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2920 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/project/conv2d<0, Conv2D, 1> latency: 17018 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/add<0, Eltwise, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/add<0, Eltwise, 1> latency: 4183 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/expand/Conv2D<0, Conv2D, 1> latency: 17304 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 747 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/project/conv2d<0, Conv2D, 1> latency: 8496 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/expand/Conv2D<0, Conv2D, 1> latency: 17199 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 1564 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/project/conv2d<0, Conv2D, 1> latency: 17112 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/add<0, Eltwise, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/add<0, Eltwise, 1> latency: 4221 us
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running net latency: 444729 us
+I /home/NIO/mace/mace/core/flow/base_flow.cc:190] Transpose output ExpandedConv7/add:0 from 2 to 1
+I /home/NIO/mace/mace/core/flow/base_flow.cc:171] output_tensor name: ExpandedConv7/add:0
+I /home/NIO/mace/mace/libmace/engines/serial_engine.cc:100] start run flow: BMNet
+I /home/NIO/mace/mace/flows/cpu/cpu_ref_flow.cc:89] Transform input Input from NHWC to NCHW
+I /home/NIO/mace/mace/flows/cpu/cpu_ref_flow.cc:75] CpuRefFlow::Run
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running net started
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator Conv/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator Conv/Conv2D<0, Conv2D, 1> latency: 19715 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 7567 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv/project/conv2d<0, Conv2D, 1> latency: 22654 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/expand/Conv2D<0, Conv2D, 1> latency: 70379 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 5711 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/project/conv2d<0, Conv2D, 1> latency: 25902 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/expand/Conv2D<0, Conv2D, 1> latency: 39010 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 8630 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/project/conv2d<0, Conv2D, 1> latency: 38546 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/add<0, Eltwise, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/add<0, Eltwise, 1> latency: 2181 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/expand/Conv2D<0, Conv2D, 1> latency: 39086 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2239 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/project/conv2d<0, Conv2D, 1> latency: 12675 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/expand/Conv2D<0, Conv2D, 1> latency: 17258 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2894 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/project/conv2d<0, Conv2D, 1> latency: 17093 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/add<0, Eltwise, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/add<0, Eltwise, 1> latency: 4190 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/expand/Conv2D<0, Conv2D, 1> latency: 17272 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2880 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/project/conv2d<0, Conv2D, 1> latency: 17113 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/add<0, Eltwise, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/add<0, Eltwise, 1> latency: 4156 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/expand/Conv2D<0, Conv2D, 1> latency: 17269 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 747 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/project/conv2d<0, Conv2D, 1> latency: 8504 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/expand/Conv2D<0, Conv2D, 1> latency: 17143 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 1474 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/project/conv2d<0, Conv2D, 1> latency: 17244 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/add<0, Eltwise, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/add<0, Eltwise, 1> latency: 4215 us
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running net latency: 444213 us
+I /home/NIO/mace/mace/core/flow/base_flow.cc:190] Transpose output ExpandedConv7/add:0 from 2 to 1
+I /home/NIO/mace/mace/core/flow/base_flow.cc:171] output_tensor name: ExpandedConv7/add:0
+I /home/NIO/mace/mace/libmace/engines/serial_engine.cc:100] start run flow: BMNet
+I /home/NIO/mace/mace/flows/cpu/cpu_ref_flow.cc:89] Transform input Input from NHWC to NCHW
+I /home/NIO/mace/mace/flows/cpu/cpu_ref_flow.cc:75] CpuRefFlow::Run
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running net started
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator Conv/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator Conv/Conv2D<0, Conv2D, 1> latency: 19723 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 7588 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv/project/conv2d<0, Conv2D, 1> latency: 22641 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/expand/Conv2D<0, Conv2D, 1> latency: 70434 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 5697 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/project/conv2d<0, Conv2D, 1> latency: 25988 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/expand/Conv2D<0, Conv2D, 1> latency: 39117 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 8582 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/project/conv2d<0, Conv2D, 1> latency: 38381 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/add<0, Eltwise, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/add<0, Eltwise, 1> latency: 4285 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/expand/Conv2D<0, Conv2D, 1> latency: 38945 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2218 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/project/conv2d<0, Conv2D, 1> latency: 12735 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/expand/Conv2D<0, Conv2D, 1> latency: 17319 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2869 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/project/conv2d<0, Conv2D, 1> latency: 16865 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/add<0, Eltwise, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/add<0, Eltwise, 1> latency: 4148 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/expand/Conv2D<0, Conv2D, 1> latency: 17268 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2864 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/project/conv2d<0, Conv2D, 1> latency: 17095 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/add<0, Eltwise, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/add<0, Eltwise, 1> latency: 2116 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/expand/Conv2D<0, Conv2D, 1> latency: 17223 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 747 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/project/conv2d<0, Conv2D, 1> latency: 8478 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/expand/Conv2D<0, Conv2D, 1> latency: 17208 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 1467 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/project/conv2d<0, Conv2D, 1> latency: 17139 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/add<0, Eltwise, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/add<0, Eltwise, 1> latency: 3419 us
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running net latency: 443061 us
+I /home/NIO/mace/mace/core/flow/base_flow.cc:190] Transpose output ExpandedConv7/add:0 from 2 to 1
+I /home/NIO/mace/mace/core/flow/base_flow.cc:171] output_tensor name: ExpandedConv7/add:0
+I /home/NIO/mace/mace/libmace/engines/serial_engine.cc:100] start run flow: BMNet
+I /home/NIO/mace/mace/flows/cpu/cpu_ref_flow.cc:89] Transform input Input from NHWC to NCHW
+I /home/NIO/mace/mace/flows/cpu/cpu_ref_flow.cc:75] CpuRefFlow::Run
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running net started
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator Conv/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator Conv/Conv2D<0, Conv2D, 1> latency: 19804 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 7603 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv/project/conv2d<0, Conv2D, 1> latency: 22658 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/expand/Conv2D<0, Conv2D, 1> latency: 70414 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 5684 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/project/conv2d<0, Conv2D, 1> latency: 26030 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/expand/Conv2D<0, Conv2D, 1> latency: 38952 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 8594 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/project/conv2d<0, Conv2D, 1> latency: 38405 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/add<0, Eltwise, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/add<0, Eltwise, 1> latency: 3507 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/expand/Conv2D<0, Conv2D, 1> latency: 38989 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2170 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/project/conv2d<0, Conv2D, 1> latency: 12700 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/expand/Conv2D<0, Conv2D, 1> latency: 17227 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2893 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/project/conv2d<0, Conv2D, 1> latency: 17059 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/add<0, Eltwise, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/add<0, Eltwise, 1> latency: 2637 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/expand/Conv2D<0, Conv2D, 1> latency: 17312 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2875 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/project/conv2d<0, Conv2D, 1> latency: 17033 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/add<0, Eltwise, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/add<0, Eltwise, 1> latency: 2406 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/expand/Conv2D<0, Conv2D, 1> latency: 17291 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 743 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/project/conv2d<0, Conv2D, 1> latency: 8492 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/expand/Conv2D<0, Conv2D, 1> latency: 17170 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 1487 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/project/conv2d<0, Conv2D, 1> latency: 17284 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/add<0, Eltwise, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/add<0, Eltwise, 1> latency: 2431 us
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running net latency: 440452 us
+I /home/NIO/mace/mace/core/flow/base_flow.cc:190] Transpose output ExpandedConv7/add:0 from 2 to 1
+I /home/NIO/mace/mace/core/flow/base_flow.cc:171] output_tensor name: ExpandedConv7/add:0
+I /home/NIO/mace/mace/libmace/engines/serial_engine.cc:100] start run flow: BMNet
+I /home/NIO/mace/mace/flows/cpu/cpu_ref_flow.cc:89] Transform input Input from NHWC to NCHW
+I /home/NIO/mace/mace/flows/cpu/cpu_ref_flow.cc:75] CpuRefFlow::Run
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running net started
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator Conv/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator Conv/Conv2D<0, Conv2D, 1> latency: 19932 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 7526 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv/project/conv2d<0, Conv2D, 1> latency: 22673 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/expand/Conv2D<0, Conv2D, 1> latency: 70238 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 5780 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/project/conv2d<0, Conv2D, 1> latency: 25896 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/expand/Conv2D<0, Conv2D, 1> latency: 38972 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 8604 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/project/conv2d<0, Conv2D, 1> latency: 38497 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/add<0, Eltwise, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/add<0, Eltwise, 1> latency: 3471 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/expand/Conv2D<0, Conv2D, 1> latency: 39116 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2166 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/project/conv2d<0, Conv2D, 1> latency: 12811 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/expand/Conv2D<0, Conv2D, 1> latency: 17283 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2964 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/project/conv2d<0, Conv2D, 1> latency: 17064 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/add<0, Eltwise, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/add<0, Eltwise, 1> latency: 5073 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/expand/Conv2D<0, Conv2D, 1> latency: 17283 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2995 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/project/conv2d<0, Conv2D, 1> latency: 17108 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/add<0, Eltwise, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/add<0, Eltwise, 1> latency: 4202 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/expand/Conv2D<0, Conv2D, 1> latency: 17226 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 739 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/project/conv2d<0, Conv2D, 1> latency: 8483 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/expand/Conv2D<0, Conv2D, 1> latency: 17169 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 1466 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/project/conv2d<0, Conv2D, 1> latency: 17093 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/add<0, Eltwise, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/add<0, Eltwise, 1> latency: 4505 us
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running net latency: 446965 us
+I /home/NIO/mace/mace/core/flow/base_flow.cc:190] Transpose output ExpandedConv7/add:0 from 2 to 1
+I /home/NIO/mace/mace/core/flow/base_flow.cc:171] output_tensor name: ExpandedConv7/add:0
+I /home/NIO/mace/mace/libmace/engines/serial_engine.cc:100] start run flow: BMNet
+I /home/NIO/mace/mace/flows/cpu/cpu_ref_flow.cc:89] Transform input Input from NHWC to NCHW
+I /home/NIO/mace/mace/flows/cpu/cpu_ref_flow.cc:75] CpuRefFlow::Run
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running net started
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator Conv/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator Conv/Conv2D<0, Conv2D, 1> latency: 19839 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 7631 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv/project/conv2d<0, Conv2D, 1> latency: 22626 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/expand/Conv2D<0, Conv2D, 1> latency: 70409 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 5890 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/project/conv2d<0, Conv2D, 1> latency: 25968 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/expand/Conv2D<0, Conv2D, 1> latency: 39042 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 8596 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/project/conv2d<0, Conv2D, 1> latency: 38637 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/add<0, Eltwise, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/add<0, Eltwise, 1> latency: 3466 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/expand/Conv2D<0, Conv2D, 1> latency: 39042 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2251 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/project/conv2d<0, Conv2D, 1> latency: 12724 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/expand/Conv2D<0, Conv2D, 1> latency: 17190 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2933 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/project/conv2d<0, Conv2D, 1> latency: 17079 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/add<0, Eltwise, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/add<0, Eltwise, 1> latency: 3436 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/expand/Conv2D<0, Conv2D, 1> latency: 17302 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2919 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/project/conv2d<0, Conv2D, 1> latency: 17044 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/add<0, Eltwise, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/add<0, Eltwise, 1> latency: 3642 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/expand/Conv2D<0, Conv2D, 1> latency: 17358 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 746 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/project/conv2d<0, Conv2D, 1> latency: 8489 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/expand/Conv2D<0, Conv2D, 1> latency: 17157 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 1475 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/project/conv2d<0, Conv2D, 1> latency: 17111 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/add<0, Eltwise, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/add<0, Eltwise, 1> latency: 2440 us
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running net latency: 443058 us
+I /home/NIO/mace/mace/core/flow/base_flow.cc:190] Transpose output ExpandedConv7/add:0 from 2 to 1
+I /home/NIO/mace/mace/core/flow/base_flow.cc:171] output_tensor name: ExpandedConv7/add:0
+I /home/NIO/mace/mace/libmace/engines/serial_engine.cc:100] start run flow: BMNet
+I /home/NIO/mace/mace/flows/cpu/cpu_ref_flow.cc:89] Transform input Input from NHWC to NCHW
+I /home/NIO/mace/mace/flows/cpu/cpu_ref_flow.cc:75] CpuRefFlow::Run
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running net started
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator Conv/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator Conv/Conv2D<0, Conv2D, 1> latency: 19727 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 7559 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv/project/conv2d<0, Conv2D, 1> latency: 22646 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/expand/Conv2D<0, Conv2D, 1> latency: 70275 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 5746 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/project/conv2d<0, Conv2D, 1> latency: 25914 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/expand/Conv2D<0, Conv2D, 1> latency: 39163 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 8554 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/project/conv2d<0, Conv2D, 1> latency: 38438 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/add<0, Eltwise, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/add<0, Eltwise, 1> latency: 4241 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/expand/Conv2D<0, Conv2D, 1> latency: 39066 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2154 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/project/conv2d<0, Conv2D, 1> latency: 12702 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/expand/Conv2D<0, Conv2D, 1> latency: 17258 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2888 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/project/conv2d<0, Conv2D, 1> latency: 17027 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/add<0, Eltwise, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/add<0, Eltwise, 1> latency: 5306 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/expand/Conv2D<0, Conv2D, 1> latency: 17315 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2892 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/project/conv2d<0, Conv2D, 1> latency: 17079 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/add<0, Eltwise, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/add<0, Eltwise, 1> latency: 5330 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/expand/Conv2D<0, Conv2D, 1> latency: 17351 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 741 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/project/conv2d<0, Conv2D, 1> latency: 8506 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/expand/Conv2D<0, Conv2D, 1> latency: 17192 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 1465 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/project/conv2d<0, Conv2D, 1> latency: 17135 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/add<0, Eltwise, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/add<0, Eltwise, 1> latency: 5215 us
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running net latency: 449610 us
+I /home/NIO/mace/mace/core/flow/base_flow.cc:190] Transpose output ExpandedConv7/add:0 from 2 to 1
+I /home/NIO/mace/mace/core/flow/base_flow.cc:171] output_tensor name: ExpandedConv7/add:0
+I /home/NIO/mace/mace/libmace/engines/serial_engine.cc:100] start run flow: BMNet
+I /home/NIO/mace/mace/flows/cpu/cpu_ref_flow.cc:89] Transform input Input from NHWC to NCHW
+I /home/NIO/mace/mace/flows/cpu/cpu_ref_flow.cc:75] CpuRefFlow::Run
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running net started
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator Conv/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator Conv/Conv2D<0, Conv2D, 1> latency: 19768 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 7577 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv/project/conv2d<0, Conv2D, 1> latency: 22696 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/expand/Conv2D<0, Conv2D, 1> latency: 70360 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 5771 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/project/conv2d<0, Conv2D, 1> latency: 25888 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/expand/Conv2D<0, Conv2D, 1> latency: 38944 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 8539 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/project/conv2d<0, Conv2D, 1> latency: 38545 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/add<0, Eltwise, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/add<0, Eltwise, 1> latency: 2584 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/expand/Conv2D<0, Conv2D, 1> latency: 38972 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2164 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/project/conv2d<0, Conv2D, 1> latency: 12693 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/expand/Conv2D<0, Conv2D, 1> latency: 17228 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2887 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/project/conv2d<0, Conv2D, 1> latency: 17000 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/add<0, Eltwise, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/add<0, Eltwise, 1> latency: 2487 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/expand/Conv2D<0, Conv2D, 1> latency: 17256 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2931 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/project/conv2d<0, Conv2D, 1> latency: 17142 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/add<0, Eltwise, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/add<0, Eltwise, 1> latency: 3436 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/expand/Conv2D<0, Conv2D, 1> latency: 17272 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 791 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/project/conv2d<0, Conv2D, 1> latency: 8515 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/expand/Conv2D<0, Conv2D, 1> latency: 17139 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 1526 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/project/conv2d<0, Conv2D, 1> latency: 17113 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/add<0, Eltwise, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/add<0, Eltwise, 1> latency: 3426 us
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running net latency: 441334 us
+I /home/NIO/mace/mace/core/flow/base_flow.cc:190] Transpose output ExpandedConv7/add:0 from 2 to 1
+I /home/NIO/mace/mace/core/flow/base_flow.cc:171] output_tensor name: ExpandedConv7/add:0
+I /home/NIO/mace/mace/libmace/engines/serial_engine.cc:100] start run flow: BMNet
+I /home/NIO/mace/mace/flows/cpu/cpu_ref_flow.cc:89] Transform input Input from NHWC to NCHW
+I /home/NIO/mace/mace/flows/cpu/cpu_ref_flow.cc:75] CpuRefFlow::Run
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running net started
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator Conv/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator Conv/Conv2D<0, Conv2D, 1> latency: 20032 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 7595 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv/project/conv2d<0, Conv2D, 1> latency: 22667 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/expand/Conv2D<0, Conv2D, 1> latency: 70360 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 5784 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/project/conv2d<0, Conv2D, 1> latency: 26025 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/expand/Conv2D<0, Conv2D, 1> latency: 38988 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 8614 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/project/conv2d<0, Conv2D, 1> latency: 38450 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/add<0, Eltwise, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/add<0, Eltwise, 1> latency: 2497 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/expand/Conv2D<0, Conv2D, 1> latency: 38955 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2241 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/project/conv2d<0, Conv2D, 1> latency: 12810 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/expand/Conv2D<0, Conv2D, 1> latency: 17267 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2878 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/project/conv2d<0, Conv2D, 1> latency: 17114 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/add<0, Eltwise, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/add<0, Eltwise, 1> latency: 2469 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/expand/Conv2D<0, Conv2D, 1> latency: 17259 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2888 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/project/conv2d<0, Conv2D, 1> latency: 17108 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/add<0, Eltwise, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/add<0, Eltwise, 1> latency: 2357 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/expand/Conv2D<0, Conv2D, 1> latency: 17237 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 744 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/project/conv2d<0, Conv2D, 1> latency: 8471 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/expand/Conv2D<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/expand/Conv2D<0, Conv2D, 1> latency: 17087 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 1545 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/project/conv2d<0, Conv2D, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/project/conv2d<0, Conv2D, 1> latency: 17233 us
+I /home/NIO/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/add<0, Eltwise, 1> started
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/add<0, Eltwise, 1> latency: 4929 us
+I /home/NIO/mace/include/mace/utils/logging.h:109] Running net latency: 442144 us
+I /home/NIO/mace/mace/core/flow/base_flow.cc:190] Transpose output ExpandedConv7/add:0 from 2 to 1
+I /home/NIO/mace/mace/core/flow/base_flow.cc:171] output_tensor name: ExpandedConv7/add:0
+I /home/NIO/mace/mace/core/workspace.cc:75] Destroy Workspace
+I /home/NIO/mace/mace/core/net/serial_net.cc:73] Destroy SerialNet
+I /home/NIO/mace/mace/runtimes/cpu/cpu_ref_runtime.cc:32] Destroy CpuRefRuntime
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:75] Finally release used memory, size: 64
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:75] Finally release used memory, size: 96
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:75] Finally release used memory, size: 96
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:75] Finally release used memory, size: 128
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:75] Finally release used memory, size: 128
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:75] Finally release used memory, size: 128
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:75] Finally release used memory, size: 128
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:75] Finally release used memory, size: 128
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:75] Finally release used memory, size: 256
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:75] Finally release used memory, size: 256
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:75] Finally release used memory, size: 384
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:75] Finally release used memory, size: 384
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:75] Finally release used memory, size: 576
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:75] Finally release used memory, size: 576
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:75] Finally release used memory, size: 576
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:75] Finally release used memory, size: 576
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:75] Finally release used memory, size: 768
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:75] Finally release used memory, size: 768
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:75] Finally release used memory, size: 768
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:75] Finally release used memory, size: 768
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:75] Finally release used memory, size: 768
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:75] Finally release used memory, size: 768
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:75] Finally release used memory, size: 1152
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:75] Finally release used memory, size: 1536
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:75] Finally release used memory, size: 1536
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:75] Finally release used memory, size: 2048
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:75] Finally release used memory, size: 3456
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:75] Finally release used memory, size: 3456
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:75] Finally release used memory, size: 5184
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:75] Finally release used memory, size: 5184
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:75] Finally release used memory, size: 6144
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:75] Finally release used memory, size: 6912
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:75] Finally release used memory, size: 6912
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:75] Finally release used memory, size: 6912
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:75] Finally release used memory, size: 9216
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:75] Finally release used memory, size: 13824
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:75] Finally release used memory, size: 13824
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:75] Finally release used memory, size: 13824
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:75] Finally release used memory, size: 13824
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:75] Finally release used memory, size: 18432
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:75] Finally release used memory, size: 24576
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:75] Finally release used memory, size: 24576
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:75] Finally release used memory, size: 24576
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:75] Finally release used memory, size: 24576
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:75] Finally release used memory, size: 24576
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:75] Finally release used memory, size: 49152
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:75] Finally release used memory, size: 98304
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:75] Finally release used memory, size: 98304
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:82] Finally release unused memory, size: 602112
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:82] Finally release unused memory, size: 1806336
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:82] Finally release unused memory, size: 1806336
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:82] Finally release unused memory, size: 4816896
+I /home/NIO/mace/mace/core/registry/op_delegator_registry.cc:61] Destroy OpDelegatorRegistry
+I /home/NIO/mace/mace/core/registry/ops_registry.cc:70] Destroy OpRegistry
+I /home/NIO/mace/mace/utils/thread_pool.cc:240] Destroy thread pool
+I /home/NIO/mace/mace/tools/mace_run.cc:820] restart round 0
+I /home/NIO/mace/mace/libmace/mace_engine.cc:245] Create MaceEngine from model graph proto and weights data
+I /home/NIO/mace/mace/port/linux_base/env.cc:60] CPU cores: 8
+I /home/NIO/mace/mace/port/linux_base/env.cc:101] CPU freq: [1.8048e+06, 1.8048e+06, 1.8048e+06, 1.8048e+06, 2.4192e+06, 2.4192e+06, 2.4192e+06, 2.8416e+06]
+W /home/NIO/mace/mace/utils/thread_pool.cc:108] CPU maybe isolated, don't set CPU affinity
+I /home/NIO/mace/mace/utils/thread_pool.cc:160] Use 8 threads
+I /home/NIO/mace/mace/core/memory/rpcmem/rpcmem.cc:32] Rpcmem is supported. type: 0
+I /home/NIO/mace/mace/rpcmems/rpcmem_factory.cc:53] Rpcmem is supported. type: 0
+I /home/NIO/mace/mace/libmace/engines/serial_engine.cc:33] Creating SerialEngine, MACE version: v1.1.1-68-g23d5d03
+I /home/NIO/mace/mace/libmace/mace_engine.cc:258] It is a multi_net_def.
+I /home/NIO/mace/mace/utils/thread_pool.cc:196] Init thread pool
+I /home/NIO/mace/mace/libmace/engines/serial_engine.cc:420] Initializing SerialEngine
+I /home/NIO/mace/mace/port/linux_base/env.cc:60] CPU cores: 8
+I /home/NIO/mace/mace/port/linux_base/env.cc:101] CPU freq: [1.8048e+06, 1.8048e+06, 1.8048e+06, 1.8048e+06, 2.4192e+06, 2.4192e+06, 2.4192e+06, 2.8416e+06]
+W /home/NIO/mace/mace/utils/thread_pool.cc:108] CPU maybe isolated, don't set CPU affinity
+I /home/NIO/mace/mace/runtimes/hexagon/dsp/hexagon_dsp_runtime.cc:35] config_impl->hexagon_corner(): 1, hexagon_dcvs_enable: 1, hexagon_latency: 100
+I /home/NIO/mace/mace/runtimes/hexagon/dsp/hexagon_dsp_runtime.cc:41] Hexagon DSP version: 0x21a01
+I /home/NIO/mace/mace/runtimes/hexagon/dsp/hexagon_dsp_wrapper.cc:161] Hexagon config
+I /home/NIO/mace/mace/runtimes/hexagon/dsp/hexagon_dsp_wrapper.cc:167] Hexagon init
+I /home/NIO/mace/mace/runtimes/hexagon/dsp/hexagon_dsp_wrapper.cc:470] Reset perf info
+I /home/NIO/mace/mace/runtimes/hexagon/dsp/hexagon_dsp_wrapper.cc:388] Set debug level: 2
+I /home/NIO/mace/mace/core/runtime/runtime_registry.cc:32] Destroy RuntimeRegistry
+I /home/NIO/mace/mace/libmace/engines/serial_engine.cc:251] CreateAndInitFlows, name: default_graph, infer_order: 0, runtime: 3
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [18432], ptr = 0x79aec5e000
+I /home/NIO/mace/mace/runtimes/hexagon/dsp/hexagon_dsp_wrapper.cc:181] Hexagon setup graph
+I /home/NIO/mace/mace/runtimes/hexagon/dsp/hexagon_dsp_wrapper.cc:333] OutputInfo:
+shape: 1 3 144 128
+type: 1
+I /home/NIO/mace/mace/runtimes/hexagon/dsp/hexagon_dsp_wrapper.cc:345] Setup time: 1411 1030
+I /home/NIO/mace/mace/runtimes/hexagon/dsp/hexagon_dsp_wrapper.cc:376]
+============= Graph dump =============
+nn @ e1c580: id=0x1 debug_level=2
+node @ e3d490: id=0x2710 type=0x3(Const) n_inputs=0 n_outputs=1 padding=0(NA)
+... output 0 @ e313b0
+node @ e3d620: id=0x2711 type=0x3(Const) n_inputs=0 n_outputs=1 padding=0(NA)
+... output 0 @ e3d540
+node @ e3d720: id=0x2712 type=0x3(Const) n_inputs=0 n_outputs=1 padding=0(NA)
+... output 0 @ e3d590
+node @ e3d8a0: id=0x2713 type=0x3(Const) n_inputs=0 n_outputs=1 padding=0(NA)
+... output 0 @ e3d810
+node @ e3da20: id=0x2714 type=0x3(Const) n_inputs=0 n_outputs=1 padding=0(NA)
+... output 0 @ e3d990
+node @ e3dba0: id=0x2715 type=0x3(Const) n_inputs=0 n_outputs=1 padding=0(NA)
+... output 0 @ e3db10
+node @ e3dd20: id=0x2716 type=0x3(Const) n_inputs=0 n_outputs=1 padding=0(NA)
+... output 0 @ e3dc90
+node @ e3de10: id=0x2717 type=0xd0(QuantizeINPUT_f_to_8) n_inputs=0 n_outputs=3 padding=0(NA)
+... output 0 @ e31320
+... output 1 @ e3df60
+... output 2 @ e3dfb0
+node @ e3e000: id=0x2718 type=0x1c5(QuantizedBatchMatMul_8x8to32) n_inputs=6 n_outputs=3 padding=0(NA)
+... input 0 @ e31320 <src_id 2717 out_idx 0>
+... input 1 @ e313b0 <src_id 2710 out_idx 0>
+... input 2 @ e3df60 <src_id 2717 out_idx 1>
+... input 3 @ e3dfb0 <src_id 2717 out_idx 2>
+... input 4 @ e3d540 <src_id 2711 out_idx 0>
+... input 5 @ e3d590 <src_id 2712 out_idx 0>
+... output 0 @ e3e150
+... output 1 @ e3e1a0
+... output 2 @ e3e1f0
+node @ e3e240: id=0x2719 type=0x46(Requantize_32to8) n_inputs=5 n_outputs=3 padding=0(NA)
+... input 0 @ e3e150 <src_id 2718 out_idx 0>
+... input 1 @ e3d810 <src_id 2713 out_idx 0>
+... input 2 @ e3d990 <src_id 2714 out_idx 0>
+... input 3 @ e3db10 <src_id 2715 out_idx 0>
+... input 4 @ e3dc90 <src_id 2716 out_idx 0>
+... output 0 @ e3e400
+... output 1 @ e3e450
+... output 2 @ e3e4a0
+node @ e3e4f0: id=0x271a type=0xd9(DequantizeOUTPUT_8tof) n_inputs=3 n_outputs=0 padding=0(NA)
+... input 0 @ e3e400 <src_id 2719 out_idx 0>
+... input 1 @ e3e450 <src_id 2719 out_idx 1>
+... input 2 @ e3e4a0 <src_id 2719 out_idx 2>
+11 nodes total.
+
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:150] ReleaseAllMemory, ptr: 0x79aec5e000
+I /home/NIO/mace/mace/core/flow/flow_registry.cc:33] Destroy FlowRegistry
+I /home/NIO/mace/mace/tools/mace_run.cc:463] Create Mace Engine latency: 53.758 ms
+I /home/NIO/mace/mace/tools/mace_run.cc:470] Total init latency: 146.278 ms
+I /home/NIO/mace/mace/tools/mace_run.cc:316] runtimes: [CPU, DSP]
+I /home/NIO/mace/mace/tools/mace_run.cc:487] intput_file: /data/local/tmp/mace_tmp/batch_qkv/validate_in/batch_qkv_input
+I /home/NIO/mace/mace/tools/mace_run.cc:555] Warm up run
+I /home/NIO/mace/mace/libmace/engines/serial_engine.cc:100] start run flow: default_graph
+I /home/NIO/mace/mace/flows/hexagon/hexagon_ref_flow.cc:58] HexagonRefFlow::Run
+I /home/NIO/mace/mace/runtimes/hexagon/dsp/hexagon_dsp_wrapper.cc:522] Execute graph new: 1
+W /home/NIO/mace/mace/core/tensor.cc:182] Tensor::Resize, allocate private mem, name: output, new shape: [1, 3, 144, 128]
+I /home/NIO/mace/mace/core/memory/general_memory_manager.cc:96] GeneralMemoryManager::MemoryPool::ObtainMemory New memory: [55296], ptr = 0x79aec27000
+I /home/NIO/mace/mace/runtimes/hexagon/dsp/hexagon_dsp_wrapper.cc:366]
+============= DSP log =============
+[hexagon/ops/src/op_matmul.c:980 [1;32mmatmul_ctor[0m] matmul node id 2718 ctor
+[hexagon/src/graphcheck.c:212 [1;32mcheck_graph[0m] hash ok; 11 of 11 nodes are in hash
+[hexagon/src/graphcheck.c:215 [1;32mcheck_graph[0m] graph check ok, options 2
+[hexagon/src/graphcheck.c:212 [1;32mcheck_graph[0m] hash ok; 11 of 11 nodes are in hash
+[hexagon/src/graphcheck.c:215 [1;32mcheck_graph[0m] graph check ok, options 2
+[hexagon/src/graphcheck.c:212 [1;32mcheck_graph[0m] hash ok; 11 of 11 nodes are in hash
+[hexagon/src/graphcheck.c:215 [1;32mcheck_graph[0m] graph check ok, options 2
+[hexagon/src/prepare.c:4531 [1;32mremove_dead_nodes[0m] deleted 0 dead nodes out of 11
+[hexagon/src/graphcheck.c:212 [1;32mcheck_graph[0m] hash ok; 11 of 11 nodes are in hash
+[hexagon/src/graphcheck.c:215 [1;32mcheck_graph[0m] graph check ok, options 3
+[hexagon/src/graphcheck.c:212 [1;32mcheck_graph[0m] hash ok; 11 of 11 nodes are in hash
+[hexagon/src/graphcheck.c:215 [1;32mcheck_graph[0m] graph check ok, options 2
+[hexagon/src/prepare.c:4531 [1;32mremove_dead_nodes[0m] deleted 0 dead nodes out of 11
+[hexagon/src/graphcheck.c:212 [1;32mcheck_graph[0m] hash ok; 11 of 11 nodes are in hash
+[hexagon/src/graphcheck.c:215 [1;32mcheck_graph[0m] graph check ok, options 2
+[hexagon/src/prepare.c:4531 [1;32mremove_dead_nodes[0m] deleted 0 dead nodes out of 11
+[hexagon/src/prepare.c:4531 [1;32mremove_dead_nodes[0m] deleted 0 dead nodes out of 11
+[hexagon/src/graphcheck.c:212 [1;32mcheck_graph[0m] hash ok; 11 of 11 nodes are in hash
+[hexagon/src/graphcheck.c:215 [1;32mcheck_graph[0m] graph check ok, options 7
+[hexagon/src/allocate.c:201 [1;32mcheck_allocations[0m] Watermark says: we used 296576 bytes
+[hexagon/src/allocate.c:201 [1;32mcheck_allocations[0m] Watermark says: we used 296576 bytes
+[hexagon/src/allocate.c:215 [1;32mallocate_storage[0m] Allocated 296576 bytes @ e3f010.  Hope that's enough!
+[hexagon/ops/src/op_quantize.c:2241 [1;32minput_quantize_check[0m] input quantize node e3de10 OK
+[hexagon/ops/src/op_quantize.c:2755 [1;32moutput_dequantize_check[0m] Checking output node e3e4f0
+[hexagon/ops/src/op_matmul.c:935 [1;32mmatmul_check[0m] Checking matmul node e3e000
+[hexagon/ops/src/op_quantize.c:2759 [1;32moutput_dequantize_check[0m] output node e3e4f0 check OK
+[hexagon/src/interface.c:1347 [1;32mexecute_inner[0m] in hexagon nn execute_inner, 4 in 4 out
+[hexagon/src/nn_os_qurt.c:107 [1;32mnn_os_vtcm_choose_size[0m] VTCM request: 4194304 of 4194304
+[hexagon/src/execute.c:147 [1;32mdo_execute[0m] ================= do_execute(): node id=10007, node type: QuantizeINPUT_f_to_8 =================
+[hexagon/ops/src/op_quantize.c:905 [1;32mautoquantize_work[0m] minval=-0.000000 maxval=0.999940 range=0.999940 scaling = 8160, common_exp = 131 min_offset=403
+[hexagon/src/execute.c:175 [1;32mdo_execute[0m] current node id: 10007 , node type: QuantizeINPUT_f_to_8
+[hexagon/src/execute.c:147 [1;32mdo_execute[0m] ================= do_execute(): node id=10008, node type: QuantizedBatchMatMul_8x8to32 =================
+[hexagon/ops/src/op_matmul.c:116 [1;32mmatmul_execute[0m] matmul execute. self=e3e000
+[hexagon/ops/src/op_matmul.c:116 [1;32mmatmul_execute[0m] matmul execute. self=e3e000
+[hexagon/ops/src/op_matmul.c:116 [1;32mmatmul_execute[0m] matmul execute. self=e3e000
+[hexagon/ops/src/op_matmul.c:116 [1;32mmatmul_execute[0m] matmul execute. self=e3e000
+[hexagon/ops/src/op_matmul.c:119 [1;32mmatmul_execute[0m] matmul in dims: 1x1x144x128 * 1x3x128x128
+[hexagon/ops/src/op_matmul.c:119 [1;32mmatmul_execute[0m] matmul in dims: 1x1x144x128 * 1x3x128x128
+[hexagon/ops/src/op_matmul.c:119 [1;32mmatmul_execute[0m] matmul in dims: 1x1x144x128 * 1x3x128x128
+[hexagon/ops/src/op_matmul.c:119 [1;32mmatmul_execute[0m] matmul in dims: 1x1x144x128 * 1x3x128x128
+[hexagon/ops/src/op_matmul.c:123 [1;32mmatmul_execute[0m] not support mismatched batch size in batch matmul
+[hexagon/ops/src/op_matmul.c:123 [1;32mmatmul_execute[0m] not support mismatched batch size in batch matmul
+[hexagon/ops/src/op_matmul.c:123 [1;32mmatmul_execute[0m] not support mismatched batch size in batch matmul
+[hexagon/ops/src/oAborted
+
+
+==========Run model===========
