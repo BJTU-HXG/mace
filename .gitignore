@@ -49,6 +49,8 @@ opt_hifigan.txt
 opt_acc.txt
 opt_dsp.txt
 opt_attn.txt
+opt_com_sim.txt
+opt_combine_qkv.txt
 
 output.txt
 outputs_fa_out
@@ -66,6 +68,8 @@ workspace/conformer/conformer_data/change_conformer.onnx
 workspace/conformer/conformer_data/.DS_Store
 
 workspace/attention/data
+workspace/attention/tensor_data/
+workspace/attention/python/
 
 acc_conformer.txt
 conformer_vaild.txt

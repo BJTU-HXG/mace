@@ -1204,7 +1204,7 @@ class HexagonConverter(base_converter.ConverterInterface):
     def convert_transpose(self, op):
         shape = ConverterUtil.get_arg(op, 'dims').ints
         self.add_arg_const_node(op,'/shape:0', [len(shape)], shape)
-        self.add_min_max_const_node(op, op.input[0])
+        self.add_min_max_const_node(op, op.input[0], True, True, False)
         op.type = HexagonOp.Transpose_8.name
 
     def convert_unsqueeze(self, op):

@@ -415,10 +415,10 @@ def validate_onnx_model(platform, model_file,
         #                                 output_data_formats[i])
         # print(f'tensor name: {output_names[i]}, shapes: {output_shapes[i]}, data_formats: {output_data_formats[i]}')
         ##下面是用来生成一个tensor分别在mace和nn库上跑完的具体数值文件
-        tensor_names = ['1689']
+        tensor_names = ['46','61','75']
         if output_names[i] in tensor_names:
-            mace_output_file = "/home/NIO/mace/workspace/conformer/tensors/mace_" + output_names[i]
-            onnx_output_file = "/home/NIO/mace/workspace/conformer/tensors/onnxruntime_" + output_names[i]
+            mace_output_file = "/home/NIO/mace/workspace/attention/tensor_data/mace_" + output_names[i]
+            onnx_output_file = "/home/NIO/mace/workspace/attention/tensor_data/onnxruntime_" + output_names[i]
             np.savetxt(mace_output_file, mace_out_value, '%.6f')
             np.savetxt(onnx_output_file, value, '%.6f')
         compare_output(output_names[i],
