@@ -403,7 +403,7 @@ class TransformerRule(Enum):
     TRANSFORM_SLICE_TO_STRIDED_SLICE = 58
     ADD_TRANSPOSE_FOR_HTP = 59
     FOLD_GELU = 60
-
+    FOLD_LAYERNORM = 61
 
 class ConverterInterface(object):
     """Base class for converting external models to mace models."""
@@ -670,6 +670,7 @@ class ConverterOption(object):
             self._transformer_option = [
                 # Model structure related transformation
                 TransformerRule.FOLD_GELU,
+                TransformerRule.FOLD_LAYERNORM,
                 TransformerRule.REMOVE_USELESS_OP,
                 TransformerRule.FOLD_DIV_BN,
                 TransformerRule.TRANSFORM_FAKE_QUANTIZE,
@@ -740,15 +741,16 @@ class ConverterOption(object):
                     TransformerRule.TRANSFORM_EXPAND_DIMS_TO_RESHAPE,
                 ]
 
+            '''if self._device == DeviceType.HEXAGON.value:
+                self._transformer_option = self._transformer_option + [
+                    TransformerRule.FOLD_LAYERNORM,
+                ]'''
+                
             if self.quantize_large_weights:
                 self._transformer_option = self._transformer_option + [
                     TransformerRule.QUANTIZE_LARGE_WEIGHTS
                 ]
-                
-            #if self._device == DeviceType.CPU.value:
-            #    self._transformer_option = self._transformer_option + [
-            #       TransformerRule.FOLD_GELU,
-            #    ]
+
 
             if self._quantize:
                 self._transformer_option = self._transformer_option + [

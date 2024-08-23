@@ -66,10 +66,10 @@ HexagonSupportedOps = [
     'QuantizedMul_8x8to8',
     'QuantizedPad_8',
     'QuantizedPRelu_8',
+    'QuantizedGelu_8',
     'QuantizedPow_8x8to8', # TODO add op
     'QuantizedRecip_8',
     'QuantizedRelu_8',
-    'QuantizedGelu_8',
     'QuantizedReluX_8',
     'QuantizedReshape',
     'QuantizedResizeBilinear_8',
@@ -340,10 +340,6 @@ class HexagonConverter(base_converter.ConverterInterface):
         op, port = get_op_and_port_from_tensor(tensor_name)
         mace_check(port == 0, 'port should be 0 to add min max tensor then.')
         #print(self._quantize_activation_info)
-        print('add_min_max_const_node')
-        #if(tensor_name=='mace_input_node_attention_mask:0' or tensor_name=='/Sub/b:0'):
-            #quantize_info = self._quantize_activation_info[tensor_name]
-            #print(quantize_info)
         if tensor_name in self._quantize_activation_info:
             #print("activationnnnnnnnn")
             quantize_info = self._quantize_activation_info[tensor_name]
@@ -355,7 +351,6 @@ class HexagonConverter(base_converter.ConverterInterface):
             is_activation = True
   
         elif tensor_name in self._consts:
-            #print("constsssssssss")
             tensor = self._consts[tensor_name]
             minval = tensor.minval
             maxval = tensor.maxval
@@ -933,9 +928,13 @@ class HexagonConverter(base_converter.ConverterInterface):
             scalar_input = ConverterUtil.get_arg(
                 op, MaceKeyword.mace_scalar_input_str).f
             self.add_quantized_scalar_const_node("/b:0", scalar_input, op)
-        self.add_min_max_const_node(op, op.input[0],True,True,False)
-        self.add_min_max_const_node(op, op.input[1],True,True,False)
-
+        if op.input[1] == '/Mul_output_0:0':
+            self.add_min_max_const_node(op, op.input[0],True,True,True)
+            self.add_min_max_const_node(op, op.input[1],True,True,False)
+        else:
+            self.add_min_max_const_node(op, op.input[0],True,True,True)
+            self.add_min_max_const_node(op, op.input[1],True,True,True)
+        
         if element_type in [EltwiseType.SUM.value,
                             EltwiseType.SUB.value,
                             EltwiseType.MIN.value,
@@ -943,12 +942,12 @@ class HexagonConverter(base_converter.ConverterInterface):
                             EltwiseType.DIV.value]:
             self.add_min_max_const_node(
                 op, op.output[0], True, True, False)
+
         if element_type == EltwiseType.SUM.value:
             print('this is add op')
             print(op)
         if element_type == EltwiseType.SUB.value:
             print('this is sub op')
-            print(op)
         try:
             op.type = self.eltwise_type[element_type]
         except KeyError:

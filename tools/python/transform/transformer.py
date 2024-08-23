@@ -73,6 +73,7 @@ class Transformer(base_converter.ConverterInterface):
             TransformerRule.UPDATE_FC_OUTPUT_SHAPE:
                 self.update_fc_output_shape,
             TransformerRule.FOLD_BATCHNORM: self.fold_batchnorm,
+            TransformerRule.FOLD_LAYERNORM: self.fold_layernorm,
             TransformerRule.FOLD_GELU: self.fold_Gelu,
             TransformerRule.FOLD_BIASADD: self.fold_biasadd,
             TransformerRule.FOLD_CONV_AND_BN:
@@ -514,7 +515,54 @@ class Transformer(base_converter.ConverterInterface):
                     net.op.remove(op)
                     return True
         return False
-
+    
+    def fold_layernorm(self):
+        net = self._model
+        for op in net.op:
+            key = op.output[0]
+            if key in self._consumers:
+                ops = self._consumers[op.output[0]]
+                op_reduce = None
+                op_sub = None
+                for op in ops:
+                    if op.type == MaceOp.Reduce.name: op_reduce = op
+                    elif op.type == MaceOp.Eltwise.name:
+                        elem_type = ConverterUtil.get_arg(op, MaceKeyword.mace_element_type_str).i
+                        if elem_type == EltwiseType.SUB.value: op_sub = op
+                if op_reduce and op_sub and self._consumers[op_reduce.output[0]][0].name == op_sub.name:
+                    consumers_sub = self._consumers[op_sub.output[0]]
+                    op_msqr = consumers_sub[0]
+                    op_var = self._consumers[op_msqr.output[0]][0]
+                    op_var_add_epsilon = self._consumers[op_var.output[0]][0]
+                    op_sqrt = self._consumers[op_var_add_epsilon.output[0]][0]
+                    op_div = consumers_sub[1]
+                    op_scale = self._consumers[op_div.output[0]][0]
+                    op_bias = self._consumers[op_scale.output[0]][0]
+                    
+                    scale = op_scale.input[1]
+                    bias = op_bias.input[1]
+                    op_reduce.input.append(scale)
+                    op_reduce.input.append(bias)
+                    op_reduce.output[0] = op_bias.output[0]
+                    ori_shape = op_reduce.output_shape[0].dims
+                    dst_shape = op_bias.output_shape[0].dims
+                    while(ori_shape): ori_shape.pop()
+                    ori_shape.extend(dst_shape)
+                    op_reduce.name = 'LayerNorm_' + op_reduce.name
+                    op_reduce.type = MaceOp.LayerNorm.name
+                    print(f'Fold LayerNorm: ({op_reduce.name}), type: ({op_reduce.type})')
+                    net.op.remove(op_sub)
+                    net.op.remove(op_msqr)
+                    net.op.remove(op_var)
+                    net.op.remove(op_var_add_epsilon)
+                    net.op.remove(op_sqrt)
+                    net.op.remove(op_div)
+                    net.op.remove(op_scale)
+                    net.op.remove(op_bias)
+                    return True
+        return False
+    
+    
     def fold_squared_diff_mean(self):
         net = self._model
         for op in net.op:
@@ -2187,7 +2235,19 @@ class Transformer(base_converter.ConverterInterface):
                     else:
                         if len(ops[0].input) >= 4:
                             check_deconv = ops[0].input[3] == tensor.name
-            if check_conv or check_deconv:
+
+            if ops is not None and ops[0].type == MaceOp.LayerNorm.name:
+                ln_op = ops[0]
+                # weight
+                if tensor.name == ln_op.input[1]:
+                    quantized_tensor = quantize_util.quantize_int16(tensor.float_data)
+                    tensor.data_type = mace_pb2.DT_INT16
+                # bias
+                elif tensor.name == ln_op.input[2]:
+                    quantized_tensor = quantize_util.quantize_bias_for_hexagon(tensor.float_data)
+                    tensor.data_type = mace_pb2.DT_INT32
+                    
+            elif check_conv or check_deconv:
                 conv_op = ops[0]
                 scale_input = self._quantize_activation_info[
                     conv_op.input[0]].scale
@@ -2417,6 +2477,7 @@ class Transformer(base_converter.ConverterInterface):
             post_quantize_info = {}
             with open(range_file) as f:
                 for line in f:
+                    
                     tensor_name, minmax = line.split("@@")[:2]
                     min_val, max_val = [float(i) for i in
                                         minmax.strip().split(",")]
@@ -2490,11 +2551,15 @@ class Transformer(base_converter.ConverterInterface):
                         quantize_util.adjust_range_int8(
                             input_node.range[0], input_node.range[1])
                 else:
+                    print(input_node.range[0])
+                    print(input_node.range[1])
                     scale, zero, minval, maxval = \
                         quantize_util.adjust_range(input_node.range[0],
                                                    input_node.range[1],
                                                    self._option.device,
                                                    non_zero=False)
+                print(minval)
+                print(maxval)
                 quantize_info = \
                     mace_pb2.QuantizeActivationInfo()
                 quantize_info.minval = minval
