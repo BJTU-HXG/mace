@@ -14,7 +14,6 @@
 
 
 import re
-
 import numpy as np
 import six
 
@@ -404,6 +403,8 @@ class Transformer(base_converter.ConverterInterface):
             input_info.data_format = input_node.data_format.value
             input_info.dims.extend(input_node.shape)
             input_info.data_type = input_node.data_type
+
+
 
         # tools/python/convert.py sets option.check_nodes
         output_nodes = self._option.check_nodes.values()
@@ -851,28 +852,24 @@ class Transformer(base_converter.ConverterInterface):
                                             
                                     # 6号算子     
                                     op_half = consumers_mul[0]       
-                                    print(op_half)
-                                    op_half.input[0] = op_div.input[0] # (x+A)
+                                    op_half.input[0] = op_div.input[0]
 
-                                    print(op_add.output[0])
-                                    print(op_add.input[0])
-                                    print(op_add.input[1])
-                                        
+                                    consumers_half = self._consumers[op_half.output[0]]
+                                    op_matmul = consumers_half[0]
+
+
+   
                                     #op_half.input.append(bias)
                                     op_half.name = 'Gelu_' + op_half.name
                                     op_half.type = MaceOp.Activation.name
-                                    print("After fold shapeeeeeeeeee:", op_half.output_shape[0].dims)
                                     type_arg = op_half.arg.add()
                                     type_arg.name = MaceKeyword.mace_activation_type_str
                                     type_arg.s = "GELU".encode('utf-8')
                                     act_type_arg = ConverterUtil.get_arg(op_half, MaceKeyword.mace_activation_type_str)
                                     act_type = act_type_arg.s.decode()
                                     print("activation type of GELU:", act_type, type_arg)
-                                    print(f'Fold Gelu: ({op_half.name}),type: ({op_half.type})')
-                                    print('op_half')
-                                    print(op_half)
+            
                                     self._model.op.remove(op_Erf)
-                                    #self._model.op.remove(op_add)
                                     self._model.op.remove(op_add_x)
                                     self._model.op.remove(op_mul)
                                     self._model.op.remove(op_div)
