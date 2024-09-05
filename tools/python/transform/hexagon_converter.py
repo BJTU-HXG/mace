@@ -624,8 +624,10 @@ class HexagonConverter(base_converter.ConverterInterface):
                 op, '/alphas:0', [op.output_shape[0].dims[3]],
                 [alphas_arg.f] * op.output_shape[0].dims[3], data_type=mace_pb2.DT_FLOAT)
         elif act_type == ActivationType.GELU.name:
-            a=1
-            #
+            #requantize_op = copy.deepcopy(op)
+            #op.output[0] = self.new_tensor(op.output[0], '_matmul:0', op.output_shape[0].dims)
+            a =1 
+            
 
         try:
             op.type = self.activation_type[act_type]
@@ -934,6 +936,8 @@ class HexagonConverter(base_converter.ConverterInterface):
         else:
             self.add_min_max_const_node(op, op.input[0],True,True,True)
             self.add_min_max_const_node(op, op.input[1],True,True,True)
+
+            
         
         if element_type in [EltwiseType.SUM.value,
                             EltwiseType.SUB.value,
