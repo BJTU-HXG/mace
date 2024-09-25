@@ -172,13 +172,14 @@ class QnxDevice(Device):
 class AndroidDevice(Device):
     def __init__(self, device_id, target_abi):
         super(AndroidDevice, self).__init__(device_id, target_abi)
+        self.tiaoban_dir = "/home/nio/shiding.guo"    #这里替换
 
     @staticmethod
     def list_devices():
         if justprint:
             return [""]
 
-        out = execute("adb devices", False)
+        out = execute("ssh nio@tiaoban 'adb devices'", False)
         serialno_list = out.strip().split('\n')[1:]
         serialno_list = [tuple(pair.split('\t')) for pair in serialno_list]
         devices = []
@@ -195,16 +196,20 @@ class AndroidDevice(Device):
         install_dir = os.path.abspath(install_dir)
         sn = self._device_id
 
-        execute("adb -s %s shell mkdir -p %s" % (sn, install_dir))
+        execute("ssh nio@tiaoban 'adb -s %s shell mkdir -p %s'" % (sn, install_dir))
         if os.path.isdir(target.path):
-            execute("adb -s %s push %s/* %s" % (sn, target.path, install_dir),
+            for file in os.listdir(target.path):
+                execute("scp -r %s nio@tiaoban:%s" % (os.path.join(target.path, file), self.tiaoban_dir), False)
+                execute("ssh nio@tiaoban 'adb -s %s push %s %s'" % (sn, os.path.join(self.tiaoban_dir, os.path.basename(file)), install_dir),
                     False)
         else:
-            execute("adb -s %s push %s %s" % (sn, target.path, install_dir),
-                    False)
+            execute("scp -r %s nio@tiaoban:%s" % (target.path, self.tiaoban_dir), False)
+            execute("ssh nio@tiaoban 'adb -s %s push %s %s'" % (sn, os.path.join(self.tiaoban_dir, os.path.basename(target.path)), install_dir),
+                False)
 
         for lib in target.libs:
-            execute("adb -s %s push %s %s" % (sn, lib, install_dir), False)
+            execute("scp -r %s nio@tiaoban:%s" % (lib, self.tiaoban_dir), False)
+            execute("ssh nio@tiaoban 'adb -s %s push %s %s'" % (sn, os.path.join(self.tiaoban_dir, os.path.basename(lib)), install_dir), False)
 
         device_target = copy.deepcopy(target)
         device_target.path = "%s/%s" % (install_dir,
@@ -235,12 +240,12 @@ class AndroidDevice(Device):
                                % (os.environ["ANDROID_NDK_HOME"], abi)
         else:
             print("Find no ndk-depends, use default libc++_shared.so")
-
-        execute("adb -s %s push %s %s" % (sn, lib_file, install_dir), False)
+        execute("scp -r %s nio@tiaoban:%s" % (lib_file, self.tiaoban_dir), False)
+        execute("ssh nio@tiaoban 'adb -s %s push %s %s'" % (sn, os.path.join(self.tiaoban_dir, os.path.basename(lib_file)), install_dir), False)
 
     def run(self, target):
-        execute("adb -s %s shell chmod 0777 %s" % (self._device_id, target.path))
-        execute("adb -s %s shell \"%s\"" % (self._device_id, str(target)))
+        execute("ssh nio@tiaoban 'adb -s %s shell chmod 0777 %s'" % (self._device_id, target.path))
+        execute("ssh nio@tiaoban 'adb -s %s shell \"%s\"'" % (self._device_id, str(target)))
 
         tmpdirname = tempfile.mkdtemp()
         cmd_file_path = tmpdirname + "/cmd.sh"
@@ -248,21 +253,23 @@ class AndroidDevice(Device):
             cmd_file.write(str(target))
 
         target_dir = os.path.dirname(target.path)
-        execute("adb -s %s push %s %s" % (self._device_id,
-                                          cmd_file_path,
+        execute("scp -r %s nio@tiaoban:%s" % (cmd_file_path, self.tiaoban_dir), False)
+        execute("ssh nio@tiaoban 'adb -s %s push %s %s'" % (self._device_id,
+                                          os.path.join(self.tiaoban_dir, os.path.basename(cmd_file_path)),
                                           target_dir))
 
     def pull(self, target, out_dir):
         sn = self._device_id
-        execute("adb -s %s pull %s %s" % (sn, target.path, out_dir), False)
+        execute("ssh nio@tiaoban 'adb -s %s pull %s %s'" % (sn, target.path, self.tiaoban_dir), False)
+        execute("scp -rp nio@tiaoban:%s %s" % (os.path.join(self.tiaoban_dir, os.path.basename(target.path)), out_dir))
 
     def mkdir(self, dirname):
         sn = self._device_id
-        execute("adb -s %s shell mkdir -p %s" % (sn, dirname))
+        execute("ssh nio@tiaoban 'adb -s %s shell mkdir -p %s'" % (sn, dirname))
 
     def info(self):
         sn = self._device_id
-        output = execute("adb -s %s shell getprop" % sn, False)
+        output = execute("ssh nio@tiaoban 'adb -s %s shell getprop'" % sn, False)
         raw_props = output.split("\n")
         props = {}
         p = re.compile(r'\[(.+)\]: \[(.+)\]')
