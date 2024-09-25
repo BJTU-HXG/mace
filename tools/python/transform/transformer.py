@@ -852,27 +852,36 @@ class Transformer(base_converter.ConverterInterface):
                                             
                                     # 6号算子     
                                     op_half = consumers_mul[0]       
-                                    op_half.input[0] = op_div.input[0]
+                                    #op_half.input[0] = op_div.input[0]
 
                                     consumers_half = self._consumers[op_half.output[0]]
                                     op_matmul = consumers_half[0]
+                                    op_matmul.input[0] = op_div.input[0]
 
 
    
                                     #op_half.input.append(bias)
-                                    op_half.name = 'Gelu_' + op_half.name
+                                    '''op_half.name = 'Gelu_' + op_half.name
                                     op_half.type = MaceOp.Activation.name
                                     type_arg = op_half.arg.add()
                                     type_arg.name = MaceKeyword.mace_activation_type_str
                                     type_arg.s = "GELU".encode('utf-8')
                                     act_type_arg = ConverterUtil.get_arg(op_half, MaceKeyword.mace_activation_type_str)
                                     act_type = act_type_arg.s.decode()
+                                    print("activation type of GELU:", act_type, type_arg)'''
+                                    op_matmul.name = 'Gelu_' + op_matmul.name
+                                    op_matmul.type = MaceOp.Activation.name
+                                    type_arg = op_matmul.arg.add()
+                                    type_arg.name = MaceKeyword.mace_activation_type_str
+                                    type_arg.s = "GELU".encode('utf-8')
+                                    act_type_arg = ConverterUtil.get_arg(op_matmul, MaceKeyword.mace_activation_type_str)
+                                    act_type = act_type_arg.s.decode()
                                     print("activation type of GELU:", act_type, type_arg)
-            
                                     self._model.op.remove(op_Erf)
                                     self._model.op.remove(op_add_x)
                                     self._model.op.remove(op_mul)
                                     self._model.op.remove(op_div)
+                                    self._model.op.remove(op_half)
                                 else:
                                     continue
             

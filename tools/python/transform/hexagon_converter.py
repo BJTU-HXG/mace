@@ -479,6 +479,7 @@ class HexagonConverter(base_converter.ConverterInterface):
             node_id_counter += 1
             node_id_map[tensor.name] = tensor.node_id
 
+
         print("Hexagon op:")
         index = 0
         for op in self._model.op:
@@ -507,7 +508,9 @@ class HexagonConverter(base_converter.ConverterInterface):
             for ipt in op.input:
                 op_name, port = get_op_and_port_from_tensor(ipt)
                 tensor_name = ipt if port == 0 else op_name + ':0'
+
                 node_id = node_id_map[tensor_name]
+                
                 node_input = op.node_input.add()
                 node_input.node_id = node_id
                 if tensor_name in model_inputs:
@@ -559,10 +562,12 @@ class HexagonConverter(base_converter.ConverterInterface):
         for op in self._model.op:
             mace_check(op.type in self._op_converters,
                        "Mace Hexagon does not support op type %s yet"
-                       % op.type)
+                       % op.type)  
             self.pre_convert(op)
             post_convert_omitted = self._op_converters[op.type](op)
-            if post_convert_omitted is None or not post_convert_omitted:
+            if op.type == HexagonOp.QuantizedGelu_8.name and len(op.input)==6: 
+                continue
+            elif post_convert_omitted is None or not post_convert_omitted:
                 self.post_convert(op)
 
         del self._model.op[:]
@@ -580,7 +585,8 @@ class HexagonConverter(base_converter.ConverterInterface):
             max_output_shape = op.output_shape.add()
             max_output_shape.dims.extend([1])
         if op.type in [HexagonOp.QuantizedMatMul_8x8to32.name,
-                       HexagonOp.QuantizedBatchMatMul_8x8to32.name]:
+                       HexagonOp.QuantizedBatchMatMul_8x8to32.name,
+                       HexagonOp.QuantizedGelu_8.name]:
             op.output_type.extend([mace_pb2.DT_INT32, mace_pb2.DT_FLOAT, mace_pb2.DT_FLOAT])
         elif op.type in [HexagonOp.Quantize_16.name,
                          HexagonOp.Convert_8_16.name,
@@ -624,10 +630,20 @@ class HexagonConverter(base_converter.ConverterInterface):
                 op, '/alphas:0', [op.output_shape[0].dims[3]],
                 [alphas_arg.f] * op.output_shape[0].dims[3], data_type=mace_pb2.DT_FLOAT)
         elif act_type == ActivationType.GELU.name:
-            #requantize_op = copy.deepcopy(op)
+            self.add_min_max_const_node(op, op.input[1])
+            requantize_op = copy.deepcopy(op)
             #op.output[0] = self.new_tensor(op.output[0], '_matmul:0', op.output_shape[0].dims)
-            a =1 
-            
+            #op.type = HexagonOp.QuantizedGelu_8.name
+            op.name = op.name + '_matmul'
+            self.post_convert(op)
+            del requantize_op.input[1:]
+            requantize_op.input[0] = op.output[0]
+            requantize_op.name = requantize_op.name + '_requantize' 
+            requantize_op.type = HexagonOp.Requantize_32to8.name
+            self.add_min_max_const_node(requantize_op, requantize_op.input[0], True, True, False)
+            self.add_min_max_const_node(requantize_op, requantize_op.output[0], True, True, False)
+            self.post_convert(requantize_op)
+            #pass
 
         try:
             op.type = self.activation_type[act_type]
