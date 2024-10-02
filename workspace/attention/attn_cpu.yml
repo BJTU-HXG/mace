@@ -1,7 +1,7 @@
 models:
   attn:
     platform: onnx
-    model_file_path: /home/NIO/llm/transformer/onnxModel/attn_1_144_128.onnx
+    model_file_path: /home/ana/hhj/mace/workspace/models/attn_1_144_128.onnx
     model_sha256_checksum: ebe55ca5b951d9c275e6c289c6a12d0ca1c69593e12338329f48c5344035ff40
     subgraphs:
       - input_tensors: 
@@ -19,7 +19,7 @@ models:
         backend: 
           - pytorch
         validation_inputs_data:
-          - /home/NIO/llm/transformer/onnxModel/tensor_data/input_1_144_128.raw
+          - /home/ana/hhj/mace/workspace/attention/data/input.raw
         input_data_formats: NONE
         output_data_formats: NONE
     runtime: cpu

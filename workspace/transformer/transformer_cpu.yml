@@ -1,7 +1,7 @@
 models:
   transformer:
     platform: onnx
-    model_file_path: /home/NIO/mace/workspace/transformer/transformer-no-where.onnx
+    model_file_path: /home/ana/hhj/mace/workspace/models/transformer-no-where.onnx
     model_sha256_checksum: 45512da41ed5f577aca6ab9ffd2ca386fcd9c6313ba64454cc6ca41b2c7a3875
     subgraphs:
       - input_tensors: 
@@ -15,7 +15,7 @@ models:
         backend: 
           - pytorch
         validation_inputs_data:
-          - /home/NIO/mace/workspace/transformer/transformer_data/inputs/speech.raw
+          - /home/ana/hhj/mace/workspace/transformer/transformer_data/inputs/speech.raw
         input_data_formats: NONE
         output_data_formats: NONE
     runtime: cpu

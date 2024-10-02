@@ -71,5 +71,8 @@ workspace/attention/data
 workspace/attention/tensor_data/
 workspace/attention/python/
 
+workspace/models
+workspace/logs
+
 acc_conformer.txt
 conformer_vaild.txt
