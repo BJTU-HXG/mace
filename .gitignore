@@ -73,6 +73,8 @@ workspace/attention/python/
 
 workspace/models
 workspace/logs
+workspace/test
+workspace/test.cpp
 
 acc_conformer.txt
 conformer_vaild.txt
