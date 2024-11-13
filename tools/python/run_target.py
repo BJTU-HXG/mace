@@ -85,7 +85,7 @@ def run_target_origin(target_abi, install_dir, target_obj, device_ids="all"):
 def default_install_dir(target_abi):
     install_dir = "/tmp/mace_run"
     if target_abi == "armeabi-v7a" or target_abi == "arm64-v8a":
-        install_dir = "/data/local/tmp/mace_tmp"
+        install_dir = "/data/local/tmp/mace_gsd_tmp"
     if target_abi == "qnx":
         install_dir = "/fota/shiding.guo/mace_tmp"
 
