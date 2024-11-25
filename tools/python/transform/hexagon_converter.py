@@ -224,6 +224,7 @@ class HexagonConverter(base_converter.ConverterInterface):
             self._model, MaceKeyword.mace_framework_type_str).i
 
     def run(self):
+        
         self.add_port_and_construct_producers()
         self.construct_ops_and_consumers()
         # convert op node
@@ -345,17 +346,13 @@ class HexagonConverter(base_converter.ConverterInterface):
             quantize_info = self._quantize_activation_info[tensor_name]
             minval = quantize_info.minval
             maxval = quantize_info.maxval
-            print(tensor_name)
             quantize_info = self._quantize_activation_info[tensor_name]
-            print(quantize_info)
             is_activation = True
   
         elif tensor_name in self._consts:
             tensor = self._consts[tensor_name]
             minval = tensor.minval
             maxval = tensor.maxval
-            print(tensor_name)
-            print(type(tensor.int32_data))
             if(tensor_name=='/Sub/b:0'):
                 #with open('/home/ana/nio2/workspace/bert/log/bert_convert_dsp_log2', 'w') as file:
                 #    file.write(json.dumps(tensor))
@@ -363,7 +360,6 @@ class HexagonConverter(base_converter.ConverterInterface):
             is_activation = False
         else:
             raise Exception('Quantize info not found: ', tensor_name)
-
         if add_min:
             if is_activation and diff_port:
                 min_tensor_name = op + ':1'
@@ -510,7 +506,6 @@ class HexagonConverter(base_converter.ConverterInterface):
                 tensor_name = ipt if port == 0 else op_name + ':0'
 
                 node_id = node_id_map[tensor_name]
-                
                 node_input = op.node_input.add()
                 node_input.node_id = node_id
                 if tensor_name in model_inputs:
@@ -544,35 +539,37 @@ class HexagonConverter(base_converter.ConverterInterface):
             in_h, in_w = input_shape[1], input_shape[2]
             k_h, k_w = kernels[0], kernels[1]
             out_h, out_w = output_shape[1], output_shape[2]
-
+            
             if (out_h == (in_h - k_h) // strides[0] + 1) and \
                     (out_w == (in_w - k_w) // strides[1] + 1):
                 op.padding = HexagonPadding.NN_PAD_VALID.value
+            
             elif (out_h == (in_h - 1) // strides[0] + 1) and \
                     (out_w == (in_w - 1) // strides[1] + 1):
                 op.padding = HexagonPadding.NN_PAD_SAME_CAFFE.value
             else:
                 mace_check(False,
-                           "Hexagon does not support padding type for: %s"
-                           % op)
+                            "Hexagon does not support padding type for: %s"
+                            % op)
+                return         
 
     def convert_ops(self):
         print("Convert mace graph to hexagon.")
-        print(self._model.op)
+        #print(self._model.op)
         for op in self._model.op:
             mace_check(op.type in self._op_converters,
                        "Mace Hexagon does not support op type %s yet"
                        % op.type)  
             self.pre_convert(op)
             post_convert_omitted = self._op_converters[op.type](op)
-            if op.type == HexagonOp.QuantizedGelu_8.name and len(op.input)==6: 
+            if op.type == HexagonOp.QuantizedGelu_8.name: 
                 continue
             elif post_convert_omitted is None or not post_convert_omitted:
                 self.post_convert(op)
 
         del self._model.op[:]
         self._model.op.extend(self._new_ops)
-        print(self._model.op)
+       # print(self._model.op)
 
     def pre_convert(self, op):
         self.add_port_for_tensors(op.input)
@@ -585,8 +582,7 @@ class HexagonConverter(base_converter.ConverterInterface):
             max_output_shape = op.output_shape.add()
             max_output_shape.dims.extend([1])
         if op.type in [HexagonOp.QuantizedMatMul_8x8to32.name,
-                       HexagonOp.QuantizedBatchMatMul_8x8to32.name,
-                       HexagonOp.QuantizedGelu_8.name]:
+                       HexagonOp.QuantizedBatchMatMul_8x8to32.name]:
             op.output_type.extend([mace_pb2.DT_INT32, mace_pb2.DT_FLOAT, mace_pb2.DT_FLOAT])
         elif op.type in [HexagonOp.Quantize_16.name,
                          HexagonOp.Convert_8_16.name,
@@ -630,20 +626,26 @@ class HexagonConverter(base_converter.ConverterInterface):
                 op, '/alphas:0', [op.output_shape[0].dims[3]],
                 [alphas_arg.f] * op.output_shape[0].dims[3], data_type=mace_pb2.DT_FLOAT)
         elif act_type == ActivationType.GELU.name:
-            self.add_min_max_const_node(op, op.input[1])
-            requantize_op = copy.deepcopy(op)
-            #op.output[0] = self.new_tensor(op.output[0], '_matmul:0', op.output_shape[0].dims)
-            #op.type = HexagonOp.QuantizedGelu_8.name
-            op.name = op.name + '_matmul'
+            gelu_op = copy.deepcopy(op)
+            add_op = copy.deepcopy(op)
+            op.output[0] = self.new_tensor(op.output[0], '_gelu1:0', op.output_shape[0].dims)
+            op.type = HexagonOp.QuantizedGelu_8.name
+            op.name = op.name + '_first_Gelu'
             self.post_convert(op)
-            del requantize_op.input[1:]
-            requantize_op.input[0] = op.output[0]
-            requantize_op.name = requantize_op.name + '_requantize' 
-            requantize_op.type = HexagonOp.Requantize_32to8.name
-            self.add_min_max_const_node(requantize_op, requantize_op.input[0], True, True, False)
-            self.add_min_max_const_node(requantize_op, requantize_op.output[0], True, True, False)
-            self.post_convert(requantize_op)
-            #pass
+            gelu_op.name = gelu_op.name + '_second_Gelu'
+            gelu_op.type = HexagonOp.QuantizedGelu_8.name
+            gelu_op.output[0] = self.new_tensor(gelu_op.output[0], '_gelu2:0', gelu_op.output_shape[0].dims)
+            self.post_convert(gelu_op)
+            add_op.name = add_op.name + '_add'
+            add_op.type = HexagonOp.QuantizedAdd_8p8to8.name
+            del add_op.input[2:]
+            add_op.input[0] = op.output[0]
+            add_op.input[1] = gelu_op.output[0]
+            self.add_min_max_const_node(add_op, add_op.input[0], True, True)
+            self.add_min_max_const_node(add_op, add_op.input[1], True, True)
+            self.add_min_max_const_node(add_op, add_op.output[0], True, True, False)
+            self.post_convert(add_op)
+
 
         try:
             op.type = self.activation_type[act_type]
@@ -691,10 +693,12 @@ class HexagonConverter(base_converter.ConverterInterface):
 
     def convert_concat(self, op):
         inputs = copy.deepcopy(op.input)
-        for ipt in inputs:
+        '''for ipt in inputs:
             self.add_min_max_const_node(op, ipt, True, False)
         for ipt in inputs:
-            self.add_min_max_const_node(op, ipt, False, True)
+            self.add_min_max_const_node(op, ipt, False, True)'''
+        for ipt in inputs:
+            self.add_min_max_const_node(op, ipt, True, True)
         dim_arg = ConverterUtil.get_arg(
             op, MaceKeyword.mace_axis_str)
         if(len(self.get_preop_outshape(op)) == 3):
@@ -803,6 +807,8 @@ class HexagonConverter(base_converter.ConverterInterface):
         self._producers[op_trans_nchw.output[0]] = op_trans_nchw
         op_trans_nchw.type = HexagonOp.Transpose_8.name
         self.post_convert(op_trans_nchw)
+        print(self._producers[op_trans_nchw.output[0]])
+        #print(self._consumers)
         return True
     
     def add_deconv_pad_node(self, op):
@@ -946,12 +952,15 @@ class HexagonConverter(base_converter.ConverterInterface):
             scalar_input = ConverterUtil.get_arg(
                 op, MaceKeyword.mace_scalar_input_str).f
             self.add_quantized_scalar_const_node("/b:0", scalar_input, op)
-        if op.input[1] == '/Mul_output_0:0':
+            
+        '''if op.input[1] == 'mace_output_node_/Mul_output_0:0':
+            #print(f"op {op} use static minmax")
             self.add_min_max_const_node(op, op.input[0],True,True,True)
             self.add_min_max_const_node(op, op.input[1],True,True,False)
-        else:
-            self.add_min_max_const_node(op, op.input[0],True,True,True)
-            self.add_min_max_const_node(op, op.input[1],True,True,True)
+        else:'''
+            #print(f"op {op} use dynamic minmax, input is {op.input[1]}")
+        self.add_min_max_const_node(op, op.input[0],True,True,True)
+        self.add_min_max_const_node(op, op.input[1],True,True,True)
 
             
         
