@@ -1,6 +1,11 @@
 set -ex
 
 MACE_ROOT_DIR=$(pwd)
+export QNX_BIN_DIR=/home/shiding.guo/newqxx
+export QNX_HOST=$QNX_BIN_DIR/qnx700-sdk/host/linux/x86_64
+export QNX_TARGET=$QNX_BIN_DIR/qnx700-sdk/target/qnx7
+export QNX_TOOLS_DIR=$QNX_HOST
+export QNX_TARGET_DIR=$QNX_TARGET
 
 # build for arm linux aarch64
 if [[ -z "$BUILD_DIR" ]]; then

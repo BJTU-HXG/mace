@@ -1,9 +1,9 @@
 set(CMAKE_SYSTEM_NAME QNX)
 set(CMAKE_SYSTEM_PROCESSOR aarch64)
 
-set(CMAKE_C_COMPILER "${CROSSTOOL_ROOT}/qnx700/host/linux/x86_64/usr/bin/ntoaarch64-gcc")
-set(CMAKE_CXX_COMPILER "${CROSSTOOL_ROOT}/qnx700/host/linux/x86_64/usr/bin/ntoaarch64-g++")
-set(CMAKE_FIND_ROOT_PATH "${CROSSTOOL_ROOT}/qnx700/target/qnx7")
+set(CMAKE_C_COMPILER "${CROSSTOOL_ROOT}/qnx700-sdk/host/linux/x86_64/usr/bin/ntoaarch64-gcc")
+set(CMAKE_CXX_COMPILER "${CROSSTOOL_ROOT}/qnx700-sdk/host/linux/x86_64/usr/bin/ntoaarch64-g++")
+set(CMAKE_FIND_ROOT_PATH "${CROSSTOOL_ROOT}/qnx700-sdk/target/qnx7")
 
 set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
 set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)

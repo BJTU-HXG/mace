@@ -117,7 +117,7 @@ elseif(ANDROID)
     )
 elseif(QNX)
   add_custom_target(combined ALL
-    COMMAND ${CROSSTOOL_ROOT}/qnx700/host/linux/x86_64/usr/bin/ntoaarch64-ar -M < ${CMAKE_BINARY_DIR}/mace/libmace/mace.mri
+    COMMAND ${CROSSTOOL_ROOT}/qnx700-sdk/host/linux/x86_64/usr/bin/ntoaarch64-ar -M < ${CMAKE_BINARY_DIR}/mace/libmace/mace.mri
     DEPENDS mace_API ops flows runtimes core utils proto generated_version generated_opencl_kernel libprotobuf_lite port_base port_posix port_qnx
     )
 else() #linux
