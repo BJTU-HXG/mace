@@ -1197,6 +1197,24 @@ class HexagonConverter(base_converter.ConverterInterface):
         op.type = HexagonOp.QuantizedResizeBilinear_8.name
 
     def convert_resizenearestneighbor(self, op):
+        op_trans_nhwc = copy.deepcopy(op)
+        op_trans_nchw = copy.deepcopy(op)
+        NHWC_shape = [0,2,3,1]
+        NCHW_shape = [0,3,1,2]
+        del op_trans_nhwc.input[1:]
+        self.add_arg_const_node(op_trans_nhwc, '/_shape:0', [len(NHWC_shape)], NHWC_shape)
+        self.add_min_max_const_node(op_trans_nhwc, op_trans_nhwc.input[0])
+        shape = self.get_preop_outshape(op_trans_nhwc)
+        shape[1], shape[2], shape[3] = shape[2], shape[3], shape[1]
+        self.change_output_shape(op_trans_nhwc, shape)
+        op_trans_nhwc.output[0] = self.new_tensor(op_trans_nhwc.output[0], '_NHWC:0', shape)
+        op_trans_nhwc.name = op_trans_nhwc.name + '_NHWC'
+        op_trans_nhwc.type = HexagonOp.Transpose_8.name
+        self.post_convert(op_trans_nhwc)
+        op.input[0] = op_trans_nhwc.output[0]
+        shape = copy.deepcopy(op.output_shape[0].dims)
+        op.output[0] = self.new_tensor(op.output[0], '_resize:0', shape)
+
         height_scale_arg = ConverterUtil.get_arg(
             op, MaceKeyword.mace_height_scale_str)
         width_scale_arg = ConverterUtil.get_arg(
@@ -1222,6 +1240,22 @@ class HexagonConverter(base_converter.ConverterInterface):
         self.add_resize_args(op)
 
         op.type = HexagonOp.ResizeNearestNeighbor_8.name
+
+        op.name = op.name + '_resize'
+        self.post_convert(op)
+
+        del op_trans_nchw.input[1:]
+        op_trans_nchw.input[0] = op.output[0]
+        self.add_arg_const_node(op_trans_nchw, '/shape:0', [len(NCHW_shape)], NCHW_shape)
+        self.add_min_max_const_node(op_trans_nchw, op_trans_nchw.input[0])
+        shape = copy.deepcopy(op_trans_nchw.output_shape[0].dims)
+        shape[1], shape[2], shape[3] = shape[3], shape[1], shape[2]
+        self.change_output_shape(op_trans_nchw, shape)
+        self._producers[op_trans_nchw.output[0]] = op_trans_nchw
+        op_trans_nchw.type = HexagonOp.Transpose_8.name
+        self.post_convert(op_trans_nchw)
+        return True
+
 
     def convert_softmax(self, op):
         # 传了一个nan, 应该是-34万亿亿亿亿
