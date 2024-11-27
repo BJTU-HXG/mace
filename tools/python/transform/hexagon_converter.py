@@ -658,142 +658,38 @@ class HexagonConverter(base_converter.ConverterInterface):
 
         op.type = HexagonOp.QuantizedConcat_8.name
 
-    """
-        Hexagon中Conv需要使用NHWC的数据格式。一般的算子使用NCHW的shape和数据格式即可。
-        1.onnx中使用的4D数据是NCHW 2.nn会自动将3D shape更换为NCHW的4D shape
-        在标准的Conv前后添加Transpose操作，更换形状和数据格式
-        流程: Transpose(NCHW->NHWC) ==> Conv ==> Transpose(NHWC->NCHW)
-        
-        1,128,1,6
-    """
     def convert_conv2d(self, op):
-        op_trans_nhwc = copy.deepcopy(op)
-        op_trans_nchw = copy.deepcopy(op)
-        op_requantize = copy.deepcopy(op)
-        NHWC_shape = [0,2,3,1]
-        NCHW_shape = [0,3,1,2]
-        
-        del op_trans_nhwc.input[1:]
-        self.add_arg_const_node(op_trans_nhwc, '/_shape:0', [len(NHWC_shape)], NHWC_shape)
-        self.add_min_max_const_node(op_trans_nhwc, op_trans_nhwc.input[0])
-        shape = self.get_preop_outshape(op_trans_nhwc)
-        shape[1], shape[2], shape[3] = shape[2], shape[3], shape[1]
-        self.change_output_shape(op_trans_nhwc, shape)
-        op_trans_nhwc.output[0] = self.new_tensor(op_trans_nhwc.output[0], '_NHWC:0', shape)
-        op_trans_nhwc.name = op_trans_nhwc.name + '_NHWC'
-        op_trans_nhwc.type = HexagonOp.Transpose_8.name
-        self.post_convert(op_trans_nhwc)
-    
-        op.input[0] = op_trans_nhwc.output[0]
-        shape = copy.deepcopy(op.output_shape[0].dims)
-        if op.type == MaceOp.Conv2D.name:
-            op.output[0] = self.new_tensor(op.output[0], '_conv:0', shape)
-            if len(op.input) < 3:
-                bias = self.add_bias(op)
-            else:
-                bias = op.input.pop()
-            self.add_min_max_const_node(op, op.input[0])
-            self.add_min_max_const_node(op, op.input[1])
+        if len(op.input) < 3:
+            bias = self.add_bias(op)
+        else:
+            bias = op.input.pop()
 
-            strides_arg = ConverterUtil.get_arg(op, 'strides')
-            mace_check(strides_arg is not None,
-                    "Missing strides of Conv or Depthwise Conv.")
-            self.add_arg_const_node(
-                op, '/strides:0', [1, strides_arg.ints[0], strides_arg.ints[1], 1])
+        self.add_min_max_const_node(op, op.input[0])
+        self.add_min_max_const_node(op, op.input[1])
 
-            op.input.append(bias)
-            self.add_min_max_const_node(op, bias)
-            self.add_min_max_const_node(
-                op, op.output[0], True, True, False)
+        strides_arg = ConverterUtil.get_arg(op, 'strides')
+        mace_check(strides_arg is not None,
+                   "Missing strides of Conv or Depthwise Conv.")
+        self.add_arg_const_node(
+            op, '/strides:0', [1, strides_arg.ints[0], strides_arg.ints[1], 1])
 
-            self.add_padding_type_for_conv_pooling(
-                op, self._consts[op.input[1]].dims, strides_arg.ints)
+        op.input.append(bias)
+        self.add_min_max_const_node(op, bias)
+        self.add_min_max_const_node(
+            op, op.output[0], True, True, False)
 
-            dilations_arg = ConverterUtil.get_arg(op, 'dilations')
-            mace_check(dilations_arg is None or
-                    (dilations_arg.ints[0] == 1 and dilations_arg.ints[1] == 1),
-                    "Hexagon only support dilations[1,1].")
-            op.type = HexagonOp.Supernode_8x8p32to8.name
-            op.name = op.name + '_conv'
-            self.post_convert(op)
-            
-        elif op.type == MaceOp.DepthwiseConv2d.name:
-            #创建输出tensor
-            op.output[0] = self.new_tensor(op.output[0], '_dwconv:0', shape)
-            #寻找是否有自带的bias，如果没有就新建一个值为0的bias
-            if len(op.input) < 3:
-                bias = self.add_bias(op)
-            else:
-                bias = op.input.pop()
-            #添加输入tensor和卷积核
-            self.add_min_max_const_node(op, op.input[0])
-            self.add_min_max_const_node(op, op.input[1])
-            #添加stride参数
-            strides_arg = ConverterUtil.get_arg(op, 'strides')
-            mace_check(strides_arg is not None,
-                    "Missing strides of Conv or Depthwise Conv.")
-            self.add_arg_const_node(
-                op, '/strides:0', [1, strides_arg.ints[0], strides_arg.ints[1], 1])
-            #添加bias和输出tensor
-            op.input.append(bias)
-            self.add_min_max_const_node(op, bias)
-            self.add_min_max_const_node(
-                op, op.output[0], True, True, False)
-            
-            self.add_padding_type_for_conv_pooling(
-                op, self._consts[op.input[1]].dims, strides_arg.ints)
+        self.add_padding_type_for_conv_pooling(
+            op, self._consts[op.input[1]].dims, strides_arg.ints)
 
-            dilations_arg = ConverterUtil.get_arg(op, 'dilations')
-            mace_check(dilations_arg is None or
-                    (dilations_arg.ints[0] == 1 and dilations_arg.ints[1] == 1),
-                    "Hexagon only support dilations[1,1].")
-            #将名称改为DepthwiseSupernode_8x8p32to8
+        dilations_arg = ConverterUtil.get_arg(op, 'dilations')
+        mace_check(dilations_arg is None or
+                   (dilations_arg.ints[0] == 1 and dilations_arg.ints[1] == 1),
+                   "Hexagon only support dilations[1,1].")
+
+        if op.type == MaceOp.DepthwiseConv2d.name:
             op.type = HexagonOp.DepthwiseSupernode_8x8p32to8.name
-            op.name = op.name + '_dwconv'
-            self.post_convert(op)
-
-        '''elif op.type == MaceOp.DepthwiseConv2d.name:
-            op.output[0] = self.new_tensor(op.output[0], '_dwconv:0', shape)
-            del op.input[2:]
-            self.add_min_max_const_node(op, op.input[0])
-            self.add_min_max_const_node(op, op.input[1])
-            strides_arg = ConverterUtil.get_arg(op, 'strides')
-            self.add_arg_const_node(
-                op, '/strides:0', [1, strides_arg.ints[0], strides_arg.ints[1], 1])
-            self.add_padding_type_for_conv_pooling(
-                op, self._consts[op.input[1]].dims, strides_arg.ints)
-
-            dilations_arg = ConverterUtil.get_arg(op, 'dilations')
-            mace_check(dilations_arg is None or
-                    (dilations_arg.ints[0] == 1 and dilations_arg.ints[1] == 1),
-                    "Hexagon only support dilations[1,1].")
-            op.type = HexagonOp.QuantizedDepthwiseConv2d_8x8to32.name
-            op.name = op.name + '_dwconv'
-            self.post_convert(op)
-            
-            op_requantize.input[0] = op.output[0]
-            del op_requantize.input[1:]
-            self.add_min_max_const_node(op_requantize, op_requantize.input[0],True, True, False)
-            op_requantize.output[0] = self.new_tensor(op_requantize.output[0], '_requantize:0', shape)
-            self.add_min_max_const_node(op_requantize, op_requantize.output[0],True, True, False)
-            op_requantize.type = HexagonOp.Requantize_32to8.name
-            op_requantize.name = op.name + '_requantize'
-            self.post_convert(op_requantize)'''
-        
-        del op_trans_nchw.input[1:]
-        if op.type == HexagonOp.QuantizedDepthwiseConv2d_8x8to32.name:
-            op_trans_nchw.input[0] = op_requantize.output[0]
-        else: op_trans_nchw.input[0] = op.output[0]
-        self.add_arg_const_node(op_trans_nchw, '/shape:0', [len(NCHW_shape)], NCHW_shape)
-        self.add_min_max_const_node(op_trans_nchw, op_trans_nchw.input[0])
-        shape = copy.deepcopy(op_trans_nchw.output_shape[0].dims)
-        shape[1], shape[2], shape[3] = shape[3], shape[1], shape[2]
-        self.change_output_shape(op_trans_nchw, shape)
-        # 生成output tensor的op发生改变
-        self._producers[op_trans_nchw.output[0]] = op_trans_nchw
-        op_trans_nchw.type = HexagonOp.Transpose_8.name
-        self.post_convert(op_trans_nchw)
-        return True
+        else:
+            op.type = HexagonOp.Supernode_8x8p32to8.name
     
     def add_deconv_pad_node(self, op):
         padding_type_arg = \

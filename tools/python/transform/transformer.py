@@ -1790,8 +1790,9 @@ class Transformer(base_converter.ConverterInterface):
             else:
                 input_dims = input_op.output_shape[0].dims
                 output_dims = op.output_shape[0].dims
-                if len(input_op.output_shape) != 1 or \
-                        len(input_dims) != 4 or len(output_dims) != 4:
+                # if len(input_op.output_shape) != 1 or \
+                #         len(input_dims) != 4 or len(output_dims) != 4:
+                if len(input_dims) != 4 or len(output_dims) != 4:
                     transposable = False
                 else:
                     if is_torch or is_onnx:
@@ -2074,13 +2075,30 @@ class Transformer(base_converter.ConverterInterface):
             op_def.name = self.normalize_op_name(new_input_name)
             op_def.type = MaceOp.Quantize.name
             op_def.input.extend([input_node.name])
-            op_def.output.extend([new_input_name])
+            do_trans = (ConverterUtil.framework_type(self._model) == FrameworkType.ONNX.value)
+            if do_trans:
+                op_def.output.extend([new_input_name + "_trans"])
+            else:
+                op_def.output.extend([new_input_name])
             output_shape = op_def.output_shape.add()
             output_shape.dims.extend(input_node.shape)
             quantize_info = self._quantize_activation_info[new_input_name]
             self.copy_quantize_info(op_def, quantize_info)
             self._model.input_info[i].scale = quantize_info.scale
             self._model.input_info[i].zero_point = quantize_info.zero_point
+            if do_trans:
+                op_def_trans = self._model.op.add()
+                op_def_trans.name = self.normalize_op_name(new_input_name) + "_trans"
+                op_def_trans.type = MaceOp.Transpose.name
+                op_def_trans.input.extend([new_input_name + "_trans"])
+                op_def_trans.output.extend([new_input_name])
+                output_shape = op_def_trans.output_shape.add()
+                output_shape.dims.extend([input_node.shape[i] for i in [0, 2, 3, 1]])
+                dims_arg = op_def_trans.arg.add()
+                dims_arg.name = MaceKeyword.mace_dims_str
+                dims_arg.ints.extend([0, 2, 3, 1])
+                self.copy_quantize_info(op_def_trans, quantize_info)
+                self._quantize_activation_info[op_def_trans.input[0]] = op_def_trans.quantize_info[0]
 
             if self._option.quantize_schema == \
                     MaceKeyword.mace_apu_16bit_per_tensor:
@@ -2104,13 +2122,28 @@ class Transformer(base_converter.ConverterInterface):
             op_def = self._model.op.add()
             op_def.name = self.normalize_op_name(output_node.name)
             op_def.type = MaceOp.Dequantize.name
-            op_def.input.extend([self.output_name_map[output_node.name]])
-            op_def.output.extend([output_node.name])
-            output_shape = op_def.output_shape.add()
             producer_op = self._producer[output_node.name]
-            output_shape.dims.extend(producer_op.output_shape[0].dims)
-            op_def.output_type.extend([mace_pb2.DT_FLOAT])
             quantize_info = producer_op.quantize_info[0]
+            if do_trans:
+                op_def_trans = self._model.op.add()
+                op_def_trans.name = self.normalize_op_name(output_node.name) + "_trans"
+                op_def_trans.type = MaceOp.Transpose.name
+                op_def_trans.input.extend([self.output_name_map[output_node.name]])
+                op_def_trans.output.extend([self.output_name_map[output_node.name] + "_trans"])
+                output_shape_trans = op_def_trans.output_shape.add()
+                output_shape_trans.dims.extend([producer_op.output_shape[0].dims[i] for i in [0, 3, 1, 2]])
+                dims_arg = op_def_trans.arg.add()
+                dims_arg.name = MaceKeyword.mace_dims_str
+                dims_arg.ints.extend([0, 3, 1, 2])
+                self.copy_quantize_info(op_def_trans, quantize_info)
+                self._quantize_activation_info[op_def_trans.output[0]] = op_def_trans.quantize_info[0]
+                op_def.input.extend([self.output_name_map[output_node.name] + "_trans"])
+            else:
+                op_def.input.extend([self.output_name_map[output_node.name]])
+                output_shape = op_def.output_shape.add()
+                output_shape.dims.extend(producer_op.output_shape[0].dims)
+            op_def.output.extend([output_node.name])
+            op_def.output_type.extend([mace_pb2.DT_FLOAT])
             self._model.output_info[i].scale = quantize_info.scale
             self._model.output_info[i].zero_point = quantize_info.zero_point
 
