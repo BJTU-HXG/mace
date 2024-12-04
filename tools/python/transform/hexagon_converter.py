@@ -1133,7 +1133,7 @@ class HexagonConverter(base_converter.ConverterInterface):
         onnx_starts = self._consts[op.input[1]].int32_data
         ends = self._consts[op.input[2]].int32_data
         dims = self._consts[op.input[3]].int32_data
-        steps = self._consts[op.input[4]].int32_data
+        steps = self._consts[op.input[4]].int32_data if len(op.input) > 4 else [1]
         nn_starts = []
         size = []
         # input dim == 3 只在一个dim进行slice
@@ -1153,6 +1153,20 @@ class HexagonConverter(base_converter.ConverterInterface):
                     elif onnx_start <0 and step > 0:
                         size.append(int((abs(onnx_start) - abs(end)) + 1 / step))
                         nn_starts.append(onnx_start + ipt_shape[dim])
+                else:
+                    nn_starts.append(0)
+                    size.append(-1)
+        elif len(ipt_shape) == 4 and len(dims) == 1:
+            dim = dims[0]
+            onnx_start = onnx_starts[0]
+            end = ends[0]
+            step = steps[0]
+            mace_check(step == 1, "Op QuantizedSlice_8 doesn't support step.")
+            for i in range(4):
+                if i == dim:
+                    mace_check(end >= onnx_start >= 0, "Not inplemented yet.")
+                    nn_starts.append(onnx_start)
+                    size.append(end)
                 else:
                     nn_starts.append(0)
                     size.append(-1)
