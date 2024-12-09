@@ -446,6 +446,7 @@ class OnnxConverter(base_converter.ConverterInterface):
             self._mace_net_def, FrameworkType.ONNX.value)
         onnx_model = onnx.load(src_model_file)
 
+        onnx_model.ir_version = 8
         ir_version = onnx_model.ir_version
         opset_imp = onnx_model.opset_import
 

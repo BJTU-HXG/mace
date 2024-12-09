@@ -259,20 +259,18 @@ def run_model_for_device(flags, args, dev, model_name, model_conf):
                          opencl_dir, model_name,
                          dev.info()["ro.product.model"].replace(' ', ''),
                          dev.info()["ro.board.platform"]))
-
+    
     if flags.validate:
         validate_model_file = util.download_or_get_model(
             model_conf[ModelKeys.model_file_path],
             model_conf[ModelKeys.model_sha256_checksum],
             tmpdirname)
-
         validate_weight_file = ""
         if ModelKeys.weight_file_path in model_conf:
             validate_weight_file = util.download_or_get_model(
                 model_conf[ModelKeys.weight_file_path],
                 model_conf[ModelKeys.weight_sha256_checksum],
                 tmpdirname)
-
         dev.pull(Target(target_output_dir), tmpdirname + "/validate_out")
         output_file_prefix = tmpdirname + "/validate_out/" + model_name
         validation_outputs_data = \
@@ -292,9 +290,9 @@ def run_model_for_device(flags, args, dev, model_name, model_conf):
                           input_tensors_info[ModelKeys.input_data_types],
                           flags.backend,
                           validation_outputs_data,
-                          "")
-    #if should_generate_data:
-    #    shutil.rmtree(tmpdirname)
+                          flags.accuracy_log)
+    if should_generate_data:
+        shutil.rmtree(tmpdirname)
 
 
 def generate_input_data(input_file, input_node, input_shape, input_ranges,
@@ -429,6 +427,11 @@ def parse_args():
         "--quantize_stat",
         action="store_true",
         help="whether to stat quantization range.")
+    parser.add_argument(
+        "--accuracy_log",
+        type=str,
+        default="",
+        help="the file of result of validate accuracy")
 
     return parser.parse_known_args()
 

@@ -89,33 +89,25 @@ def compare_output(output_name, mace_out_value,
         assert len(out_value) == len(mace_out_value)
         sqnr = calculate_sqnr(out_value, mace_out_value)
         similarity = calculate_similarity(out_value, mace_out_value)
-        util.MaceLogger.summary(
+
+        if log_file:
+            with open(log_file, 'a') as f:
+                f.write('%-40s%-30s%-30s%-20s' %(output_name,similarity,sqnr,pixel_accuracy))
+                if similarity > validation_threshold:
+                    f.write('%-20s'%'PASS'+'\n')
+                else:
+                    f.write('%-20s'%'NOPASS'+'\n')
+        else:
+            util.MaceLogger.summary(
             output_name + ' MACE VS training platform'
             + ' similarity: ' + str(similarity) + ' , sqnr: ' + str(sqnr)
             + ' , pixel_accuracy: ' + str(pixel_accuracy))
-        with open('/home/ana/nio2/workspace/bert/log/accuracy_log', 'a') as file:
-            content=(output_name + '\t'
-            + ' \t' + str(similarity) + '\t' + str(sqnr)
-            + '\t' + str(pixel_accuracy)+'\tPASS\n')
-            if(output_name!='last_hidden_state' and output_name!='pooler_output'):
-                file.write(content)
-        if log_file:
-            if not os.path.exists(log_file):
-                with open(log_file, 'w') as f:
-                    f.write('output_name,similarity,sqnr,pixel_accuracy\n')
-            summary = '{output_name},{similarity},{sqnr},{pixel_accuracy}\n' \
-                .format(output_name=output_name,
-                        similarity=similarity,
-                        sqnr=sqnr,
-                        pixel_accuracy=pixel_accuracy)
-            with open(log_file, "a") as f:
-                f.write(summary)
-        elif similarity > validation_threshold:
-            util.MaceLogger.summary(
-                util.StringFormatter.block("Similarity Test Passed"))
-        else:
-            util.MaceLogger.summary(
-                util.StringFormatter.block("Similarity Test Failed"))
+            if similarity > validation_threshold:
+                util.MaceLogger.summary(
+                    util.StringFormatter.block("Similarity Test Passed"))
+            else:
+                util.MaceLogger.summary(
+                    util.StringFormatter.block("Similarity Test Failed"))
     else:
         util.MaceLogger.error(
             "", util.StringFormatter.block(
@@ -413,6 +405,9 @@ def validate_onnx_model(platform, model_file,
 
     sess = onnxrt.InferenceSession(model.SerializeToString())
     output_values = sess.run(output_names, input_dict)
+    if log_file:
+        with open(log_file, 'w') as f:
+            f.write('%-40s%-30s%-30s%-20s' %('output_name','similarity','sqnr','pixel_accuracy') + '\n')
 
     for i in range(len(output_names)):
         value = output_values[i].flatten()
