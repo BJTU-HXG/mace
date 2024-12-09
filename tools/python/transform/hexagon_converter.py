@@ -343,7 +343,6 @@ class HexagonConverter(base_converter.ConverterInterface):
         mace_check(port == 0, 'port should be 0 to add min max tensor then.')
         #print(self._quantize_activation_info)
         if tensor_name in self._quantize_activation_info:
-            #print("activationnnnnnnnn")
             quantize_info = self._quantize_activation_info[tensor_name]
             minval = quantize_info.minval
             maxval = quantize_info.maxval
