@@ -326,18 +326,19 @@ class HexagonConverter(base_converter.ConverterInterface):
         else:
             op.input.insert(insert_index, arg_tensor.name)
 
-    def add_min_max_const_node_for_split(self, this_op, tensor_name):
+    def add_min_max_const_node_for_split(self, this_op, tensor_name, add_min=True, add_max=True):
         op, port = get_op_and_port_from_tensor(tensor_name)
+        
         this_op.input.extend([op + ':2'])
         this_op.input.extend([op + ':3'])
 
     def add_min_max_const_node(
             self, this_op, tensor_name, add_min=True, add_max=True,
             diff_port=True):
-        if tensor_name in self._producers and \
+        '''if tensor_name in self._producers and \
                 self._producers[tensor_name].type == \
                 HexagonOp.QuantizedSplit_8.name:
-            return self.add_min_max_const_node_for_split(this_op, tensor_name)
+            return self.add_min_max_const_node_for_split(this_op, tensor_name)'''
         op, port = get_op_and_port_from_tensor(tensor_name)
         mace_check(port == 0, 'port should be 0 to add min max tensor then.')
         #print(self._quantize_activation_info)
@@ -362,14 +363,24 @@ class HexagonConverter(base_converter.ConverterInterface):
             raise Exception('Quantize info not found: ', tensor_name)
         if add_min:
             if is_activation and diff_port:
-                min_tensor_name = op + ':1'
+                if tensor_name in self._producers and \
+                self._producers[tensor_name].type == \
+                HexagonOp.QuantizedSplit_8.name:
+                    min_tensor_name = op + ':2'
+                else:
+                    min_tensor_name = op + ':1'
             else:
                 min_tensor_name = op + '_min:0'
                 self.add_scalar_const_node(min_tensor_name, minval)
             this_op.input.extend([min_tensor_name])
         if add_max:
             if is_activation and diff_port:
-                max_tensor_name = op + ':2'
+                if tensor_name in self._producers and \
+                self._producers[tensor_name].type == \
+                HexagonOp.QuantizedSplit_8.name:
+                    max_tensor_name = op + ':3'
+                else:
+                    max_tensor_name = op + ':2'
             else:
                 max_tensor_name = op + '_max:0'
                 self.add_scalar_const_node(max_tensor_name, maxval)
@@ -504,7 +515,15 @@ class HexagonConverter(base_converter.ConverterInterface):
             for ipt in op.input:
                 op_name, port = get_op_and_port_from_tensor(ipt)
                 tensor_name = ipt if port == 0 else op_name + ':0'
-
+                if port == 0:
+                    if ipt in self._producers:
+                        producer_op = self._producers[ipt]
+                        if producer_op.type == HexagonOp.QuantizedSplit_8.name:
+                            for output in producer_op.output:
+                                if output == ipt:
+                                    break
+                                else:
+                                    port += 1
                 node_id = node_id_map[tensor_name]
                 node_input = op.node_input.add()
                 node_input.node_id = node_id
@@ -693,12 +712,10 @@ class HexagonConverter(base_converter.ConverterInterface):
 
     def convert_concat(self, op):
         inputs = copy.deepcopy(op.input)
-        '''for ipt in inputs:
+        for ipt in inputs:
             self.add_min_max_const_node(op, ipt, True, False)
         for ipt in inputs:
-            self.add_min_max_const_node(op, ipt, False, True)'''
-        for ipt in inputs:
-            self.add_min_max_const_node(op, ipt, True, True)
+            self.add_min_max_const_node(op, ipt, False, True)
         dim_arg = ConverterUtil.get_arg(
             op, MaceKeyword.mace_axis_str)
         if(len(self.get_preop_outshape(op)) == 3):
