@@ -1888,32 +1888,31 @@ class Transformer(base_converter.ConverterInterface):
                                   % (op.name, op.type))
                             self.transpose_shape(arg.ints,
                                                  [0, 1, 4, 5, 6, 7, 2, 3])
-            elif op.type == MaceOp.Concat.name or op.type == MaceOp.Split.name:
-                for arg in op.arg:
-                    if arg.name == MaceKeyword.mace_axis_str:
-                        if (src_data_format == DataFormat.NCHW
-                                and has_data_format
-                                and len(op.output_shape[0].dims) == 4):
-                            print("Transpose concat/split args: %s(%s)"
-                                  % (op.name, op.type))
-                            if arg.i < 0:
-                                arg.i += 4
-                            if arg.i == 1:
-                                arg.i = 3
-                            elif arg.i == 2:
-                                arg.i = 1
-                            elif arg.i == 3:
-                                arg.i = 2
-                        if op.input[0] in self._producer:
-                            producer = self._producer[op.input[0]]
-                            input_shape = producer.output_shape[0].dims
-                            if (producer.type == MaceOp.FullyConnected.name
-                                    and len(input_shape) == 2):
-                                axis_arg = ConverterUtil.get_arg(
-                                        op, MaceKeyword.mace_axis_str)
-                                if axis_arg.i == 1:
-                                    axis_arg.i = 3
-
+            # elif op.type == MaceOp.Concat.name or op.type == MaceOp.Split.name:
+            #     for arg in op.arg:
+            #         if arg.name == MaceKeyword.mace_axis_str:
+            #             if (src_data_format == DataFormat.NCHW
+            #                     and has_data_format
+            #                     and len(op.output_shape[0].dims) == 4):
+            #                 print("Transpose concat/split args: %s(%s)"
+            #                       % (op.name, op.type))
+            #                 if arg.i < 0:
+            #                     arg.i += 4
+            #                 if arg.i == 1:
+            #                     arg.i = 3
+            #                 elif arg.i == 2:
+            #                     arg.i = 1
+            #                 elif arg.i == 3:
+            #                     arg.i = 2
+            #             if op.input[0] in self._producer:
+            #                 producer = self._producer[op.input[0]]
+            #                 input_shape = producer.output_shape[0].dims
+            #                 if (producer.type == MaceOp.FullyConnected.name
+            #                         and len(input_shape) == 2):
+            #                     axis_arg = ConverterUtil.get_arg(
+            #                             op, MaceKeyword.mace_axis_str)
+            #                     if axis_arg.i == 1:
+            #                         axis_arg.i = 3
             elif op.type == MaceOp.Squeeze.name:
                 for arg in op.arg:
                     if arg.name == MaceKeyword.mace_axis_str:
@@ -1979,7 +1978,8 @@ class Transformer(base_converter.ConverterInterface):
 
             # transpose op output shape
             if src_data_format == DataFormat.NCHW and \
-                    has_data_format:
+                    has_data_format and \
+                    (op.type == MaceOp.Conv2D.name or op.type == MaceOp.DepthwiseConv2d.name):
                 print("Transpose output shapes: %s(%s)" % (op.name, op.type))
                 for output_shape in op.output_shape:
                     if len(output_shape.dims) == 4:

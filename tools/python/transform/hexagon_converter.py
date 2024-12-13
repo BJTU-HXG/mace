@@ -329,10 +329,6 @@ class HexagonConverter(base_converter.ConverterInterface):
     def add_min_max_const_node(
             self, this_op, tensor_name, add_min=True, add_max=True,
             diff_port=True):
-        if tensor_name in self._producers and \
-                self._producers[tensor_name].type == \
-                HexagonOp.QuantizedSplit_8.name:
-            return self.add_min_max_const_node_for_split(this_op, tensor_name)
         op, port = get_op_and_port_from_tensor(tensor_name)
         mace_check(port == 0, 'port should be 0 to add min max tensor then.')
         if tensor_name in self._quantize_activation_info:
@@ -350,14 +346,24 @@ class HexagonConverter(base_converter.ConverterInterface):
 
         if add_min:
             if is_activation and diff_port:
-                min_tensor_name = op + ':1'
+                if tensor_name in self._producers and \
+                self._producers[tensor_name].type == \
+                HexagonOp.QuantizedSplit_8.name:
+                    min_tensor_name = op + ':2'
+                else:
+                    min_tensor_name = op + ':1'
             else:
                 min_tensor_name = op + '_min:0'
                 self.add_scalar_const_node(min_tensor_name, minval)
             this_op.input.extend([min_tensor_name])
         if add_max:
             if is_activation and diff_port:
-                max_tensor_name = op + ':2'
+                if tensor_name in self._producers and \
+                self._producers[tensor_name].type == \
+                HexagonOp.QuantizedSplit_8.name:
+                    max_tensor_name = op + ':3'
+                else:
+                    max_tensor_name = op + ':2'
             else:
                 max_tensor_name = op + '_max:0'
                 self.add_scalar_const_node(max_tensor_name, maxval)
@@ -490,6 +496,15 @@ class HexagonConverter(base_converter.ConverterInterface):
             for ipt in op.input:
                 op_name, port = get_op_and_port_from_tensor(ipt)
                 tensor_name = ipt if port == 0 else op_name + ':0'
+                if port == 0:
+                    if ipt in self._producers:
+                        producer_op = self._producers[ipt]
+                        if producer_op.type == HexagonOp.QuantizedSplit_8.name:
+                            for output in producer_op.output:
+                                if output == ipt:
+                                    break
+                                else:
+                                    port += 1
                 node_id = node_id_map[tensor_name]
                 node_input = op.node_input.add()
                 node_input.node_id = node_id
@@ -1139,6 +1154,23 @@ class HexagonConverter(base_converter.ConverterInterface):
         op.type = HexagonOp.QuantizedResizeBilinear_8.name
 
     def convert_resizenearestneighbor(self, op):
+        op_trans_nhwc = copy.deepcopy(op)
+        op_trans_nchw = copy.deepcopy(op)
+        NHWC_shape = [0,2,3,1]
+        NCHW_shape = [0,3,1,2]
+        del op_trans_nhwc.input[1:]
+        self.add_arg_const_node(op_trans_nhwc, '/_shape:0', [len(NHWC_shape)], NHWC_shape)
+        self.add_min_max_const_node(op_trans_nhwc, op_trans_nhwc.input[0])
+        shape = self.get_preop_outshape(op_trans_nhwc)
+        shape[1], shape[2], shape[3] = shape[2], shape[3], shape[1]
+        self.change_output_shape(op_trans_nhwc, shape)
+        op_trans_nhwc.output[0] = self.new_tensor(op_trans_nhwc.output[0], '_NHWC:0', shape)
+        op_trans_nhwc.name = op_trans_nhwc.name + '_NHWC'
+        op_trans_nhwc.type = HexagonOp.Transpose_8.name
+        self.post_convert(op_trans_nhwc)
+        op.input[0] = op_trans_nhwc.output[0]
+        shape = copy.deepcopy(op.output_shape[0].dims)
+        op.output[0] = self.new_tensor(op.output[0], '_resize:0', shape)
         height_scale_arg = ConverterUtil.get_arg(
             op, MaceKeyword.mace_height_scale_str)
         width_scale_arg = ConverterUtil.get_arg(
@@ -1164,6 +1196,19 @@ class HexagonConverter(base_converter.ConverterInterface):
         self.add_resize_args(op)
 
         op.type = HexagonOp.ResizeNearestNeighbor_8.name
+        op.name = op.name + '_resize'
+        self.post_convert(op)
+        del op_trans_nchw.input[1:]
+        op_trans_nchw.input[0] = op.output[0]
+        self.add_arg_const_node(op_trans_nchw, '/shape:0', [len(NCHW_shape)], NCHW_shape)
+        self.add_min_max_const_node(op_trans_nchw, op_trans_nchw.input[0])
+        shape = copy.deepcopy(op_trans_nchw.output_shape[0].dims)
+        shape[1], shape[2], shape[3] = shape[3], shape[1], shape[2]
+        self.change_output_shape(op_trans_nchw, shape)
+        self._producers[op_trans_nchw.output[0]] = op_trans_nchw
+        op_trans_nchw.type = HexagonOp.Transpose_8.name
+        self.post_convert(op_trans_nchw)
+        return True
 
     def convert_softmax(self, op):
         self.add_min_max_const_node(op, op.input[0])
