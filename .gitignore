@@ -50,7 +50,6 @@ output.txt
 outputs_fa_out
 ._qxx
 log
-workspace/
 log
 
 acc_conformer.txt
