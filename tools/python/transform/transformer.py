@@ -96,6 +96,7 @@ class Transformer(base_converter.ConverterInterface):
                 self.transpose_matmul_weight,
             TransformerRule.FOLD_FC_RESHAPE:
                 self.fold_fc_reshape,
+            TransformerRule.FOLD_MATMUL_ADD: self.fold_matmul_add,
             TransformerRule.ADD_IN_OUT_TENSOR_INFO:
                 self.add_in_out_tensor_info,
             TransformerRule.ADD_WINOGRAD_ARG: self.add_winograd_arg,
@@ -2818,6 +2819,31 @@ class Transformer(base_converter.ConverterInterface):
                         del consumer.input[1]
                         self.safe_remove_node(consumer, None)
                         return True
+        return False
+
+    def fold_matmul_add(self):
+        net = self._model
+        for op in net.op:
+            if op.type == MaceOp.MatMul.name and op.input[1] in self._consts:
+                consumer = self._consumers[op.output[0]]
+                if len(consumer) == 1:
+                    consumer_op = consumer[0]
+                    if consumer_op.type == MaceOp.Eltwise.name and \
+                            ConverterUtil.get_arg(consumer_op, MaceKeyword.mace_element_type_str).i \
+                            == EltwiseType.SUM.value and \
+                            consumer_op.input[0] in self._consts:
+                        if self._option.device == DeviceType.HEXAGON.value:
+                            op_output_shape = op.output_shape[0].dims[:]
+                            if len(op_output_shape) == 2 or (len(op_output_shape) == 3 and op_output_shape[0] == 1):
+                                in_depth, out_depth = self.get_tensor_shape(op.input[1])
+                                # matmult can only convert to supernode when the input & output depth
+                                # are supported multiples.
+                                if in_depth % 16 == 0 and out_depth % 16 == 0 and out_depth >= 32:
+                                    print("Fold matmul add: %s(%s)" % (op.name, op.type))
+                                    consumer_op.type = MaceOp.FullyConnected.name
+                                    consumer_op.input[:] = [op.input[0], op.input[1], consumer_op.input[0]]
+                                    net.op.remove(op)
+                                    return True
         return False
 
     def transform_channel_shuffle(self):
