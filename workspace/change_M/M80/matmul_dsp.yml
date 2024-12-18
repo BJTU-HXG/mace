@@ -1,0 +1,33 @@
+models:
+  mat:
+    platform: onnx
+    model_file_path: /home/ana/hhj/mace/workspace/change_M/M80/matmul_M80.onnx
+    model_sha256_checksum: 8fafd9500f8958d58b5066b09022129f597c70d89946ffae0f40ec6066a21d95
+    subgraphs:
+      - input_tensors: 
+          - input
+        input_shapes: 
+          - 1,80,100
+        input_data_types:
+          - float32
+        output_tensors: 
+          - output
+        output_shapes: 
+          - 1,80,128
+        output_data_types:
+          - float32
+        backend: 
+          - pytorch
+        validation_inputs_data:
+          - /home/ana/hhj/mace/workspace/change_M/M80/input.raw
+        input_data_formats: NONE
+        output_data_formats: NONE
+    runtime: dsp
+    quantize_range_file: /home/ana/hhj/mace/workspace/change_M/M80/range_log
+    quantize: 1
+    limit_opencl_kernel_time: 0
+    nnlib_graph_mode: 0
+    obfuscate: 0
+
+
+    

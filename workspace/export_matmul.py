@@ -3,10 +3,10 @@ import torch.onnx
 import torch.nn as nn
 
 # Define the sizes of the matrices
-A = torch.randn(1, 144, 5)  # Matrix A: 144x128
-B = torch.randn(5, 10)  # Matrix B: 128x384
+A = torch.randn(1, 128, 200)  # Matrix A: 144x128
+B = torch.randn(200, 500)  # Matrix B: 128x384
 
-file_name = "/home/ana/hhj/mace/workspace/attention/data/matmul_144_5_10/input.raw"
+file_name = "/home/ana/hhj/mace/workspace/change_K_200/K500/input.raw"
 A.numpy().tofile(file_name)
 # Perform matrix multiplication
 result = torch.matmul(A, B)
@@ -24,7 +24,7 @@ class MatMulModel(torch.nn.Module):
 model = MatMulModel(B)
 
 # Export the model to ONNX format
-onnx_file_path = "/home/ana/hhj/mace/workspace/attention/data/matmul_144_5_10/matmul_144_5_10.onnx"
+onnx_file_path = "/home/ana/hhj/mace/workspace/change_K_200/K500/matmul_K500.onnx"
 torch.onnx.export(
     model, 
     A,

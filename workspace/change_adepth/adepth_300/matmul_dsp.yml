@@ -1,0 +1,33 @@
+models:
+  mat:
+    platform: onnx
+    model_file_path: /home/ana/hhj/mace/workspace/change_adepth/adepth_300/matmul_adepth_300.onnx
+    model_sha256_checksum: 3bf1362d288ad9683facc3cc0f141bae60b579e8b8362cdbb03e2bf5600b7af6
+    subgraphs:
+      - input_tensors: 
+          - input
+        input_shapes: 
+          - 1,144,300
+        input_data_types:
+          - float32
+        output_tensors: 
+          - output
+        output_shapes: 
+          - 1,144,128
+        output_data_types:
+          - float32
+        backend: 
+          - pytorch
+        validation_inputs_data:
+          - /home/ana/hhj/mace/workspace/change_adepth/adepth_300/input.raw
+        input_data_formats: NONE
+        output_data_formats: NONE
+    runtime: dsp
+    quantize_range_file: /home/ana/hhj/mace/workspace/change_adepth/adepth_300/range_log
+    quantize: 1
+    limit_opencl_kernel_time: 0
+    nnlib_graph_mode: 0
+    obfuscate: 0
+
+
+    

@@ -102,14 +102,14 @@ class HostDevice(Device):
         install_dir = os.path.abspath(install_dir)
 
         if install_dir.strip() and install_dir != os.path.dirname(target.path):
-            execute("sudo mkdir -p %s" % install_dir)
-            execute("sudo chmod 777 %s" % install_dir)
+            execute(" mkdir -p %s" % install_dir)
+            execute(" chmod 777 %s" % install_dir)
             if os.path.isdir(target.path):
-                execute("sudo cp -f %s/* %s" % (target.path, install_dir))
+                execute(" cp -f %s/* %s" % (target.path, install_dir))
             else:
-                execute("sudo cp -f %s %s" % (target.path, install_dir))
+                execute(" cp -f %s %s" % (target.path, install_dir))
             for lib in target.libs:
-                execute("sudo cp -f %s %s" % (lib, install_dir))
+                execute(" cp -f %s %s" % (lib, install_dir))
 
             target.path = "%s/%s" % (install_dir,
                                      os.path.basename(target.path))
@@ -127,11 +127,11 @@ class HostDevice(Device):
         out_dir = os.path.abspath(out_dir)
 
         if out_dir.strip() and out_dir != os.path.dirname(target.path):
-            execute("sudo cp -rp %s %s" % (target.path, out_dir))
+            execute(" cp -rp %s %s" % (target.path, out_dir))
 
     def mkdir(self, dirname):
-        execute("sudo mkdir -p %s" % dirname)
-        execute("sudo chmod 777 %s" % dirname)
+        execute(" mkdir -p %s" % dirname)
+        execute(" chmod 777 %s" % dirname)
 
 class QnxDevice(Device):
     def __init__(self, device_id, target_abi):
