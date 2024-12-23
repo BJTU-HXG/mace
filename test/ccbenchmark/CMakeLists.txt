@@ -2,6 +2,8 @@ include_directories("${CMAKE_CURRENT_SOURCE_DIR}")
 
 if(QNX)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lgomp -Wno-error=unknown-pragmas")
+elseif(QNN)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lgomp -Wno-error=unknown-pragmas")
 else()
   if (NOT APPLE)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fopenmp")

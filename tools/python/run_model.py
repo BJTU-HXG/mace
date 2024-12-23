@@ -343,7 +343,7 @@ def parse_args():
         "--target_abi",
         type=str,
         default="arm64-v8a",
-        help="Target ABI: host, qnx, armeabi-v7a, arm64-v8a,"
+        help="Target ABI: host, qnx, qnn, armeabi-v7a, arm64-v8a,"
              " arm-linux-gnueabihf, aarch64-linux-gnu"
     )
     parser.add_argument(

@@ -169,6 +169,42 @@ class QnxDevice(Device):
     def mkdir(self, dirname):
         execute("qdb run mkdir -p %s" % dirname)
 
+class QnnDevice(Device):
+    def __init__(self, device_id, target_abi):
+        super(QnnDevice, self).__init__(device_id, target_abi)
+
+    @staticmethod
+    def list_devices():
+        return ["qnn"]
+
+    def install(self, target, install_dir, install_deps=False):
+        install_dir = os.path.abspath(install_dir)
+
+        execute("qdb run mkdir -p %s" % (install_dir))
+        if os.path.isdir(target.path):
+            for file in os.listdir(target.path):
+                execute("qdb send %s %s" % (os.path.join(target.path, file), install_dir), False)
+        else:
+            execute("qdb send %s %s" % (target.path, install_dir), False)
+
+        for lib in target.libs:
+            execute("qdb send %s %s" % (lib, install_dir), False)
+
+        target.path = "%s/%s" % (install_dir, os.path.basename(target.path))
+        target.libs = ["%s/%s" % (install_dir, os.path.basename(lib))
+                              for lib in target.libs]
+        target.envs.append("LD_LIBRARY_PATH=%s" % install_dir)
+        return target
+
+    def run(self, target):
+        execute("qdb run %s" % target)
+
+    def pull(self, target, out_dir):
+        execute("qdb fetch %s %s" % (target, out_dir))
+
+    def mkdir(self, dirname):
+        execute("qdb run mkdir -p %s" % dirname)
+
 class AndroidDevice(Device):
     def __init__(self, device_id, target_abi):
         super(AndroidDevice, self).__init__(device_id, target_abi)
@@ -325,6 +361,7 @@ def device_class(target_abi):
     device_dispatch = {
         "host": "HostDevice",
         "qnx": "QnxDevice",
+        "qnn": "QnnDevice",
         "armeabi-v7a": "AndroidDevice",
         "arm64-v8a": "AndroidDevice",
         "arm-linux-gnueabihf": "ArmLinuxDevice",

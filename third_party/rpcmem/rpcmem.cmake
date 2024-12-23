@@ -5,6 +5,8 @@ include_directories(SYSTEM "${RPCMEM_INCLUDE_DIR}")
 
 if(QNX)
 set(RPCMEM_LIB "${RPCMEM_INSTALL_DIR}/qnx/libfastrpc_pmem.so")
+elseif(QNN)
+set(RPCMEM_LIB "${RPCMEM_INSTALL_DIR}/qnn/libfastrpc_pmem.so")
 else()
 set(RPCMEM_LIB "${RPCMEM_INSTALL_DIR}/${ANDROID_ABI}/rpcmem.a")
 endif()

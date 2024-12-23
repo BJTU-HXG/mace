@@ -19,7 +19,7 @@ set(MACE_OPENCL_KERNELS_DIR "${PROJECT_SOURCE_DIR}/mace/ops/opencl/cl")
 set(MACE_OPENCL_KERNELS_SRC "${CMAKE_CURRENT_BINARY_DIR}/opencl/encrypt_opencl_kernel.cc")
 add_custom_command(
   OUTPUT ${MACE_OPENCL_KERNELS_SRC}
-  COMMAND python ${MACE_OPENCL_KERNELS_GEN_TOOL} --output_path=${MACE_OPENCL_KERNELS_SRC} --cl_kernel_dir=${MACE_OPENCL_KERNELS_DIR}
+  COMMAND python3 ${MACE_OPENCL_KERNELS_GEN_TOOL} --output_path=${MACE_OPENCL_KERNELS_SRC} --cl_kernel_dir=${MACE_OPENCL_KERNELS_DIR}
   DEPENDS ${MACE_OPENCL_KERNELS_GEN_TOOL}
   COMMENT "Generating OpenCL kernel source file" )
 

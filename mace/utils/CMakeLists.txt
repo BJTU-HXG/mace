@@ -5,6 +5,6 @@ add_library(utils STATIC
   statistics.cc
 )
 
-if(NOT ANDROID AND NOT WIN32 AND NOT QNX)
+if(NOT ANDROID AND NOT WIN32 AND NOT QNX AND NOT QNN)
   target_link_libraries(utils PUBLIC pthread)
-endif(NOT ANDROID AND NOT WIN32 AND NOT QNX)
+endif(NOT ANDROID AND NOT WIN32 AND NOT QNX AND NOT QNN)
