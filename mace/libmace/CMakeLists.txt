@@ -40,7 +40,7 @@ if(ANDROID)
 elseif(QNX)
   set(PORT_LIBS ${PORT_LIBS} "addlib ${CMAKE_BINARY_DIR}/mace/port/qnx/libport_qnx.a")
 elseif(QNN)
-  set(PORT_LIBS ${PORT_LIBS} "addlib ${CMAKE_BINARY_DIR}/mace/port/qnx/libport_qnx.a")
+  set(PORT_LIBS ${PORT_LIBS} "addlib ${CMAKE_BINARY_DIR}/mace/port/qnn/libport_qnn.a")
 elseif(WIN32)
   set(STATIC_LIB ${CMAKE_BINARY_DIR}/mace/libmace/libmace_static.lib)
 else(WIN32)
@@ -124,8 +124,8 @@ elseif(QNX)
     )
 elseif(QNN)
   add_custom_target(combined ALL
-    COMMAND ${CROSSTOOL_ROOT}/qnx700/host/linux/x86_64/usr/bin/ntoaarch64-ar -M < ${CMAKE_BINARY_DIR}/mace/libmace/mace.mri
-    DEPENDS mace_API ops flows runtimes core utils proto generated_version generated_opencl_kernel libprotobuf_lite port_base port_posix port_qnx
+    COMMAND ${CROSSTOOL_ROOT}/qnn/host/linux/x86_64/usr/bin/ntoaarch64-ar -M < ${CMAKE_BINARY_DIR}/mace/libmace/mace.mri
+    DEPENDS mace_API ops flows runtimes core utils proto generated_version generated_opencl_kernel libprotobuf_lite port_base port_posix port_qnn
     )
 else() #linux
   add_custom_target(combined ALL
