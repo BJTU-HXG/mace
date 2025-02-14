@@ -1,0 +1,32 @@
+models:
+  attn:
+    platform: onnx
+    model_file_path: /home/ana/hhj/mace/workspace/attn/attn_1_40_200/attn.onnx
+    model_sha256_checksum: e0164ba59fe0df7fcd3cadb86f7381bef8594c3bb622dc62407e24a449cc4a78
+    subgraphs:
+      - input_tensors: 
+          - input
+        input_shapes: 
+          - 1,40,200
+        input_data_types:
+          - float32
+        output_tensors: 
+          - output
+        output_shapes: 
+          - 1,40,200
+        output_data_types:
+          - float32
+        backend: 
+          - pytorch
+        validation_inputs_data:
+          - /home/ana/hhj/mace/workspace/attn/attn_1_40_200/input.raw
+        input_data_formats: NONE
+        output_data_formats: NONE
+    runtime: dsp
+    quantize_range_file: /home/ana/hhj/mace/workspace/attn/attn_1_40_200/range_log
+    quantize: 1
+    limit_opencl_kernel_time: 0
+    nnlib_graph_mode: 0
+    obfuscate: 0
+    
+  

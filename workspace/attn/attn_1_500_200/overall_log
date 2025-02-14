@@ -1,0 +1,990 @@
+[0;32mCMD> [0mbash tools/cmake/cmake-generate-proto-py-host.sh
+CMAKE_VERSION: 3.22.1
+CROSSTOOL_ROOT:
+CMAKE_TOOLCHAIN_FILE:
+CMAKE_INSTALL_PREFIX: /home/ana/hhj/mace/build/cmake-build/host/install
+MACE_ENABLE_CPU            = ON
+MACE_ENABLE_NEON           = OFF
+MACE_ENABLE_QUANTIZE       = OFF
+MACE_ENABLE_OPENCL         = OFF
+MACE_ENABLE_CUDA           = OFF
+MACE_ENABLE_HEXAGON_DSP    = OFF
+MACE_ENABLE_HEXAGON_HTA    = OFF
+MACE_ENABLE_MTK_APU        = OFF
+MACE_ENABLE_BFLOAT16       = OFF
+MACE_ENABLE_FP16           = OFF
+MACE_ENABLE_QNN            =
+MACE_ENABLE_TESTS          = ON
+MACE_ENABLE_BENCHMARKS     = ON
+MACE_ENABLE_OPT_SIZE       = ON
+MACE_ENABLE_OBFUSCATE      = ON
+MACE_ENABLE_CCACHE         = ON
+MACE_ENABLE_CODE_MODE      = OFF
+MACE_ENABLE_RPCMEM         = OFF
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/ana/hhj/mace/build/cmake-build/host
+[ 66%] Built target protoc_bin
+[100%] Built target mace_proto_py
+[ 66%] Built target protoc_bin
+[100%] Built target micro_mem_proto_py
+
+[0;32mCMD> [0madb devices
+tools/python/run_model.py:76: Run on devices: ['d2a6628b']
+tools/python/run_model.py:90: Run model attn
+[92m{'platform': <Platform.ONNX: 2>, 'model_file_path': '/home/ana/hhj/mace/workspace/attn/attn_1_500_200/attn.onnx', 'model_sha256_checksum': 'a20bba76a451f85036993e04aabb1f9b87f0898bb66b740e92f547ba2561a213', 'subgraphs': {'default_graph': {'platform': <Platform.ONNX: 2>, 'model_file_path': '/home/ana/hhj/mace/workspace/attn/attn_1_500_200/attn.onnx', 'model_sha256_checksum': 'a20bba76a451f85036993e04aabb1f9b87f0898bb66b740e92f547ba2561a213', 'runtime': <DeviceType.HEXAGON: 3>, 'quantize_range_file': '/home/ana/hhj/mace/workspace/attn/attn_1_500_200/range_log', 'quantize': 1, 'limit_opencl_kernel_time': 0, 'nnlib_graph_mode': 0, 'obfuscate': 0, 'input_data_formats': [<DataFormat.NONE: 0>], 'input_ranges': [[-1.0, 1.0]], 'output_data_formats': [<DataFormat.NONE: 0>], 'input_tensors': ['input'], 'output_tensors': ['output'], 'validation_inputs_data': ['/home/ana/hhj/mace/workspace/attn/attn_1_500_200/input.raw'], 'data_type': 1, 'input_shapes': [[1, 500, 200]], 'input_data_types': [1], 'output_shapes': [[1, 500, 200]], 'output_data_types': [1], 'backend': ['pytorch']}}, 'runtime': <DeviceType.HEXAGON: 3>, 'quantize_range_file': '/home/ana/hhj/mace/workspace/attn/attn_1_500_200/range_log', 'quantize': 1, 'limit_opencl_kernel_time': 0, 'nnlib_graph_mode': 0, 'obfuscate': 0, 'input_data_formats': [], 'input_ranges': [], 'output_data_formats': [], 'input_tensors': ['input'], 'output_tensors': ['output'], 'validation_inputs_data': ['/home/ana/hhj/mace/workspace/attn/attn_1_500_200/input.raw'], 'data_type': 1}[0m
+[0;32mCMD> [0madb -s d2a6628b shell mkdir -p /data/local/tmp/mace_tmp/attn/interior
+
+[0;32mCMD> [0madb -s d2a6628b shell mkdir -p /data/local/tmp/mace_tmp/attn
+
+[0;32mCMD> [0madb -s d2a6628b push build/attn/model/attn.pb /data/local/tmp/mace_tmp/attn
+[0;32mCMD> [0madb -s d2a6628b shell mkdir -p /data/local/tmp/mace_tmp/attn
+
+[0;32mCMD> [0madb -s d2a6628b push build/attn/model/attn.data /data/local/tmp/mace_tmp/attn
+[0;32mCMD> [0madb -s d2a6628b shell mkdir -p /data/local/tmp/mace_tmp/attn/validate_in
+
+[0;32mCMD> [0madb -s d2a6628b push /tmp/tmpxp34tazi/* /data/local/tmp/mace_tmp/attn/validate_in
+[0;32mCMD> [0madb -s d2a6628b shell mkdir -p /data/local/tmp/mace_tmp/attn/validate_out
+
+Install target from build/cmake-build/arm64-v8a/install/bin/mace_run to /data/local/tmp/mace_tmp/attn
+[0;32mCMD> [0madb -s d2a6628b shell mkdir -p /data/local/tmp/mace_tmp/attn
+
+[0;32mCMD> [0madb -s d2a6628b push build/cmake-build/arm64-v8a/install/bin/mace_run /data/local/tmp/mace_tmp/attn
+[0;32mCMD> [0madb -s d2a6628b push third_party/nnlib/arm64-v8a/libhexagon_controller.so /data/local/tmp/mace_tmp/attn
+[0;32mCMD> [0madb -s d2a6628b push third_party/nnlib/v66/libhexagon_nn_skel.so /data/local/tmp/mace_tmp/attn
+[0;32mCMD> [0madb -s d2a6628b push build/cmake-build/arm64-v8a/install/lib/libc++_shared.so /data/local/tmp/mace_tmp/attn
+[0;32mCMD> [0madb -s d2a6628b shell chmod 777 /data/local/tmp/mace_tmp/attn/mace_run
+
+['', 'MACE_INTERNAL_STORAGE_PATH=/data/local/tmp/mace_tmp/attn/interior', 'MACE_CPP_MIN_VLOG_LEVEL=1', 'LD_LIBRARY_PATH=/data/local/tmp/mace_tmp/attn', 'ADSP_LIBRARY_PATH=/data/local/tmp/mace_tmp/attn', '/data/local/tmp/mace_tmp/attn/mace_run', "--model_name='attn'", "--model_file='/data/local/tmp/mace_tmp/attn/attn.pb'", "--model_data_file='/data/local/tmp/mace_tmp/attn/attn.data'", "--input_node='input'", "--input_shape='1,500,200'", "--output_node='output'", "--output_shape='1,500,200'", "--input_data_format='NONE'", "--output_data_format='NONE'", "--input_data_type='1'", "--output_data_type='1'", '--input_file=/data/local/tmp/mace_tmp/attn/validate_in/attn', '--output_file=/data/local/tmp/mace_tmp/attn/validate_out/attn']
+[0;32mCMD> [0madb -s d2a6628b shell " MACE_INTERNAL_STORAGE_PATH=/data/local/tmp/mace_tmp/attn/interior MACE_CPP_MIN_VLOG_LEVEL=1 LD_LIBRARY_PATH=/data/local/tmp/mace_tmp/attn ADSP_LIBRARY_PATH=/data/local/tmp/mace_tmp/attn /data/local/tmp/mace_tmp/attn/mace_run --model_name='attn' --model_file='/data/local/tmp/mace_tmp/attn/attn.pb' --model_data_file='/data/local/tmp/mace_tmp/attn/attn.data' --input_node='input' --input_shape='1,500,200' --output_node='output' --output_shape='1,500,200' --input_data_format='NONE' --output_data_format='NONE' --input_data_type='1' --output_data_type='1' --input_file=/data/local/tmp/mace_tmp/attn/validate_in/attn --output_file=/data/local/tmp/mace_tmp/attn/validate_out/attn"
+I /home/ana/hhj/mace/mace/tools/mace_run.cc:706] hello
+I /home/ana/hhj/mace/mace/tools/mace_run.cc:726] model name: attn
+I /home/ana/hhj/mace/mace/tools/mace_run.cc:727] mace version: v1.1.1-73-g9c97341
+I /home/ana/hhj/mace/mace/tools/mace_run.cc:728] input node: input
+I /home/ana/hhj/mace/mace/tools/mace_run.cc:729] input shape: 1,500,200
+I /home/ana/hhj/mace/mace/tools/mace_run.cc:730] input data_type: 1
+I /home/ana/hhj/mace/mace/tools/mace_run.cc:731] input data_format: NONE
+I /home/ana/hhj/mace/mace/tools/mace_run.cc:734] input data_type: 1
+I /home/ana/hhj/mace/mace/tools/mace_run.cc:735] output data_format: NONE
+I /home/ana/hhj/mace/mace/tools/mace_run.cc:736] input_file: /data/local/tmp/mace_tmp/attn/validate_in/attn
+I /home/ana/hhj/mace/mace/tools/mace_run.cc:737] output_file: /data/local/tmp/mace_tmp/attn/validate_out/attn
+I /home/ana/hhj/mace/mace/tools/mace_run.cc:738] input dir:
+I /home/ana/hhj/mace/mace/tools/mace_run.cc:739] output dir: output
+I /home/ana/hhj/mace/mace/tools/mace_run.cc:740] model_data_file: /data/local/tmp/mace_tmp/attn/attn.data
+I /home/ana/hhj/mace/mace/tools/mace_run.cc:741] model_file: /data/local/tmp/mace_tmp/attn/attn.pb
+I /home/ana/hhj/mace/mace/tools/mace_run.cc:742] accelerator_cache_policy: 0
+I /home/ana/hhj/mace/mace/tools/mace_run.cc:743] accelerator_binary_file:
+I /home/ana/hhj/mace/mace/tools/mace_run.cc:744] accelerator_storage_file:
+I /home/ana/hhj/mace/mace/tools/mace_run.cc:745] apu_boost_hint: 100
+I /home/ana/hhj/mace/mace/tools/mace_run.cc:746] apu_preference_hint: 1
+I /home/ana/hhj/mace/mace/tools/mace_run.cc:747] round: 1
+I /home/ana/hhj/mace/mace/tools/mace_run.cc:748] restart_round: 1
+I /home/ana/hhj/mace/mace/tools/mace_run.cc:749] gpu_perf_hint: 3
+I /home/ana/hhj/mace/mace/tools/mace_run.cc:750] gpu_priority_hint: 3
+I /home/ana/hhj/mace/mace/tools/mace_run.cc:751] num_threads: -1
+I /home/ana/hhj/mace/mace/tools/mace_run.cc:752] cpu_affinity_policy: 1
+I /home/ana/hhj/mace/mace/port/linux_base/env.cc:60] CPU cores: 8
+I /home/ana/hhj/mace/mace/port/linux_base/env.cc:101] CPU freq: [1.8048e+06, 1.8048e+06, 1.8048e+06, 1.8048e+06, 2.4192e+06, 2.4192e+06, 2.4192e+06, 2.8416e+06]
+W /home/ana/hhj/mace/mace/utils/thread_pool.cc:108] CPU maybe isolated, don't set CPU affinity
+I /home/ana/hhj/mace/mace/core/memory/rpcmem/rpcmem.cc:32] Rpcmem is supported. type: 0
+I /home/ana/hhj/mace/mace/rpcmems/rpcmem_factory.cc:53] Rpcmem is supported. type: 0
+I /home/ana/hhj/mace/mace/libmace/engines/serial_engine.cc:33] Creating SerialEngine, MACE version: v1.1.1-73-g9c97341
+I /home/ana/hhj/mace/mace/libmace/engines/serial_engine.cc:420] Initializing SerialEngine
+I /home/ana/hhj/mace/mace/port/linux_base/env.cc:60] CPU cores: 8
+I /home/ana/hhj/mace/mace/port/linux_base/env.cc:101] CPU freq: [1.8048e+06, 1.8048e+06, 1.8048e+06, 1.8048e+06, 2.4192e+06, 2.4192e+06, 2.4192e+06, 2.8416e+06]
+W /home/ana/hhj/mace/mace/utils/thread_pool.cc:108] CPU maybe isolated, don't set CPU affinity
+I /home/ana/hhj/mace/mace/libmace/engines/serial_engine.cc:251] CreateAndInitFlows, name: BMNet, infer_order: 0, runtime: 0
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Load model tensors started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Load model tensors latency: 568 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Adapting original NetDef started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Adapting original NetDef latency: 456 us
+I /home/ana/hhj/mace/mace/core/workspace.cc:82] Tensor Conv/Conv2D does not exist.
+I /home/ana/hhj/mace/mace/core/workspace.cc:82] Tensor ExpandedConv/depthwise/depthwise:0 does not exist.
+I /home/ana/hhj/mace/mace/core/workspace.cc:82] Tensor ExpandedConv/project/conv2d:0 does not exist.
+I /home/ana/hhj/mace/mace/core/workspace.cc:82] Tensor ExpandedConv1/expand/Conv2D:0 does not exist.
+I /home/ana/hhj/mace/mace/core/workspace.cc:82] Tensor ExpandedConv1/depthwise/depthwise:0 does not exist.
+I /home/ana/hhj/mace/mace/core/workspace.cc:82] Tensor ExpandedConv1/project/conv2d:0 does not exist.
+I /home/ana/hhj/mace/mace/core/workspace.cc:82] Tensor ExpandedConv2/expand/Conv2D:0 does not exist.
+I /home/ana/hhj/mace/mace/core/workspace.cc:82] Tensor ExpandedConv2/depthwise/depthwise:0 does not exist.
+I /home/ana/hhj/mace/mace/core/workspace.cc:82] Tensor ExpandedConv1/project/conv2d:0 does not exist.
+I /home/ana/hhj/mace/mace/core/workspace.cc:82] Tensor ExpandedConv2/project/conv2d:0 does not exist.
+I /home/ana/hhj/mace/mace/core/workspace.cc:82] Tensor ExpandedConv2/add:0 does not exist.
+I /home/ana/hhj/mace/mace/core/workspace.cc:82] Tensor ExpandedConv3/expand/Conv2D:0 does not exist.
+I /home/ana/hhj/mace/mace/core/workspace.cc:82] Tensor ExpandedConv3/depthwise/depthwise:0 does not exist.
+I /home/ana/hhj/mace/mace/core/workspace.cc:82] Tensor ExpandedConv3/project/conv2d:0 does not exist.
+I /home/ana/hhj/mace/mace/core/workspace.cc:82] Tensor ExpandedConv4/expand/Conv2D:0 does not exist.
+I /home/ana/hhj/mace/mace/core/workspace.cc:82] Tensor ExpandedConv4/depthwise/depthwise:0 does not exist.
+I /home/ana/hhj/mace/mace/core/workspace.cc:82] Tensor ExpandedConv3/project/conv2d:0 does not exist.
+I /home/ana/hhj/mace/mace/core/workspace.cc:82] Tensor ExpandedConv4/project/conv2d:0 does not exist.
+I /home/ana/hhj/mace/mace/core/workspace.cc:82] Tensor ExpandedConv4/add:0 does not exist.
+I /home/ana/hhj/mace/mace/core/workspace.cc:82] Tensor ExpandedConv5/expand/Conv2D:0 does not exist.
+I /home/ana/hhj/mace/mace/core/workspace.cc:82] Tensor ExpandedConv5/depthwise/depthwise:0 does not exist.
+I /home/ana/hhj/mace/mace/core/workspace.cc:82] Tensor ExpandedConv4/add:0 does not exist.
+I /home/ana/hhj/mace/mace/core/workspace.cc:82] Tensor ExpandedConv5/project/conv2d:0 does not exist.
+I /home/ana/hhj/mace/mace/core/workspace.cc:82] Tensor ExpandedConv5/add:0 does not exist.
+I /home/ana/hhj/mace/mace/core/workspace.cc:82] Tensor ExpandedConv6/expand/Conv2D:0 does not exist.
+I /home/ana/hhj/mace/mace/core/workspace.cc:82] Tensor ExpandedConv6/depthwise/depthwise:0 does not exist.
+I /home/ana/hhj/mace/mace/core/workspace.cc:82] Tensor ExpandedConv6/project/conv2d:0 does not exist.
+I /home/ana/hhj/mace/mace/core/workspace.cc:82] Tensor ExpandedConv7/expand/Conv2D:0 does not exist.
+I /home/ana/hhj/mace/mace/core/workspace.cc:82] Tensor ExpandedConv7/depthwise/depthwise:0 does not exist.
+I /home/ana/hhj/mace/mace/core/workspace.cc:82] Tensor ExpandedConv6/project/conv2d:0 does not exist.
+I /home/ana/hhj/mace/mace/core/workspace.cc:82] Tensor ExpandedConv7/project/conv2d:0 does not exist.
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Constructing SerialNet started
+I /home/ana/hhj/mace/mace/core/registry/ops_registry.cc:134] Creating operator Conv/Conv2D(Conv2D<1>) on 0
+I /home/ana/hhj/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv/depthwise/depthwise(DepthwiseConv2d<1>) on 0
+I /home/ana/hhj/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv/project/conv2d(Conv2D<1>) on 0
+I /home/ana/hhj/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv1/expand/Conv2D(Conv2D<1>) on 0
+I /home/ana/hhj/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv1/depthwise/depthwise(DepthwiseConv2d<1>) on 0
+I /home/ana/hhj/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv1/project/conv2d(Conv2D<1>) on 0
+I /home/ana/hhj/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv2/expand/Conv2D(Conv2D<1>) on 0
+I /home/ana/hhj/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv2/depthwise/depthwise(DepthwiseConv2d<1>) on 0
+I /home/ana/hhj/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv2/project/conv2d(Conv2D<1>) on 0
+I /home/ana/hhj/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv2/add(Eltwise<1>) on 0
+I /home/ana/hhj/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv3/expand/Conv2D(Conv2D<1>) on 0
+I /home/ana/hhj/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv3/depthwise/depthwise(DepthwiseConv2d<1>) on 0
+I /home/ana/hhj/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv3/project/conv2d(Conv2D<1>) on 0
+I /home/ana/hhj/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv4/expand/Conv2D(Conv2D<1>) on 0
+I /home/ana/hhj/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv4/depthwise/depthwise(DepthwiseConv2d<1>) on 0
+I /home/ana/hhj/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv4/project/conv2d(Conv2D<1>) on 0
+I /home/ana/hhj/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv4/add(Eltwise<1>) on 0
+I /home/ana/hhj/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv5/expand/Conv2D(Conv2D<1>) on 0
+I /home/ana/hhj/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv5/depthwise/depthwise(DepthwiseConv2d<1>) on 0
+I /home/ana/hhj/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv5/project/conv2d(Conv2D<1>) on 0
+I /home/ana/hhj/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv5/add(Eltwise<1>) on 0
+I /home/ana/hhj/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv6/expand/Conv2D(Conv2D<1>) on 0
+I /home/ana/hhj/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv6/depthwise/depthwise(DepthwiseConv2d<1>) on 0
+I /home/ana/hhj/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv6/project/conv2d(Conv2D<1>) on 0
+I /home/ana/hhj/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv7/expand/Conv2D(Conv2D<1>) on 0
+I /home/ana/hhj/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv7/depthwise/depthwise(DepthwiseConv2d<1>) on 0
+I /home/ana/hhj/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv7/project/conv2d(Conv2D<1>) on 0
+I /home/ana/hhj/mace/mace/core/registry/ops_registry.cc:134] Creating operator ExpandedConv7/add(Eltwise<1>) on 0
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Constructing SerialNet latency: 1005 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Initializing SerialNet started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Initializing SerialNet latency: 316 us
+I /home/ana/hhj/mace/mace/libmace/engines/serial_engine.cc:100] start run flow: BMNet
+I /home/ana/hhj/mace/mace/flows/cpu/cpu_ref_flow.cc:89] Transform input Input from NHWC to NCHW
+I /home/ana/hhj/mace/mace/flows/cpu/cpu_ref_flow.cc:75] CpuRefFlow::Run
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running net started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator Conv/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator Conv/Conv2D<0, Conv2D, 1> latency: 22211 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 9349 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv/project/conv2d<0, Conv2D, 1> latency: 25656 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/expand/Conv2D<0, Conv2D, 1> latency: 72486 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 5711 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/project/conv2d<0, Conv2D, 1> latency: 25836 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/expand/Conv2D<0, Conv2D, 1> latency: 39157 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 9647 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/project/conv2d<0, Conv2D, 1> latency: 38250 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/add<0, Eltwise, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/add<0, Eltwise, 1> latency: 3497 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/expand/Conv2D<0, Conv2D, 1> latency: 39029 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2157 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/project/conv2d<0, Conv2D, 1> latency: 12804 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/expand/Conv2D<0, Conv2D, 1> latency: 17212 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2887 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/project/conv2d<0, Conv2D, 1> latency: 16990 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/add<0, Eltwise, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/add<0, Eltwise, 1> latency: 3451 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/expand/Conv2D<0, Conv2D, 1> latency: 17313 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2891 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/project/conv2d<0, Conv2D, 1> latency: 16990 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/add<0, Eltwise, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/add<0, Eltwise, 1> latency: 3409 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/expand/Conv2D<0, Conv2D, 1> latency: 17301 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 785 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/project/conv2d<0, Conv2D, 1> latency: 8465 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/expand/Conv2D<0, Conv2D, 1> latency: 17140 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 1477 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/project/conv2d<0, Conv2D, 1> latency: 17153 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/add<0, Eltwise, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/add<0, Eltwise, 1> latency: 5016 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running net latency: 455418 us
+I /home/ana/hhj/mace/mace/core/flow/base_flow.cc:190] Transpose output ExpandedConv7/add:0 from 2 to 1
+I /home/ana/hhj/mace/mace/core/flow/base_flow.cc:171] output_tensor name: ExpandedConv7/add:0
+I /home/ana/hhj/mace/mace/libmace/engines/serial_engine.cc:100] start run flow: BMNet
+I /home/ana/hhj/mace/mace/flows/cpu/cpu_ref_flow.cc:89] Transform input Input from NHWC to NCHW
+I /home/ana/hhj/mace/mace/flows/cpu/cpu_ref_flow.cc:75] CpuRefFlow::Run
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running net started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator Conv/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator Conv/Conv2D<0, Conv2D, 1> latency: 19874 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 7573 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv/project/conv2d<0, Conv2D, 1> latency: 22683 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/expand/Conv2D<0, Conv2D, 1> latency: 70325 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 5712 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/project/conv2d<0, Conv2D, 1> latency: 25892 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/expand/Conv2D<0, Conv2D, 1> latency: 38922 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 8755 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/project/conv2d<0, Conv2D, 1> latency: 38426 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/add<0, Eltwise, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/add<0, Eltwise, 1> latency: 2487 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/expand/Conv2D<0, Conv2D, 1> latency: 39036 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2163 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/project/conv2d<0, Conv2D, 1> latency: 12717 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/expand/Conv2D<0, Conv2D, 1> latency: 17261 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2885 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/project/conv2d<0, Conv2D, 1> latency: 17110 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/add<0, Eltwise, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/add<0, Eltwise, 1> latency: 2401 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/expand/Conv2D<0, Conv2D, 1> latency: 17316 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2879 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/project/conv2d<0, Conv2D, 1> latency: 16969 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/add<0, Eltwise, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/add<0, Eltwise, 1> latency: 3406 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/expand/Conv2D<0, Conv2D, 1> latency: 17369 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 744 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/project/conv2d<0, Conv2D, 1> latency: 8496 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/expand/Conv2D<0, Conv2D, 1> latency: 17177 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 1486 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/project/conv2d<0, Conv2D, 1> latency: 17097 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/add<0, Eltwise, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/add<0, Eltwise, 1> latency: 3410 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running net latency: 441347 us
+I /home/ana/hhj/mace/mace/core/flow/base_flow.cc:190] Transpose output ExpandedConv7/add:0 from 2 to 1
+I /home/ana/hhj/mace/mace/core/flow/base_flow.cc:171] output_tensor name: ExpandedConv7/add:0
+I /home/ana/hhj/mace/mace/libmace/engines/serial_engine.cc:100] start run flow: BMNet
+I /home/ana/hhj/mace/mace/flows/cpu/cpu_ref_flow.cc:89] Transform input Input from NHWC to NCHW
+I /home/ana/hhj/mace/mace/flows/cpu/cpu_ref_flow.cc:75] CpuRefFlow::Run
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running net started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator Conv/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator Conv/Conv2D<0, Conv2D, 1> latency: 19835 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 7627 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv/project/conv2d<0, Conv2D, 1> latency: 22617 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/expand/Conv2D<0, Conv2D, 1> latency: 70452 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 5778 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/project/conv2d<0, Conv2D, 1> latency: 25896 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/expand/Conv2D<0, Conv2D, 1> latency: 38918 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 8637 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/project/conv2d<0, Conv2D, 1> latency: 38597 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/add<0, Eltwise, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/add<0, Eltwise, 1> latency: 2481 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/expand/Conv2D<0, Conv2D, 1> latency: 38945 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2175 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/project/conv2d<0, Conv2D, 1> latency: 12826 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/expand/Conv2D<0, Conv2D, 1> latency: 17236 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2939 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/project/conv2d<0, Conv2D, 1> latency: 17085 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/add<0, Eltwise, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/add<0, Eltwise, 1> latency: 2381 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/expand/Conv2D<0, Conv2D, 1> latency: 17216 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2935 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/project/conv2d<0, Conv2D, 1> latency: 16994 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/add<0, Eltwise, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/add<0, Eltwise, 1> latency: 2570 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/expand/Conv2D<0, Conv2D, 1> latency: 17254 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 745 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/project/conv2d<0, Conv2D, 1> latency: 8486 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/expand/Conv2D<0, Conv2D, 1> latency: 17176 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 1538 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/project/conv2d<0, Conv2D, 1> latency: 16846 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/add<0, Eltwise, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/add<0, Eltwise, 1> latency: 4128 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running net latency: 440904 us
+I /home/ana/hhj/mace/mace/core/flow/base_flow.cc:190] Transpose output ExpandedConv7/add:0 from 2 to 1
+I /home/ana/hhj/mace/mace/core/flow/base_flow.cc:171] output_tensor name: ExpandedConv7/add:0
+I /home/ana/hhj/mace/mace/libmace/engines/serial_engine.cc:100] start run flow: BMNet
+I /home/ana/hhj/mace/mace/flows/cpu/cpu_ref_flow.cc:89] Transform input Input from NHWC to NCHW
+I /home/ana/hhj/mace/mace/flows/cpu/cpu_ref_flow.cc:75] CpuRefFlow::Run
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running net started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator Conv/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator Conv/Conv2D<0, Conv2D, 1> latency: 19722 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 7652 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv/project/conv2d<0, Conv2D, 1> latency: 22620 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/expand/Conv2D<0, Conv2D, 1> latency: 70309 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 5761 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/project/conv2d<0, Conv2D, 1> latency: 25849 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/expand/Conv2D<0, Conv2D, 1> latency: 39068 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 8630 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/project/conv2d<0, Conv2D, 1> latency: 38637 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/add<0, Eltwise, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/add<0, Eltwise, 1> latency: 2174 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/expand/Conv2D<0, Conv2D, 1> latency: 38987 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2156 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/project/conv2d<0, Conv2D, 1> latency: 12808 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/expand/Conv2D<0, Conv2D, 1> latency: 17254 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2883 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/project/conv2d<0, Conv2D, 1> latency: 17087 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/add<0, Eltwise, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/add<0, Eltwise, 1> latency: 4144 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/expand/Conv2D<0, Conv2D, 1> latency: 17304 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2884 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/project/conv2d<0, Conv2D, 1> latency: 16997 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/add<0, Eltwise, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/add<0, Eltwise, 1> latency: 2116 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/expand/Conv2D<0, Conv2D, 1> latency: 17326 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 741 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/project/conv2d<0, Conv2D, 1> latency: 8511 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/expand/Conv2D<0, Conv2D, 1> latency: 17149 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 1524 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/project/conv2d<0, Conv2D, 1> latency: 17162 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/add<0, Eltwise, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/add<0, Eltwise, 1> latency: 2180 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running net latency: 440301 us
+I /home/ana/hhj/mace/mace/core/flow/base_flow.cc:190] Transpose output ExpandedConv7/add:0 from 2 to 1
+I /home/ana/hhj/mace/mace/core/flow/base_flow.cc:171] output_tensor name: ExpandedConv7/add:0
+I /home/ana/hhj/mace/mace/libmace/engines/serial_engine.cc:100] start run flow: BMNet
+I /home/ana/hhj/mace/mace/flows/cpu/cpu_ref_flow.cc:89] Transform input Input from NHWC to NCHW
+I /home/ana/hhj/mace/mace/flows/cpu/cpu_ref_flow.cc:75] CpuRefFlow::Run
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running net started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator Conv/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator Conv/Conv2D<0, Conv2D, 1> latency: 19792 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 7507 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv/project/conv2d<0, Conv2D, 1> latency: 22690 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/expand/Conv2D<0, Conv2D, 1> latency: 70428 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 5801 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/project/conv2d<0, Conv2D, 1> latency: 25824 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/expand/Conv2D<0, Conv2D, 1> latency: 39067 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 8611 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/project/conv2d<0, Conv2D, 1> latency: 38559 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/add<0, Eltwise, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/add<0, Eltwise, 1> latency: 2182 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/expand/Conv2D<0, Conv2D, 1> latency: 38953 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2231 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/project/conv2d<0, Conv2D, 1> latency: 12738 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/expand/Conv2D<0, Conv2D, 1> latency: 17230 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2878 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/project/conv2d<0, Conv2D, 1> latency: 16899 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/add<0, Eltwise, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/add<0, Eltwise, 1> latency: 4183 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/expand/Conv2D<0, Conv2D, 1> latency: 17268 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2932 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/project/conv2d<0, Conv2D, 1> latency: 17036 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/add<0, Eltwise, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/add<0, Eltwise, 1> latency: 4151 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/expand/Conv2D<0, Conv2D, 1> latency: 17230 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 741 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/project/conv2d<0, Conv2D, 1> latency: 8535 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/expand/Conv2D<0, Conv2D, 1> latency: 17168 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 1468 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/project/conv2d<0, Conv2D, 1> latency: 17099 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/add<0, Eltwise, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/add<0, Eltwise, 1> latency: 4341 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running net latency: 444185 us
+I /home/ana/hhj/mace/mace/core/flow/base_flow.cc:190] Transpose output ExpandedConv7/add:0 from 2 to 1
+I /home/ana/hhj/mace/mace/core/flow/base_flow.cc:171] output_tensor name: ExpandedConv7/add:0
+I /home/ana/hhj/mace/mace/libmace/engines/serial_engine.cc:100] start run flow: BMNet
+I /home/ana/hhj/mace/mace/flows/cpu/cpu_ref_flow.cc:89] Transform input Input from NHWC to NCHW
+I /home/ana/hhj/mace/mace/flows/cpu/cpu_ref_flow.cc:75] CpuRefFlow::Run
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running net started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator Conv/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator Conv/Conv2D<0, Conv2D, 1> latency: 19768 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 7575 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv/project/conv2d<0, Conv2D, 1> latency: 22598 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/expand/Conv2D<0, Conv2D, 1> latency: 70338 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 5768 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/project/conv2d<0, Conv2D, 1> latency: 25920 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/expand/Conv2D<0, Conv2D, 1> latency: 39006 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 8564 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/project/conv2d<0, Conv2D, 1> latency: 38553 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/add<0, Eltwise, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/add<0, Eltwise, 1> latency: 2399 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/expand/Conv2D<0, Conv2D, 1> latency: 38997 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2156 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/project/conv2d<0, Conv2D, 1> latency: 12809 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/expand/Conv2D<0, Conv2D, 1> latency: 17201 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2891 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/project/conv2d<0, Conv2D, 1> latency: 17151 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/add<0, Eltwise, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/add<0, Eltwise, 1> latency: 4163 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/expand/Conv2D<0, Conv2D, 1> latency: 17246 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2983 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/project/conv2d<0, Conv2D, 1> latency: 17025 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/add<0, Eltwise, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/add<0, Eltwise, 1> latency: 4156 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/expand/Conv2D<0, Conv2D, 1> latency: 17235 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 807 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/project/conv2d<0, Conv2D, 1> latency: 8508 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/expand/Conv2D<0, Conv2D, 1> latency: 17174 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 1487 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/project/conv2d<0, Conv2D, 1> latency: 17171 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/add<0, Eltwise, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/add<0, Eltwise, 1> latency: 4180 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running net latency: 444381 us
+I /home/ana/hhj/mace/mace/core/flow/base_flow.cc:190] Transpose output ExpandedConv7/add:0 from 2 to 1
+I /home/ana/hhj/mace/mace/core/flow/base_flow.cc:171] output_tensor name: ExpandedConv7/add:0
+I /home/ana/hhj/mace/mace/libmace/engines/serial_engine.cc:100] start run flow: BMNet
+I /home/ana/hhj/mace/mace/flows/cpu/cpu_ref_flow.cc:89] Transform input Input from NHWC to NCHW
+I /home/ana/hhj/mace/mace/flows/cpu/cpu_ref_flow.cc:75] CpuRefFlow::Run
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running net started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator Conv/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator Conv/Conv2D<0, Conv2D, 1> latency: 19945 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 7634 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv/project/conv2d<0, Conv2D, 1> latency: 22691 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/expand/Conv2D<0, Conv2D, 1> latency: 70249 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 5832 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/project/conv2d<0, Conv2D, 1> latency: 25798 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/expand/Conv2D<0, Conv2D, 1> latency: 38931 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 8563 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/project/conv2d<0, Conv2D, 1> latency: 38602 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/add<0, Eltwise, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/add<0, Eltwise, 1> latency: 2232 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/expand/Conv2D<0, Conv2D, 1> latency: 38958 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2157 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/project/conv2d<0, Conv2D, 1> latency: 12799 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/expand/Conv2D<0, Conv2D, 1> latency: 17316 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2954 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/project/conv2d<0, Conv2D, 1> latency: 17047 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/add<0, Eltwise, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/add<0, Eltwise, 1> latency: 4277 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/expand/Conv2D<0, Conv2D, 1> latency: 17242 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2936 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/project/conv2d<0, Conv2D, 1> latency: 16973 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/add<0, Eltwise, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/add<0, Eltwise, 1> latency: 2115 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/expand/Conv2D<0, Conv2D, 1> latency: 17226 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 743 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/project/conv2d<0, Conv2D, 1> latency: 8545 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/expand/Conv2D<0, Conv2D, 1> latency: 17157 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 1494 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/project/conv2d<0, Conv2D, 1> latency: 17171 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/add<0, Eltwise, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/add<0, Eltwise, 1> latency: 2105 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running net latency: 440331 us
+I /home/ana/hhj/mace/mace/core/flow/base_flow.cc:190] Transpose output ExpandedConv7/add:0 from 2 to 1
+I /home/ana/hhj/mace/mace/core/flow/base_flow.cc:171] output_tensor name: ExpandedConv7/add:0
+I /home/ana/hhj/mace/mace/libmace/engines/serial_engine.cc:100] start run flow: BMNet
+I /home/ana/hhj/mace/mace/flows/cpu/cpu_ref_flow.cc:89] Transform input Input from NHWC to NCHW
+I /home/ana/hhj/mace/mace/flows/cpu/cpu_ref_flow.cc:75] CpuRefFlow::Run
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running net started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator Conv/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator Conv/Conv2D<0, Conv2D, 1> latency: 19783 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 7631 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv/project/conv2d<0, Conv2D, 1> latency: 22640 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/expand/Conv2D<0, Conv2D, 1> latency: 70419 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 5694 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/project/conv2d<0, Conv2D, 1> latency: 25854 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/expand/Conv2D<0, Conv2D, 1> latency: 39081 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 8636 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/project/conv2d<0, Conv2D, 1> latency: 38564 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/add<0, Eltwise, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/add<0, Eltwise, 1> latency: 2459 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/expand/Conv2D<0, Conv2D, 1> latency: 39073 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2177 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/project/conv2d<0, Conv2D, 1> latency: 12735 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/expand/Conv2D<0, Conv2D, 1> latency: 17289 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2903 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/project/conv2d<0, Conv2D, 1> latency: 17064 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/add<0, Eltwise, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/add<0, Eltwise, 1> latency: 3386 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/expand/Conv2D<0, Conv2D, 1> latency: 17277 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2894 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/project/conv2d<0, Conv2D, 1> latency: 17005 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/add<0, Eltwise, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/add<0, Eltwise, 1> latency: 3462 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/expand/Conv2D<0, Conv2D, 1> latency: 17373 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 743 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/project/conv2d<0, Conv2D, 1> latency: 8514 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/expand/Conv2D<0, Conv2D, 1> latency: 17171 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 1481 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/project/conv2d<0, Conv2D, 1> latency: 17224 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/add<0, Eltwise, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/add<0, Eltwise, 1> latency: 3349 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running net latency: 442705 us
+I /home/ana/hhj/mace/mace/core/flow/base_flow.cc:190] Transpose output ExpandedConv7/add:0 from 2 to 1
+I /home/ana/hhj/mace/mace/core/flow/base_flow.cc:171] output_tensor name: ExpandedConv7/add:0
+I /home/ana/hhj/mace/mace/libmace/engines/serial_engine.cc:100] start run flow: BMNet
+I /home/ana/hhj/mace/mace/flows/cpu/cpu_ref_flow.cc:89] Transform input Input from NHWC to NCHW
+I /home/ana/hhj/mace/mace/flows/cpu/cpu_ref_flow.cc:75] CpuRefFlow::Run
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running net started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator Conv/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator Conv/Conv2D<0, Conv2D, 1> latency: 19921 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 7588 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv/project/conv2d<0, Conv2D, 1> latency: 22585 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/expand/Conv2D<0, Conv2D, 1> latency: 70242 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 5749 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/project/conv2d<0, Conv2D, 1> latency: 25890 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/expand/Conv2D<0, Conv2D, 1> latency: 39104 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 8577 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/project/conv2d<0, Conv2D, 1> latency: 38553 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/add<0, Eltwise, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/add<0, Eltwise, 1> latency: 2426 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/expand/Conv2D<0, Conv2D, 1> latency: 39044 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2155 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/project/conv2d<0, Conv2D, 1> latency: 12811 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/expand/Conv2D<0, Conv2D, 1> latency: 17209 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2937 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/project/conv2d<0, Conv2D, 1> latency: 17028 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/add<0, Eltwise, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/add<0, Eltwise, 1> latency: 2619 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/expand/Conv2D<0, Conv2D, 1> latency: 17235 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2935 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/project/conv2d<0, Conv2D, 1> latency: 17011 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/add<0, Eltwise, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/add<0, Eltwise, 1> latency: 3450 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/expand/Conv2D<0, Conv2D, 1> latency: 17309 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 745 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/project/conv2d<0, Conv2D, 1> latency: 8484 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/expand/Conv2D<0, Conv2D, 1> latency: 17166 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 1471 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/project/conv2d<0, Conv2D, 1> latency: 16851 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/add<0, Eltwise, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/add<0, Eltwise, 1> latency: 3401 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running net latency: 441227 us
+I /home/ana/hhj/mace/mace/core/flow/base_flow.cc:190] Transpose output ExpandedConv7/add:0 from 2 to 1
+I /home/ana/hhj/mace/mace/core/flow/base_flow.cc:171] output_tensor name: ExpandedConv7/add:0
+I /home/ana/hhj/mace/mace/libmace/engines/serial_engine.cc:100] start run flow: BMNet
+I /home/ana/hhj/mace/mace/flows/cpu/cpu_ref_flow.cc:89] Transform input Input from NHWC to NCHW
+I /home/ana/hhj/mace/mace/flows/cpu/cpu_ref_flow.cc:75] CpuRefFlow::Run
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running net started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator Conv/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator Conv/Conv2D<0, Conv2D, 1> latency: 19812 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 7652 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv/project/conv2d<0, Conv2D, 1> latency: 22699 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/expand/Conv2D<0, Conv2D, 1> latency: 70271 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 5788 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/project/conv2d<0, Conv2D, 1> latency: 25816 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/expand/Conv2D<0, Conv2D, 1> latency: 38990 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 8594 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/project/conv2d<0, Conv2D, 1> latency: 38609 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/add<0, Eltwise, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/add<0, Eltwise, 1> latency: 2487 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/expand/Conv2D<0, Conv2D, 1> latency: 39017 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2181 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/project/conv2d<0, Conv2D, 1> latency: 12774 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/expand/Conv2D<0, Conv2D, 1> latency: 17218 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2906 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/project/conv2d<0, Conv2D, 1> latency: 17015 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/add<0, Eltwise, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/add<0, Eltwise, 1> latency: 4150 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/expand/Conv2D<0, Conv2D, 1> latency: 17349 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2901 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/project/conv2d<0, Conv2D, 1> latency: 17058 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/add<0, Eltwise, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/add<0, Eltwise, 1> latency: 4406 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/expand/Conv2D<0, Conv2D, 1> latency: 17273 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 747 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/project/conv2d<0, Conv2D, 1> latency: 8467 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/expand/Conv2D<0, Conv2D, 1> latency: 17149 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 1471 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/project/conv2d<0, Conv2D, 1> latency: 17129 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/add<0, Eltwise, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/add<0, Eltwise, 1> latency: 5335 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running net latency: 445971 us
+I /home/ana/hhj/mace/mace/core/flow/base_flow.cc:190] Transpose output ExpandedConv7/add:0 from 2 to 1
+I /home/ana/hhj/mace/mace/core/flow/base_flow.cc:171] output_tensor name: ExpandedConv7/add:0
+I /home/ana/hhj/mace/mace/libmace/engines/serial_engine.cc:100] start run flow: BMNet
+I /home/ana/hhj/mace/mace/flows/cpu/cpu_ref_flow.cc:89] Transform input Input from NHWC to NCHW
+I /home/ana/hhj/mace/mace/flows/cpu/cpu_ref_flow.cc:75] CpuRefFlow::Run
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running net started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator Conv/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator Conv/Conv2D<0, Conv2D, 1> latency: 19853 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 7602 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv/project/conv2d<0, Conv2D, 1> latency: 22670 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/expand/Conv2D<0, Conv2D, 1> latency: 70309 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 5689 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv1/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv1/project/conv2d<0, Conv2D, 1> latency: 25893 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/expand/Conv2D<0, Conv2D, 1> latency: 38893 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 8624 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/project/conv2d<0, Conv2D, 1> latency: 38448 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv2/add<0, Eltwise, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv2/add<0, Eltwise, 1> latency: 3501 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/expand/Conv2D<0, Conv2D, 1> latency: 38982 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2163 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv3/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv3/project/conv2d<0, Conv2D, 1> latency: 12846 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/expand/Conv2D<0, Conv2D, 1> latency: 17280 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2885 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/project/conv2d<0, Conv2D, 1> latency: 17126 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv4/add<0, Eltwise, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv4/add<0, Eltwise, 1> latency: 2485 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/expand/Conv2D<0, Conv2D, 1> latency: 17310 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 2885 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/project/conv2d<0, Conv2D, 1> latency: 17050 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv5/add<0, Eltwise, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv5/add<0, Eltwise, 1> latency: 4169 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/expand/Conv2D<0, Conv2D, 1> latency: 17276 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 748 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv6/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv6/project/conv2d<0, Conv2D, 1> latency: 8465 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/expand/Conv2D<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/expand/Conv2D<0, Conv2D, 1> latency: 17161 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/depthwise/depthwise<0, DepthwiseConv2d, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/depthwise/depthwise<0, DepthwiseConv2d, 1> latency: 1484 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/project/conv2d<0, Conv2D, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/project/conv2d<0, Conv2D, 1> latency: 17143 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:103] Running operator ExpandedConv7/add<0, Eltwise, 1> started
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running operator ExpandedConv7/add<0, Eltwise, 1> latency: 4409 us
+I /home/ana/hhj/mace/include/mace/utils/logging.h:109] Running net latency: 444131 us
+I /home/ana/hhj/mace/mace/core/flow/base_flow.cc:190] Transpose output ExpandedConv7/add:0 from 2 to 1
+I /home/ana/hhj/mace/mace/core/flow/base_flow.cc:171] output_tensor name: ExpandedConv7/add:0
+I /home/ana/hhj/mace/mace/core/workspace.cc:75] Destroy Workspace
+I /home/ana/hhj/mace/mace/core/net/serial_net.cc:73] Destroy SerialNet
+I /home/ana/hhj/mace/mace/runtimes/cpu/cpu_ref_runtime.cc:32] Destroy CpuRefRuntime
+I /home/ana/hhj/mace/mace/tools/mace_run.cc:821] restart round 0
+I /home/ana/hhj/mace/mace/libmace/mace_engine.cc:245] Create MaceEngine from model graph proto and weights data
+I /home/ana/hhj/mace/mace/port/linux_base/env.cc:60] CPU cores: 8
+I /home/ana/hhj/mace/mace/port/linux_base/env.cc:101] CPU freq: [1.8048e+06, 1.8048e+06, 1.8048e+06, 1.8048e+06, 2.4192e+06, 2.4192e+06, 2.4192e+06, 2.8416e+06]
+W /home/ana/hhj/mace/mace/utils/thread_pool.cc:108] CPU maybe isolated, don't set CPU affinity
+I /home/ana/hhj/mace/mace/core/memory/rpcmem/rpcmem.cc:32] Rpcmem is supported. type: 0
+I /home/ana/hhj/mace/mace/rpcmems/rpcmem_factory.cc:53] Rpcmem is supported. type: 0
+I /home/ana/hhj/mace/mace/libmace/engines/serial_engine.cc:33] Creating SerialEngine, MACE version: v1.1.1-73-g9c97341
+I /home/ana/hhj/mace/mace/libmace/mace_engine.cc:258] It is a multi_net_def.
+I /home/ana/hhj/mace/mace/libmace/engines/serial_engine.cc:420] Initializing SerialEngine
+I /home/ana/hhj/mace/mace/port/linux_base/env.cc:60] CPU cores: 8
+I /home/ana/hhj/mace/mace/port/linux_base/env.cc:101] CPU freq: [1.8048e+06, 1.8048e+06, 1.8048e+06, 1.8048e+06, 2.4192e+06, 2.4192e+06, 2.4192e+06, 2.8416e+06]
+W /home/ana/hhj/mace/mace/utils/thread_pool.cc:108] CPU maybe isolated, don't set CPU affinity
+I /home/ana/hhj/mace/mace/runtimes/hexagon/dsp/hexagon_dsp_runtime.cc:35] config_impl->hexagon_corner(): 1, hexagon_dcvs_enable: 1, hexagon_latency: 100
+I /home/ana/hhj/mace/mace/runtimes/hexagon/dsp/hexagon_dsp_runtime.cc:41] Hexagon DSP version: 0x21a01
+I /home/ana/hhj/mace/mace/runtimes/hexagon/dsp/hexagon_dsp_wrapper.cc:161] Hexagon config
+I /home/ana/hhj/mace/mace/runtimes/hexagon/dsp/hexagon_dsp_wrapper.cc:167] Hexagon init
+I /home/ana/hhj/mace/mace/runtimes/hexagon/dsp/hexagon_dsp_wrapper.cc:470] Reset perf info
+I /home/ana/hhj/mace/mace/runtimes/hexagon/dsp/hexagon_dsp_wrapper.cc:388] Set debug level: 1
+I /home/ana/hhj/mace/mace/libmace/engines/serial_engine.cc:251] CreateAndInitFlows, name: default_graph, infer_order: 0, runtime: 3
+I /home/ana/hhj/mace/mace/runtimes/hexagon/dsp/hexagon_dsp_wrapper.cc:181] Hexagon setup graph
+I /home/ana/hhj/mace/mace/runtimes/hexagon/dsp/hexagon_dsp_wrapper.cc:333] OutputInfo:
+shape: 1 1 500 200
+type: 1
+I /home/ana/hhj/mace/mace/runtimes/hexagon/dsp/hexagon_dsp_wrapper.cc:345] Setup time: 3018 1890
+I /home/ana/hhj/mace/mace/tools/mace_run.cc:464] Create Mace Engine latency: 40.942 ms
+I /home/ana/hhj/mace/mace/tools/mace_run.cc:471] Total init latency: 118.695 ms
+I /home/ana/hhj/mace/mace/tools/mace_run.cc:317] runtimes: [CPU, DSP]
+I /home/ana/hhj/mace/mace/tools/mace_run.cc:488] intput_file: /data/local/tmp/mace_tmp/attn/validate_in/attn_input
+I /home/ana/hhj/mace/mace/tools/mace_run.cc:199] /data/local/tmp/mace_tmp/attn/validate_in/attn_input
+I /home/ana/hhj/mace/mace/tools/mace_run.cc:556] Warm up run
+I /home/ana/hhj/mace/mace/libmace/engines/serial_engine.cc:100] start run flow: default_graph
+I /home/ana/hhj/mace/mace/flows/hexagon/hexagon_ref_flow.cc:58] HexagonRefFlow::Run
+W /home/ana/hhj/mace/mace/core/tensor.cc:182] Tensor::Resize, allocate private mem, name: output, new shape: [1, 1, 500, 200]
+I /home/ana/hhj/mace/mace/core/flow/base_flow.cc:171] output_tensor name: output
+I /home/ana/hhj/mace/mace/tools/mace_run.cc:598] 1st warm up run latency: 838.757 ms
+I /home/ana/hhj/mace/mace/tools/mace_run.cc:606] Run model
+I /home/ana/hhj/mace/mace/libmace/engines/serial_engine.cc:100] start run flow: default_graph
+I /home/ana/hhj/mace/mace/flows/hexagon/hexagon_ref_flow.cc:58] HexagonRefFlow::Run
+I /home/ana/hhj/mace/mace/core/flow/base_flow.cc:171] output_tensor name: output
+I /home/ana/hhj/mace/mace/tools/mace_run.cc:674] Average latency: 837.747 ms
+I /home/ana/hhj/mace/mace/tools/mace_run.cc:687] Write output file /data/local/tmp/mace_tmp/attn/validate_out/attn_output with size 100000 done.
+========================================================
+capability(CPU)        init      warmup     run_avg
+========================================================
+time         445.864     118.695     838.757     837.747
+I /home/ana/hhj/mace/mace/core/workspace.cc:75] Destroy Workspace
+I /home/ana/hhj/mace/mace/runtimes/hexagon/dsp/hexagon_dsp_wrapper.cc:394] Get perf info
+I /home/ana/hhj/mace/mace/runtimes/hexagon/dsp/hexagon_dsp_wrapper.cc:406] items: 42
+I /home/ana/hhj/mace/mace/runtimes/hexagon/dsp/hexagon_dsp_wrapper.cc:462] ----------------------------------------------------------------------------------------
+Sort by Run Order
+----------------------------------------------------------------------------------------
+|    Node Id |                    Node Type | Node Type Id | Executions | Duration(us) |
+----------------------------------------------------------------------------------------
+|      10077 |         QuantizeINPUT_f_to_8 |          208 |          2 |         51.0 |
+|      10078 |      QuantizedMatMul_8x8to32 |           17 |          2 |      33940.0 |
+|      10079 |             Requantize_32to8 |           70 |          2 |         34.0 |
+| 4294967295 |               Convert_to_d32 |          145 |          2 |         11.0 |
+| 4294967294 |               Convert_to_d32 |          145 |          2 |          3.0 |
+|      10080 |      QuantizedAdd_8p8to8_d32 |          168 |          2 |         30.0 |
+| 4294967293 |             Convert_from_d32 |          146 |          2 |         20.5 |
+|      10081 |             QuantizedReshape |           60 |          2 |         15.5 |
+|      10082 |                  Transpose_8 |          283 |          2 |         22.0 |
+|      10083 |      QuantizedMatMul_8x8to32 |           17 |          2 |      33975.0 |
+|      10084 |             Requantize_32to8 |           70 |          2 |         31.0 |
+| 4294967292 |               Convert_to_d32 |          145 |          2 |         10.5 |
+| 4294967291 |               Convert_to_d32 |          145 |          2 |          2.5 |
+|      10085 |      QuantizedAdd_8p8to8_d32 |          168 |          2 |         28.0 |
+| 4294967290 |             Convert_from_d32 |          146 |          2 |         18.0 |
+|      10086 |             QuantizedReshape |           60 |          2 |         12.0 |
+|      10087 |                  Transpose_8 |          283 |          2 |         34.5 |
+|      10088 | QuantizedBatchMatMul_8x8to32 |          453 |          2 |     165274.0 |
+|      10089 |             Requantize_32to8 |           70 |          2 |       1202.5 |
+|      10090 |               QuantizedDiv_8 |          293 |          2 |       1275.5 |
+| 4294967289 |               Convert_to_d32 |          145 |          2 |        230.5 |
+|      10091 |       QuantizedSoftmax_8_d32 |          196 |          2 |        363.0 |
+| 4294967288 |             Convert_from_d32 |          146 |          2 |        327.0 |
+|      10092 |      QuantizedMatMul_8x8to32 |           17 |          2 |      33974.5 |
+|      10093 |             Requantize_32to8 |           70 |          2 |         39.5 |
+| 4294967287 |               Convert_to_d32 |          145 |          2 |         11.0 |
+| 4294967286 |               Convert_to_d32 |          145 |          2 |          3.0 |
+|      10094 |      QuantizedAdd_8p8to8_d32 |          168 |          2 |         33.0 |
+| 4294967285 |             Convert_from_d32 |          146 |          2 |         20.5 |
+|      10095 |             QuantizedReshape |           60 |          2 |         16.0 |
+|      10096 |                  Transpose_8 |          283 |          2 |         20.0 |
+|      10097 | QuantizedBatchMatMul_8x8to32 |          453 |          2 |     528985.5 |
+|      10098 |             Requantize_32to8 |           70 |          2 |         91.0 |
+|      10099 |                  Transpose_8 |          283 |          2 |         26.0 |
+|      10100 |             QuantizedReshape |           60 |          2 |         11.5 |
+|      10101 |      QuantizedMatMul_8x8to32 |           17 |          2 |      33972.0 |
+|      10102 |             Requantize_32to8 |           70 |          2 |         37.0 |
+| 4294967284 |               Convert_to_d32 |          145 |          2 |         11.5 |
+| 4294967283 |               Convert_to_d32 |          145 |          2 |          3.0 |
+|      10103 |      QuantizedAdd_8p8to8_d32 |          168 |          2 |         32.0 |
+| 4294967282 |             Convert_from_d32 |          146 |          2 |         21.5 |
+|      10104 |        DequantizeOUTPUT_8tof |          217 |          2 |         24.5 |
+----------------------------------------------------------------------------------------
+
+I /home/ana/hhj/mace/mace/runtimes/hexagon/dsp/hexagon_dsp_wrapper.cc:464] -------------------------------------------------------
+Sort by Duration
+-------------------------------------------------------
+|                    Node Type | Times | Duration(ms) |
+-------------------------------------------------------
+| QuantizedBatchMatMul_8x8to32 |     2 |    694.25952 |
+|      QuantizedMatMul_8x8to32 |     4 |    135.86150 |
+|             Requantize_32to8 |     6 |      1.43500 |
+|               QuantizedDiv_8 |     1 |      1.27550 |
+|             Convert_from_d32 |     5 |      0.40750 |
+|       QuantizedSoftmax_8_d32 |     1 |      0.36300 |
+|               Convert_to_d32 |     9 |      0.28600 |
+|      QuantizedAdd_8p8to8_d32 |     4 |      0.12300 |
+|                  Transpose_8 |     4 |      0.10250 |
+|             QuantizedReshape |     4 |      0.05500 |
+|         QuantizeINPUT_f_to_8 |     1 |      0.05100 |
+|        DequantizeOUTPUT_8tof |     1 |      0.02450 |
+-------------------------------------------------------
+
+I /home/ana/hhj/mace/mace/runtimes/hexagon/dsp/hexagon_dsp_wrapper.cc:466] total duration: 834244.000000
+I /home/ana/hhj/mace/mace/runtimes/hexagon/dsp/hexagon_dsp_wrapper.cc:354] Hexagon teardown graph
+I /home/ana/hhj/mace/mace/runtimes/hexagon/dsp/hexagon_dsp_wrapper.cc:174] Hexagon finalize
+I /home/ana/hhj/mace/mace/runtimes/cpu/cpu_ref_runtime.cc:32] Destroy CpuRefRuntime
+
+['', 'MACE_INTERNAL_STORAGE_PATH=/data/local/tmp/mace_tmp/attn/interior', 'MACE_CPP_MIN_VLOG_LEVEL=1', 'LD_LIBRARY_PATH=/data/local/tmp/mace_tmp/attn', 'ADSP_LIBRARY_PATH=/data/local/tmp/mace_tmp/attn', '/data/local/tmp/mace_tmp/attn/mace_run', "--model_name='attn'", "--model_file='/data/local/tmp/mace_tmp/attn/attn.pb'", "--model_data_file='/data/local/tmp/mace_tmp/attn/attn.data'", "--input_node='input'", "--input_shape='1,500,200'", "--output_node='output'", "--output_shape='1,500,200'", "--input_data_format='NONE'", "--output_data_format='NONE'", "--input_data_type='1'", "--output_data_type='1'", '--input_file=/data/local/tmp/mace_tmp/attn/validate_in/attn', '--output_file=/data/local/tmp/mace_tmp/attn/validate_out/attn']
+[0;32mCMD> [0madb -s d2a6628b push /tmp/tmpjxitinlf/cmd.sh /data/local/tmp/mace_tmp/attn
+/tmp/tmpjxitinlf/cmd.sh: 1 file pushed. 0.1 MB/s (677 bytes in 0.005s)
+
+a20bba76a451f85036993e04aabb1f9b87f0898bb66b740e92f547ba2561a213
+[0;32mCMD> [0madb -s d2a6628b pull /data/local/tmp/mace_tmp/attn/validate_out /tmp/tmpxp34tazi/validate_out
+validate on onnxruntime.
+tensor name: output, shapes: [1, 500, 200], data_formats: DataFormat.NONE
+value size: 100000

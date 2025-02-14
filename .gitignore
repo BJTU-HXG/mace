@@ -76,5 +76,7 @@ workspace/logs
 workspace/test
 workspace/test.cpp
 
+workspace/fig
+workspace/attention
 acc_conformer.txt
 conformer_vaild.txt

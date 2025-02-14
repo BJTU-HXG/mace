@@ -415,10 +415,10 @@ def validate_onnx_model(platform, model_file,
                                         output_data_formats[i])
         print(f'tensor name: {output_names[i]}, shapes: {output_shapes[i]}, data_formats: {output_data_formats[i]}')
         ##下面是用来生成一个tensor分别在mace和nn库上跑完的具体数值文件
-        tensor_names = ['844']
+        tensor_names = ['output']
         if output_names[i] in tensor_names:
-            mace_output_file = "/home/ana/hhj/mace/workspace/attention/data/mace_" + output_names[i] + ".raw"
-            onnx_output_file = "/home/ana/hhj/mace/workspace/attention/data/onnxruntime_" + output_names[i] + ".raw"
+            mace_output_file = "/home/ana/hhj/mace/workspace/attn/mace_" + output_names[i] + ".raw"
+            onnx_output_file = "/home/ana/hhj/mace/workspace/attn/ort_" + output_names[i] + ".raw"
             # np.savetxt(mace_output_file, mace_out_value, '%.6f')
             # np.savetxt(onnx_output_file, value, '%.6f')
             mace_out_value.astype('float32').tofile(mace_output_file)
